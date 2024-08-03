@@ -35,7 +35,7 @@ export default function Login() {
         <form onSubmit={onSubmit}>
           <input
             type="password"
-            className="py-3 px-4 rounded-md focus:boder-app boder-2 border-app bg-gray-100 text-center "
+            className="py-3 px-4 rounded-md focus:border-app-300 focus:outline-none border-2 bg-gray-100 boder-gray-400 text-center "
             autoFocus
           />
         </form>
