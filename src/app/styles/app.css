@@ -1,0 +1,9 @@
+#layout>main, #layout>nav {
+    min-height: 100vh;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
+#layout {
+    min-width: 100vw !important;
+}
