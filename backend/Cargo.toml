@@ -7,6 +7,6 @@ edition = "2021"
 axum = "0.7.5"
 chrono = "0.4.38"
 nanoid = "0.4.0"
-serde = "1.0.204"
+serde = { version = "1.0.204", features = ["derive"] }
 sqlx = "0.8.0"
 uuid = "1.10.0"

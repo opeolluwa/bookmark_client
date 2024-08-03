@@ -30,7 +30,7 @@ export default function Login() {
       <Card className=" bg-white shadow-lg bg-re-500 border-2 border-gray-100  py-24 px-24 mt-6 ">
         {/* <Heading> Welcome back!</Heading> */}
         <Text className="mb-3 text-center">
-          What's you mother's maiden name?
+          What&apos;s you mother&apos;s maiden name?
         </Text>
         <form onSubmit={onSubmit}>
           <input
