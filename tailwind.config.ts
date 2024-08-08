@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import colors from "tailwindcss/colors"; 
+import colors, { slate } from "tailwindcss/colors"; 
 
 const config: Config = {
   content: [
@@ -22,6 +22,7 @@ const config: Config = {
       red: colors.red,
       accent: "rgba(226,233,252,255)",
       card: "#f9fbfe",
+      slate: colors.slate,
       app: {
         DEFAULT: "#75CE8E",
         50: "#FCFEFD",
