@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Route } from "./routes";
 
 export default function NavigationTab({
@@ -14,7 +12,7 @@ export default function NavigationTab({
     <div>
       <Link
         href={path}
-        className="flex items-left justify-start lg:items-start my-2 rounded  ease-in-out  hover:text-app-600 py-2 text-gray-500 cursor-pointer"
+        className="flex items-left justify-start lg:items-start my-1 rounded  ease-in-out hover:text-white  hover:bg-app-500 py-3 text-gray-500 cursor-pointer max-w-full px-5"
       >
         <span className="cursor-pointer">
           <span className="sr-only"> </span>

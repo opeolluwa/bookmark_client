@@ -1,3 +1,5 @@
+"use client";
+
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
@@ -11,28 +13,30 @@ interface Props {
   className?: string
 }
 
-export default function SearchBar({ onSearch, placeholder , className}: Props) {
+export default function SearchBar({  placeholder , className}: Props) {
   const [city, setCity] = useState("");
 
-  function handleSubmit(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    onSearch(city);
-  }
+  // function handleSubmit(e: { preventDefault: () => void }) {
+  //   e.preventDefault();
+  //   onSearch(city);
+  // }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       style={{
         position: "relative",
       }}
       className={className}
     >
+      
       <label htmlFor="search box" className="sr-only">
         {" "}
-        search files
+        search 
       </label>
+      
       <input
-        className="px-4 py-4 rounded-md block w-full border-gray-400 dark:border-transparent bg-[#fafbfd] hover:border-none  border-none shadow-md"
+        className={" px-12 py-3  block w-full border-gray-400 dark:border-transparent bg-slate-50 focus:border-app-400 outline-none  border-none shadow placeholder:text-sm rounded-full " + className}
         type="text"
         placeholder={placeholder || "search"}
         value={city}
@@ -40,15 +44,19 @@ export default function SearchBar({ onSearch, placeholder , className}: Props) {
       />
       <button
         type="submit"
+        className="pr-12"
         style={{
           position: "absolute",
-          right: "0.5rem",
+          left: "1.5rem",
+          right:".5rem",
           top: "50%",
+          display:"inline-block",
           transform: "translateY(-50%)",
+          
         }}
       >
         <span className="sr-only">search</span>
-        <MagnifyingGlassIcon className="w-6 h-6 font-semibold text-gray-600" />
+        <MagnifyingGlassIcon className="w-5 h-5 font-semibold mr-8 text-gray-400" />
       </button>
     </form>
   );
