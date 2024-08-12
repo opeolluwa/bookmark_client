@@ -13,17 +13,17 @@ interface Props {
   className?: string
 }
 
-export default function SearchBar({ onSearch, placeholder , className}: Props) {
+export default function SearchBar({  placeholder , className}: Props) {
   const [city, setCity] = useState("");
 
-  function handleSubmit(e: { preventDefault: () => void }) {
-    e.preventDefault();
-    onSearch(city);
-  }
+  // function handleSubmit(e: { preventDefault: () => void }) {
+  //   e.preventDefault();
+  //   onSearch(city);
+  // }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      // onSubmit={handleSubmit}
       style={{
         position: "relative",
       }}
@@ -36,7 +36,7 @@ export default function SearchBar({ onSearch, placeholder , className}: Props) {
       </label>
       
       <input
-        className={" px-12 py-3 rounded-lg block w-full border-gray-400 dark:border-transparent bg-slate-50 focus:border-app-400 outline-none  border-none shadow placeholder:text-sm " + className}
+        className={" px-12 py-3  block w-full border-gray-400 dark:border-transparent bg-slate-50 focus:border-app-400 outline-none  border-none shadow placeholder:text-sm rounded-full " + className}
         type="text"
         placeholder={placeholder || "search"}
         value={city}

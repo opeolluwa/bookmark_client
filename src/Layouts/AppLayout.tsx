@@ -17,7 +17,10 @@ export default function Layout({ children }: Props) {
       }}
     >
       <AppNavigation />
-      <main className="col-span-9 lg:col-span-9 pt-10 px-10  overflow-y-scroll ">
+      <main
+  
+        className="col-span-9 lg:col-span-9 pt-10 px-10  overflow-y-scroll  "
+      >
         {children}
       </main>
     </div>

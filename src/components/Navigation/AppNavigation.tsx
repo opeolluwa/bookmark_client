@@ -7,14 +7,15 @@ import { PRIMARY_ROUTES, SECONDARY_ROUTES } from "./routes";
 export default function AppNavigation() {
   return (
     <nav
-      className=" sm:col-span-3 lg:col-span-3 bg-app-100   px-8   text-gray-600  pt-10 border-r-2 border-gray-100"
+      className=" sm:col-span-3 lg:col-span-3 px-8   text-gray-600  pt-10 border-r-2 border-gray-100"
       style={{
         height: "calc(100vh-200px)",
         overflowY: "hidden",
         position: "relative",
+        backgroundColor: "rgba(117, 206, 142, .1)",
       }}
     >
-      <AppLogo className="border-b-2 border-slat-200 pb-8 "/>
+      <AppLogo className="border-b-2 border-slat-200 pb-8 " />
       <div className="flex flex-col px-2 my-8 -mx-5">
         {PRIMARY_ROUTES.map((route, index) => (
           <NavigationTab
