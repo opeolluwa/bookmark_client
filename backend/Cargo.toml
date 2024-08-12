@@ -3,10 +3,13 @@ name = "backend"
 version = "0.1.0"
 edition = "2021"
 
+
+[workspace]
+members = ["app", "entity", "migration"]
+
+
 [dependencies]
-axum = "0.7.5"
-chrono = "0.4.38"
-nanoid = "0.4.0"
-serde = { version = "1.0.204", features = ["derive"] }
-sqlx = "0.8.0"
-uuid = "1.10.0"
+
+app = {path ="app"}
+tokio = { version = "1.39.2", features = ["full"] }
+anyhow = "1.0.86"
