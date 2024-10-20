@@ -1,15 +1,16 @@
 "use client";
 
-import { AppLogo } from "@/components/App/inedx";
+import { AppLogo } from "@/components/App/AppLogo";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
-import Text from "@/components/Text";
+import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";
 import { FormEvent, useState } from "react";
 
 export default function Login() {
   const [active2Fa, use2Fa] = useState(false);
+  const [accountExists, setCurrenAccount] = useState(false);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,36 +25,87 @@ export default function Login() {
   }
   async function fetchSecurityQuestion() {}
 
-  if (active2Fa) {
+  if (accountExists) {
+    return (
+      <div
+        id="login"
+        className="flex flex-col items-center justify-center w-screen h-screen bg-gray-500 bg-[url(/assets/pattern.webp)] bg-blend-multiply"
+      >
+        <Card className="flex flex-col gap-6 pt-12 items-center justify-center bg-white shadow-lg shadow-black">
+          <AppLogo className="hidden" />
+          <Heading className=""> Welcome back, Adeoye!</Heading>
+          <form onSubmit={onSubmit} className="px-12 my-8">
+            <div className="flex gap-x-2 mb-2 items-end justify-start">
+              <LockClosedIcon className="w-6 h-6 text-gray-500" />
+              <input
+                autoFocus
+                type="password"
+                className=" px-0 focus:border-app-500 focus:outline-none border-b-2 bg-white border-gray-500 block placeholder:pb-2 py-[2px]"
+                placeholder="password"
+              />
+            </div>
+
+            <Button
+              className="bg-app-secondary-400 rounded-full text-white text-center w-full mt-6"
+              href="/dashboard"
+            >
+              {" "}
+              Login
+            </Button>
+          </form>
+
+          <div className="flex justify-end gap-x-4">
+            <SmallText
+              onClick={() => setCurrenAccount(false)}
+              className="text-gray-300 underline cursor-default"
+            >
+              Not Adeoye?
+            </SmallText>
+          </div>
+        </Card>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        id="login"
+        className="flex flex-col items-center justify-center w-screen h-screen bg-gray-500 bg-[url(/assets/pattern.webp)] bg-blend-multiply"
+      >
+        <Card className="flex flex-col gap-6 pt-12 items-center justify-center bg-white shadow-lg shadow-black">
+          <Heading>Welcome back!</Heading>
+          <form
+            onSubmit={onSubmit}
+            className="px-12 my-8 flex flex-col gap-y-4"
+          >
+            <div className="flex gap-x-2 mb-2 items-end justify-start">
+              <UserIcon className="w-6 h-6 text-gray-500" />
+              <input
+                autoFocus
+                type="email"
+                className=" px-0 focus:border-app-500 focus:outline-none border-b-2 bg-white border-gray-500 block placeholder:pb-2 py-[2px]"
+                placeholder="email"
+              />
+            </div>
+            <div className="flex gap-x-2 mb-2 items-end justify-start">
+              <LockClosedIcon className="w-6 h-6 text-gray-500" />
+              <input
+                autoFocus
+                type="password"
+                className=" px-0 focus:border-app-500 focus:outline-none border-b-2 bg-white border-gray-500 block placeholder:pb-2 py-[2px]"
+                placeholder="password"
+              />
+            </div>
+
+            <Button
+              className="bg-app-secondary-400 rounded-full text-white text-center w-full mt-6"
+              href="/dashboard"
+            >
+              {" "}
+              Login
+            </Button>
+          </form>
+        </Card>
+      </div>
+    );
   }
-  return (
-    <div
-      id="login"
-      className="flex flex-col items-center justify-center w-screen h-screen bg-gray-100"
-    >
-      <AppLogo className="" />
-      <Card className="flex flex-col gap-6 items-center justify-center">
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            className="py-3 px-4 rounded-md focus:border-app-300 focus:outline-none border-2 bg-gray-100 boder-gray-400 block my-6"
-            autoFocus
-            placeholder="username"
-          />
-          <input
-            type="password"
-            className="py-3 px-4 rounded-md focus:border-app-300 focus:outline-none border-2 bg-gray-100 boder-gray-400 block"
-            placeholder="password"
-          />
-          <Button className="bg-app-400 text-gray-700 w-full mt-6">
-            {" "}
-            Login
-          </Button>
-        </form>
-        <SmallText className="text-gray-300" href="/dashboard">
-          Forgotten password?
-        </SmallText>
-      </Card>
-    </div>
-  );
 }

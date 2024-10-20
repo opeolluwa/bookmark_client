@@ -1,10 +1,8 @@
 "use client";
 
-import { AppLogo } from "@/components/App/inedx";
+import { AppLogo } from "@/components/App/AppLogo";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
-import Heading from "@/components/Heading";
-import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import { FormEvent, useState } from "react";
 

@@ -1,7 +1,6 @@
-
 "use client";
 
-import { AppLogo } from "../App/inedx";
+import { AppLogo } from "../App/AppLogo";
 import NavigationTab from "./NavItems";
 import { PRIMARY_ROUTES, SECONDARY_ROUTES } from "./routes";
 export default function AppNavigation() {
