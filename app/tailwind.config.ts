@@ -52,7 +52,7 @@ const config: Config = {
         900: "#062455",
         950: "#04193B",
       },
-      appd: {
+      appsss: {
         DEFAULT: "#024CAA",
         50: "#66A9FD",
         100: "#529DFD",

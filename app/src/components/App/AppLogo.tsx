@@ -1,7 +1,4 @@
-import Heading from "../Heading";
 import View from "../View";
-import Image from "next/image";
-import CarbonylLogo from "/assets/carbonyl.png";
 
 interface Props {
   className?: string;

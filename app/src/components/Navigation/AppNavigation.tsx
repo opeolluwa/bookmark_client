@@ -1,20 +1,29 @@
 "use client";
 
 import { AppLogo } from "../App/AppLogo";
+import Heading from "../Heading";
+import SmallText from "../SmallText";
 import NavigationTab from "./NavItems";
 import { PRIMARY_ROUTES, SECONDARY_ROUTES } from "./routes";
+import user from "@/store/user";
+
 export default function AppNavigation() {
   return (
     <nav
-      className=" sm:col-span-3 lg:col-span-3 px-8   text-gray-600  pt-10 border-r-2 border-gray-100"
+      className=" sm:col-span-3 lg:col-span-3 px-8   text-gray-600 bg-gray-50  pt-10 border-r-2 border-gray-100"
       style={{
         height: "calc(100vh-200px)",
         overflowY: "hidden",
         position: "relative",
-        backgroundColor: "rgba(117, 206, 142, .1)",
       }}
     >
-      <AppLogo className="border-b-2 border-slat-200 pb-8 " />
+      <div className="flex gap-x-2 mb-8">
+        <AppLogo className="w-[40px]" />
+        <div>
+          <Heading className="text-base py-[1px]">Vault</Heading>
+          <SmallText>{user.fullName}</SmallText>
+        </div>
+      </div>
       <div className="flex flex-col px-2 my-8 -mx-5">
         {PRIMARY_ROUTES.map((route, index) => (
           <NavigationTab

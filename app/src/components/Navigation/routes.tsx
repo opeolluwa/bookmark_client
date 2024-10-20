@@ -1,10 +1,10 @@
+import { AppstoreOutlined } from "@ant-design/icons";
 import {
-    CheckCircleIcon,
-    Cog6ToothIcon,
-    HomeIcon,
-    InformationCircleIcon,
-    MinusCircleIcon,
-    WalletIcon,
+  Cog6ToothIcon,
+  InformationCircleIcon,
+  MinusCircleIcon,
+  UserIcon,
+  WalletIcon
 } from "@heroicons/react/24/outline";
 
 export interface Route {
@@ -15,9 +15,9 @@ export interface Route {
 
 export const PRIMARY_ROUTES: Route[] = [
   {
-    icon: <HomeIcon className="w-6 h-6" />,
-    name: "Home",
-    path: "/",
+    icon: <AppstoreOutlined className="w-6 h-6" style={{fontSize:'24px'}} />,
+    name: "Dashboard",
+    path: "/dashboard",
   },
   {
     icon: <WalletIcon className="w-6 h-6" />,
@@ -25,27 +25,23 @@ export const PRIMARY_ROUTES: Route[] = [
     path: "/bucket",
   },
   {
-    icon: <CheckCircleIcon className="w-6 h-6" />,
-    name: "Tasks",
-    path: "/tasks",
+    icon: <Cog6ToothIcon className="w-6 h-6" />,
+    name: "Settings",
+    path: "/settings",
   },
   {
     icon: <Cog6ToothIcon className="w-6 h-6" />,
     name: "Settings",
     path: "/settings",
   },
-];
-
-
-
-
-export const SECONDARY_ROUTES: Route[] = [
   {
-    icon: <InformationCircleIcon className="w-6 h-6" />,
-    name: "Help & Information",
+    icon: <UserIcon className="w-6 h-6" />,
+    name: "Account",
     path: "/help",
   },
+];
 
+export const SECONDARY_ROUTES: Route[] = [
   {
     icon: <MinusCircleIcon className="w-6 h-6" />,
     name: "Logout",

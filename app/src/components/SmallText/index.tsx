@@ -19,7 +19,7 @@ export default function SmallText({
         href={href}
         onClick={() => onClick}
         className={
-          "leading-5 text-sm text-inherit dark:text-dark-500 cursor-pointer underline underline-offset-1 " +
+          "leading-5 text-gray-500 text-sm text-inherit cursor-pointer underline underline-offset-1 " +
           className
         }
       >
@@ -30,9 +30,7 @@ export default function SmallText({
   return (
     <p
       onClick={() => onClick}
-      className={
-        "leading-5 text-sm text-inherit dark:text-dark-500 " + className
-      }
+      className={"leading-5 text-gray-500 text-sm text-inherit " + className}
     >
       {context || children}
     </p>

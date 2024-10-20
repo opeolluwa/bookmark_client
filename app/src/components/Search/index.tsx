@@ -10,10 +10,10 @@ import { useState } from "react";
 interface Props {
   onSearch: (city: string) => void;
   placeholder: string;
-  className?: string
+  className?: string;
 }
 
-export default function SearchBar({  placeholder , className}: Props) {
+export default function SearchBar({ placeholder, className }: Props) {
   const [city, setCity] = useState("");
 
   // function handleSubmit(e: { preventDefault: () => void }) {
@@ -29,14 +29,16 @@ export default function SearchBar({  placeholder , className}: Props) {
       }}
       className={className}
     >
-      
       <label htmlFor="search box" className="sr-only">
         {" "}
-        search 
+        search
       </label>
-      
+
       <input
-        className={" px-12 py-3  block w-full border-gray-400 dark:border-transparent bg-slate-50 focus:border-app-400 outline-none  border-none shadow placeholder:text-sm rounded-full " + className}
+        className={
+          " px-12 py-2  block w-full border-gray-500 bg-gray-100 focus:border-app-400 outline-none  border-none placeholder:text-sm rounded " +
+          className
+        }
         type="text"
         placeholder={placeholder || "search"}
         value={city}
@@ -48,11 +50,10 @@ export default function SearchBar({  placeholder , className}: Props) {
         style={{
           position: "absolute",
           left: "1.5rem",
-          right:".5rem",
+          right: ".5rem",
           top: "50%",
-          display:"inline-block",
+          display: "inline-block",
           transform: "translateY(-50%)",
-          
         }}
       >
         <span className="sr-only">search</span>
