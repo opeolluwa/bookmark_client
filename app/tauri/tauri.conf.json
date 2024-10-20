@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "carbonyl",
+        "title": "Mobile Vault",
         "width": 1000,
         "height": 800,
         "resizable": true,

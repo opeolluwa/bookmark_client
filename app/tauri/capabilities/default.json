@@ -6,6 +6,12 @@
     "main"
   ],
   "permissions": [
-    "core:default"
+    "core:default",
+    "autostart:default",
+    "clipboard-manager:default",
+    "notification:default",
+    "stronghold:default",
+    "sql:default",
+    "updater:default"
   ]
 }
