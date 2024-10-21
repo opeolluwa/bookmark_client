@@ -1,46 +1,66 @@
 "use client";
-import Button from "@/components/Button";
+import AppButton from "@/components/Button";
+import Card from "@/components/Card";
 import { Greeting } from "@/components/Greetings";
 import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import View from "@/components/View";
 import AppLayout from "@/Layouts/AppLayout";
 import user from "@/store/user";
-import { PlusIcon } from "@heroicons/react/24/solid";
-import { Input, InputRef, Modal, Switch } from "antd";
-import { SearchProps } from "antd/es/input";
-import { useEffect, useRef, useState } from "react";
-import { TagsInput } from "react-tag-input-component";
-import { AudioOutlined } from "@ant-design/icons";
+import { items } from "@/store/vault";
 import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { items } from "@/store/vault";
-import Card from "@/components/Card";
+import { PlusIcon } from "@heroicons/react/24/solid";
+import type { FormProps } from "antd";
+import { Input, InputRef, Modal, Switch, Form, Button } from "antd";
+import { SearchProps } from "antd/es/input";
+import { useEffect, useRef, useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 
 const { TextArea, Search } = Input;
+
+type FormFieldTypes = {
+  title?: string;
+  description?: string;
+  // keywords?: string[];
+};
 
 export default function Home() {
   const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [keywords, setKeywords] = useState([]);
+  const [keywords, setKeywords] = useState<Array<string>>([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<InputRef>(null);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+  const [form] = Form.useForm();
 
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
+
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
+    console.log("Success:", { ...values, keywords,});
+    setIsModalOpen(false);
+  };
+
+  const submitFormFailed: FormProps<FormFieldTypes>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
     setIsModalOpen(false);
+    form.submit();
   };
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
 
   useEffect(() => {
@@ -91,14 +111,14 @@ export default function Home() {
               placeholder="search"
             />
           </View>
-          <Button
+          <AppButton
             className="bg-app cursor-pointer gap-x-4 flex py-0 items-center  col-span-3 rounded-r"
             onClick={showModal}
           >
             <PlusIcon className="w-6 h-6 px-[1px] text-white"></PlusIcon>
 
             <SmallText className="text-white">Add new</SmallText>
-          </Button>
+          </AppButton>
         </View>
         <Modal
           title="Save to vault"
@@ -106,38 +126,77 @@ export default function Home() {
           onOk={handleOk}
           centered
           onCancel={handleCancel}
-          okText={"Save"}
+          afterClose={() => submitForm}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Cancel
+            </Button>,
+            <Button key="submit" type="primary" onClick={handleOk}>
+              Submit
+            </Button>,
+          ]}
         >
-          <form className="my-4 flex flex-col gap-y-4">
-            <input
-              autoFocus
-              type="text"
-              className="w-full rounded py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
-              placeholder="title"
-            />
-            <TextArea
-              className="m"
-              maxLength={100}
-              placeholder="description"
-              style={{ height: 120, resize: "none" }}
-            />
-            <TagsInput
-              value={keywords}
-              placeHolder="new tag"
-              classNames={{
-                input:
-                  "w-full rounded p-2 focus:border-app-500 focus:outline-none border-2 bg-white border-gray-300 block",
-              }}
-            />
-            {showAdvancedOptions && <>advanced options</>}
+          <Form
+            initialValues={{ remember: true }}
+            onFinish={submitForm}
+            onFinishFailed={submitFormFailed}
+            autoComplete="off"
+            name="save-data"
+            layout="vertical"
+            className="my-4 flex flex-col gap-y-4"
+            form={form}
+          >
+            <Form.Item<FormFieldTypes>
+              label="Title"
+              name="title"
+              rules={[{ required: true, message: "Please input the title!" }]}
+            >
+              <Input
+                autoFocus
+                type="text"
+                name="title"
+                className="w-full rounded py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
+              />
+            </Form.Item>
+            <Form.Item<FormFieldTypes>
+              label="description"
+              name="description"
+              rules={[
+                { required: true, message: "Please input the description!" },
+              ]}
+            >
+              <TextArea
+                showCount
+                maxLength={100}
+                name="description"
+                style={{ height: 120, resize: "none" }}
+              />
+            </Form.Item>
+            <View>
+              <label className="font-bold mb-4 leading-3">Keywords</label>
+              <TagsInput
+                value={keywords}
+                onChange={setKeywords}
+                name="keywords"
+                separators={["Enter", "Space"]}
+                classNames={{
+                  input:
+                    "w-full rounded p-2 focus:border-app-500 focus:outline-none border-2 bg-white border-gray-300 block w-full w-100",
+                }}
+                placeHolder="add tags"
+              />
+            </View>
             <SmallText>
               <Switch
                 className="w-10"
                 onChange={() => setShowAdvancedOptions(!showAdvancedOptions)}
               ></Switch>
-              {" More fields "}
+              {" Add custom fields "}
             </SmallText>
-          </form>
+
+            {showAdvancedOptions && <>advanced options</>}
+            <AppButton type="submit">Submit</AppButton>
+          </Form>
         </Modal>
 
         <View>
