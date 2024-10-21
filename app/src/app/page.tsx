@@ -10,7 +10,7 @@ import { FormEvent, useState } from "react";
 
 export default function Login() {
   const [active2Fa, use2Fa] = useState(false);
-  const [accountExists, setCurrenAccount] = useState(false);
+  const [accountExists, setCurrenAccount] = useState(true);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -6,17 +6,19 @@ import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import View from "@/components/View";
 import AppLayout from "@/Layouts/AppLayout";
+import VaultEntry from "@/lib/VaultEntry";
 import user from "@/store/user";
-import { items } from "@/store/vault";
+import DefaultVault from "@/store/vault";
 import {
+  BellIcon,
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import { Input, InputRef, Modal, Switch, Form, Button } from "antd";
+import { Button, Form, Input, Modal, notification, Switch } from "antd";
 import { SearchProps } from "antd/es/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
 
 const { TextArea, Search } = Input;
@@ -24,25 +26,45 @@ const { TextArea, Search } = Input;
 type FormFieldTypes = {
   title?: string;
   description?: string;
-  // keywords?: string[];
 };
 
 export default function Home() {
   const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [keywords, setKeywords] = useState<Array<string>>([]);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<InputRef>(null);
+  const [vaultEntries, setVaultEntries] = useState<Array<VaultEntry>>(
+    DefaultVault.content
+  );
+  const [api, contextHolder] = notification.useNotification();
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [form] = Form.useForm();
-
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
 
+  const openNotification = () =>
+    api.open({
+      message: "entry saved!",
+      description:
+        "I will never close automatically. This is a purposely very very long description that has many many characters and words.",
+      duration: 10,
+      placement: "bottomRight",
+    });
+
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    console.log("Success:", { ...values, keywords,});
+    console.log("Success:", { ...values, keywords });
+    const vault_entry = new VaultEntry(
+      String(values.title),
+      String(values.description),
+      keywords
+    );
+
+    DefaultVault.add_entry(vault_entry);
+    setVaultEntries(DefaultVault.content);
+    console.log(JSON.stringify(DefaultVault.content));
     setIsModalOpen(false);
+    // openNotification();
+    form.resetFields();
+    setKeywords([]);
   };
 
   const submitFormFailed: FormProps<FormFieldTypes>["onFinishFailed"] = (
@@ -64,12 +86,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (inputVisible) {
-      inputRef.current?.focus();
-    }
-  }, [inputVisible]);
-
-  useEffect(() => {
     let text = new Greeting().msg;
     const punctuation = /[.,!?]$/;
 
@@ -84,7 +100,7 @@ export default function Home() {
   return (
     <AppLayout>
       <View className=" h-screen ">
-        <View className="flex justify-between items-center mb-8">
+        <View className="flex justify-between items-start mb-8">
           <div>
             <Heading>
               {greeting} {user.name}
@@ -99,6 +115,7 @@ export default function Home() {
               })}
             </SmallText>
           </div>
+          <BellIcon className="w-6 h-6"></BellIcon>
         </View>
 
         <View className="grid grid-cols-12 mt-12">
@@ -143,7 +160,7 @@ export default function Home() {
             autoComplete="off"
             name="save-data"
             layout="vertical"
-            className="my-4 flex flex-col gap-y-4"
+            className="my-4 flex flex-col gap-y-"
             form={form}
           >
             <Form.Item<FormFieldTypes>
@@ -159,7 +176,7 @@ export default function Home() {
               />
             </Form.Item>
             <Form.Item<FormFieldTypes>
-              label="description"
+              label="Description"
               name="description"
               rules={[
                 { required: true, message: "Please input the description!" },
@@ -173,7 +190,7 @@ export default function Home() {
               />
             </Form.Item>
             <View>
-              <label className="font-bold mb-4 leading-3">Keywords</label>
+              <label className="mb-2 block text-sm">Keywords</label>
               <TagsInput
                 value={keywords}
                 onChange={setKeywords}
@@ -194,20 +211,30 @@ export default function Home() {
               {" Add custom fields "}
             </SmallText>
 
-            {showAdvancedOptions && <>advanced options</>}
-            <AppButton type="submit">Submit</AppButton>
+            {/* {showAdvancedOptions && <>advanced options</>} */}
           </Form>
         </Modal>
 
         <View>
-          {items.map((item, key) => (
-            <Card
-              key={key}
-              className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
-            >
-              {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
+          {DefaultVault.content.length == 0 ? (
+            <Card className="flex flex-col items-center justify-center">
+              <img
+                src="/assets/message.png"
+                alt="empty vault"
+                className="w-[400px] block grayscale"
+              />
+              <SmallText>There&apos;s nothing to see here</SmallText>
             </Card>
-          ))}
+          ) : (
+            vaultEntries.map((item, key) => (
+              <Card
+                key={key}
+                className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
+              >
+                {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
+              </Card>
+            ))
+          )}
         </View>
       </View>
     </AppLayout>

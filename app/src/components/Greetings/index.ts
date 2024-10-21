@@ -181,6 +181,10 @@ export class Greeting {
             this.possibleGreetings.midNight
           );
           break;
+        default:
+          this.message = this.fetchRandomElementFromArray(
+            this.possibleGreetings.other
+          );
       }
     }
   }
