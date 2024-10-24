@@ -7,8 +7,10 @@ license = ""
 repository = ""
 edition = "2021"
 rust-version = "1.70"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[workspace]
+members = ["entity", "migration"]
 
 [lib]
 name = "app_lib"
@@ -18,14 +20,28 @@ crate-type = ["staticlib", "cdylib", "lib"]
 tauri-build = { version = "2.0.0-rc.0", features = [] }
 
 [dependencies]
-serde_json = "1.0"
+anyhow = "1.0.91"
+dirs = "5.0.1"
+entity = { path = "entity" }
+lazy_static = "1.5.0"
+migration = { path = "migration" }
+sea-orm = { version = "1.0.0-rc.5", features = [
+    "sqlx-sqlite",
+    "runtime-tokio-rustls",
+    "macros",
+    "with-chrono",
+    "with-uuid",
+    "mock",
+    "debug-print",
+] }
 serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 tauri = { version = "2.0.0-rc.0", features = [] }
 tauri-plugin-clipboard-manager = "2.0.0-beta.0"
 tauri-plugin-notification = "2.0.0-beta.0"
-tauri-plugin-stronghold = "2.0.0-beta.0"
 tauri-plugin-sql = { version = "2.0.0-beta.0", features = ["sqlite"] }
-
+tauri-plugin-stronghold = "2.0.0-beta.0"
+tokio = { version = "1.41.0", features = ["full"] }
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-autostart = "2.0.0-beta.0"
 tauri-plugin-single-instance = "2.0.0-beta.0"

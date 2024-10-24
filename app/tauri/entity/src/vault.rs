@@ -12,6 +12,22 @@ pub struct Model {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
+pub enum Relation {
+    VaultEntry,
+}
+
+impl RelationTrait for Relation {
+    fn def(&self) -> RelationDef {
+        match self {
+            Self::VaultEntry => Entity::has_many(super::vault_entry::Entity).into(),
+        }
+    }
+}
+
+impl Related<super::vault_entry::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::VaultEntry.def()
+    }
+}
 
 impl ActiveModelBehavior for ActiveModel {}
