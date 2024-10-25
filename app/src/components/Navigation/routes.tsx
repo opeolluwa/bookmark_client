@@ -2,10 +2,7 @@ import { AppstoreOutlined } from "@ant-design/icons";
 import {
   ArrowLeftEndOnRectangleIcon,
   Cog6ToothIcon,
-  InformationCircleIcon,
-  MinusCircleIcon,
   QueueListIcon,
-  UserCircleIcon,
   UserIcon,
   WalletIcon,
 } from "@heroicons/react/24/outline";
@@ -24,30 +21,22 @@ export const PRIMARY_ROUTES: Route[] = [
   },
   {
     icon: <WalletIcon className="w-6 h-6" />,
-    name: "Bucket",
-    path: "/bucket",
+    name: "Vaults",
+    path: "/dashboard/vaults",
   },
   {
     icon: <Cog6ToothIcon className="w-6 h-6" />,
     name: "Settings",
-    path: "/settings",
+    path: "/dashboard/settings",
   },
   {
     icon: <UserIcon className="w-6 h-6" />,
     name: "Profile",
-    path: "/help",
+    path: "/dashboard/profile",
   },
   {
     icon: <QueueListIcon className="w-6 h-6" />,
     name: "Activity",
     path: "/help",
-  },
-];
-
-export const SECONDARY_ROUTES: Route[] = [
-  {
-    icon: <ArrowLeftEndOnRectangleIcon className="w-6 h-6" />,
-    name: "Logout",
-    path: "/",
   },
 ];
