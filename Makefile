@@ -1,23 +1,19 @@
-# Makefile
+run-app:
+	cd app && npm run tauri dev
 
-.PHONY: dev build export start tauri lint android desktop
+build-app:
+	cd app && npm run tauri build 
 
-dev:
-	cd app && npm run tauri dev 
+lint: 
+	lint-ui
+	lint-tauri
+	lint-backend
 
-build:
-	npm run build 
+lint-ui:	
+	cd app && npm run lint
 
-lint:
-	npm run lint 
+lint-tauri:
+	cd app/tauri && cargo fmt && cargo clipy --fix --allow-dirty
 
-android:
-	source ~/.bash_profile && npm run android 
-
-desktop:
-	npm run desktop 
-
-build-apps:
-	npm run tauri build 
-
-# Makefile
+lint-backend: 
+	cd backend && cargo fmt && cargo clipy --fix --allow-dirty
