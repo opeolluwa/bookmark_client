@@ -4,9 +4,12 @@ import { Greeting } from "@/components/Greetings";
 import View from "@/components/View";
 import VaultEntry from "@/lib/VaultEntry";
 import VaultEntryComponent from "@/components/VaultEntry";
-import {Pagination} from "antd";
+import { Pagination } from "antd";
 import DefaultVault from "@/store/vault";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  AdjustmentsHorizontalIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
@@ -36,7 +39,6 @@ export default function Home() {
     DefaultVault.content
   );
   const [api, contextHolder] = notification.useNotification();
-  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [form] = Form.useForm();
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
@@ -62,7 +64,6 @@ export default function Home() {
     setVaultEntries(DefaultVault.content);
     console.log(JSON.stringify(DefaultVault.content));
     setIsModalOpen(false);
-    // openNotification();
     form.resetFields();
     setKeywords([]);
   };
@@ -101,13 +102,16 @@ export default function Home() {
     <>
       <View className="">{greeting} Adeoye</View>
       <View className="my-6">
-        <Segmented<string>
-          options={["Today", "Yesterday", "This week", "Last week", "Older"]}
-          onChange={(value) => {
-            console.log(value); // string
-          }}
-          className="mb-2"
-        />
+        <View className="flex justify-between items-center">
+          <Segmented<string>
+            options={["This week", "Last week", "Older"]}
+            onChange={(value) => {
+              console.log(value); // string
+            }}
+            className="mb-2"
+          />
+          <AdjustmentsHorizontalIcon className="text-gray-400 h-6 w-6 cursor-pointer" />
+        </View>
         <VaultEntryComponent />
         <VaultEntryComponent />
         <VaultEntryComponent />
@@ -129,7 +133,7 @@ export default function Home() {
             </Button>,
             <Button key="submit" type="primary" onClick={handleOk}>
               Submit
-            </Button>,
+            </Button>
           ]}
         >
           <Form
