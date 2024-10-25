@@ -12,6 +12,7 @@ impl MigrationTrait for Migration {
                     .table(VaultEntry::Table)
                     .if_not_exists()
                     .col(uuid(VaultEntry::Id).unique_key().primary_key())
+                    .col(uuid(VaultEntry::VaultId).unique_key())
                     .col(string(VaultEntry::Title))
                     .col(string(VaultEntry::Description))
                     .col(string(VaultEntry::DateAdded))
@@ -35,6 +36,6 @@ enum VaultEntry {
     Title,
     Description,
     DateAdded,
-    // Keywords,
+    VaultId,
     LastModified
 }
