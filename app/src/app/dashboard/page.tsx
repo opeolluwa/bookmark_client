@@ -16,7 +16,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import { Button, Form, Input, Modal, notification, Switch } from "antd";
+import {
+  Button,
+  FloatButton,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Switch,
+} from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
@@ -98,45 +106,8 @@ export default function Home() {
   }, []);
 
   return (
-    <AppLayout>
+    <>
       <View className=" h-screen ">
-        <View className="flex justify-between items-start mb-8">
-          <div>
-            <Heading>
-              {greeting} {user.name}
-            </Heading>
-            <SmallText className="text-white">
-              It&apos;s{" "}
-              {new Date().toLocaleDateString("en-US", {
-                weekday: "long",
-                month: "short",
-                year: "numeric",
-                day: "numeric",
-              })}
-            </SmallText>
-          </div>
-          <BellIcon className="w-6 h-6"></BellIcon>
-        </View>
-
-        <View className="grid grid-cols-12 mt-12">
-          <View className="flex items-center rounded-l border-gray-300 bg-gray-50 border rounded px-2 justify-start col-span-9">
-            <MagnifyingGlassIcon className="w-6 h-8"></MagnifyingGlassIcon>
-            <input
-              autoFocus
-              type="search"
-              className="w-full py-3 focus:border-app focus:outline-none border border-none block placeholder:pb-2 px-2 "
-              placeholder="search"
-            />
-          </View>
-          <AppButton
-            className="bg-app cursor-pointer gap-x-4 flex py-0 items-center  col-span-3 rounded-r"
-            onClick={showModal}
-          >
-            <PlusIcon className="w-6 h-6 px-[1px] text-white"></PlusIcon>
-
-            <SmallText className="text-white">Add new</SmallText>
-          </AppButton>
-        </View>
         <Modal
           title="Save to vault"
           open={isModalOpen}
@@ -203,40 +174,28 @@ export default function Home() {
                 placeHolder="add tags"
               />
             </View>
-            <SmallText>
-              <Switch
-                className="w-10"
-                onChange={() => setShowAdvancedOptions(!showAdvancedOptions)}
-              ></Switch>
-              {" Add custom fields "}
-            </SmallText>
-
-            {/* {showAdvancedOptions && <>advanced options</>} */}
           </Form>
         </Modal>
 
         <View>
-          {DefaultVault.content.length == 0 ? (
-            <Card className="flex flex-col items-center justify-center">
-              <img
-                src="/assets/message.png"
-                alt="empty vault"
-                className="w-[400px] block grayscale"
-              />
-              <SmallText>There&apos;s nothing to see here</SmallText>
+          {vaultEntries.map((item, key) => (
+            <Card
+              key={key}
+              className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
+            >
+              {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
             </Card>
-          ) : (
-            vaultEntries.map((item, key) => (
-              <Card
-                key={key}
-                className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
-              >
-                {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
-              </Card>
-            ))
-          )}
+          ))}
         </View>
+        <FloatButton
+          shape="circle"
+          type="primary"
+          className="mr-3 -mb-3"
+          style={{ insetInlineEnd: 24 }}
+          icon={<PlusIcon className="w-4 h-4" />}
+          onClick={showModal}
+        />
       </View>
-    </AppLayout>
+    </>
   );
 }

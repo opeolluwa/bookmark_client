@@ -1,7 +1,7 @@
 "use client";
 import AppNavigation from "@/components/Navigation/AppNavigation";
 import { Breadcrumb, Layout, theme } from "antd";
-import React from "react";
+import React, { useState } from "react";
 const { Header, Content, Sider } = Layout;
 
 interface Props {
@@ -12,6 +12,7 @@ export default function DashboardLayout({ children }: Props) {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Layout className="h-screen">
@@ -20,6 +21,9 @@ export default function DashboardLayout({ children }: Props) {
           width={250}
           style={{ background: colorBgContainer }}
           className="h-screen bg-gray-50 "
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
         >
           <AppNavigation />
         </Sider>
@@ -36,7 +40,7 @@ export default function DashboardLayout({ children }: Props) {
             style={{
               padding: 24,
               margin: 0,
-              minHeight: 280,
+              minHeight: 300,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}
