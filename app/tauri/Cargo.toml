@@ -10,7 +10,7 @@ rust-version = "1.70"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace]
-members = ["entity", "migration"]
+members = ["entity", "migration", "proxy"]
 
 [lib]
 name = "app_lib"
@@ -42,6 +42,7 @@ tauri-plugin-notification = "2.0.0-beta.0"
 tauri-plugin-sql = { version = "2.0.0-beta.0", features = ["sqlite"] }
 tauri-plugin-stronghold = "2.0.0-beta.0"
 tokio = { version = "1.41.0", features = ["full"] }
+ts-rs = "10.0.0"
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-autostart = "2.0.0-beta.0"
 tauri-plugin-single-instance = "2.0.0-beta.0"
