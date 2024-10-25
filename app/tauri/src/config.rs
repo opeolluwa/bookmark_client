@@ -24,7 +24,7 @@ impl Config {
             let os_default_home_dir = dirs::home_dir().unwrap();
             let db_path = format!(
                 "{home_dir}/{db_path}",
-                home_dir = os_default_home_dir.display(),
+                home_dir = "resources",
                 db_path = ".vault"
             );
             // create the path if not exist path if not exist

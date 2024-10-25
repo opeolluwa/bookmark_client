@@ -1,5 +1,5 @@
 {
-  "productName": "vault",
+  "productName": "Mobile Vault",
   "version": "0.1.0",
   "identifier": "com.vault.app",
   "build": {
@@ -24,6 +24,7 @@
   },
   "bundle": {
     "active": true,
+    "resources": ["resources/**/*"],
     "targets": "all",
     "icon": [
       "icons/32x32.png",

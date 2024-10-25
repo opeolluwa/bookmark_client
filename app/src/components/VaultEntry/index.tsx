@@ -2,9 +2,33 @@ import Card from "../Card";
 import React from "react";
 import Heading from "../Heading";
 import Text from "../Text";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import {
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { UserOutlined, AntDesignOutlined } from "@ant-design/icons";
-import { Avatar, Tooltip } from "antd";
+import { Avatar, Tooltip, Dropdown, MenuProps } from "antd";
+
+const items: MenuProps["items"] = [
+  {
+    key: "1",
+    label: (
+      <span className="flex gap-x-[2px] items-center">
+        <PencilSquareIcon className="w-4 h-4" /> Edit
+      </span>
+    ),
+  },
+  {
+    key: "2",
+    danger: true,
+    label: (
+      <span className="flex gap-x-[2px] items-center">
+        <TrashIcon className="w-4 h-4" /> Remove
+      </span>
+    ),
+  },
+];
 
 export default function Component() {
   return (
@@ -32,7 +56,9 @@ export default function Component() {
           />
         </Avatar.Group>
       </div>
-      <EllipsisVerticalIcon className="w-6 h-6 cursor-pointer" />
+      <Dropdown menu={{ items }}>
+        <EllipsisVerticalIcon className="w-6 h-6 cursor-pointer" />
+      </Dropdown>
     </Card>
   );
 }

@@ -22,6 +22,7 @@
     "@tauri-apps/plugin-stronghold": "^2.0.0",
     "@tauri-apps/plugin-updater": "^2.0.0",
     "@types/uuid": "^10.0.0",
+    "@types/zxcvbn": "^4.4.5",
     "antd": "^5.21.4",
     "i": "^0.3.7",
     "next": "14.2.5",
@@ -30,7 +31,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-tag-input-component": "^2.0.2",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
