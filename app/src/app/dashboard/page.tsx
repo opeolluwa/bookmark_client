@@ -1,19 +1,12 @@
 "use client";
-import AppButton from "@/components/Button";
 import Card from "@/components/Card";
 import { Greeting } from "@/components/Greetings";
-import Heading from "@/components/Heading";
-import SmallText from "@/components/SmallText";
 import View from "@/components/View";
-import AppLayout from "@/Layouts/AppLayout";
 import VaultEntry from "@/lib/VaultEntry";
-import user from "@/store/user";
+import VaultEntryComponent from "@/components/VaultEntry";
+import {Pagination} from "antd";
 import DefaultVault from "@/store/vault";
-import {
-  BellIcon,
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
@@ -23,12 +16,11 @@ import {
   Input,
   Modal,
   notification,
-  Switch,
+  Segmented,
 } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
 import { TagsInput } from "react-tag-input-component";
-
 const { TextArea, Search } = Input;
 
 type FormFieldTypes = {
@@ -107,6 +99,22 @@ export default function Home() {
 
   return (
     <>
+      <View className="">{greeting} Adeoye</View>
+      <View className="my-6">
+        <Segmented<string>
+          options={["Today", "Yesterday", "This week", "Last week", "Older"]}
+          onChange={(value) => {
+            console.log(value); // string
+          }}
+          className="mb-2"
+        />
+        <VaultEntryComponent />
+        <VaultEntryComponent />
+        <VaultEntryComponent />
+        <VaultEntryComponent />
+        <VaultEntryComponent />
+      </View>
+      <Pagination align="center" defaultCurrent={1} total={50} />
       <View className=" h-screen ">
         <Modal
           title="Save to vault"
