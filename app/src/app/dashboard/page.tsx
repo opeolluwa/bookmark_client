@@ -4,10 +4,11 @@ import { Greeting } from "@/components/Greetings";
 import View from "@/components/View";
 import VaultEntry from "@/lib/VaultEntry";
 import VaultEntryComponent from "@/components/VaultEntry";
-import { Pagination } from "antd";
+import { Badge, Pagination } from "antd";
 import DefaultVault from "@/store/vault";
 import {
   AdjustmentsHorizontalIcon,
+  BellAlertIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
@@ -100,7 +101,12 @@ export default function Home() {
 
   return (
     <>
-      <View className="">{greeting} Adeoye</View>
+      <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 ">
+        <span>{greeting} Adeoye 👋</span>
+        <Badge count={5}>
+          <BellAlertIcon className="w-6 h-6 cursor"/>
+        </Badge>
+      </View>
       <View className="my-6">
         <View className="flex justify-between items-center">
           <Segmented<string>
@@ -133,7 +139,7 @@ export default function Home() {
             </Button>,
             <Button key="submit" type="primary" onClick={handleOk}>
               Submit
-            </Button>
+            </Button>,
           ]}
         >
           <Form

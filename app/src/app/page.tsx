@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
+import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import { Form, FormProps, Input } from "antd";
 
 type FormFieldTypes = {
@@ -40,7 +41,7 @@ export default function Page() {
           autoComplete="off"
           name="save-data"
           layout="vertical"
-          className="my-4 mt-12 flex flex-col gap-2"
+          className="my-4 mt-12 flex flex-col"
           form={form}
         >
           <Form.Item<FormFieldTypes>
@@ -60,11 +61,14 @@ export default function Page() {
             name="password"
             rules={[{ required: true, message: "Please input the title!" }]}
           >
-            <Input
+            <Input.Password
               autoFocus
               type="password"
               name="password"
-              className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
+              className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 placeholder:pb-2 px-2 "
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
             />
           </Form.Item>
 
