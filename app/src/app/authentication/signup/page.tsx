@@ -30,33 +30,27 @@ export default function Page() {
       console.log({ res });
     });
   };
-  const submitFormFailed: FormProps<FormFieldTypes>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
-  return (
-    <View className="h-screen flex justify-center items-center flex-col gap-x-12">
-      <View className="col-span-5 py-8 px-6 w-[40%]">
-        <View className="text-center">
-          <Heading className="font-semibold">Welcome!</Heading>
-          <Text>Create a account to begin</Text>
-        </View>
 
+  return (
+    <View className="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
+      <View className=" py-8 pb-12 px-6 w-[40%] ">
         <Form
           initialValues={{ remember: true }}
           onFinish={submitForm}
-          onFinishFailed={submitFormFailed}
           autoComplete="off"
           name="save-data"
           layout="vertical"
-          className="my-4 mt-12 flex flex-col gap-2"
+          className="my-4 mt-10 flex flex-col rounded-lg shadow-lg shadow-gray-300 bg-white px-8 py-6 "
           form={form}
         >
+          <View className="text-center mb-6">
+            <Heading className="font-semibold">Create your account</Heading>
+          </View>
+
           <Form.Item<FormFieldTypes>
             label="First name"
             name="firstName"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "first name is required " }]}
           >
             <Input
               autoFocus
@@ -68,7 +62,7 @@ export default function Page() {
           <Form.Item<FormFieldTypes>
             label="Last name"
             name="lastName"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "last name is required" }]}
           >
             <Input
               autoFocus
@@ -80,7 +74,7 @@ export default function Page() {
           <Form.Item<FormFieldTypes>
             label="Email"
             name="email"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "invalid email" }]}
           >
             <Input
               autoFocus
@@ -92,7 +86,7 @@ export default function Page() {
           <Form.Item<FormFieldTypes>
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "password is required" }]}
           >
             <Input.Password
               autoFocus
@@ -104,7 +98,7 @@ export default function Page() {
               }
             />
           </Form.Item>
-          <View className="flex gap-2 my-2">
+          <View className="flex gap-2 my-2 -mt-2">
             <Checkbox /> <SmallText>I agree to the terms and privacy</SmallText>
           </View>
           <Button
@@ -114,14 +108,13 @@ export default function Page() {
             Sign up
           </Button>
         </Form>
-        <SmallText>
+        <SmallText className="text-center">
           Already have an account?{" "}
-          <a className="text-app-600" href="/authentication/login">
+          <a className="text-app-600 text-center" href="/">
             Sign in
           </a>
         </SmallText>
       </View>
-      <View className="hidden rounded-2xl shadow-sm m-6 col-span-7 shadow-gray-500 bg-app-600 bg-blend-multiply"></View>
     </View>
   );
 }

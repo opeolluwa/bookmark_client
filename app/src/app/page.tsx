@@ -33,7 +33,7 @@ export default function Page() {
         >
           <View className="text-center mb-3">
             <Heading className="font-semibold">Welcome back!</Heading>
-            <Text>Sign in to continue</Text>
+            <Text className="leading-1">Sign in to continue</Text>
           </View>
           <Form.Item<FormFieldTypes>
             label="Email"
@@ -69,10 +69,16 @@ export default function Page() {
           >
             Sign in
           </Button>
+          <SmallText
+            href="/authentication/password-reset"
+            className="text-right  underline mt-4"
+          >
+            Forgotten password?
+          </SmallText>
         </Form>
         <SmallText className="text-center mt-4">
           Don't have an account?
-          <a className="text-app-600 ml-2" href="/">
+          <a className="text-app-600 ml-2" href="/authentication/signup">
             Sign up
           </a>
         </SmallText>
