@@ -1,4 +1,4 @@
-use sea_orm_migration::{prelude::*, schema::*};
+use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -6,36 +6,16 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
-        // Replace the sample below with your own migration scripts
-        todo!();
-
-        manager
-            .create_table(
-                Table::create()
-                    .table(Post::Table)
-                    .if_not_exists()
-                    .col(pk_auto(Post::Id))
-                    .col(string(Post::Title))
-                    .col(string(Post::Text))
-                    .to_owned(),
-            )
-            .await
+        let db = manager.get_connection();
+        db.execute_unprepared("ALTER TABLE vault ADD COLUMN user_id VARCHAR")
+            .await?;
+        Ok(())
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
-        // Replace the sample below with your own migration scripts
-        todo!();
-
-        manager
-            .drop_table(Table::drop().table(Post::Table).to_owned())
-            .await
+        let db = manager.get_connection();
+        db.execute_unprepared("ALTER TABLE vault DROP COLUMN user_id")
+            .await?;
+        Ok(())
     }
-}
-
-#[derive(DeriveIden)]
-enum Post {
-    Table,
-    Id,
-    Title,
-    Text,
 }

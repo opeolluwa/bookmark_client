@@ -37,5 +37,5 @@ enum VaultEntry {
     Description,
     DateAdded,
     VaultId,
-    LastModified
+    LastModified,
 }

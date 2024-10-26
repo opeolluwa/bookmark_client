@@ -21,13 +21,7 @@ impl Display for Config {
 impl Config {
     pub fn parse() -> Self {
         let database_connection_string = {
-            let os_default_home_dir = dirs::home_dir().unwrap();
-            let db_path = format!(
-                "{home_dir}/{db_path}",
-                home_dir = "resources",
-                db_path = ".vault"
-            );
-            // create the path if not exist path if not exist
+            let db_path = "resources".to_string();
             let _ = std::fs::create_dir_all(&db_path);
             format!("sqlite://{db_path}/mobile.vault.db?mode=rwc")
         };
