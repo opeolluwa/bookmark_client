@@ -4,15 +4,13 @@ import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Form, FormProps, Input } from "antd";
+import { useState } from "react";
 
 type FormFieldTypes = {
-  firstName?: string;
-  lastName?: string;
   email?: string;
   password?: string;
-  acceptEULA?: boolean;
 };
 
 export default function Page() {
@@ -21,33 +19,26 @@ export default function Page() {
     console.log("Success:", { ...values });
   };
 
-  const submitFormFailed: FormProps<FormFieldTypes>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
   return (
-    <View className="h-screen flex justify-center items-center flex-col gap-x-12">
-      <View className="col-span-5 py-8 px-6 w-[40%]">
-        <View className="text-center">
-          <Heading className="font-semibold">Welcome back!</Heading>
-          <Text>Sign in to continue</Text>
-        </View>
-
+    <View className="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
+      <View className="col-span-5 py-8 px-6 w-[40%] ">
         <Form
           initialValues={{ remember: true }}
           onFinish={submitForm}
-          onFinishFailed={submitFormFailed}
           autoComplete="off"
           name="save-data"
           layout="vertical"
-          className="my-4 mt-12 flex flex-col"
+          className="my-4 mt-12 flex flex-col rounded-lg shadow-lg shadow-gray-300 bg-white px-8 py-6 "
           form={form}
         >
+          <View className="text-center mb-3">
+            <Heading className="font-semibold">Welcome back!</Heading>
+            <Text>Sign in to continue</Text>
+          </View>
           <Form.Item<FormFieldTypes>
             label="Email"
             name="email"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "email is required!" }]}
           >
             <Input
               autoFocus
@@ -59,7 +50,7 @@ export default function Page() {
           <Form.Item<FormFieldTypes>
             label="Password"
             name="password"
-            rules={[{ required: true, message: "Please input the title!" }]}
+            rules={[{ required: true, message: "password is required!" }]}
           >
             <Input.Password
               autoFocus
@@ -79,9 +70,9 @@ export default function Page() {
             Sign in
           </Button>
         </Form>
-        <SmallText>
+        <SmallText className="text-center mt-4">
           Don't have an account?
-          <a className="text-app-600" href="/">
+          <a className="text-app-600 ml-2" href="/">
             Sign up
           </a>
         </SmallText>
