@@ -17,12 +17,12 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-     #[sea_orm(
+    #[sea_orm(
         belongs_to = "super::vault::Entity",
         from = "Column::VaultId",
         to = "super::vault::Column::Id"
     )]
-    Vault
+    Vault,
 }
 
 impl Related<super::vault::Entity> for Entity {

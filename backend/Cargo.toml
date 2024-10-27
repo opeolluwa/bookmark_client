@@ -3,8 +3,6 @@ name = "auth_jwt"
 version = "0.1.0"
 edition = "2021"
 
-[workspace]
-members = ["entity", "migration"]
 
 [lib]
 name = "pkg"
@@ -15,10 +13,10 @@ anyhow = "1.0.89"
 axum = "0.7.5"
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
 bcrypt = "0.15.1"
-entity = { path = "entity" }
+entity = { path = "../database/entity" }
 jsonwebtoken = "9.3.0"
 lazy_static = "1.5.0"
-migration = { path = "migration" }
+migration = { path = "../database/migration" }
 sea-orm = { version = "1.0.0-rc.5", features = [
     "sqlx-postgres",
     "runtime-tokio-rustls",

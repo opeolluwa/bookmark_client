@@ -5,6 +5,7 @@ import {
   Cog6ToothIcon,
   UserIcon,
   QueueListIcon,
+  BellAlertIcon,
 } from "@heroicons/react/24/outline";
 import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import Link from "next/link";
@@ -30,6 +31,12 @@ export const routes: ItemType<MenuItemType>[] = [
     label: <Link href={"/dashboard/profile"}>Profile</Link>,
 
     key: 4,
+  },
+  {
+    icon: <BellAlertIcon className="w-6 h-6" />,
+    label: <Link href={"/dashboard/profile"}>Notification</Link>,
+
+    key: "notification",
   },
   {
     icon: <QueueListIcon className="w-6 h-6" />,

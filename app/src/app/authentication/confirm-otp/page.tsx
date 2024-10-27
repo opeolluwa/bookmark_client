@@ -2,21 +2,28 @@
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
-import Text from "@/components/Text";
 import View from "@/components/View";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Form, FormProps, Input } from "antd";
-import { useState } from "react";
+import { Form, FormProps, GetProps, Input } from "antd";
+import Text from "@/components/Text";
 
 type FormFieldTypes = {
   email?: string;
   password?: string;
 };
 
+type OTPProps = GetProps<typeof Input.OTP>;
+
 export default function Page() {
   const [form] = Form.useForm();
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     console.log("Success:", { ...values });
+  };
+  const onChange: OTPProps["onChange"] = (text) => {
+    console.log("onChange:", text);
+  };
+
+  const sharedProps: OTPProps = {
+    onChange,
   };
 
   return (
@@ -33,17 +40,17 @@ export default function Page() {
         >
           <View className="text-center mb-6">
             <Heading className="font-semibold">Password reset</Heading>
+            <Text className="leading-1 my-1">
+              {" "}
+              enter an OTp sent to your email
+            </Text>
           </View>
-          <Form.Item<FormFieldTypes>
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "email is required!" }]}
-          >
-            <Input
-              autoFocus
-              type="email"
-              name="email"
-              className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
+          <Form.Item<FormFieldTypes>>
+            <Input.OTP
+              length={8}
+              {...sharedProps}
+              size="large"
+              className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 "
             />
           </Form.Item>
 
@@ -55,7 +62,10 @@ export default function Page() {
           </Button>
         </Form>
         <SmallText className="text-center mt-4">
-          Remember password?{" "}<a className="text-app-600 ml-2" href="/">login</a>
+          Didn&apos;t get an OTP?{" "}
+          <a className="text-app-600 ml-2" href="/">
+            request new
+          </a>
         </SmallText>
       </View>
     </View>

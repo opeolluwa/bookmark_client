@@ -6,6 +6,8 @@ use std::fmt::Display;
 pub struct Config {
     /// database url for the embedded Sqlite database
     pub database_connection_string: String,
+    /// jwt key
+    pub jwt_signing_key: String,
 }
 
 impl Display for Config {
@@ -21,19 +23,15 @@ impl Display for Config {
 impl Config {
     pub fn parse() -> Self {
         let database_connection_string = {
-            let os_default_home_dir = dirs::home_dir().unwrap();
-            let db_path = format!(
-                "{home_dir}/{db_path}",
-                home_dir = "resources",
-                db_path = ".vault"
-            );
-            // create the path if not exist path if not exist
+            let db_path = "resources".to_string();
             let _ = std::fs::create_dir_all(&db_path);
             format!("sqlite://{db_path}/mobile.vault.db?mode=rwc")
         };
 
+        let jwt_signing_key = "nr2CRwaADKauevLmN9KdRG482k1gWkl7cb51".to_string(); //TODO: use randog key generation
         Self {
             database_connection_string,
+            jwt_signing_key,
         }
     }
 }
