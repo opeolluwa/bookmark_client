@@ -6,6 +6,8 @@ use std::fmt::Display;
 pub struct Config {
     /// database url for the embedded Sqlite database
     pub database_connection_string: String,
+    /// jwt key
+    pub jwt_signing_key: String,
 }
 
 impl Display for Config {
@@ -26,8 +28,10 @@ impl Config {
             format!("sqlite://{db_path}/mobile.vault.db?mode=rwc")
         };
 
+        let jwt_signing_key = "nr2CRwaADKauevLmN9KdRG482k1gWkl7cb51".to_string(); //TODO: use randog key generation
         Self {
             database_connection_string,
+            jwt_signing_key,
         }
     }
 }

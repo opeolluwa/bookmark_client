@@ -1,11 +1,19 @@
+use crate::api::IpcResponseError;
 use crate::api::{IpcResponse, IpcResponseStatus};
 use crate::app_state::db_connection;
+use crate::jwt::JwtClaims;
+use bcrypt::verify;
 use bcrypt::{hash, DEFAULT_COST};
+use entity::prelude::UserInformation;
 use entity::user_information;
+use sea_orm::ColumnTrait;
 use sea_orm::EntityTrait;
+use sea_orm::JsonValue;
+use sea_orm::QueryFilter;
 use sea_orm::Set;
 use serde::Deserialize;
 use serde::Serialize;
+use serde_json::json;
 use ts_rs::TS;
 use uuid::Uuid;
 use validator::Validate;
@@ -17,8 +25,9 @@ pub async fn sign_up(user: SignUpData) -> IpcResponse<()> {
     match validation_result {
         Ok(_) => {
             let Some(password_hash) = hash(&user.password, DEFAULT_COST).ok() else {
-                return IpcResponse::new((), "error creating account", IpcResponseStatus::Error);
+                return IpcResponse::error("error creating account");
             };
+
             let new_user = user_information::ActiveModel {
                 id: Set(Uuid::new_v4()),
                 password: Set(password_hash),
@@ -31,18 +40,56 @@ pub async fn sign_up(user: SignUpData) -> IpcResponse<()> {
                 .await;
 
             if res.is_err() {
-                return IpcResponse::new((), "error", IpcResponseStatus::Error);
+                return IpcResponse::error("database error");
             }
-            IpcResponse::new((), "user added successfully", IpcResponseStatus::Success)
+            IpcResponse::success("user added successfully", ())
         }
-        Err(error_message) => {
-            IpcResponse::new((), &error_message.to_string(), IpcResponseStatus::Error)
-        }
+        Err(error_message) => IpcResponse::error(&error_message.to_string()),
     }
 }
 
 #[tauri::command]
-pub async fn sign_in() {}
+pub async fn sign_in(payload: LoginData) -> Result<IpcResponse<JsonValue>, IpcResponse<()>> {
+    match payload.validate() {
+        Ok(_) => {
+            let Ok(Some(user_data)) = UserInformation::find()
+                .filter(user_information::Column::Email.eq(&payload.email))
+                .one(&db_connection().await)
+                .await
+            else {
+                return Err(IpcResponse::error(
+                    "user with the provided email does not exist",
+                ));
+            };
+
+            let Some(is_correct_password) = verify(payload.password, &user_data.password).ok()
+            else {
+                return Err(IpcResponse::error("incorrect username or password"));
+            };
+
+            if !is_correct_password {
+                return Err(IpcResponse::error("incorrect username or password"));
+            }
+
+            // sign the token
+            let Ok(jwt_token) =
+                JwtClaims::new(user_data.email.clone(), user_data.id.clone().to_string())
+                    .gen_token()
+            else {
+                return Err(IpcResponse::error("error processing response"));
+            };
+
+            let response_body = json!({"jwt_token": jwt_token});
+
+            Ok(IpcResponse::new(
+                response_body,
+                "user successfully logged in",
+                IpcResponseStatus::Error,
+            ))
+        }
+        Err(error_message) => Err(IpcResponse::error(&error_message.to_string())),
+    }
+}
 
 #[tauri::command]
 pub async fn authenticate() {}
@@ -60,4 +107,23 @@ pub struct SignUpData {
     pub email: String,
     #[validate(length(min = 8))]
     pub password: String,
+}
+
+#[derive(Debug, Serialize, Validate, Deserialize)]
+#[serde(rename_all = "camelCase")]
+#[derive(TS)]
+#[ts(export)]
+pub struct LoginData {
+    #[validate(email)]
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Debug, Serialize, Validate, Deserialize)]
+#[serde(rename_all = "camelCase")]
+#[derive(TS)]
+#[ts(export)]
+pub struct PasswordResetRequestData {
+    #[validate(email)]
+    pub email: String,
 }
