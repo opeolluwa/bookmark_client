@@ -5,18 +5,27 @@ import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
 import { useState } from "react";
+import { LoginData } from "../../tauri/bindings/LoginData";
 
 type FormFieldTypes = {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 };
 
 export default function Page() {
   const [form] = Form.useForm();
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    console.log("Success:", { ...values });
+    const new_user: LoginData = {
+      email: values.email?.trim(),
+      password: values.password?.trim(),
+    };
+    invoke("sign_in", { user: new_user }).then((res) => {
+      console.log({ res });
+    });
+    
   };
 
   return (
@@ -77,7 +86,7 @@ export default function Page() {
           </SmallText>
         </Form>
         <SmallText className="text-center mt-4">
-          Don't have an account?
+          Don&apos;t have an account?
           <a className="text-app-600 ml-2" href="/authentication/signup">
             Sign up
           </a>
