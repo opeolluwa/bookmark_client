@@ -2,21 +2,22 @@
 import { Greeting } from "@/components/Greetings";
 import VaultEntryComponent from "@/components/VaultEntry";
 import View from "@/components/View";
-import VaultEntry from "@/lib/VaultEntry";
-import DefaultVault from "@/store/vault";
 import {
   AdjustmentsHorizontalIcon,
-  BellAlertIcon
+  BellAlertIcon,
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
-  Badge, Button,
+  Badge,
+  Button,
   FloatButton,
   Form,
   Input,
   Modal,
-  notification, Pagination, Segmented
+  notification,
+  Pagination,
+  Segmented,
 } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
@@ -32,34 +33,14 @@ export default function Home() {
   const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [keywords, setKeywords] = useState<Array<string>>([]);
-  const [vaultEntries, setVaultEntries] = useState<Array<VaultEntry>>(
-    DefaultVault.content
-  );
-  const [api, contextHolder] = notification.useNotification();
+
   const [form] = Form.useForm();
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
 
-  const openNotification = () =>
-    api.open({
-      message: "entry saved!",
-      description:
-        "I will never close automatically. This is a purposely very very long description that has many many characters and words.",
-      duration: 10,
-      placement: "bottomRight",
-    });
-
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     console.log("Success:", { ...values, keywords });
-    const vault_entry = new VaultEntry(
-      String(values.title),
-      String(values.description),
-      keywords
-    );
 
-    DefaultVault.add_entry(vault_entry);
-    setVaultEntries(DefaultVault.content);
-    console.log(JSON.stringify(DefaultVault.content));
     setIsModalOpen(false);
     form.resetFields();
     setKeywords([]);

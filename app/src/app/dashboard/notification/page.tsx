@@ -47,6 +47,7 @@ export default function Page() {
             heading={notification.heading}
             body={notification.body}
             date={notification.date}
+            key={notification.heading}
           />
         ))}
       </View>

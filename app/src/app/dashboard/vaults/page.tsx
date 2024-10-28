@@ -1,16 +1,13 @@
 "use client";
 import AppButton from "@/components/Button";
-import { Greeting } from "@/components/Greetings";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
-import VaultEntry from "@/lib/VaultEntry";
-import DefaultVault from "@/store/vault";
+import { faker } from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import { Button, Form, Input, Modal, notification, Pagination } from "antd";
+import { Button, Form, Input, Modal, Pagination } from "antd";
 import { SearchProps } from "antd/es/input";
-import { useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
+import { useState } from "react";
 const { TextArea, Search } = Input;
 
 import { Space, Table } from "antd";
@@ -55,13 +52,9 @@ type FormFieldTypes = {
 };
 
 export default function Home() {
-  const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [keywords, setKeywords] = useState<Array<string>>([]);
-  const [vaultEntries, setVaultEntries] = useState<Array<VaultEntry>>(
-    DefaultVault.content
-  );
-  const [api, contextHolder] = notification.useNotification();
+
   const [form] = Form.useForm();
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
@@ -90,17 +83,6 @@ export default function Home() {
     form.resetFields();
   };
 
-  useEffect(() => {
-    let text = new Greeting().msg;
-    const punctuation = /[.,!?]$/;
-
-    if (punctuation.test(text)) {
-      text = text; // If it ends with punctuation, return as-is
-    } else {
-      text = text + ","; // If it doesn't, add a comma
-    }
-    setGreeting(text);
-  }, []);
 
   return (
     <>
