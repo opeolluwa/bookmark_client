@@ -1,26 +1,22 @@
 "use client";
-import Card from "@/components/Card";
 import { Greeting } from "@/components/Greetings";
+import VaultEntryComponent from "@/components/VaultEntry";
 import View from "@/components/View";
 import VaultEntry from "@/lib/VaultEntry";
-import VaultEntryComponent from "@/components/VaultEntry";
-import { Badge, Pagination } from "antd";
 import DefaultVault from "@/store/vault";
 import {
   AdjustmentsHorizontalIcon,
-  BellAlertIcon,
-  ChevronDownIcon,
+  BellAlertIcon
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
-  Button,
+  Badge, Button,
   FloatButton,
   Form,
   Input,
   Modal,
-  notification,
-  Segmented,
+  notification, Pagination, Segmented
 } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
