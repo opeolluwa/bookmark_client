@@ -7,14 +7,7 @@ import VaultEntry from "@/lib/VaultEntry";
 import DefaultVault from "@/store/vault";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  notification,
-  Pagination
-} from "antd";
+import { Button, Form, Input, Modal, notification, Pagination } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
 
@@ -115,7 +108,7 @@ export default function Home() {
         <View className="flex justify-between items-center">
           <Heading>Vaults</Heading>
           <AppButton
-            className="w-fit  bg-app-600 shadow text-white flex text-sm  px-2"
+            className=" w-[150px] bg-app-600 shadow text-white flex text-sm  px-2"
             onClick={showModal}
           >
             <PlusIcon className="w-6 h-6" /> Create new{" "}
@@ -155,7 +148,6 @@ export default function Home() {
         defaultCurrent={1}
         total={50}
       />
-
 
       <View className=" h-screen ">
         <Modal
