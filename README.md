@@ -1,4 +1,4 @@
- # Mobile Vault .
+# Mobile Vault
 
 - [Description](#description)
 - [Getting Started](#getting-started)
@@ -14,32 +14,56 @@
 
 ## Description
 
-Secure Information Srtorage for People and Businesses
+Secure Information Storage for People and Businesses
 
 ## Getting Started
 
 ### Dependencies
 
-- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-- ex. Windows 10
+- [Rust](https://rust-lang.org)
+- [just](https://github.com/casey/just)
+- [NodeJS](https://nodejs.org)
 
 ### Installing
 
-- How/where to download your program
-- Any modifications needed to be made to files/folders
+To run the program, ensure all the [dependencies](#dependencies) are met
+
+```sh
+git clone https://github.com/opeolluwa/vault
+just install
+```
 
 ### Executing program
 
-- How to run the program
-- Step-by-step bullets
+#### Install dependencies
 
+```sh
+just install
 ```
-code blocks for commands
+
+#### Lint the source code
+
+```sh
+just lint
+```
+
+#### Build the desktop application
+
+```sh
+just build
+```
+
+#### Run the desktop app in development mode
+
+```sh
+jest dev
 ```
 
 ## Documentation
 
-Describe any special instructions that are necessary to install a software package on your computer (if applicable).
+```sh
+just
+```
 
 ## Help
 
@@ -53,7 +77,7 @@ command to run if program contains helper info
 
 Contributors names and contact info
 
-ex. Dominique Pizzie  
+ex. Dominique Pizzie\
 ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## Version History
@@ -66,9 +90,9 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file
+for details
 
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-        
