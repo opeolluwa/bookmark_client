@@ -108,7 +108,7 @@ export default function Home() {
         <View className="flex justify-between items-center">
           <Heading>Vaults</Heading>
           <AppButton
-            className=" w-[150px] bg-app-600 shadow text-white flex text-sm  px-2"
+            className=" bg-app-600 shadow text-white inline-flex text-sm  px-2"
             onClick={showModal}
           >
             <PlusIcon className="w-6 h-6" /> Create new{" "}

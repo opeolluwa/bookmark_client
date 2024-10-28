@@ -50,19 +50,20 @@ export default function DashboardLayout({ children }: Props) {
         >
           <Menu
             theme="dark"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["dashboard"]}
             mode="inline"
             items={routes}
             style={{ height: "100%", borderRight: 0 }}
           />
         </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
+        <Layout style={{ padding: "24px" }}>
           <Breadcrumb
             items={[
               { title: "Adeoye" },
               { title: "Vaults" },
               { title: "Default" },
             ]}
+            className="hidden"
             style={{ margin: "16px 0" }}
           />
           <Content

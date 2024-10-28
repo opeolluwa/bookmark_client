@@ -14,33 +14,31 @@ export const routes: ItemType<MenuItemType>[] = [
   {
     icon: <AppstoreOutlined className="w-6 h-6" style={{ fontSize: "24px" }} />,
     label: <Link href={"/dashboard"}>Dashboard</Link>,
-    key: 1,
+    key: "dashboard",
   },
   {
     icon: <WalletIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/vaults"}>Vaults</Link>,
-    key: 2,
+    key: "vaults",
   },
   {
     icon: <Cog6ToothIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/settings"}>Settings</Link>,
-    key: 3,
+    key: "settings",
   },
   {
     icon: <UserIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/profile"}>Profile</Link>,
-
-    key: 4,
+    key: "profile",
   },
   {
     icon: <BellAlertIcon className="w-6 h-6" />,
-    label: <Link href={"/dashboard/profile"}>Notification</Link>,
-
+    label: <Link href={"/dashboard/notification"}>Notification</Link>,
     key: "notification",
   },
   {
     icon: <QueueListIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/activity"}>Activity</Link>,
-    key: 5,
+    key: "activity",
   },
 ];

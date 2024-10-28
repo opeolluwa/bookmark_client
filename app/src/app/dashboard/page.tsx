@@ -101,10 +101,10 @@ export default function Home() {
 
   return (
     <>
-      <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 ">
+      <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 relative">
         <span>{greeting} Adeoye 👋</span>
         <Badge count={5}>
-          <BellAlertIcon className="w-6 h-6 cursor"/>
+          <BellAlertIcon className="w-6 h-6 cursor" />
         </Badge>
       </View>
       <View className="my-6">
@@ -124,7 +124,12 @@ export default function Home() {
         <VaultEntryComponent />
         <VaultEntryComponent />
       </View>
-      <Pagination align="center" defaultCurrent={1} total={50} />
+      <Pagination
+        align="center"
+        className="absolute bottom-10 left-0 right-0"
+        defaultCurrent={1}
+        total={50}
+      />
       <View className=" h-screen ">
         <Modal
           title="Save to vault"
@@ -195,16 +200,6 @@ export default function Home() {
           </Form>
         </Modal>
 
-        <View>
-          {vaultEntries.map((item, key) => (
-            <Card
-              key={key}
-              className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
-            >
-              {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
-            </Card>
-          ))}
-        </View>
         <FloatButton
           shape="circle"
           type="primary"
