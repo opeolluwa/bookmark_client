@@ -2,7 +2,7 @@ alias install := install-dependencies
 alias build := build-app
 alias lint := lint-all
 alias dev := run-app 
-# alias test := test
+alias web := run-website
 
 default: 
     @just --list --list-heading $'Available commands\n'
@@ -42,4 +42,6 @@ lint-all:
 build-app:
     cd app && npm run tauri build 
 
-# test-all: 
+[doc('run the website')]
+run-website:
+    cd website && npm run dev 
