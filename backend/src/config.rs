@@ -6,7 +6,6 @@ lazy_static::lazy_static! {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {
-    #[serde(default = "Config::default_application_port")]
     pub port: u16,
     pub jwt_signing_key: String,
     pub database_connection_string: String,
@@ -14,21 +13,21 @@ pub struct Config {
 
 impl Config {
     pub fn parse() -> Self {
-        let config_path =
-            std::env::var("CONFIG_FILE").expect("Couldn't read configuration file path env");
+        let port = std::env::var("PORT")
+            .expect("Couldn't PORT env")
+            .parse::<u16>()
+            .expect("PORT is not a number");
+        let jwt_signing_key =
+            std::env::var("JWT_SIGNING_KEY").expect("Couldn't parse JWT_SIGNING_KEY env");
+        let database_connection_string =
+            std::env::var("DATABASE_URL").expect("Couldn't parse DATABASE_URL env");
 
-        let config_yml = std::fs::read_to_string(&config_path)
-            .expect("Unable to read the content of the application config file");
-        eprintln!(" Config file path {}", &config_path);
-
-        // extract to yml \
-        let config =
-            serde_yml::from_str(&config_yml).expect("Unable to extract application configuration");
-
-        config
+        Self {
+            port,
+            jwt_signing_key,
+            database_connection_string,
+        }
     }
 
-    pub fn default_application_port() -> u16 {
-        3000
-    }
+ 
 }
