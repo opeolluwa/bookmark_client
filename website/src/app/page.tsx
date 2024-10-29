@@ -11,11 +11,9 @@ import Link from "next/link";
 const routes = [
   { label: "Use cases", path: "/use-cases" },
   { label: "For Business", path: "/for-business" },
-  { label: "Resource", path: "/resource" },
-  { label: "Company", path: "/company" },
   { label: "Pricing", path: "/pricing" },
   { label: "Sign In", path: "/sign-up" },
-  { label: "Get Vault", path: "/get-vault" },
+  { label: "Download", path: "/get-vault" },
 ];
 
 const companies = [

@@ -1,12 +1,8 @@
 use sea_orm::DatabaseConnection;
 
-
-
 #[derive(Debug, Clone)]
 pub struct AppState {
-    // database
     pub db: DatabaseConnection,
-    
 }
 
 impl AppState {

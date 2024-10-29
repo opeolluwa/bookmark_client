@@ -4,7 +4,6 @@ lazy_static::lazy_static! {
   pub static ref  CONFIG : Config  = Config::parse();
 }
 
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {
     #[serde(default = "Config::default_application_port")]

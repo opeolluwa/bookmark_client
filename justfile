@@ -3,6 +3,7 @@ alias build := build-app
 alias lint := lint-all
 alias dev := run-app 
 alias web := run-website
+alias backend:= run-backend 
 
 default: 
     @just --list --list-heading $'Available commands\n'

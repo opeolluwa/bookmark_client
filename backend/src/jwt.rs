@@ -12,7 +12,7 @@ use crate::{config::CONFIG, error::AppError};
 pub struct JwtClaims {
     pub user_email: String,
     pub user_id: String,
-    exp: usize
+    exp: usize,
 }
 
 impl JwtClaims {
@@ -20,7 +20,7 @@ impl JwtClaims {
         Self {
             user_email,
             user_id,
-             exp: 2000000000, // May 2
+            exp: 2000000000, // May 2
         }
     }
 
@@ -66,7 +66,10 @@ where
 
         let user_data = JwtClaims::parse_token(bearer.token().to_string()).map_err(|_| {
             AppError::WrongCredentialsError {
-                message: Some("You are not authorized to access this resource! Please login and retry".to_string()),
+                message: Some(
+                    "You are not authorized to access this resource! Please login and retry"
+                        .to_string(),
+                ),
             }
         });
 
