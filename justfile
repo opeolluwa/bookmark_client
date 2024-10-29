@@ -1,9 +1,13 @@
+alias w:= watch
+alias b:= build
+alias l:= lint
 alias install := install-dependencies
-alias build := build-app
-alias lint := lint-all
-alias dev := run-app 
-alias web := run-website
-alias backend:= run-backend 
+alias migrate := generate-migration
+
+set dotenv-required
+set dotenv-load := true
+set dotenv-path := "./backend/.env"
+set export :=  true
 
 default: 
     @just --list --list-heading $'Available commands\n'
@@ -30,19 +34,43 @@ run-app:
 
 [doc('run the backend in developent mode')]
 run-backend:
+    @echo DATABASE_URL=$DATABASE_URL
     cd backend && cargo watch -qcx run
 
-[doc('lint all the projects')]
-lint-all:
+lint-app:
     cd app && npm run lint
-    cd backend && cargo fmt && cargo fix --allow-dirty
     cd app/tauri && cargo fmt && cargo fix --allow-dirty
+lint-backend:
+    cd backend && cargo fmt && cargo fix --allow-dirty
+lint-website:
     cd website && npm run lint 
+[group('lint')]
+lint target:
+    @echo formating {{target}}
+    @just lint-{{target}}
 
-[doc('build the desktop app')]
+generate-migration name:
+    sea-orm-cli migrate --migration-dir database/migration generate {{name}}
+
+[group('watch')]
+watch-app:
+    cd app && npm run tauri dev 
+watch-backend: 
+    cd backend && cargo watch -qcx run 
+watch-website:
+    cd app && npm run dev 
+watch target:
+    @echo watching {{target}}
+    @just watch-{{target}}
+
+
+[group('build')]
 build-app:
-    cd app && npm run tauri build 
-
-[doc('run the website')]
-run-website:
-    cd website && npm run dev 
+    cd app && npm run tauri build
+build-backend: 
+    cd backend && cargo build 
+build-website:
+    cd app && npm run build
+build target:
+    @echo building {{target}}
+    @just build-{{target}}
