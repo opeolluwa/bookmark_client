@@ -1,6 +1,7 @@
 "use client";
 import { AppLogo } from "@/components/App/AppLogo";
 import Button from "@/components/Button";
+import Features from "@/components/Features";
 import Heading from "@/components/Heading";
 import Pricing from "@/components/Pricing";
 import Text from "@/components/Text";
@@ -69,7 +70,7 @@ export default function Page() {
         </div>
       </header>
 
-      <section className="my-40">
+      <section className="my-40 hidden">
         <Heading className="font-semibold text-5xl text-center text-gray-600 text-pretty tracking-tight w-3/5 mx-auto leading-snug">
           More than 25 million people across 400,000 companies choose Loom
         </Heading>
@@ -84,6 +85,11 @@ export default function Page() {
           ))}
         </ul>
       </section>
+
+      <section className="bg-app-500 my-20 ">
+        <Features />
+      </section>
+      
       <section className="bg-white my-40 py-8 lg:px-24 flex  justify-center items-center">
         <View className="bg-app-600 grid grid-cols-12 justify-center items-center shadow-sm shadow-gray-300 text-white rounded-3xl px-8 py-10 leading-1">
           <div className="col-span-6">
@@ -102,6 +108,7 @@ export default function Page() {
           </div>
         </View>
       </section>
+
       <section className="my-20">
         <Pricing />
       </section>
