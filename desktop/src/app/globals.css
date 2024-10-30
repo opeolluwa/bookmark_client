@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#layout>main {
+  min-height: 100vh;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
+#layout {
+  min-width: 100vw !important;
+}
+
+#app__navigation {
+  height: 90vh !important;
+  position: fixed;
+}
+
+
+
+
