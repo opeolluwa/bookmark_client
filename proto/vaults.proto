@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package proxy.vault;
+package vault;
+
+import "google/protobuf/timestamp.proto";
 
 service VaultManager {
   rpc CreateNewVault(NewVaultRequest) returns (NewVaultResponse);
@@ -8,6 +10,15 @@ service VaultManager {
   rpc UpdateVault(UpdateVaultRequest) returns (UpdateVaultResponse);
   rpc DeleteVault(DeleteVaultRequest) returns (DeleteVaultResponse);
   rpc ListVaults(ListVaultsRequest) returns (ListVaultsResponse);
+}
+
+message VaultEntries {
+  string title = 1;
+  string description = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+  string vault_id = 5;
+  map<string, string> more_fields = 6;
 }
 
 message NewVaultRequest {
@@ -28,9 +39,10 @@ message GetVaultResponse {
   string vault_id = 1;
   string name = 2;
   string description = 3;
-  string created_at = 4;
-  string updated_at = 5;
-  string user_id = 6;  
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  string user_id = 6;
+  repeated VaultEntries entries = 7;
 }
 
 message UpdateVaultRequest {
