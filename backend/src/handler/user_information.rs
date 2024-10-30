@@ -6,7 +6,6 @@ use crate::{
 };
 use axum::{extract::State, http::StatusCode, Json};
 use bcrypt::{verify, DEFAULT_COST};
-use entity::{prelude::UserInformation, user_information};
 use sea_orm::{ColumnTrait, EntityTrait, QueryFilter, Set};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};

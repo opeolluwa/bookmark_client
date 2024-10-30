@@ -1,3 +1,3 @@
-pub mod profile;
+pub mod user_information;
 pub mod root;
 pub mod vault;

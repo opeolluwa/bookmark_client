@@ -13,7 +13,7 @@ anyhow = "1.0.89"
 axum = "0.7.5"
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
 bcrypt = "0.15.1"
-entity = { path = "../database/entity" }
+entities = { path = "../database/entities" }
 jsonwebtoken = "9.3.0"
 lazy_static = "1.5.0"
 log = "0.4.22"

@@ -21,7 +21,7 @@ tauri-build = { version = "2.0.0-rc.0", features = [] }
 anyhow = "1.0.91"
 bcrypt = "0.15.1"
 dirs = "5.0.1"
-entity = { path = "../../database/entity" }
+entities = { path = "../../database/entities" }
 jsonwebtoken = "9.2.0"
 lazy_static = "1.5.0"
 migration = { path = "../../database/migration" }

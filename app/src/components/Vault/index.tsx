@@ -1,14 +1,12 @@
-import Card from "../Card";
-import React from "react";
-import Heading from "../Heading";
-import Text from "../Text";
 import {
   EllipsisVerticalIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { UserOutlined, AntDesignOutlined } from "@ant-design/icons";
-import { Avatar, Tooltip, Dropdown, MenuProps } from "antd";
+import { Dropdown, MenuProps } from "antd";
+import Card from "../Card";
+import Heading from "../Heading";
+import Text from "../Text";
 
 
 

@@ -2,7 +2,7 @@ use axum::routing::{get, post, Router};
 
 use crate::{
     handler::{
-        profile::{login, register_user},
+        user_information::{login, register_user},
         root::{base, health_check_handler},
         vault::some_protected_resources,
     },

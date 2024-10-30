@@ -28,6 +28,4 @@ impl Config {
             database_connection_string,
         }
     }
-
- 
 }

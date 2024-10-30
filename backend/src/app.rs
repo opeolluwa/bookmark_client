@@ -84,7 +84,7 @@ impl Server {
         );
         let listener = TcpListener::bind(addr).await?;
 
-       tracing::debug!("server running on http://{addr}");
+        tracing::debug!("server running on http://{addr}");
         axum::serve(listener, app).await?;
 
         Ok(())
