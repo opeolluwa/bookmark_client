@@ -3,13 +3,14 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "vault")]
+#[sea_orm(table_name = "vault_entries")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
-    pub name: String,
+    pub title: String,
     pub description: String,
-    pub user_id: Uuid,
+    #[sea_orm(unique)]
+    pub vault_id: Uuid,
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: DateTimeWithTimeZone,
 }
@@ -17,26 +18,18 @@ pub struct Model {
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
     #[sea_orm(
-        belongs_to = "super::user_information::Entity",
-        from = "Column::UserId",
-        to = "super::user_information::Column::Id",
+        belongs_to = "super::vault::Entity",
+        from = "Column::VaultId",
+        to = "super::vault::Column::Id",
         on_update = "NoAction",
         on_delete = "NoAction"
     )]
-    UserInformation,
-    #[sea_orm(has_one = "super::vault_entries::Entity")]
-    VaultEntries,
+    Vault,
 }
 
-impl Related<super::user_information::Entity> for Entity {
+impl Related<super::vault::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::UserInformation.def()
-    }
-}
-
-impl Related<super::vault_entries::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::VaultEntries.def()
+        Relation::Vault.def()
     }
 }
 
