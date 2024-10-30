@@ -32,12 +32,12 @@ install-dependencies:
 lint-all:
     cd app && npm run lint --fix
     # cd website && npm run lint --fix
-    cargo fmt && cargo fix --allow-dirty
+    cargo fmt && cargo clippy
 
 # Lint specific parts of the project
 lint-app:
     cd app && npm run lint
-    cd app/tauri && cargo fmt && cargo fix --allow-dirty
+    cd app/tauri && cargo fmt && cargo clippy
 
 lint-backend:
     cd backend && cargo fmt && cargo fix --allow-dirty
