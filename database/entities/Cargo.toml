@@ -3,4 +3,11 @@ name = "entities"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+path = "./mod.rs"
+
 [dependencies]
+sea-orm = { version = "1.0.0-rc.5", features = [
+    "runtime-tokio-rustls",
+    "macros",
+] }
