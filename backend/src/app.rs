@@ -3,6 +3,7 @@ use std::{
     time::Duration,
 };
 
+use crate::{config::CONFIG, state::AppState};
 use anyhow::Ok;
 use axum::{
     body::Bytes,
@@ -15,18 +16,22 @@ use tokio::net::TcpListener;
 use tower_http::{classify::ServerErrorsFailureClass, trace::TraceLayer};
 use tracing::{info_span, Span};
 use tracing_subscriber::layer::SubscriberExt;
-
-use crate::{config::CONFIG, state::AppState};
+use tracing_subscriber::util::SubscriberInitExt;
 
 pub struct Server;
 
 impl Server {
     pub async fn run() -> anyhow::Result<()> {
-        tracing_subscriber::registry().with(
-            tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-                "mobile_vault_server_logging=debug,tower_http=debug,axum::rejection=trace".into()
-            }),
-        );
+        tracing_subscriber::registry()
+            .with(
+                tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+                    "mobile_vault_server_logging=debug,tower_http=info,axum::rejection=trace"
+                        .into()
+                }),
+            )
+            .with(tracing_subscriber::fmt::layer())
+            .init();
+
         let addr = SocketAddrV4::new(Ipv4Addr::UNSPECIFIED, CONFIG.port);
         let mut database_connection_options =
             ConnectOptions::new(&CONFIG.database_connection_string);
@@ -53,6 +58,7 @@ impl Server {
                         .get::<MatchedPath>()
                         .map(MatchedPath::as_str);
 
+                    // let matched_path = request.uri()
                     info_span!(
                         "http_request",
                         method = ?request.method(),
