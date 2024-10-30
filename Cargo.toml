@@ -4,6 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["app/tauri", "backend", "database/entities", "database/migration",  "proxy"]
+exclude = [
+    "app/tauri",
+    "backend",
+    "database/entities",
+    "database/migration",
+    "gateway",
+]
 
 [dependencies]
+

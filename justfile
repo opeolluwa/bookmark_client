@@ -2,8 +2,6 @@ alias w:= watch
 alias b:= build
 alias l:= lint
 alias install := install-dependencies
-alias migrate := generate-migration
-alias entities:= generate-entities
 
 set dotenv-required
 set dotenv-load := true
@@ -85,3 +83,10 @@ build-website:
 build target:
     @echo building {{target}}
     @just build-{{target}}
+
+
+run-migration: 
+    sea-orm-cli migrate -d database/migration up 
+
+generate target:
+    @just generate-{{target}}
