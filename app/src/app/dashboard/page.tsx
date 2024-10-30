@@ -1,25 +1,22 @@
 "use client";
-import Card from "@/components/Card";
 import { Greeting } from "@/components/Greetings";
-import View from "@/components/View";
-import VaultEntry from "@/lib/VaultEntry";
 import VaultEntryComponent from "@/components/VaultEntry";
-import { Badge, Pagination } from "antd";
-import DefaultVault from "@/store/vault";
+import View from "@/components/View";
 import {
   AdjustmentsHorizontalIcon,
   BellAlertIcon,
-  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
+  Badge,
   Button,
   FloatButton,
   Form,
   Input,
   Modal,
   notification,
+  Pagination,
   Segmented,
 } from "antd";
 import { SearchProps } from "antd/es/input";
@@ -36,34 +33,14 @@ export default function Home() {
   const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [keywords, setKeywords] = useState<Array<string>>([]);
-  const [vaultEntries, setVaultEntries] = useState<Array<VaultEntry>>(
-    DefaultVault.content
-  );
-  const [api, contextHolder] = notification.useNotification();
+
   const [form] = Form.useForm();
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
 
-  const openNotification = () =>
-    api.open({
-      message: "entry saved!",
-      description:
-        "I will never close automatically. This is a purposely very very long description that has many many characters and words.",
-      duration: 10,
-      placement: "bottomRight",
-    });
-
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     console.log("Success:", { ...values, keywords });
-    const vault_entry = new VaultEntry(
-      String(values.title),
-      String(values.description),
-      keywords
-    );
 
-    DefaultVault.add_entry(vault_entry);
-    setVaultEntries(DefaultVault.content);
-    console.log(JSON.stringify(DefaultVault.content));
     setIsModalOpen(false);
     form.resetFields();
     setKeywords([]);
@@ -101,10 +78,10 @@ export default function Home() {
 
   return (
     <>
-      <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 ">
+      <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 relative">
         <span>{greeting} Adeoye 👋</span>
         <Badge count={5}>
-          <BellAlertIcon className="w-6 h-6 cursor"/>
+          <BellAlertIcon className="w-6 h-6 cursor" />
         </Badge>
       </View>
       <View className="my-6">
@@ -124,7 +101,12 @@ export default function Home() {
         <VaultEntryComponent />
         <VaultEntryComponent />
       </View>
-      <Pagination align="center" defaultCurrent={1} total={50} />
+      <Pagination
+        align="center"
+        className="absolute bottom-10 left-0 right-0"
+        defaultCurrent={1}
+        total={50}
+      />
       <View className=" h-screen ">
         <Modal
           title="Save to vault"
@@ -195,16 +177,6 @@ export default function Home() {
           </Form>
         </Modal>
 
-        <View>
-          {vaultEntries.map((item, key) => (
-            <Card
-              key={key}
-              className="my-4 first: mt-6 cursor-pointer flex justify-between items-center bg-gray-50"
-            >
-              {item.title} <ChevronDownIcon className="w-6 h-6" />{" "}
-            </Card>
-          ))}
-        </View>
         <FloatButton
           shape="circle"
           type="primary"

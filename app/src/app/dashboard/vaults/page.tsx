@@ -1,16 +1,13 @@
 "use client";
 import AppButton from "@/components/Button";
-import { Greeting } from "@/components/Greetings";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
-import VaultEntry from "@/lib/VaultEntry";
-import DefaultVault from "@/store/vault";
+import { faker } from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import { Button, Form, Input, Modal, notification, Pagination } from "antd";
+import { Button, Form, Input, Modal, Pagination } from "antd";
 import { SearchProps } from "antd/es/input";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 const { TextArea, Search } = Input;
 
 import { Space, Table } from "antd";
@@ -21,33 +18,33 @@ interface DataType {
   key: React.Key;
   name: string;
   "last modified": string;
-  "created on": number;
+  "created on": string;
   description: string;
 }
 
-const data: DataType[] = [
-  {
+function genData(): DataType {
+  return {
+    name: faker.commerce.productName(),
     key: "1",
-    name: "John",
-    "last modified": "Brown",
-    "created on": 32,
-    description: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim",
-    "last modified": "Green",
-    "created on": 42,
-    description: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe",
-    "last modified": "Black",
-    "created on": 32,
-    description: "Sydney No. 1 Lake Park",
-  },
-];
+    "last modified": faker.date.recent().toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    }),
+    "created on": faker.date.anytime().toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    }),
+    description: faker.commerce.productDescription(),
+  };
+}
+
+const data = Array.from([1, 2, 3, 4, 5], (key) => {
+  return genData();
+});
 
 type FormFieldTypes = {
   title?: string;
@@ -55,13 +52,9 @@ type FormFieldTypes = {
 };
 
 export default function Home() {
-  const [greeting, setGreeting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [keywords, setKeywords] = useState<Array<string>>([]);
-  const [vaultEntries, setVaultEntries] = useState<Array<VaultEntry>>(
-    DefaultVault.content
-  );
-  const [api, contextHolder] = notification.useNotification();
+
   const [form] = Form.useForm();
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
@@ -90,25 +83,14 @@ export default function Home() {
     form.resetFields();
   };
 
-  useEffect(() => {
-    let text = new Greeting().msg;
-    const punctuation = /[.,!?]$/;
-
-    if (punctuation.test(text)) {
-      text = text; // If it ends with punctuation, return as-is
-    } else {
-      text = text + ","; // If it doesn't, add a comma
-    }
-    setGreeting(text);
-  }, []);
 
   return (
     <>
-      <View className="my-6">
+      <View className="my-6 relative">
         <View className="flex justify-between items-center">
           <Heading>Vaults</Heading>
           <AppButton
-            className=" w-[150px] bg-app-600 shadow text-white flex text-sm  px-2"
+            className=" w-fit bg-app-600 shadow text-white inline-flex text-sm  px-2"
             onClick={showModal}
           >
             <PlusIcon className="w-6 h-6" /> Create new{" "}
@@ -135,7 +117,7 @@ export default function Home() {
             key="action"
             render={(_: any, record: DataType) => (
               <Space size="middle">
-                <a>Invite {record["last modified"]}</a>
+                <a>Invite</a>
                 <a>Delete</a>
               </Space>
             )}
@@ -144,7 +126,7 @@ export default function Home() {
       </View>
       <Pagination
         align="center"
-        className="relative bottom-0 hidde"
+        className="absolute bottom-10 right-0 left-0"
         defaultCurrent={1}
         total={50}
       />

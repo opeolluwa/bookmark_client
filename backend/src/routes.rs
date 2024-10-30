@@ -2,9 +2,9 @@ use axum::routing::{get, post, Router};
 
 use crate::{
     handler::{
-        vault::some_protected_resources,
+        user_information::{login, register_user},
         root::{base, health_check_handler},
-        profile::{login, register_user},
+        vault::some_protected_resources,
     },
     state::AppState,
 };
@@ -15,7 +15,6 @@ pub fn router() -> Router<AppState> {
         .route("/health", get(health_check_handler))
         .nest("/users", user_route())
         .nest("/api/v1", protected_routes())
-
 }
 
 pub fn user_route() -> Router<AppState> {

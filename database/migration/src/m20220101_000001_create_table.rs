@@ -16,8 +16,16 @@ impl MigrationTrait for Migration {
                     .col(uuid(UserInformation::Id).unique_key().primary_key())
                     .col(string(UserInformation::FirstName))
                     .col(string(UserInformation::LastName))
-                    .col(string(UserInformation::Email))
+                    .col(string(UserInformation::Email).unique_key().not_null())
                     .col(string(UserInformation::Password))
+                    .col(
+                        timestamp_with_time_zone(UserInformation::CreatedAt)
+                            .default(Expr::current_timestamp()),
+                    )
+                    .col(
+                        timestamp_with_time_zone(UserInformation::UpdatedAt)
+                            .default(Expr::current_timestamp()),
+                    )
                     .to_owned(),
             )
             .await
@@ -33,11 +41,13 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum UserInformation {
+pub enum UserInformation {
     Table,
     Id,
     FirstName,
     LastName,
     Email,
     Password,
+    CreatedAt,
+    UpdatedAt,
 }

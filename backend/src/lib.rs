@@ -1,8 +1,8 @@
 pub mod app;
 pub mod config;
-pub mod handler;
-pub mod routes;
-pub mod state;
 pub mod error;
+pub mod handler;
 pub mod jwt;
-pub mod  shared;
+pub mod routes;
+pub mod shared;
+pub mod state;

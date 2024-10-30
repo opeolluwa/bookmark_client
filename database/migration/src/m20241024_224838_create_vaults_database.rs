@@ -1,3 +1,4 @@
+use super::m20220101_000001_create_table::UserInformation;
 use sea_orm_migration::{prelude::*, schema::*};
 
 #[derive(DeriveMigrationName)]
@@ -11,9 +12,24 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(Vault::Table)
                     .if_not_exists()
-                    .col(uuid(Vault::Id).unique_key().primary_key())
-                    .col(string(Vault::Name))
+                    .col(uuid(Vault::Id).unique_key().primary_key().not_null())
+                    .col(string(Vault::Name).not_null())
                     .col(string(Vault::Description))
+                    .col(uuid(Vault::UserId).not_null())
+                    .col(
+                        timestamp_with_time_zone(Vault::CreatedAt)
+                            .default(Expr::current_timestamp()),
+                    )
+                    .col(
+                        timestamp_with_time_zone(Vault::UpdatedAt)
+                            .default(Expr::current_timestamp()),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk-user-vault-id")
+                            .from(Vault::Table, Vault::UserId)
+                            .to(UserInformation::Table, UserInformation::Id),
+                    )
                     .to_owned(),
             )
             .await
@@ -27,9 +43,12 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Vault {
+pub enum Vault {
     Table,
     Id,
     Name,
     Description,
+    CreatedAt,
+    UpdatedAt,
+    UserId,
 }
