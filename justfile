@@ -16,9 +16,9 @@ install-dependencies:
     @echo "Installing website dependencies"
     cd website && npm  install --save
 
-    @echo "Installing app dependencies"
-    cd app && npm install
-    cd app/tauri && cargo build 
+    @echo "Installing desktop dependencies"
+    cd desktop && npm install
+    cd desktop/tauri && cargo build 
 
     @echo "Installing backend dependencies"
     cd backend && cargo build 
@@ -30,14 +30,14 @@ install-dependencies:
 
 # Lint all parts of the project
 lint-all:
-    cd app && npm run lint --fix
+    cd desktop && npm run lint --fix
     # cd website && npm run lint --fix
     cargo fmt && cargo clippy
 
 # Lint specific parts of the project
-lint-app:
-    cd app && npm run lint
-    cd app/tauri && cargo fmt && cargo clippy
+lint-desktop:
+    cd desktop && npm run lint
+    cd desktop/tauri && cargo fmt && cargo clippy
 
 lint-backend:
     cd backend && cargo fmt && cargo fix --allow-dirty
@@ -59,27 +59,27 @@ generate-entities:
     sea-orm-cli generate entity -o database/entities
 
 [group('watch')]
-watch-app:
-    cd app && npm run tauri dev 
+watch-desktop:
+    cd desktop && npm run tauri dev 
 watch-backend: 
     @echo DATABASE_URL=$DATABASE_URL
     @echo PORT=$PORT
     @echo DATABASE_URL=$DATABASE_URL
     cd backend && cargo watch -qcx run 
 watch-website:
-    cd app && npm run dev 
+    cd desktop && npm run dev 
 watch target:
     @echo watching {{target}}
     @just watch-{{target}}
 
 
 [group('build')]
-build-app:
-    cd app && npm run tauri build
+build-desktop:
+    cd desktop && npm run tauri build
 build-backend: 
     cd backend && cargo build 
 build-website:
-    cd app && npm run build
+    cd desktop && npm run build
 build target:
     @echo building {{target}}
     @just build-{{target}}
