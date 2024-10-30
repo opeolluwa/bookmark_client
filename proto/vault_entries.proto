@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package vault_entries;
+
+import "google/protobuf/timestamp.proto";
+
+service VaultEntriesManager {
+  rpc CreateNewVault(NewVaultEntryRequest) returns (GetVaultEntryResponse);
+  rpc GetVaultEntry(GetVaultEntryRequest) returns (GetVaultEntryResponse);
+  rpc UpdateVaultEntry(UpdateVaultEntryRequest) returns (GetVaultEntryResponse);
+  rpc DeleteVaultEntry(UpdateVaultEntryRequest)
+      returns (DeleteVaultEntryResponse);
+  rpc ListVaultEntrys(ListVaultEntrysRequest) returns (ListVaultEntrysResponse);
+}
+
+message NewVaultEntryRequest {
+  string title = 1;
+  string description = 2;
+  string vault_id = 3;
+  map<string, string> more_fields = 4;
+  string user_id = 5;
+}
+
+message GetVaultEntryResponse {
+  string title = 1;
+  string description = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+  string vault_id = 5;
+  map<string, string> more_fields = 6;
+  string user_id = 7;
+  string vault_entry_id = 8;
+}
+
+message GetVaultEntryRequest {
+  string vault_id = 1;
+  string vault_entry_id = 2;
+  string user_id = 3;
+}
+
+message UpdateVaultEntryRequest {
+  string vault_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message DeleteVaultEntryResponse {
+  string vault_id = 1;
+  string vault_entry_id = 2;
+  string user_id = 3;
+  string status = 4;
+}
+
+message ListVaultEntrysRequest {
+  string vault_id = 1;
+  string vault_entry_id = 2;
+  string user_id = 3;
+  int32 page = 4;
+  int32 page_size = 5;
+}
+
+message ListVaultEntrysResponse {
+  repeated GetVaultEntryResponse vault_entries = 1;
+  int32 total_count = 2;
+}
