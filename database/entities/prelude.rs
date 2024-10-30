@@ -2,4 +2,4 @@
 
 pub use super::user_information::Entity as UserInformation;
 pub use super::vault::Entity as Vault;
-pub use super::vault_entry::Entity as VaultEntry;
+pub use super::vault_entries::Entity as VaultEntries;

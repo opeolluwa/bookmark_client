@@ -1,9 +1,9 @@
 use axum::routing::{get, post, Router};
 
 use crate::{
-    handler::{
-        user_information::{login, register_user},
+    handlers::{
         root::{base, health_check_handler},
+        user_information::{login, register_user},
         vault::some_protected_resources,
     },
     state::AppState,

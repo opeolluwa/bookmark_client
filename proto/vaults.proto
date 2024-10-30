@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package proxy.vault;
+
+service VaultManager {
+  rpc CreateNewVault(NewVaultRequest) returns (NewVaultResponse);
+  rpc GetVault(GetVaultRequest) returns (GetVaultResponse);
+  rpc UpdateVault(UpdateVaultRequest) returns (UpdateVaultResponse);
+  rpc DeleteVault(DeleteVaultRequest) returns (DeleteVaultResponse);
+  rpc ListVaults(ListVaultsRequest) returns (ListVaultsResponse);
+}
+
+message NewVaultRequest {
+  string name = 1;
+  string description = 2;
+  string user_id = 3;
+}
+
+message NewVaultResponse {
+  string vault_id = 1;
+  string user_id = 2;
+  string status = 3;
+}
+
+message GetVaultRequest { string vault_id = 1; }
+
+message GetVaultResponse {
+  string vault_id = 1;
+  string name = 2;
+  string description = 3;
+  string created_at = 4;
+  string updated_at = 5;
+  string user_id = 6;  
+}
+
+message UpdateVaultRequest {
+  string vault_id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message UpdateVaultResponse {
+  string vault_id = 1;
+  string status = 2;
+}
+
+message DeleteVaultRequest { string vault_id = 1; }
+
+message DeleteVaultResponse {
+  string vault_id = 1;
+  string status = 2;
+}
+
+message ListVaultsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message ListVaultsResponse {
+  repeated GetVaultResponse vaults = 1;
+  int32 total_count = 2;
+}

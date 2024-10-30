@@ -9,6 +9,7 @@ pub struct Config {
     pub port: u16,
     pub jwt_signing_key: String,
     pub database_connection_string: String,
+    pub database_connection_retries: u16,
 }
 
 impl Config {
@@ -26,6 +27,18 @@ impl Config {
             port,
             jwt_signing_key,
             database_connection_string,
+            ..Default::default()
+        }
+    }
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            port: 4576,
+            jwt_signing_key: "".to_string(),
+            database_connection_string: "".to_string(),
+            database_connection_retries: 5,
         }
     }
 }

@@ -44,7 +44,7 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum VaultEntry {
+pub enum VaultEntry {
     Table,
     Id,
     Title,
