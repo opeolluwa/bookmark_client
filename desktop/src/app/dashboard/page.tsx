@@ -1,23 +1,22 @@
 "use client";
 import { Greeting } from "@/components/Greetings";
-import VaultEntryComponent from "@/components/VaultEntry";
 import View from "@/components/View";
 import {
   AdjustmentsHorizontalIcon,
-  BellAlertIcon,
+  BellIcon,
 } from "@heroicons/react/24/outline";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
 import {
   Badge,
   Button,
+  Empty,
   FloatButton,
   Form,
   Input,
   Modal,
-  notification,
   Pagination,
-  Segmented,
+  Segmented
 } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useEffect, useState } from "react";
@@ -80,8 +79,8 @@ export default function Home() {
     <>
       <View className="text-[18px] flex justify-between items-center font-semibold mb-8 text-gray-400 relative">
         <span>{greeting} Adeoye 👋</span>
-        <Badge count={5}>
-          <BellAlertIcon className="w-6 h-6 cursor" />
+        <Badge>
+          <BellIcon className="w-6 h-6 cursor" />
         </Badge>
       </View>
       <View className="my-6">
@@ -95,11 +94,10 @@ export default function Home() {
           />
           <AdjustmentsHorizontalIcon className="text-gray-400 h-6 w-6 cursor-pointer" />
         </View>
-        <VaultEntryComponent />
-        <VaultEntryComponent />
-        <VaultEntryComponent />
-        <VaultEntryComponent />
-        <VaultEntryComponent />
+
+        <View>
+          <Empty />
+        </View>
       </View>
       <Pagination
         align="center"

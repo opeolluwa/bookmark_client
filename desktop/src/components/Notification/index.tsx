@@ -6,12 +6,13 @@ import Heading from "../Heading";
 import Text from "../Text";
 import SmallText from "../SmallText";
 
-interface Props {
+export interface Props  {
   heading: string;
   body: string;
   date: string;
   className?: string;
 }
+
 
 export default function Component({ heading, body, date, className }: Props) {
   return (
@@ -29,3 +30,4 @@ export default function Component({ heading, body, date, className }: Props) {
     </Card>
   );
 }
+

@@ -1,11 +1,13 @@
 "use client";
 import { AppstoreOutlined } from "@ant-design/icons";
 import {
+  ArrowLeftStartOnRectangleIcon,
   BellIcon,
   Cog6ToothIcon,
   QueueListIcon,
+  RectangleStackIcon,
   UserIcon,
-  WalletIcon
+  WalletIcon,
 } from "@heroicons/react/24/outline";
 import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import Link from "next/link";
@@ -17,7 +19,7 @@ export const routes: ItemType<MenuItemType>[] = [
     key: "dashboard",
   },
   {
-    icon: <WalletIcon className="w-6 h-6" />,
+    icon: <RectangleStackIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/vaults"}>Vaults</Link>,
     key: "vaults",
   },
@@ -42,5 +44,10 @@ export const routes: ItemType<MenuItemType>[] = [
     icon: <QueueListIcon className="w-6 h-6" />,
     label: <Link href={"/dashboard/activity"}>Activity</Link>,
     key: "activity",
+  },
+  {
+    icon: <ArrowLeftStartOnRectangleIcon className="w-6 h-6" />,
+    label: <Link href={"/"}>log out</Link>,
+    key: "logout",
   },
 ];
