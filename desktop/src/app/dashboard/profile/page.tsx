@@ -1,10 +1,10 @@
 "use client";
-import Button from "@/components/Button";
+// import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { invoke } from "@tauri-apps/api/core";
-import { Avatar, Form, Input } from "antd";
+import { Avatar, Form, Input , Button} from "antd";
 import { FormProps } from "antd/es/form";
 import { User } from "../../../../tauri/bindings/User";
 
@@ -38,7 +38,7 @@ export default function Page() {
         <Button className="bg-app-600 text-white w-fit cursor-pointer">
           Change picture{" "}
         </Button>
-        <Button className="bg-transparent text-red-600 border-[1px] border-red-600 cursor-pointer  w-fit">
+        <Button className="bg-transparent py-4 text-red-600 border-[1px] border-red-600 cursor-pointer  w-fit">
           Delete picture{" "}
         </Button>
       </View>

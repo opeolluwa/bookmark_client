@@ -83,18 +83,17 @@ export default function Home() {
     form.resetFields();
   };
 
-
   return (
     <>
       <View className="my-6 relative">
         <View className="flex justify-between items-center">
           <Heading>Vaults</Heading>
-          <AppButton
+          <Button
             className=" w-fit bg-app-600 shadow text-white inline-flex text-sm  px-2"
             onClick={showModal}
           >
             <PlusIcon className="w-6 h-6" /> Create new{" "}
-          </AppButton>
+          </Button>
         </View>
       </View>
       <View>
