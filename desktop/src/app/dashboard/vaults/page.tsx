@@ -20,30 +20,6 @@ interface DataType {
   description: string;
 }
 
-// function genData(): DataType {
-//   return {
-//     name: faker.commerce.productName(),
-//     key: "1",
-//     "last modified": faker.date.recent().toLocaleDateString("en-US", {
-//       weekday: "short",
-//       month: "short",
-//       year: "numeric",
-//       day: "numeric",
-//     }),
-//     "created on": faker.date.anytime().toLocaleDateString("en-US", {
-//       weekday: "short",
-//       month: "short",
-//       year: "numeric",
-//       day: "numeric",
-//     }),
-//     description: faker.commerce.productDescription(),
-//   };
-// }
-
-// const data = Array.from([1, 2, 3, 4, 5], (key) => {
-//   return genData();
-
-// });
 
 type FormFieldTypes = {
   title?: string;

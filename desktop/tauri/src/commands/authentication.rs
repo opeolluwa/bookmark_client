@@ -4,8 +4,8 @@ use crate::app_state::db_connection;
 use crate::jwt::JwtClaims;
 use bcrypt::verify;
 use bcrypt::{hash, DEFAULT_COST};
-use entity::prelude::UserInformation;
-use entity::user_information;
+use entities::prelude::*;
+use entities::user_information::{self};
 use sea_orm::ColumnTrait;
 use sea_orm::EntityTrait;
 use sea_orm::JsonValue;
@@ -34,6 +34,7 @@ pub async fn sign_up(user: SignUpData) -> IpcResponse<()> {
                 first_name: Set(user.first_name.to_string()),
                 last_name: Set(user.last_name.to_string()),
                 email: Set(user.email.to_string()),
+                ..Default::default()
             };
             let res = user_information::Entity::insert(new_user)
                 .exec(&db_connection().await)
