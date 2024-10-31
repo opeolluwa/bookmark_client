@@ -68,6 +68,8 @@ watch-backend:
     cd backend && cargo watch -qcx run 
 watch-website:
     cd desktop && npm run dev 
+watch-android:
+    cd desktop && npm run tauri android dev
 watch target:
     @echo watching {{target}}
     @just watch-{{target}}
