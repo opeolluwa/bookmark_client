@@ -1,10 +1,51 @@
 syntax = "proto3";
 
-package mobile.vault.proxy.auth;
+package authentication;
 
-message TestEmailExistRequest { string email = 1; }
+// import "common.proto";
 
-message TestEmailExistResponse { bool email_exists = 1; }
+service Authentication {
+  rpc Login(LoginRequest) returns (LoginResponse);
 
+  rpc GetProfile(ProfileRequest) returns (ProfileResponse);
 
-service AuthenticationProxy{}
+  rpc UpdateProfile(ProfileUpdateRequest) returns (ProfileUpdateResponse);
+}
+
+message ErrorResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  string message = 2;
+  optional ErrorResponse error = 3;
+}
+
+message ProfileRequest { string token = 1; }
+
+message ProfileResponse {
+  string email = 1;
+  string last_name = 2;
+  string full_name = 3;
+  repeated string roles = 4;
+  optional ErrorResponse error = 5;
+}
+
+message ProfileUpdateRequest {
+  string token = 1;
+  string email = 2;
+  string full_name = 3;
+}
+
+message ProfileUpdateResponse {
+  string message = 1;
+  bool success = 2;
+  optional ErrorResponse error = 3;
+}

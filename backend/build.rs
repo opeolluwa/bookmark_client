@@ -1,5 +1,3 @@
-
-
 use std::env;
 use std::path::PathBuf;
 
@@ -14,7 +12,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .file_descriptor_set_path(out_dir.join("store_descriptor.bin"))
         .out_dir("./src/grpc")
         .compile_protos(
-            &["../proto/vaults.proto", "../proto/vault_entries.proto"],
+            &[
+                "../proto/vaults.proto",
+                "../proto/vault_entries.proto",
+                "../proto/activity.proto",
+                "../proto/authentication.proto",
+            ],
             &["../proto"],
         )?;
 
