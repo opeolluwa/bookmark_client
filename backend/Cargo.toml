@@ -15,12 +15,18 @@ axum-extra = { version = "0.9.3", features = ["typed-header"] }
 bcrypt = "0.15.1"
 entities = { path = "../database/entities" }
 futures = "0.3.31"
+http = "1.1.0"
+http-body = "1.0.1"
+http-body-util = "0.1.2"
+http-util = "0.0.0"
 hyper = { version = "1.5.0", features = ["full"] }
 jsonwebtoken = "9.3.0"
 lazy_static = "1.5.0"
 log = "0.4.22"
 migration = { path = "../database/migration" }
+pin-project = "1.1.7"
 prost = "0.13.3"
+prost-types = "0.13.3"
 sea-orm = { version = "1.0.0-rc.5", features = [
     "sqlx-postgres",
     "runtime-tokio-rustls",
@@ -32,6 +38,7 @@ serde_yml = "0.0.12"
 tokio = { version = "1.40.0", features = ["full"] }
 tonic = "0.12.3"
 tonic-reflection = "0.12.3"
+tower = { version = "0.5.1", features = ["full"] }
 tower-http = { version = "0.6.1", features = ["trace"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }

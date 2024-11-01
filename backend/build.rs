@@ -10,7 +10,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         // .build_client(true) // don't compile the client code
         .build_server(true)
         .file_descriptor_set_path(out_dir.join("store_descriptor.bin"))
-        .out_dir("./src/grpc")
+        .out_dir("./src/proto")
         .compile_protos(
             &[
                 "../proto/vaults.proto",

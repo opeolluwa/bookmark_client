@@ -1,5 +1,5 @@
 use crate::{
-    jwt::JwtClaims,
+    helpers::jwt::JwtClaims,
     shared::{ApiResponse, IntoApiResponse, ResponseBody},
 };
 
