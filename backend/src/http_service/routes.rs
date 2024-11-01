@@ -1,13 +1,10 @@
-use axum::routing::{get, post, Router};
-
-use crate::{
-    handlers::{
-        root::{base, health_check_handler},
-        user_information::{login, register_user},
-        vault::some_protected_resources,
-    },
-    state::AppState,
+use super::handlers::{
+    root::{base, health_check_handler},
+    user_information::{login, register_user},
+    vault::some_protected_resources,
 };
+use super::app_state::AppState;
+use axum::routing::{get, post, Router};
 
 pub fn router() -> Router<AppState> {
     Router::new()

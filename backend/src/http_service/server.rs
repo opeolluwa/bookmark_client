@@ -3,18 +3,10 @@ use std::{
     time::Duration,
 };
 
-use crate::{config::CONFIG, state::AppState};
+use crate::config::CONFIG;
 use anyhow::Ok;
-use axum::{
-    body::Bytes,
-    extract::{MatchedPath, Request},
-    http::HeaderMap,
-    response::Response,
-};
 use sea_orm::{ConnectOptions, Database};
 use tokio::net::TcpListener;
-use tower_http::{classify::ServerErrorsFailureClass, trace::TraceLayer};
-use tracing::{info_span, Span};
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
@@ -25,8 +17,7 @@ impl Server {
         tracing_subscriber::registry()
             .with(
                 tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-                    "mobile_vault_server_logging=debug,tower_http=info,axum::rejection=trace"
-                        .into()
+                    "mobile_vault_server_logging=debug,tower_http=info,axum::rejection=trace".into()
                 }),
             )
             .with(tracing_subscriber::fmt::layer())
@@ -47,8 +38,8 @@ impl Server {
             .sqlx_logging_level(log::LevelFilter::Info);
 
         let db = Database::connect(database_connection_options).await?;
-        let app_state = AppState::from(&db);
-        let app = crate::routes::router().with_state(app_state);
+        let app_state = super::app_state::AppState::from(&db);
+        let app = super::routes::router().with_state(app_state);
         let listener = TcpListener::bind(addr).await?;
 
         tracing::debug!("server running on http://{addr}");

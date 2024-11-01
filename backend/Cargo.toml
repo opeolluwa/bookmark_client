@@ -1,12 +1,9 @@
 [package]
-name = "vailt_backend"
+name = "vibranium"
 version = "0.1.0"
 license = "unlicensed"
 edition = "2021"
 
-[lib]
-name = "pkg"
-path = "./src/lib.rs"
 
 [dependencies]
 anyhow = "1.0.89"
@@ -48,7 +45,6 @@ validator = { version = "0.18.1", features = ["derive"] }
 
 [build-dependencies]
 tonic-build = "0.12.3"
-
 
 [build]
 target_dir = "heheh"

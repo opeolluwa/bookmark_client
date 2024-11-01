@@ -2,14 +2,11 @@ use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 
-use axum::{routing::get, Router};
 use futures::ready;
 use http::{header::CONTENT_TYPE, Request, Response};
 use http_body::Body;
 use pin_project::pin_project;
-use tonic::transport::Server;
-use tonic_reflection::server::Builder as TonicReflectionBuilder;
-use tower::{Layer, Service, ServiceExt};
+use tower::{Layer, Service};
 
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
 

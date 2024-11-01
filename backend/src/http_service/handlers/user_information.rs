@@ -1,6 +1,8 @@
-use crate::{
-    error::AppError, helpers::jwt::JwtClaims, shared::{ApiResponse, IntoApiResponse, ResponseBody}, state::AppState
-};
+use super::super::api_response::{ApiResponse, IntoApiResponse, ResponseBody};
+use super::super::app_state::AppState;
+use super::super::helpers::jwt::JwtClaims;
+use crate::error::AppError;
+
 use axum::{extract::State, http::StatusCode, Json};
 use bcrypt::{verify, DEFAULT_COST};
 use entities::prelude::*;
@@ -64,7 +66,6 @@ pub async fn login(
     State(app_state): State<AppState>,
     Json(payload): Json<LoginRequest>,
 ) -> ApiResponse<ResponseBody<Value>> {
-
     let user_data = UserInformation::find()
         .filter(user_information::Column::Email.eq(&payload.email))
         .one(&app_state.db)
