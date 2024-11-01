@@ -1,9 +1,12 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use app_lib::config;
+// use app_lib::config;
 use migration::Migrator;
 use migration::MigratorTrait;
-
+pub mod app_state;
+pub mod commands;
+pub mod config;
+pub mod helpers;
 fn main() {
     tauri::async_runtime::spawn(exec_db_migration());
 

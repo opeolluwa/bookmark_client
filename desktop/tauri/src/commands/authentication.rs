@@ -1,7 +1,7 @@
-use crate::api::IpcResponseError;
-use crate::api::{IpcResponse, IpcResponseStatus};
 use crate::app_state::db_connection;
-use crate::jwt::JwtClaims;
+use crate::helpers::ipc_manager::IpcResponseError;
+use crate::helpers::ipc_manager::{IpcResponse, IpcResponseStatus};
+use crate::helpers::jwt::JwtClaims;
 use bcrypt::verify;
 use bcrypt::{hash, DEFAULT_COST};
 use entities::prelude::*;

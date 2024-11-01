@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package health_check;
+
+service HealthCheck {
+  rpc CheckServiceHealth(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message HealthCheckRequest {}
+
+message HealthCheckResponse {
+  Status status = 1;
+  string message = 2;
+}
+
+enum Status {
+  Ok = 0;
+  Bad = 1;
+}
