@@ -14,8 +14,8 @@ pub struct Config {
 
 impl Config {
     pub fn parse() -> Self {
-        let port = std::env::var("PORT")
-            .expect("Couldn't PORT env")
+        let port = std::env::var("GRPC_SERVICE_PORT")
+            .expect("Couldn't GRPC_SERVICE_PORT env")
             .parse::<u16>()
             .expect("PORT is not a number");
         let jwt_signing_key =
@@ -35,7 +35,7 @@ impl Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
-            port: 4576,
+            port: 50051,
             jwt_signing_key: "".to_string(),
             database_connection_string: "".to_string(),
             database_connection_retries: 5,
