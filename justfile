@@ -5,7 +5,7 @@ alias install := install-dependencies
 
 set dotenv-required
 set dotenv-load := true
-set dotenv-path := "./backend/.env"
+set dotenv-path := ".env"
 set export :=  true
 
 default: 
@@ -62,9 +62,6 @@ generate-entities:
 watch-desktop:
     cd desktop && npm run tauri dev 
 watch-backend: 
-    @echo DATABASE_URL=$DATABASE_URL
-    @echo PORT=$PORT
-    @echo DATABASE_URL=$DATABASE_URL
     cd backend && cargo watch -qcx run 
 watch-website:
     cd desktop && npm run dev 
