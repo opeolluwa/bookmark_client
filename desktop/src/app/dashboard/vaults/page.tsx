@@ -1,18 +1,16 @@
 "use client";
-import AppButton from "@/components/Button";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
-import { faker } from "@faker-js/faker";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import type { FormProps } from "antd";
-import { Button, Form, Input, Modal, Pagination } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { SearchProps } from "antd/es/input";
 import { useState } from "react";
-const { TextArea, Search } = Input;
+const { TextArea } = Input;
 
 import { Space, Table } from "antd";
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 interface DataType {
   key: React.Key;
@@ -22,29 +20,6 @@ interface DataType {
   description: string;
 }
 
-function genData(): DataType {
-  return {
-    name: faker.commerce.productName(),
-    key: "1",
-    "last modified": faker.date.recent().toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      year: "numeric",
-      day: "numeric",
-    }),
-    "created on": faker.date.anytime().toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      year: "numeric",
-      day: "numeric",
-    }),
-    description: faker.commerce.productDescription(),
-  };
-}
-
-const data = Array.from([1, 2, 3, 4, 5], (key) => {
-  return genData();
-});
 
 type FormFieldTypes = {
   title?: string;
@@ -97,7 +72,7 @@ export default function Home() {
         </View>
       </View>
       <View>
-        <Table<DataType> dataSource={data} className="my-6" pagination={false}>
+        <Table<DataType> className="my-6">
           <Column title="Name" dataIndex="name" key="name" />
           <Column
             title="Description"
@@ -123,12 +98,6 @@ export default function Home() {
           />
         </Table>
       </View>
-      <Pagination
-        align="center"
-        className="absolute bottom-10 right-0 left-0"
-        defaultCurrent={1}
-        total={50}
-      />
 
       <View className=" h-screen ">
         <Modal

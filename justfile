@@ -70,6 +70,10 @@ watch-website:
     cd desktop && npm run dev 
 watch-android:
     cd desktop && npm run tauri android dev
+watch-proxy:
+    cd gateway && cargo watch -qcx run
+watch-gateway:
+    cd gateway && cargo watch -qcx run
 watch target:
     @echo watching {{target}}
     @just watch-{{target}}

@@ -1,13 +1,13 @@
 "use client";
 // import Button from "@/components/Button";
 import Heading from "@/components/Heading";
+import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { invoke } from "@tauri-apps/api/core";
-import { Avatar, Form, Input , Button} from "antd";
+import { Button, Divider, Form, Input, Switch } from "antd";
 import { FormProps } from "antd/es/form";
 import { User } from "../../../../tauri/bindings/User";
-
 type FormFieldTypes = {
   firstName: string;
   lastName: string;
@@ -32,24 +32,20 @@ export default function Page() {
 
   return (
     <>
-      <Heading className="mb-3">Profile</Heading>
-      <View className="flex items-center gap-3">
-        <Avatar size={120} src="/avatar.png" />{" "}
-        <Button className="bg-app-600 text-white w-fit cursor-pointer">
-          Change picture{" "}
-        </Button>
-        <Button className="bg-transparent py-4 text-red-600 border-[1px] border-red-600 cursor-pointer  w-fit">
-          Delete picture{" "}
-        </Button>
-      </View>
-      <View>
+      <Heading>Profile</Heading>
+      <Text> Manage your profile settings</Text>
+      <Divider />
+      <View className="">
+        <Heading className="font-normal">Basic info</Heading>
+        <Text> Update your bio information</Text>
+
         <Form
           initialValues={{ remember: true }}
           onFinish={submitForm}
           autoComplete="off"
           name="save-data"
           layout="vertical"
-          className="my-4 mt-10 flex flex-col w-[45%] py-6 "
+          className="flex flex-col w-[45%] py-6 "
           form={form}
         >
           <Form.Item<FormFieldTypes> label="First name" name="firstName">
@@ -90,11 +86,20 @@ export default function Page() {
 
           <Button
             onClick={() => submitForm}
-            className=" bg-app-600 text-center w-full py-2 text-white"
+            className=" bg-app-600 text-center w-full py-6 text-white"
           >
             Update profile
           </Button>
         </Form>
+      </View>
+      <Divider />
+      <View>
+        <Heading className="font-normal">Two-factor authentication</Heading>
+        <Text> Add an extra layer of security to your data</Text>
+
+        <View className="my-3 flex gap-3 ">
+          <Text>Enable 2FA</Text> <Switch />
+        </View>
       </View>
     </>
   );

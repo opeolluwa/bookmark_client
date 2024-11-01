@@ -1,26 +1,21 @@
 [package]
-name = "vailt_backend"
+name = "vibranium"
 version = "0.1.0"
 license = "unlicensed"
 edition = "2021"
 
-[lib]
-name = "pkg"
-path = "./src/lib.rs"
 
 [dependencies]
 anyhow = "1.0.89"
-axum = { version = "0.7.5", features = ["tracing"] }
-axum-extra = { version = "0.9.3", features = ["typed-header"] }
 bcrypt = "0.15.1"
 entities = { path = "../database/entities" }
 futures = "0.3.31"
-hyper = { version = "1.5.0", features = ["full"] }
 jsonwebtoken = "9.3.0"
 lazy_static = "1.5.0"
 log = "0.4.22"
 migration = { path = "../database/migration" }
 prost = "0.13.3"
+prost-types = "0.13.3"
 sea-orm = { version = "1.0.0-rc.5", features = [
     "sqlx-postgres",
     "runtime-tokio-rustls",
@@ -28,10 +23,10 @@ sea-orm = { version = "1.0.0-rc.5", features = [
 ] }
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
-serde_yml = "0.0.12"
 tokio = { version = "1.40.0", features = ["full"] }
 tonic = "0.12.3"
 tonic-reflection = "0.12.3"
+tower = { version = "0.5.1", features = ["full"] }
 tower-http = { version = "0.6.1", features = ["trace"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
@@ -41,7 +36,6 @@ validator = { version = "0.18.1", features = ["derive"] }
 
 [build-dependencies]
 tonic-build = "0.12.3"
-
 
 [build]
 target_dir = "heheh"
