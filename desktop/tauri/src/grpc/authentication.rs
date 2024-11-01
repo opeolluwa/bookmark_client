@@ -58,6 +58,52 @@ pub struct ProfileUpdateResponse {
     #[prost(message, optional, tag = "3")]
     pub error: ::core::option::Option<ErrorResponse>,
 }
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignUpRequest {
+    #[prost(string, tag = "1")]
+    pub email: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub password: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub first_name: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub last_name: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SignUpResponse {
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    #[prost(enumeration = "Status", tag = "2")]
+    pub status: i32,
+    #[prost(message, optional, tag = "3")]
+    pub error: ::core::option::Option<ErrorResponse>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum Status {
+    Ok = 0,
+    Bad = 1,
+}
+impl Status {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Ok => "Ok",
+            Self::Bad => "Bad",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "Ok" => Some(Self::Ok),
+            "Bad" => Some(Self::Bad),
+            _ => None,
+        }
+    }
+}
 /// Generated client implementations.
 pub mod authentication_client {
     #![allow(
@@ -148,6 +194,27 @@ pub mod authentication_client {
         pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
+        }
+        pub async fn sign_up(
+            &mut self,
+            request: impl tonic::IntoRequest<super::SignUpRequest>,
+        ) -> std::result::Result<tonic::Response<super::SignUpResponse>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::unknown(
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/authentication.Authentication/SignUp",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("authentication.Authentication", "SignUp"));
+            self.inner.unary(req, path, codec).await
         }
         pub async fn login(
             &mut self,
