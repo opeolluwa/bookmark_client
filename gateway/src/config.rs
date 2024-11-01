@@ -14,10 +14,10 @@ pub struct Config {
 
 impl Config {
     pub fn parse() -> Self {
-        let port = std::env::var("PORT")
-            .expect("Couldn't PORT env")
+        let port = std::env::var("HTTP_SERVICE_PORT")
+            .expect("Couldn't HTTP_SERVICE_PORT env")
             .parse::<u16>()
-            .expect("PORT is not a number");
+            .expect("HTTP_SERVICE_PORT is not a number");
         let jwt_signing_key =
             std::env::var("JWT_SIGNING_KEY").expect("Couldn't parse JWT_SIGNING_KEY env");
         let database_connection_string =

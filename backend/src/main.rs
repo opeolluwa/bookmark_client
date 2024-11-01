@@ -1,7 +1,9 @@
 pub mod config;
-// pub mod error;
+pub mod database_connection;
 pub mod grpc_service;
 pub mod proto;
+pub mod jwt;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 
 use self::config::CONFIG;
 use grpc_service::activity_log::ActivityLogImplementation;
@@ -30,8 +32,7 @@ async fn main() -> anyhow::Result<()> {
     let connection = sea_orm::Database::connect(&CONFIG.database_connection_string).await?;
     Migrator::up(&connection, None).await?;
 
-    // let addr = "[::1]:50051".parse().unwrap();
-    let addr = "127.0.0.1:50051".parse().unwrap();
+    let addr = SocketAddr::new(IpAddr::from(Ipv4Addr::LOCALHOST), 50051);
 
     let activity_log = ActivityLogServer::new(ActivityLogImplementation::default());
     let authentication = AuthenticationServer::new(AuthenticationImplementation::default());

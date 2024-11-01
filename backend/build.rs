@@ -9,7 +9,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .protoc_arg("--proto_path=../proto")
         .build_client(false) // don't compile the client code
         .build_server(true)
-        .file_descriptor_set_path(out_dir.join("store_descriptor.bin"))
+        .file_descriptor_set_path(out_dir.join("vault"))
         .out_dir("./src/proto")
         .compile_protos(
             &[
