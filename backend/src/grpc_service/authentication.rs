@@ -6,7 +6,7 @@ use crate::proto::authentication::ProfileResponse;
 use crate::proto::authentication::ProfileUpdateRequest;
 use crate::proto::authentication::ProfileUpdateResponse;
 // use crate::proto::authentication::ProfileRequest;
-#[derive(Default, Clone)]
+#[derive(Default)]
 pub struct AuthenticationImplementation {}
 
 #[tonic::async_trait]
