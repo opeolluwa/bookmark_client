@@ -2,19 +2,21 @@ syntax = "proto3";
 
 package authentication;
 
-// import "common.proto";
-
 service Authentication {
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
-
   rpc GetProfile(ProfileRequest) returns (ProfileResponse);
-
   rpc UpdateProfile(ProfileUpdateRequest) returns (ProfileUpdateResponse);
 }
 
 message ErrorResponse {
   int32 code = 1;
   string message = 2;
+}
+
+enum Status {
+  Ok = 0;
+  Bad = 1;
 }
 
 message LoginRequest {
@@ -47,5 +49,18 @@ message ProfileUpdateRequest {
 message ProfileUpdateResponse {
   string message = 1;
   bool success = 2;
+  optional ErrorResponse error = 3;
+}
+
+message SignUpRequest {
+  string email = 1;
+  string password = 2;
+  string first_name = 3;
+  string last_name = 4;
+}
+
+message SignUpResponse {
+  string message = 1;
+  Status status = 2;
   optional ErrorResponse error = 3;
 }
