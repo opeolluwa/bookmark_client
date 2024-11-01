@@ -1,6 +1,8 @@
 use std::net::{Ipv4Addr, SocketAddrV4};
 
+use crate::app_state::AppState;
 use crate::config::CONFIG;
+use crate::routes::routes::router;
 use anyhow::Ok;
 use tokio::net::TcpListener;
 use tracing_subscriber::layer::SubscriberExt;
@@ -21,7 +23,8 @@ impl Server {
 
         let addr = SocketAddrV4::new(Ipv4Addr::UNSPECIFIED, CONFIG.port);
 
-        let app = super::routes::router();
+        let app_state = AppState::new();
+        let app = router().with_state(app_state);
         let listener = TcpListener::bind(addr).await?;
 
         tracing::debug!("server running on http://{addr}");

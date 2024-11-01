@@ -1,11 +1,11 @@
-use super::handlers::{
-    root::{base, health_check_handler},
-    // user_information::{login, register_user},
-    // vault::some_protected_resources,
-};
 use axum::routing::{get, Router};
 
-pub fn router() -> Router {
+use crate::{
+    app_state::AppState,
+    handlers::root::{base, health_check_handler},
+};
+
+pub fn router() -> Router<AppState> {
     Router::new()
         .route("/", get(base))
         .route("/health", get(health_check_handler))
