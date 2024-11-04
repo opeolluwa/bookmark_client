@@ -2,7 +2,6 @@
 
 import { invoke } from "@tauri-apps/api/core";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { Device } from "tauri/device/bindings/Device";
 
 export interface DeviceInformationInterface extends Device {}
 
