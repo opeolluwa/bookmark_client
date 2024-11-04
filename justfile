@@ -88,7 +88,7 @@ build-website:
 build-android: 
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-    cd desktop && npm run tauri android build
+    cd desktop && npm run tauri android build  --apk 
 build target:
     @echo building {{target}}
     @just build-{{target}}
