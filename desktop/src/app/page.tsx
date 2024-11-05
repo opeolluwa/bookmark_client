@@ -7,15 +7,42 @@ import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoginData } from "../../tauri/bindings/LoginData";
+import { OsType, type } from "@tauri-apps/plugin-os";
 
 type FormFieldTypes = {
   email: string;
   password: string;
 };
 
-export default function Page() {
+import React from "react";
+
+export default function LoginPage() {
+  const [osType, setOsType] = useState<OsType>("" as OsType);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const fetchData = () => {
+      const os = type();
+      setOsType(os);
+
+      if (os == "android" || os == "ios") {
+        setIsMobile(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (isMobile) {
+    return <MobileAppEntry />;
+  } else {
+    return <DesktopAppEntry />;
+  }
+}
+
+function DesktopAppEntry() {
   const [form] = Form.useForm();
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     const new_user: LoginData = {
@@ -25,7 +52,6 @@ export default function Page() {
     invoke("sign_in", { user: new_user }).then((res) => {
       console.log({ res });
     });
-    
   };
 
   return (
@@ -94,4 +120,8 @@ export default function Page() {
       </View>
     </View>
   );
+}
+
+function MobileAppEntry() {
+  return <div>MobileAppEntry</div>;
 }

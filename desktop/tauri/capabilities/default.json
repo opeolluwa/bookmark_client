@@ -9,6 +9,10 @@
     "core:default",
     "clipboard-manager:default",
     "notification:default",
-    "stronghold:default"
+    "stronghold:default",
+    "os:default",
+    "os:allow-os-type",
+    "os:allow-locale",
+    "os:allow-hostname"
   ]
 }
