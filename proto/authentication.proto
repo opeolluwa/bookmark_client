@@ -9,10 +9,7 @@ service Authentication {
   rpc UpdateProfile(ProfileUpdateRequest) returns (ProfileUpdateResponse);
 }
 
-message ErrorResponse {
-  int32 code = 1;
-  string message = 2;
-}
+
 
 enum Status {
   Ok = 0;
@@ -27,7 +24,6 @@ message LoginRequest {
 message LoginResponse {
   string token = 1;
   string message = 2;
-  optional ErrorResponse error = 3;
 }
 
 message ProfileRequest { string token = 1; }
@@ -37,7 +33,6 @@ message ProfileResponse {
   string last_name = 2;
   string full_name = 3;
   repeated string roles = 4;
-  optional ErrorResponse error = 5;
 }
 
 message ProfileUpdateRequest {
@@ -49,7 +44,6 @@ message ProfileUpdateRequest {
 message ProfileUpdateResponse {
   string message = 1;
   bool success = 2;
-  optional ErrorResponse error = 3;
 }
 
 message SignUpRequest {
@@ -62,5 +56,4 @@ message SignUpRequest {
 message SignUpResponse {
   string message = 1;
   Status status = 2;
-  optional ErrorResponse error = 3;
 }
