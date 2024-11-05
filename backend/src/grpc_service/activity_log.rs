@@ -11,6 +11,7 @@ impl ActivityLog for ActivityLogImplementation {
         &self,
         _request: tonic::Request<LogActivityRequest>,
     ) -> std::result::Result<tonic::Response<LogActivityResponse>, tonic::Status> {
+        
         unimplemented!()
     }
 }

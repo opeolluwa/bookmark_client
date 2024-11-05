@@ -7,7 +7,7 @@ use crate::{
 };
 use entities::prelude::*;
 use entities::user_information::{self};
-use sea_orm::{ActiveModelTrait, ColumnTrait, EntityTrait, QueryFilter, Set};
+use sea_orm::{ActiveModelTrait, EntityTrait, Set};
 use tonic::async_trait;
 
 #[derive(Default)]
@@ -23,21 +23,22 @@ impl UserProfile for UserProfileImplementation {
         let (metadata, _, _) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
 
-        let Some(user_email) = metadata.get("user_email") else {
+        let Some(user_id) = metadata.get("user_id") else {
             return Err(tonic::Status::unauthenticated(
                 "Missing or badly formatted authorization header",
             ));
         };
 
-        let user_email = user_email.to_str().map_err(|_| {
+        let user_id = user_id.to_str().map_err(|_| {
             tonic::Status::not_found("Missing or badly formatted authorization header")
         })?;
 
-        let Some(user_data) = UserInformation::find()
-            .filter(user_information::Column::Email.eq(user_email))
+        let user_id = uuid::Uuid::parse_str(user_id).unwrap();
+        let Some(user_data) = UserInformation::find_by_id(user_id)
             .one(db_connection)
             .await
-            .map_err(|_| {
+            .map_err(|err| {
+                log::error!("Error fetching user_information{:#?}", err);
                 tonic::Status::not_found("A user with the provided email does not exist")
             })?
         else {
@@ -62,33 +63,29 @@ impl UserProfile for UserProfileImplementation {
         let (metadata, _, payload) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
 
-        let Some(user_email) = metadata.get("user_email") else {
+        let Some(user_id) = metadata.get("user_id") else {
             return Err(tonic::Status::unauthenticated(
                 "Missing or badly formatted authorization header",
             ));
         };
 
-        let user_email = user_email.to_str().map_err(|_| {
+        let user_id = user_id.to_str().map_err(|_| {
             tonic::Status::not_found("Missing or badly formatted authorization header")
         })?;
 
-        println!("{}", user_email);
-
-        let user_data = UserInformation::find()
-            .filter(user_information::Column::Email.eq(user_email))
+        let user_id = uuid::Uuid::parse_str(user_id).unwrap();
+        let Some(user_data) = UserInformation::find_by_id(user_id)
             .one(db_connection)
             .await
             .map_err(|err| {
                 log::error!("Error fetching user_information{:#?}", err);
                 tonic::Status::not_found("A user with the provided email does not exist")
             })?
-            .unwrap();
-        // else {
-        //     println!("hehehe");
-        //     return Err(tonic::Status::not_found(
-        //         "A user with the provideddddddddd email does not exist",
-        //     ));
-        // };
+        else {
+            return Err(tonic::Status::not_found(
+                "A user with the provided email does not exist",
+            ));
+        };
 
         // update the fields in the update was sent or use the prev val
         let first_name = &user_data.first_name;
