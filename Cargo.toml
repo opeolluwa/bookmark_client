@@ -9,8 +9,7 @@ members = [
     "backend",
     "database/entities",
     "database/migration",
-    "gateway",
-    "device"
+    "gateway"
 ]
 
 [dependencies]
