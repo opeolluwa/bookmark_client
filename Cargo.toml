@@ -9,7 +9,7 @@ members = [
     "backend",
     "database/entities",
     "database/migration",
-    "gateway",
-]
+    "gateway"
+, "sanbox"]
 
 [dependencies]

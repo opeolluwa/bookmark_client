@@ -6,5 +6,6 @@
     "Sider",
     "tauri",
     "uuidv"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

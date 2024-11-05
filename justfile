@@ -5,7 +5,7 @@ alias install := install-dependencies
 
 set dotenv-required
 set dotenv-load := true
-set dotenv-path := ".env"
+set dotenv-path := "./.env"
 set export :=  true
 
 default: 
@@ -66,6 +66,8 @@ watch-backend:
 watch-website:
     cd desktop && npm run dev 
 watch-android:
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     cd desktop && npm run tauri android dev
 watch-proxy:
     cd gateway && cargo watch -qcx run
@@ -83,6 +85,10 @@ build-backend:
     cd backend && cargo build 
 build-website:
     cd desktop && npm run build
+build-android: 
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+    cd desktop && npm run tauri android build  --apk 
 build target:
     @echo building {{target}}
     @just build-{{target}}

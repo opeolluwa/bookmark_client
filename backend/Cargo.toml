@@ -16,6 +16,7 @@ log = "0.4.22"
 migration = { path = "../database/migration" }
 prost = "0.13.3"
 prost-types = "0.13.3"
+regex = "1.11.1"
 sea-orm = { version = "1.0.0-rc.5", features = [
     "sqlx-postgres",
     "runtime-tokio-rustls",

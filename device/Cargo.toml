@@ -1,0 +1,14 @@
+[package]
+name = "device"
+description = "return the device type, os, and capabilities"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+os_info = "3.8.2"
+serde = { version = "1.0.214", features = ["derive"] }
+# serde = { workspace = true }
+# serde_json = { workspace = true }
+sysinfo = "0.31.4"
+ts-rs = "10.0.0"
+# ts-rs = { workspace = true }
