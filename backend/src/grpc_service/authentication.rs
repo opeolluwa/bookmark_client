@@ -14,12 +14,12 @@ use crate::proto::authentication::Status as RequestStatus;
 use bcrypt::{verify, DEFAULT_COST};
 use entities::prelude::*;
 use entities::user_information::{self};
+use entities::vault;
 use sea_orm::ColumnTrait;
 use sea_orm::EntityTrait;
 use sea_orm::QueryFilter;
 use sea_orm::Set;
 use tonic::Response;
-use tonic::Status;
 use uuid::Uuid;
 
 #[derive(Default)]
@@ -31,31 +31,35 @@ impl Authentication for AuthenticationImplementation {
         &self,
         request: tonic::Request<SignUpRequest>,
     ) -> std::result::Result<tonic::Response<SignUpResponse>, tonic::Status> {
-        let payload = request.into_inner();
         let db_connection = &DatabaseConnection::new().await;
+        let payload = request.into_inner();
 
         if UserInformation::find()
             .filter(user_information::Column::Email.eq(&payload.email))
             .one(db_connection)
             .await
-            .ok()
-            .unwrap()
+            .expect("duplicate record")
             .is_some()
         {
             return Err(tonic::Status::already_exists(
                 "A user with the provided email already exist",
             ));
         }
+        let password = bcrypt::hash(payload.password, DEFAULT_COST).map_err(|_| {
+            tonic::Status::unknown("The server couldn't process the request at this time")
+        })?;
 
-        let password = bcrypt::hash(payload.password, DEFAULT_COST)
-            .map_err(|_| {
-                return Err::<String, Status>(tonic::Status::unknown(
-                    "the server couldn't process the request at this time",
-                ));
-            })
-            .unwrap();
-        let new_user = user_information::ActiveModel {
+        let user_id = Uuid::new_v4();
+        let default_vault = vault::ActiveModel {
             id: Set(Uuid::new_v4()),
+            name: Set("default".into()),
+            description: Set("default store".into()),
+            user_id: Set(user_id),
+            ..Default::default()
+        };
+
+        let new_user = user_information::ActiveModel {
+            id: Set(user_id),
             password: Set(password),
             first_name: Set(payload.first_name.trim().to_string().to_lowercase()),
             last_name: Set(payload.last_name.trim().to_string().to_lowercase()),
@@ -63,19 +67,30 @@ impl Authentication for AuthenticationImplementation {
             ..Default::default()
         };
 
-        if let Err(res) = user_information::Entity::insert(new_user)
+        let _ = user_information::Entity::insert(new_user)
             .exec(db_connection)
             .await
-        {
-            return Err(tonic::Status::unknown(res.to_string()));
-        }
+            .map_err(|err| {
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?;
 
-        let message = SignUpResponse {
+        let _ = vault::Entity::insert(default_vault)
+            .exec(db_connection)
+            .await
+            .map_err(|err| {
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?;
+
+        Ok(Response::new(SignUpResponse {
             message: "Account Successfully Created".into(),
             status: RequestStatus::Ok.into(),
-            error: None,
-        };
-        Ok(Response::new(message))
+        }))
     }
     async fn login(
         &self,
@@ -84,36 +99,39 @@ impl Authentication for AuthenticationImplementation {
         let payload = request.into_inner();
         let db_connection = &DatabaseConnection::new().await;
 
-        let user_data = UserInformation::find()
+        let Some(user_data) = UserInformation::find()
             .filter(user_information::Column::Email.eq(&payload.email))
             .one(db_connection)
             .await
-            .unwrap()
-            .ok_or_else(|| todo!())
-            .unwrap();
-
-        let Some(is_correct_password) = verify(payload.password, &user_data.password).ok() else {
-            todo!()
+            .map_err(|_| {
+                tonic::Status::not_found("A user with the provided email does not exist")
+            })?
+        else {
+            return Err(tonic::Status::not_found(
+                "A user with the provided email does not exist",
+            ));
         };
 
+        let is_correct_password = verify(payload.password, &user_data.password).map_err(|_| {
+            return tonic::Status::not_found("A user with the provided email does not exist");
+        })?;
         if !is_correct_password {
-            todo!()
+            return Err(tonic::Status::invalid_argument("Invalid email or password"));
         }
 
         // sign the token
         let Ok(jwt_token) =
             JwtClaims::new(user_data.email.clone(), user_data.id.clone().to_string()).gen_token()
         else {
-            todo!()
+            return Err(tonic::Status::internal(
+                "error generating authorization header",
+            ));
         };
 
-        let message: LoginResponse = LoginResponse {
+        Ok(Response::new(LoginResponse {
             token: jwt_token,
             message: "User successfully logged in".into(),
-            error: None,
-        };
-
-        Ok(Response::new(message))
+        }))
     }
     async fn get_profile(
         &self,
