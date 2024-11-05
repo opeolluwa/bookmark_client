@@ -1,4 +1,4 @@
-use axum::extract::State;
+use axum::{extract::State, Json};
 use tonic::Request;
 
 use crate::{
@@ -22,6 +22,9 @@ pub async fn health_check_handler(State(app_state): State<AppState>) -> &'static
         .await
         .unwrap();
 
-    println!("{:#?}", response);
-    "Auth JWT service is healthy"
+    let (_, body, _) = response.into_parts();
+    println!("{:#?}", body);
+
+    // Json(body)
+    "Service is healthy"
 }
