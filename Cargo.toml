@@ -10,6 +10,6 @@ members = [
     "database/entities",
     "database/migration",
     "gateway"
-]
+, "sanbox"]
 
 [dependencies]

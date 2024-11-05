@@ -5,8 +5,7 @@ package authentication;
 service Authentication {
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
-  rpc GetProfile(ProfileRequest) returns (ProfileResponse);
-  rpc UpdateProfile(ProfileUpdateRequest) returns (ProfileUpdateResponse);
+ 
 }
 
 
@@ -26,25 +25,7 @@ message LoginResponse {
   string message = 2;
 }
 
-message ProfileRequest { string token = 1; }
 
-message ProfileResponse {
-  string email = 1;
-  string last_name = 2;
-  string full_name = 3;
-  repeated string roles = 4;
-}
-
-message ProfileUpdateRequest {
-  string token = 1;
-  string email = 2;
-  string full_name = 3;
-}
-
-message ProfileUpdateResponse {
-  string message = 1;
-  bool success = 2;
-}
 
 message SignUpRequest {
   string email = 1;

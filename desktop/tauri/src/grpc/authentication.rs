@@ -14,38 +14,6 @@ pub struct LoginResponse {
     pub message: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ProfileRequest {
-    #[prost(string, tag = "1")]
-    pub token: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ProfileResponse {
-    #[prost(string, tag = "1")]
-    pub email: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub last_name: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub full_name: ::prost::alloc::string::String,
-    #[prost(string, repeated, tag = "4")]
-    pub roles: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ProfileUpdateRequest {
-    #[prost(string, tag = "1")]
-    pub token: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub email: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub full_name: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ProfileUpdateResponse {
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    #[prost(bool, tag = "2")]
-    pub success: bool,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SignUpRequest {
     #[prost(string, tag = "1")]
     pub email: ::prost::alloc::string::String,
@@ -220,56 +188,6 @@ pub mod authentication_client {
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(GrpcMethod::new("authentication.Authentication", "Login"));
-            self.inner.unary(req, path, codec).await
-        }
-        pub async fn get_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ProfileRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ProfileResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::unknown(
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/authentication.Authentication/GetProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(GrpcMethod::new("authentication.Authentication", "GetProfile"));
-            self.inner.unary(req, path, codec).await
-        }
-        pub async fn update_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ProfileUpdateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ProfileUpdateResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::unknown(
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/authentication.Authentication/UpdateProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new("authentication.Authentication", "UpdateProfile"),
-                );
             self.inner.unary(req, path, codec).await
         }
     }

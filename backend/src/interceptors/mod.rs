@@ -1,2 +1,2 @@
-pub mod authentication; 
+pub mod authentication;
 mod shared;

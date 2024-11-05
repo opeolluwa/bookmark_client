@@ -12,13 +12,13 @@ pub struct HealthCheckImplementation {}
 impl HealthCheck for HealthCheckImplementation {
     async fn check_service_health(
         &self,
-        _request: tonic::Request<HealthCheckRequest>,
+        _: tonic::Request<HealthCheckRequest>,
     ) -> std::result::Result<tonic::Response<HealthCheckResponse>, tonic::Status> {
         let res = HealthCheckResponse {
             status: Status::Ok.into(),
             message: "Service up and running".to_string(),
         };
-        
+
         Ok(Response::new(res))
     }
 }

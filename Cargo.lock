@@ -5452,6 +5452,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "sanbox"
+version = "0.1.0"
+
+[[package]]
 name = "schemars"
 version = "0.8.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7713,6 +7717,7 @@ dependencies = [
  "migration",
  "prost",
  "prost-types",
+ "regex",
  "sea-orm",
  "serde",
  "serde_json",
