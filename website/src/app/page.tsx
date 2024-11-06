@@ -6,13 +6,14 @@ import Heading from "@/components/Heading";
 import Pricing from "@/components/Pricing";
 import Text from "@/components/Text";
 import View from "@/components/View";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const routes = [
   { label: "Use cases", path: "/use-cases" },
   { label: "For Business", path: "/for-business" },
   { label: "Pricing", path: "/pricing" },
-  { label: "Sign In", path: "/sign-up" },
+  { label: "Sign In", path: "/authentication" },
   { label: "Download", path: "/get-vault" },
 ];
 
@@ -28,9 +29,10 @@ const companies = [
 export default function Page() {
   return (
     <>
-      <nav className="flex items-center justify-between py-8 lg:px-24 bg-white">
-        <AppLogo />
-        <ul className="flex gap-x-8">
+      <nav className="flex items-center justify-between px-6 py-4 sm:py-8 lg:px-24 bg-white">
+        <AppLogo className=" w-[30px] sm:w-[45px]" />
+
+        <ul className="md:flex gap-x-8 hidden">
           {routes.map((route) => (
             <li>
               <Link className="capitalize" href={route.path}>
@@ -39,11 +41,12 @@ export default function Page() {
             </li>
           ))}
         </ul>
+        <Bars3Icon className="text-gray-400 w-6 h-6 md:hidden" />
       </nav>
 
-      <header className="py-8 lg:px-24 relative pt-40 pb-20 bg-app-50 flex items-center justify-center overflow-hidden">
-        <div className="w-3/5 ">
-          <h1 className="text-balance text-5xl font-semibold tracking- text-gray-900 sm:text-7xl leading-snug">
+      <header className="py-12 px-8 lg:px-24 relative sm:pt-40 sm:pb-20 bg-app-50 flex items-center justify-center overflow-hidden lg:bg-[radial-gradient(#e5e7eb_1px,transparent_1px,)] [background-size:26px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
+        <div className="text-center sm:w-3/5">
+          <h1 className="text-balance text-3xl font-bold sm:font-semibold tracking- text-gray-900 sm:text-7xl leading-snug">
             Most secure platform to store your data
           </h1>
           <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8 ">
@@ -51,43 +54,19 @@ export default function Page() {
             incidunt sit deserunt? Amet iure quos, eius quae onsequuntur
             impedit.
           </p>
-          <div className="mt-10 flex gap-6 ">
+          <div className="mt-10 flex items-center justify-center gap-6 ">
             <Button
-              href="#"
-              className="rounded-md bg-app-600 p-3.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              href="/download"
+              className="rounded-xl bg-app-600 text-sm font-semibold text-white shadow-sm hover:bg-app-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 border-2 border-app-200"
             >
-              What we offer
-            </Button>
-            <Button href="#" className="text-sm/6 font-semibold text-gray-900">
-              Request a demo <span aria-hidden="true">→</span>
+              Download for free
             </Button>
           </div>
         </div>
-        <div className="relative right-[-300px] block scale-125">
-          <img src="/snapshot.png" />
-        </div>
       </header>
-
-      <section className="my-40 hidden">
-        <Heading className="font-semibold text-5xl text-center text-gray-600 text-pretty tracking-tight w-3/5 mx-auto leading-snug">
-          More than 25 million people across 400,000 companies choose Loom
-        </Heading>
-        <ul className="flex justify-center items-center mt-8 gap-6">
-          {companies.map((company) => (
-            <li>
-              <img
-                src={"/companies/" + company + ".png"}
-                className="w-[45px] grayscale"
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-
       <section className="bg-app-500 my-20 ">
         <Features />
       </section>
-      
       <section className="bg-white my-40 py-8 lg:px-24 flex  justify-center items-center">
         <View className="bg-app-600 grid grid-cols-12 justify-center items-center shadow-sm shadow-gray-300 text-white rounded-3xl px-8 py-10 leading-1">
           <div className="col-span-6">
@@ -106,7 +85,6 @@ export default function Page() {
           </div>
         </View>
       </section>
-
       <section className="my-20">
         <Pricing />
       </section>
@@ -217,7 +195,7 @@ export default function Page() {
               </ul>
             </div>
           </div>
-          <div className="px-4 py-6 bg-gray-100 dark:bg-gray-700 md:flex md:items-center md:justify-between">
+          <div className="px-4 py-6 md:flex md:items-center md:justify-between">
             <span className="text-sm text-gray-500 dark:text-gray-300 sm:text-center">
               © 2023 <a href="https://flowbite.com/">Flowbite™</a>. All Rights
               Reserved.
