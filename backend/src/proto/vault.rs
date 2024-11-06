@@ -33,7 +33,13 @@ pub struct NewVaultResponse {
     #[prost(string, tag = "2")]
     pub user_id: ::prost::alloc::string::String,
     #[prost(string, tag = "3")]
-    pub status: ::prost::alloc::string::String,
+    pub name: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub description: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "5")]
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+    #[prost(message, optional, tag = "6")]
+    pub updated_at: ::core::option::Option<::prost_types::Timestamp>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetVaultRequest {
@@ -82,8 +88,6 @@ pub struct DeleteVaultRequest {
 pub struct DeleteVaultResponse {
     #[prost(string, tag = "1")]
     pub vault_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub status: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ListVaultsRequest {
