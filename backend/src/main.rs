@@ -12,6 +12,7 @@ use grpc_service::authentication::AuthenticationImplementation;
 use grpc_service::health_check::HealthCheckImplementation;
 use grpc_service::user_profile::UserProfileImplementation;
 use grpc_service::vault::VaultManagerImplementation;
+use grpc_service::vault_entries::VaultEntriesManagerImplementation;
 use interceptors::authentication::check_and_validate_jwt;
 use migration::{Migrator, MigratorTrait};
 
@@ -20,6 +21,7 @@ use proto::authentication::authentication_server::AuthenticationServer;
 use proto::health_check::health_check_server::HealthCheckServer;
 use proto::user_profile::user_profile_server::UserProfileServer;
 use proto::vault::vault_manager_server::VaultManagerServer;
+use proto::vault_entries::vault_entries_manager_server::VaultEntriesManagerServer;
 use tonic::transport::Server;
 
 #[tokio::main]
@@ -31,7 +33,7 @@ async fn main() -> anyhow::Result<()> {
     let connection = sea_orm::Database::connect(&CONFIG.database_connection_string).await?;
     Migrator::up(&connection, None).await?;
 
-    let addr = SocketAddr::new(IpAddr::from(Ipv4Addr::LOCALHOST), 50051);
+    let addr = SocketAddr::new(IpAddr::from(Ipv4Addr::UNSPECIFIED), 50051);
 
     let activity_log_service = ActivityLogServer::new(ActivityLogImplementation::default());
     let authentication_service = AuthenticationServer::new(AuthenticationImplementation::default());
@@ -45,12 +47,17 @@ async fn main() -> anyhow::Result<()> {
     let vault_manager_service =
         VaultManagerServer::with_interceptor(vault_manager, check_and_validate_jwt);
 
+    let vault_entries_manager = VaultEntriesManagerImplementation::default();
+    let vault_entries_manager_service =
+        VaultEntriesManagerServer::with_interceptor(vault_entries_manager, check_and_validate_jwt);
+
     Server::builder()
         .add_service(authentication_service)
         .add_service(activity_log_service)
         .add_service(health_check_service)
         .add_service(user_profile_service)
         .add_service(vault_manager_service)
+        .add_service(vault_entries_manager_service)
         .serve(addr)
         .await?;
 

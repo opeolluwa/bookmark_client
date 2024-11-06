@@ -10,7 +10,7 @@ service VaultEntriesManager {
   rpc UpdateVaultEntry(UpdateVaultEntryRequest) returns (GetVaultEntryResponse);
   rpc DeleteVaultEntry(UpdateVaultEntryRequest)
       returns (DeleteVaultEntryResponse);
-  rpc ListVaultEntrys(ListVaultEntrysRequest) returns (ListVaultEntrysResponse);
+  rpc ListVaultEntries(ListVaultEntryRequest) returns (ListVaultEntryResponse);
 }
 
 message NewVaultEntryRequest {
@@ -51,7 +51,7 @@ message DeleteVaultEntryResponse {
   string status = 4;
 }
 
-message ListVaultEntrysRequest {
+message ListVaultEntryRequest {
   string vault_id = 1;
   string vault_entry_id = 2;
   string user_id = 3;
@@ -59,7 +59,7 @@ message ListVaultEntrysRequest {
   int32 page_size = 5;
 }
 
-message ListVaultEntrysResponse {
+message ListVaultEntryResponse {
   repeated GetVaultEntryResponse vault_entries = 1;
   int32 total_count = 2;
 }

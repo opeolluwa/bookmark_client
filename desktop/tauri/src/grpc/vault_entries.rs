@@ -67,7 +67,7 @@ pub struct DeleteVaultEntryResponse {
     pub status: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListVaultEntrysRequest {
+pub struct ListVaultEntryRequest {
     #[prost(string, tag = "1")]
     pub vault_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -80,7 +80,7 @@ pub struct ListVaultEntrysRequest {
     pub page_size: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListVaultEntrysResponse {
+pub struct ListVaultEntryResponse {
     #[prost(message, repeated, tag = "1")]
     pub vault_entries: ::prost::alloc::vec::Vec<GetVaultEntryResponse>,
     #[prost(int32, tag = "2")]
@@ -290,11 +290,11 @@ pub mod vault_entries_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        pub async fn list_vault_entrys(
+        pub async fn list_vault_entries(
             &mut self,
-            request: impl tonic::IntoRequest<super::ListVaultEntrysRequest>,
+            request: impl tonic::IntoRequest<super::ListVaultEntryRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::ListVaultEntrysResponse>,
+            tonic::Response<super::ListVaultEntryResponse>,
             tonic::Status,
         > {
             self.inner
@@ -307,14 +307,14 @@ pub mod vault_entries_manager_client {
                 })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
-                "/vault_entries.VaultEntriesManager/ListVaultEntrys",
+                "/vault_entries.VaultEntriesManager/ListVaultEntries",
             );
             let mut req = request.into_request();
             req.extensions_mut()
                 .insert(
                     GrpcMethod::new(
                         "vault_entries.VaultEntriesManager",
-                        "ListVaultEntrys",
+                        "ListVaultEntries",
                     ),
                 );
             self.inner.unary(req, path, codec).await

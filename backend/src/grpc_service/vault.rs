@@ -48,17 +48,17 @@ impl VaultManager for VaultManagerImplementation {
             ..Default::default()
         };
 
-        let res = vault::Entity::insert(new_vault)
+        let db_insert_result = vault::Entity::insert(new_vault)
             .exec(db_connection)
             .await
             .map_err(|err| {
                 tonic::Status::unknown(format!(
-                    "The server couldn't process the request at this time sue to err {}",
+                    "The server couldn't process the request at this time due to err {}",
                     err.to_string()
                 ))
             })?;
 
-        let Some(created_vault) = vault::Entity::find_by_id(res.last_insert_id)
+        let Some(created_vault) = vault::Entity::find_by_id(db_insert_result.last_insert_id)
             .one(db_connection)
             .await
             .map_err(|err| {
@@ -74,13 +74,19 @@ impl VaultManager for VaultManagerImplementation {
             ));
         };
 
-        let message: NewVaultResponse = NewVaultResponse {
-            vault_id: res.last_insert_id.into(),
+        let message = NewVaultResponse {
+            vault_id: db_insert_result.last_insert_id.into(),
             user_id: user_id.into(),
-            name: created_vault.name,
-            description: created_vault.description,
-            updated_at: Some(Timestamp::from_str(&created_vault.created_at.to_string()).unwrap()),
-            created_at: Some(Timestamp::from_str(&created_vault.created_at.to_string()).unwrap()),
+            name: created_vault.name.clone(),
+            description: created_vault.description.clone(),
+            updated_at: Some(
+                Timestamp::from_str(&created_vault.created_at.to_string())
+                    .expect("Failed to parse updated_at timestamp"),
+            ),
+            created_at: Some(
+                Timestamp::from_str(&created_vault.created_at.to_string())
+                    .expect("Failed to parse created_at timestamp"),
+            ),
         };
 
         Ok(tonic::Response::new(message))
@@ -122,7 +128,7 @@ impl VaultManager for VaultManagerImplementation {
         };
 
         let vault: entities::vault::Model = record.0;
-        // let entries: vault_entries::Model = record.1.unwrap();
+        // let entries = record.1.expect("no entries was found");
 
         let message = GetVaultResponse {
             vault_id: vault_id.into(),
