@@ -30,7 +30,10 @@ message NewVaultRequest {
 message NewVaultResponse {
   string vault_id = 1;
   string user_id = 2;
-  string status = 3;
+  string name = 3;
+  string description = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 message GetVaultRequest { string vault_id = 1; }
@@ -60,7 +63,6 @@ message DeleteVaultRequest { string vault_id = 1; }
 
 message DeleteVaultResponse {
   string vault_id = 1;
-  string status = 2;
 }
 
 message ListVaultsRequest {
