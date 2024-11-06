@@ -24,7 +24,7 @@ pub enum Relation {
         on_delete = "NoAction"
     )]
     UserInformation,
-    #[sea_orm(has_one = "super::vault_entries::Entity")]
+    #[sea_orm(has_many = "super::vault_entries::Entity")]
     VaultEntries,
 }
 

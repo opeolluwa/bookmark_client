@@ -64,7 +64,7 @@ watch-desktop:
 watch-backend: 
     cd backend && cargo watch -qcx run 
 watch-website:
-    cd desktop && npm run dev 
+    cd website && npm run dev 
 watch-android:
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
