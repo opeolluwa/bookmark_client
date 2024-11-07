@@ -67,10 +67,10 @@ pub struct GetVaultResponse {
 pub struct UpdateVaultRequest {
     #[prost(string, tag = "1")]
     pub vault_id: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub name: ::prost::alloc::string::String,
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
+    #[prost(string, optional, tag = "2")]
+    pub name: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag = "3")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateVaultResponse {
@@ -88,6 +88,8 @@ pub struct DeleteVaultRequest {
 pub struct DeleteVaultResponse {
     #[prost(string, tag = "1")]
     pub vault_id: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub message: ::prost::alloc::string::String,
 }
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
 pub struct ListVaultsRequest {
@@ -246,7 +248,7 @@ pub mod vault_manager_client {
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateVaultRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::UpdateVaultResponse>,
+            tonic::Response<super::GetVaultResponse>,
             tonic::Status,
         > {
             self.inner

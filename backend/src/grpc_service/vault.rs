@@ -4,16 +4,20 @@ use entities::prelude::VaultEntries;
 use entities::vault;
 use log::trace;
 use prost_types::Timestamp;
-use sea_orm::{ColumnTrait, EntityTrait, QueryFilter, QueryOrder, Set};
+use sea_orm::{
+    ActiveModelTrait, ColumnTrait, EntityTrait, ModelTrait, QueryFilter, QueryOrder, Set,
+};
 use tonic::async_trait;
 use uuid::Uuid;
 
+use crate::interceptors::shared::parse_user_id;
+use crate::proto;
 use crate::{
     database_connection::DatabaseConnection,
     proto::vault::{
         vault_manager_server::VaultManager, DeleteVaultRequest, DeleteVaultResponse,
         GetVaultRequest, GetVaultResponse, ListVaultsRequest, ListVaultsResponse, NewVaultRequest,
-        NewVaultResponse, UpdateVaultRequest, UpdateVaultResponse,
+        NewVaultResponse, UpdateVaultRequest,
     },
 };
 
@@ -26,39 +30,30 @@ impl VaultManager for VaultManagerImplementation {
         &self,
         request: tonic::Request<NewVaultRequest>,
     ) -> std::result::Result<tonic::Response<NewVaultResponse>, tonic::Status> {
-        let (metadata, _, payload) = request.into_parts();
+        let (metadata, _, payload) = &request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
-
-        let Some(user_id) = metadata.get("user_id") else {
-            return Err(tonic::Status::unauthenticated(
-                "Missing or badly formatted authorization header",
-            ));
-        };
-
-        let user_id = user_id.to_str().map_err(|_| {
-            tonic::Status::not_found("Missing or badly formatted authorization header")
-        })?;
+        let user_id = parse_user_id(&metadata)?;
 
         let vault_id = Uuid::new_v4();
         let new_vault = vault::ActiveModel {
             id: Set(vault_id),
             name: Set(payload.name.trim().to_string()),
             description: Set(payload.description.trim().to_string()),
-            user_id: Set(Uuid::from_str(user_id).unwrap()),
+            user_id: Set(Uuid::from_str(&user_id).unwrap()),
             ..Default::default()
         };
 
-        let res = vault::Entity::insert(new_vault)
+        let db_insert_result = vault::Entity::insert(new_vault)
             .exec(db_connection)
             .await
             .map_err(|err| {
                 tonic::Status::unknown(format!(
-                    "The server couldn't process the request at this time sue to err {}",
+                    "The server couldn't process the request at this time due to err {}",
                     err.to_string()
                 ))
             })?;
 
-        let Some(created_vault) = vault::Entity::find_by_id(res.last_insert_id)
+        let Some(created_vault) = vault::Entity::find_by_id(db_insert_result.last_insert_id)
             .one(db_connection)
             .await
             .map_err(|err| {
@@ -74,17 +69,25 @@ impl VaultManager for VaultManagerImplementation {
             ));
         };
 
-        let message: NewVaultResponse = NewVaultResponse {
-            vault_id: res.last_insert_id.into(),
+        let message = NewVaultResponse {
+            vault_id: db_insert_result.last_insert_id.into(),
             user_id: user_id.into(),
-            name: created_vault.name,
-            description: created_vault.description,
-            updated_at: Some(Timestamp::from_str(&created_vault.created_at.to_string()).unwrap()),
-            created_at: Some(Timestamp::from_str(&created_vault.created_at.to_string()).unwrap()),
+            name: created_vault.name.clone(),
+            description: created_vault.description.clone(),
+            updated_at: Some(
+                Timestamp::from_str(&created_vault.created_at.to_string())
+                    .expect("Failed to parse updated_at timestamp"),
+            ),
+            created_at: Some(
+                Timestamp::from_str(&created_vault.created_at.to_string())
+                    .expect("Failed to parse created_at timestamp"),
+            ),
         };
 
         Ok(tonic::Response::new(message))
     }
+
+    // get the content of a vault
     async fn get_vault(
         &self,
         request: tonic::Request<GetVaultRequest>,
@@ -92,20 +95,10 @@ impl VaultManager for VaultManagerImplementation {
         let (metadata, _, payload) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
 
-        let Some(user_id) = metadata.get("user_id") else {
-            return Err(tonic::Status::unauthenticated(
-                "Missing or badly formatted authorization header",
-            ));
-        };
-
-        let user_id = user_id.to_str().map_err(|_| {
-            tonic::Status::not_found("Missing or badly formatted authorization header")
-        })?;
+        let user_id = parse_user_id(&metadata)?;
 
         let vault_id = Uuid::from_str(&payload.vault_id).unwrap();
-
-        let Some(record) = vault::Entity::find_by_id(vault_id)
-            .find_also_related(VaultEntries)
+        let Some(vault) = vault::Entity::find_by_id(vault_id)
             .one(db_connection)
             .await
             .map_err(|err| {
@@ -121,8 +114,34 @@ impl VaultManager for VaultManagerImplementation {
             ));
         };
 
-        let vault: entities::vault::Model = record.0;
-        // let entries: vault_entries::Model = record.1.unwrap();
+        //load the entries
+        let entries = vault
+            .find_related(VaultEntries)
+            .all(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?
+            .into_iter()
+            .map(|entry| proto::vault::VaultEntries {
+                title: entry.title.into(),
+                description: entry.description.into(),
+                updated_at: Some(
+                    Timestamp::from_str(&entry.created_at.to_string())
+                        .expect("Failed to parse updated_at timestamp"),
+                ),
+                created_at: Some(
+                    Timestamp::from_str(&entry.created_at.to_string())
+                        .expect("Failed to parse created_at timestamp"),
+                ),
+                vault_id: vault_id.into(),
+                ..Default::default()
+            })
+            .collect::<Vec<proto::vault::VaultEntries>>();
 
         let message = GetVaultResponse {
             vault_id: vault_id.into(),
@@ -131,7 +150,7 @@ impl VaultManager for VaultManagerImplementation {
             updated_at: Some(Timestamp::from_str(&vault.created_at.to_string()).unwrap()),
             created_at: Some(Timestamp::from_str(&vault.created_at.to_string()).unwrap()),
             user_id: user_id.into(),
-            entries: [].to_vec(), //TODO: fix this
+            entries,
         };
 
         Ok(tonic::Response::new(message))
@@ -139,14 +158,142 @@ impl VaultManager for VaultManagerImplementation {
     async fn update_vault(
         &self,
         request: tonic::Request<UpdateVaultRequest>,
-    ) -> std::result::Result<tonic::Response<UpdateVaultResponse>, tonic::Status> {
-        todo!()
+    ) -> std::result::Result<tonic::Response<GetVaultResponse>, tonic::Status> {
+        let (metadata, _, payload) = request.into_parts();
+        let db_connection = &DatabaseConnection::new().await;
+        let user_id = parse_user_id(&metadata)?;
+
+        let vault_id = Uuid::from_str(&payload.vault_id).unwrap();
+        let Some(vault) = vault::Entity::find_by_id(vault_id)
+            .one(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?
+        else {
+            return Err(tonic::Status::not_found(
+                "No record with the provided ID was found",
+            ));
+        };
+
+        let old_name = &vault.name;
+        let old_description = &vault.description;
+
+        let mut record: entities::vault::ActiveModel = vault.to_owned().into();
+        record.name = Set(payload.name.unwrap_or(old_name.to_string()));
+        record.description = Set(payload.description.unwrap_or(old_description.to_string()));
+        // record.updated_at = Set(DateTimeWithTimeZone::) TODO:
+
+        let updated_record: entities::vault::Model = record
+            .update(db_connection)
+            .await
+            .map_err(|_| tonic::Status::internal("couldn't process request at this time "))?;
+
+        //load the entries
+        let entries = vault
+            .find_related(VaultEntries)
+            .all(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?
+            .into_iter()
+            .map(|entry| proto::vault::VaultEntries {
+                title: entry.title.into(),
+                description: entry.description.into(),
+                updated_at: Some(
+                    Timestamp::from_str(&entry.created_at.to_string())
+                        .expect("Failed to parse updated_at timestamp"),
+                ),
+                created_at: Some(
+                    Timestamp::from_str(&entry.created_at.to_string())
+                        .expect("Failed to parse created_at timestamp"),
+                ),
+                vault_id: vault_id.into(),
+                ..Default::default()
+            })
+            .collect::<Vec<proto::vault::VaultEntries>>();
+
+        let message = GetVaultResponse {
+            vault_id: updated_record.id.into(),
+            name: updated_record.name.into(),
+            description: updated_record.description.into(),
+            // created_at: todo!(),
+            // updated_at: todo!(),
+            user_id: user_id.into(),
+            entries,
+            ..Default::default()
+        };
+
+        Ok(tonic::Response::new(message))
     }
     async fn delete_vault(
         &self,
         request: tonic::Request<DeleteVaultRequest>,
     ) -> std::result::Result<tonic::Response<DeleteVaultResponse>, tonic::Status> {
-        todo!()
+        let (metadata, _, payload) = request.into_parts();
+        let db_connection = &DatabaseConnection::new().await;
+        let user_id = parse_user_id(&metadata)?;
+
+        // find the record
+        let vault_id = Uuid::from_str(&payload.vault_id).unwrap();
+        let user_id = Uuid::from_str(&user_id).unwrap();
+        let Some(vault) = vault::Entity::find()
+            .filter(entities::vault::Column::UserId.eq(user_id))
+            .filter(entities::vault::Column::Id.eq(vault_id))
+            .one(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?
+        else {
+            return Err(tonic::Status::not_found(
+                "No record with the provided ID was found",
+            ));
+        };
+
+        // delete the record's relation
+        let _ = entities::vault_entries::Entity::delete_many()
+            .filter(entities::vault_entries::Column::VaultId.eq(vault.id))
+            .exec(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?;
+
+        // delete the record itself
+        let _ = entities::prelude::Vault::delete_by_id(vault_id)
+            .exec(db_connection)
+            .await
+            .map_err(|err| {
+                trace!("{:#?}", err.to_string());
+                tonic::Status::unknown(format!(
+                    "The server couldn't process the request at this time sue to err {}",
+                    err.to_string()
+                ))
+            })?;
+
+        let message = DeleteVaultResponse {
+            vault_id: vault_id.to_owned().into(),
+            message: "delete successful".to_string(),
+        };
+        Ok(tonic::Response::new(message))
     }
     async fn list_vaults(
         &self,
@@ -154,16 +301,7 @@ impl VaultManager for VaultManagerImplementation {
     ) -> std::result::Result<tonic::Response<ListVaultsResponse>, tonic::Status> {
         let (metadata, _, _payload) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
-
-        let Some(user_id) = metadata.get("user_id") else {
-            return Err(tonic::Status::unauthenticated(
-                "Missing or badly formatted authorization header",
-            ));
-        };
-
-        let user_id = user_id.to_str().map_err(|_| {
-            tonic::Status::not_found("Missing or badly formatted authorization header")
-        })?;
+        let user_id = parse_user_id(&metadata)?;
 
         let records = vault::Entity::find()
             .filter(entities::vault::Column::UserId.eq::<Uuid>(Uuid::from_str(&user_id).unwrap()))
@@ -186,7 +324,7 @@ impl VaultManager for VaultManagerImplementation {
                 description: record.description,
                 updated_at: Some(Timestamp::from_str(&record.created_at.to_string()).unwrap()),
                 created_at: Some(Timestamp::from_str(&record.created_at.to_string()).unwrap()),
-                user_id: user_id.into(),
+                user_id: user_id.to_owned().into(),
                 entries: [].to_vec(), //TODO: fix this
             })
             .collect::<Vec<crate::proto::vault::GetVaultResponse>>();

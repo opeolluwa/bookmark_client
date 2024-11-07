@@ -21,7 +21,7 @@ pub enum Relation {
         from = "Column::UserId",
         to = "super::user_information::Column::Id",
         on_update = "NoAction",
-        on_delete = "NoAction"
+        on_delete = "Cascade"
     )]
     UserInformation,
     #[sea_orm(has_many = "super::vault_entries::Entity")]

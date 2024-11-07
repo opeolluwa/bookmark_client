@@ -5,10 +5,8 @@ package authentication;
 service Authentication {
   rpc SignUp(SignUpRequest) returns (SignUpResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
- 
+  
 }
-
-
 
 enum Status {
   Ok = 0;
@@ -24,8 +22,6 @@ message LoginResponse {
   string token = 1;
   string message = 2;
 }
-
-
 
 message SignUpRequest {
   string email = 1;

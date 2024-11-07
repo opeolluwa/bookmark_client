@@ -67,7 +67,7 @@ pub struct DeleteVaultEntryResponse {
     pub status: ::prost::alloc::string::String,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListVaultEntrysRequest {
+pub struct ListVaultEntryRequest {
     #[prost(string, tag = "1")]
     pub vault_id: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
@@ -80,7 +80,7 @@ pub struct ListVaultEntrysRequest {
     pub page_size: i32,
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListVaultEntrysResponse {
+pub struct ListVaultEntryResponse {
     #[prost(message, repeated, tag = "1")]
     pub vault_entries: ::prost::alloc::vec::Vec<GetVaultEntryResponse>,
     #[prost(int32, tag = "2")]
@@ -127,11 +127,11 @@ pub mod vault_entries_manager_server {
             tonic::Response<super::DeleteVaultEntryResponse>,
             tonic::Status,
         >;
-        async fn list_vault_entrys(
+        async fn list_vault_entries(
             &self,
-            request: tonic::Request<super::ListVaultEntrysRequest>,
+            request: tonic::Request<super::ListVaultEntryRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::ListVaultEntrysResponse>,
+            tonic::Response<super::ListVaultEntryResponse>,
             tonic::Status,
         >;
     }
@@ -404,25 +404,25 @@ pub mod vault_entries_manager_server {
                     };
                     Box::pin(fut)
                 }
-                "/vault_entries.VaultEntriesManager/ListVaultEntrys" => {
+                "/vault_entries.VaultEntriesManager/ListVaultEntries" => {
                     #[allow(non_camel_case_types)]
-                    struct ListVaultEntrysSvc<T: VaultEntriesManager>(pub Arc<T>);
+                    struct ListVaultEntriesSvc<T: VaultEntriesManager>(pub Arc<T>);
                     impl<
                         T: VaultEntriesManager,
-                    > tonic::server::UnaryService<super::ListVaultEntrysRequest>
-                    for ListVaultEntrysSvc<T> {
-                        type Response = super::ListVaultEntrysResponse;
+                    > tonic::server::UnaryService<super::ListVaultEntryRequest>
+                    for ListVaultEntriesSvc<T> {
+                        type Response = super::ListVaultEntryResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
                         fn call(
                             &mut self,
-                            request: tonic::Request<super::ListVaultEntrysRequest>,
+                            request: tonic::Request<super::ListVaultEntryRequest>,
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as VaultEntriesManager>::list_vault_entrys(
+                                <T as VaultEntriesManager>::list_vault_entries(
                                         &inner,
                                         request,
                                     )
@@ -437,7 +437,7 @@ pub mod vault_entries_manager_server {
                     let max_encoding_message_size = self.max_encoding_message_size;
                     let inner = self.inner.clone();
                     let fut = async move {
-                        let method = ListVaultEntrysSvc(inner);
+                        let method = ListVaultEntriesSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

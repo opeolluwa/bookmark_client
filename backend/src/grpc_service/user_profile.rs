@@ -1,5 +1,6 @@
 use crate::{
     database_connection::DatabaseConnection,
+    interceptors::shared::parse_user_id,
     proto::user_profile::{
         user_profile_server::UserProfile, ProfileRequest, ProfileResponse, ProfileUpdateRequest,
         ProfileUpdateResponse,
@@ -23,17 +24,9 @@ impl UserProfile for UserProfileImplementation {
         let (metadata, _, _) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
 
-        let Some(user_id) = metadata.get("user_id") else {
-            return Err(tonic::Status::unauthenticated(
-                "Missing or badly formatted authorization header",
-            ));
-        };
+        let user_id = parse_user_id(&metadata)?;
 
-        let user_id = user_id.to_str().map_err(|_| {
-            tonic::Status::not_found("Missing or badly formatted authorization header")
-        })?;
-
-        let user_id = uuid::Uuid::parse_str(user_id).unwrap();
+        let user_id = uuid::Uuid::parse_str(&user_id).unwrap();
         let Some(user_data) = UserInformation::find_by_id(user_id)
             .one(db_connection)
             .await
@@ -63,17 +56,9 @@ impl UserProfile for UserProfileImplementation {
         let (metadata, _, payload) = request.into_parts();
         let db_connection = &DatabaseConnection::new().await;
 
-        let Some(user_id) = metadata.get("user_id") else {
-            return Err(tonic::Status::unauthenticated(
-                "Missing or badly formatted authorization header",
-            ));
-        };
+        let user_id = parse_user_id(&metadata)?;
 
-        let user_id = user_id.to_str().map_err(|_| {
-            tonic::Status::not_found("Missing or badly formatted authorization header")
-        })?;
-
-        let user_id = uuid::Uuid::parse_str(user_id).unwrap();
+        let user_id = uuid::Uuid::parse_str(&user_id).unwrap();
         let Some(user_data) = UserInformation::find_by_id(user_id)
             .one(db_connection)
             .await
