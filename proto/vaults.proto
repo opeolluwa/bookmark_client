@@ -7,7 +7,7 @@ import "google/protobuf/timestamp.proto";
 service VaultManager {
   rpc CreateNewVault(NewVaultRequest) returns (NewVaultResponse);
   rpc GetVault(GetVaultRequest) returns (GetVaultResponse);
-  rpc UpdateVault(UpdateVaultRequest) returns (UpdateVaultResponse);
+  rpc UpdateVault(UpdateVaultRequest) returns (GetVaultResponse);
   rpc DeleteVault(DeleteVaultRequest) returns (DeleteVaultResponse);
   rpc ListVaults(ListVaultsRequest) returns (ListVaultsResponse);
 }
@@ -50,8 +50,8 @@ message GetVaultResponse {
 
 message UpdateVaultRequest {
   string vault_id = 1;
-  string name = 2;
-  string description = 3;
+  optional string name = 2;
+  optional string description = 3;
 }
 
 message UpdateVaultResponse {
@@ -63,6 +63,7 @@ message DeleteVaultRequest { string vault_id = 1; }
 
 message DeleteVaultResponse {
   string vault_id = 1;
+  string message = 2;
 }
 
 message ListVaultsRequest {
