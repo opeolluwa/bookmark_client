@@ -13,6 +13,13 @@
     "os:default",
     "os:allow-os-type",
     "os:allow-locale",
-    "os:allow-hostname"
+    "os:allow-hostname",
+    "stronghold:default",
+    "stronghold:allow-create-client", 
+    "stronghold:allow-save",
+    "stronghold:allow-get-store-record",
+    "stronghold:allow-destroy",
+    "stronghold:allow-save-secret",
+    "stronghold:allow-remove-store-record"
   ]
 }

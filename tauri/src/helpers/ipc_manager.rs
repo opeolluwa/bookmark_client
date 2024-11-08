@@ -1,20 +1,23 @@
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use tauri::ipc::{InvokeResponseBody, IpcResponse};
 use ts_rs::TS;
 
-#[derive(Debug, Serialize, Deserialize, TS, Clone, Default)]
-#[ts(export)]
-pub struct CommandResponse {
-    pub body: Option<Value>,
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+// #[ts(export)]
+
+pub struct CommandResponse<T> {
+    pub body: Option<T>,
     pub message: String,
     pub status: CommandResponseStatus,
 }
 
-// impl<T: Serialize> tauri::ipc::CommandResponse for CommandResponse<T> {
-//     fn body(self) -> tauri::Result<tauri::ipc::InvokeResponseBody> {
-//         self.body
+// impl<T> Default for CommandResponse<T> {
+//     fn default() -> Self {
+//         Self {
+//             body: None,
+//             ..Default::default()
+//         }
 //     }
+// }
 // }
 #[derive(Debug, Serialize, Deserialize, TS, Clone)]
 #[ts(export)]
@@ -40,10 +43,7 @@ impl ToString for CommandResponseStatus {
     }
 }
 
-impl<T: Clone> CommandResponse<T>
-where
-    CommandResponse<T>: std::default::Default,
-{
+impl<T: Clone + Default + Serialize> CommandResponse<T> {
     pub fn new(body: T) -> Self {
         Self {
             body: Some(body),
@@ -57,6 +57,7 @@ where
             message: self.message.to_owned(),
         }
     }
+
     pub fn set_message(&self, message: &str) -> Self {
         Self {
             body: Some(self.body.clone().unwrap().to_owned()),
@@ -65,10 +66,3 @@ where
         }
     }
 }
-
-// impl<T: std::clone::Clone> IpcResponse for CommandResponse<T> {
-//     fn body(self) -> tauri::Result<tauri::ipc::InvokeResponseBody> {
-//         let res = InvokeResponseBody::from(self);
-//         Ok(res)
-//     }
-// }

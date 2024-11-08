@@ -45,11 +45,12 @@ export default function LoginPage() {
 function DesktopAppEntry() {
   const [form] = Form.useForm();
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    const new_user: LoginData = {
+    const login_details: LoginData = {
       email: values.email?.trim(),
       password: values.password?.trim(),
     };
-    invoke("sign_in", { user: new_user }).then((res) => {
+    alert(login_details.email);
+    invoke("sign_in", { user: login_details }).then((res) => {
       console.log({ res });
     });
   };
@@ -99,6 +100,7 @@ function DesktopAppEntry() {
           </Form.Item>
 
           <Button
+            onClick={() => submitForm}
             href="/dashboard"
             className=" bg-app-600 text-center w-full py-2 text-white"
           >
