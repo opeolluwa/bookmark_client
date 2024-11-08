@@ -1,64 +1,74 @@
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use tauri::ipc::{InvokeResponseBody, IpcResponse};
 use ts_rs::TS;
 
-#[derive(Debug, Serialize, Deserialize, TS)]
+#[derive(Debug, Serialize, Deserialize, TS, Clone, Default)]
 #[ts(export)]
-pub struct IpcResponse<T> {
-    pub body: T,
+pub struct CommandResponse {
+    pub body: Option<Value>,
     pub message: String,
-    pub status: IpcResponseStatus,
+    pub status: CommandResponseStatus,
 }
 
-#[derive(Debug, Serialize, Deserialize, TS)]
+// impl<T: Serialize> tauri::ipc::CommandResponse for CommandResponse<T> {
+//     fn body(self) -> tauri::Result<tauri::ipc::InvokeResponseBody> {
+//         self.body
+//     }
+// }
+#[derive(Debug, Serialize, Deserialize, TS, Clone)]
 #[ts(export)]
-pub enum IpcResponseStatus {
+pub enum CommandResponseStatus {
     Success,
     Error,
     Aborted,
 }
 
-impl ToString for IpcResponseStatus {
+impl Default for CommandResponseStatus {
+    fn default() -> Self {
+        Self::Success
+    }
+}
+
+impl ToString for CommandResponseStatus {
     fn to_string(&self) -> String {
         match self {
-            IpcResponseStatus::Success => "success".to_string(),
-            IpcResponseStatus::Error => "error".to_string(),
-            IpcResponseStatus::Aborted => "aborted".to_string(),
+            CommandResponseStatus::Success => "success".to_string(),
+            CommandResponseStatus::Error => "error".to_string(),
+            CommandResponseStatus::Aborted => "aborted".to_string(),
         }
     }
 }
 
-pub trait IpcResponseError<T = ()> {
-    fn error(message: &str) -> Self;
-}
-
-pub trait IpcResponseSuccess<T> {
-    fn success(message: &str, data: T) -> Self;
-}
-
-impl<T> IpcResponse<T> {
-    pub fn new(body: T, message: &str, status: IpcResponseStatus) -> Self {
+impl<T: Clone> CommandResponse<T>
+where
+    CommandResponse<T>: std::default::Default,
+{
+    pub fn new(body: T) -> Self {
         Self {
-            body,
-            message: message.to_string(),
+            body: Some(body),
+            ..Default::default()
+        }
+    }
+    pub fn set_status(&self, status: CommandResponseStatus) -> Self {
+        Self {
             status,
+            body: self.body.clone(),
+            message: self.message.to_owned(),
         }
     }
-
-    pub fn success(message: &str, body: T) -> Self {
+    pub fn set_message(&self, message: &str) -> Self {
         Self {
-            body,
+            body: Some(self.body.clone().unwrap().to_owned()),
             message: message.to_string(),
-            status: IpcResponseStatus::Success,
+            status: self.status.to_owned(),
         }
     }
 }
 
-impl IpcResponseError for IpcResponse<()> {
-    fn error(message: &str) -> Self {
-        Self {
-            body: (),
-            message: message.to_string(),
-            status: IpcResponseStatus::Error,
-        }
-    }
-}
+// impl<T: std::clone::Clone> IpcResponse for CommandResponse<T> {
+//     fn body(self) -> tauri::Result<tauri::ipc::InvokeResponseBody> {
+//         let res = InvokeResponseBody::from(self);
+//         Ok(res)
+//     }
+// }
