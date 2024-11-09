@@ -6,7 +6,7 @@ import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { invoke } from "@tauri-apps/api/core";
-import { Form, FormProps, Input } from "antd";
+import { Form, FormProps, Input, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { LoginData } from "../../tauri/bindings/LoginData";
 import { OsType, type } from "@tauri-apps/plugin-os";
@@ -44,13 +44,15 @@ export default function LoginPage() {
 
 function DesktopAppEntry() {
   const [form] = Form.useForm();
-  const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
+  const [processing_request, set_processing_request] = useState(false);
+  const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
+    set_processing_request(true);
     const login_details: LoginData = {
       email: values.email?.trim(),
       password: values.password?.trim(),
     };
-    alert(login_details.email);
-    invoke("sign_in", { user: login_details }).then((res) => {
+    invoke("sign_in", { payload: login_details }).then((res) => {
+      set_processing_request(false);
       console.log({ res });
     });
   };
@@ -60,7 +62,7 @@ function DesktopAppEntry() {
       <View className="col-span-5 py-8 px-6 w-[40%] ">
         <Form
           initialValues={{ remember: true }}
-          onFinish={submitForm}
+          onFinish={submit_form}
           autoComplete="off"
           name="save-data"
           layout="vertical"
@@ -99,13 +101,21 @@ function DesktopAppEntry() {
             />
           </Form.Item>
 
-          <Button
-            onClick={() => submitForm}
-            href="/dashboard"
-            className=" bg-app-600 text-center w-full py-2 text-white"
-          >
-            Sign in
-          </Button>
+          <Form.Item>
+            <Button
+              disabled={processing_request}
+              type="submit"
+              onClick={() => submit_form}
+              className=" bg-app-600 hover:bg-app-600 hover:text:gray-200 text-center w-full py-2 rounded-lg text-white"
+            >
+              {processing_request ? (
+                <Spin className="text-app-secondary-400" />
+              ) : (
+                "Sign in"
+              )}
+            </Button>
+          </Form.Item>
+
           <SmallText
             href="/authentication/password-reset"
             className="text-right  underline mt-4"
@@ -126,7 +136,7 @@ function DesktopAppEntry() {
 
 function MobileAppEntry() {
   const [form] = Form.useForm();
-  const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
+  const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     const new_user: LoginData = {
       email: values.email?.trim(),
       password: values.password?.trim(),
@@ -139,7 +149,7 @@ function MobileAppEntry() {
     <View className=" pt-4 px-6">
       <Form
         initialValues={{ remember: true }}
-        onFinish={submitForm}
+        onFinish={submit_form}
         autoComplete="off"
         name="save-data"
         layout="vertical"
@@ -159,7 +169,7 @@ function MobileAppEntry() {
             autoFocus
             type="email"
             name="email"
-            className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2"
+            className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 lowercase"
           />
         </Form.Item>
         <Form.Item<FormFieldTypes>

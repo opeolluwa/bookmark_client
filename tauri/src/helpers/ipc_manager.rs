@@ -10,14 +10,7 @@ pub struct CommandResponse<T> {
     pub status: CommandResponseStatus,
 }
 
-// impl<T> Default for CommandResponse<T> {
-//     fn default() -> Self {
-//         Self {
-//             body: None,
-//             ..Default::default()
-//         }
-//     }
-// }
+
 // }
 #[derive(Debug, Serialize, Deserialize, TS, Clone)]
 #[ts(export)]

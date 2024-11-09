@@ -1,10 +1,11 @@
+use lazy_static::lazy_static;
+
+lazy_static! {
+    pub static ref GRPC_SERVER_ENDPOINT: String = String::from("http://127.0.0.1:50051");
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub mod commands;
-
-#[tauri::command]
-fn my_custom_command() {
-    println!("I was invoked from JavaScript!");
-}
 
 pub mod helpers;
 pub fn run() {
@@ -38,9 +39,7 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_clipboard_manager::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::authentication::sign_in
-        ])
+        .invoke_handler(tauri::generate_handler![commands::authentication::sign_in])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
