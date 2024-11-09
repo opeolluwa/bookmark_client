@@ -202,10 +202,15 @@ dependencies = [
  "dirs 5.0.1",
  "jsonwebtoken",
  "lazy_static",
+ "prost",
+ "prost-types",
+ "random-string",
+ "rust-argon2 2.1.0",
  "sea-orm",
  "serde",
  "serde-value",
  "serde_json",
+ "short-uuid",
  "tauri",
  "tauri-build",
  "tauri-plugin-autostart",
@@ -217,7 +222,8 @@ dependencies = [
  "tauri-plugin-stronghold",
  "tauri-plugin-updater",
  "tokio",
- "tonic-build",
+ "tonic",
+ "tonic-reflection",
  "ts-rs",
  "uuid",
  "validator",
@@ -328,7 +334,7 @@ checksum = "30ca9a001c1e8ba5149f91a74362376cc6bc5b919d92d988668657bd570bdcec"
 dependencies = [
  "async-task",
  "concurrent-queue",
- "fastrand",
+ "fastrand 2.1.1",
  "futures-lite",
  "slab",
 ]
@@ -1998,6 +2004,15 @@ dependencies = [
 
 [[package]]
 name = "fastrand"
+version = "1.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e51093e27b0797c359783294ca4f0a911c270184cb10f85783b118614a1501be"
+dependencies = [
+ "instant",
+]
+
+[[package]]
+name = "fastrand"
 version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8c02a5121d4ea3eb16a80748c74f5549a5665e4c21333c6098f283870fbdea6"
@@ -2207,7 +2222,7 @@ version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "52527eb5074e35e9339c6b4e8d12600c7128b68fb25dcb9fa9dec18f7c25f3a5"
 dependencies = [
- "fastrand",
+ "fastrand 2.1.1",
  "futures-core",
  "futures-io",
  "parking",
@@ -4438,7 +4453,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "96c8c490f422ef9a4efd2cb5b42b76c8613d7e7dfc1caf667b8a3350a5acc066"
 dependencies = [
  "atomic-waker",
- "fastrand",
+ "fastrand 2.1.1",
  "futures-io",
 ]
 
@@ -4694,7 +4709,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c1318b19085f08681016926435853bbf7858f9c082d0999b80550ff5d9abe15"
 dependencies = [
  "bytes",
- "heck 0.5.0",
+ "heck 0.4.1",
  "itertools",
  "log",
  "multimap",
@@ -4925,6 +4940,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "16abd0c1b639e9eb4d7c50c0b8100b0d0f849be2349829c740fe8e6eb4816429"
 dependencies = [
  "rand_core 0.5.1",
+]
+
+[[package]]
+name = "random-string"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f70fd13c3024ae3f17381bb5c4d409c6dc9ea6895c08fa2147aba305bea3c4af"
+dependencies = [
+ "fastrand 1.9.0",
 ]
 
 [[package]]
@@ -5787,6 +5811,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f40ca3c46823713e0d4209592e8d6e826aa57e928f09752619fc696c499637f6"
 dependencies = [
  "lazy_static",
+]
+
+[[package]]
+name = "short-uuid"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a568edcae6b4404c2a004172c62cbe4b9b1630d44f87a30ad2d5070cb98f9b80"
+dependencies = [
+ "uuid",
 ]
 
 [[package]]
@@ -6832,7 +6865,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04cbcdd0c794ebb0d4cf35e88edd2f7d2c4c3e9a5a6dab322839b321c6a87a64"
 dependencies = [
  "cfg-if",
- "fastrand",
+ "fastrand 2.1.1",
  "once_cell",
  "rustix",
  "windows-sys 0.59.0",
@@ -7504,8 +7537,8 @@ dependencies = [
 
 [[package]]
 name = "vault_grpc"
-version = "0.3.0"
-source = "git+https://github.com/opeolluwa/vault_grpc#8457f98857906bcb50059da683ba850595615aa7"
+version = "0.6.0"
+source = "git+https://github.com/opeolluwa/vault_grpc#b383a626ffd7ee50b54b5bf00b7f66365ab17bbd"
 dependencies = [
  "prost",
  "prost-types",
@@ -7805,7 +7838,7 @@ version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]

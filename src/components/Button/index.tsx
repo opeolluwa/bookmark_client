@@ -4,6 +4,7 @@ interface Props {
   href?: string;
   onClick?: () => void;
   type?: "submit" | "reset" | "button";
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -12,6 +13,7 @@ export default function Button({
   onClick,
   href,
   type,
+  disabled,
 }: Props) {
   if (href) {
     return (
@@ -26,9 +28,12 @@ export default function Button({
   } else {
     return (
       <button
-        className={"rounded px-4 py-3 block w-full " + className}
+        className={
+          "rounded px-4 py-3 block w-full disabled:text-app-200 " + className
+        }
         onClick={onClick}
         type={type}
+        disabled={disabled}
       >
         {children}
       </button>

@@ -1,64 +1,61 @@
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
 
-#[derive(Debug, Serialize, Deserialize, TS)]
-#[ts(export)]
-pub struct IpcResponse<T> {
-    pub body: T,
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
+// #[ts(export)]
+
+pub struct CommandResponse<T> {
+    pub body: Option<T>,
     pub message: String,
-    pub status: IpcResponseStatus,
+    pub status: CommandResponseStatus,
 }
 
-#[derive(Debug, Serialize, Deserialize, TS)]
+
+// }
+#[derive(Debug, Serialize, Deserialize, TS, Clone)]
 #[ts(export)]
-pub enum IpcResponseStatus {
+pub enum CommandResponseStatus {
     Success,
     Error,
     Aborted,
 }
 
-impl ToString for IpcResponseStatus {
+impl Default for CommandResponseStatus {
+    fn default() -> Self {
+        Self::Success
+    }
+}
+
+impl ToString for CommandResponseStatus {
     fn to_string(&self) -> String {
         match self {
-            IpcResponseStatus::Success => "success".to_string(),
-            IpcResponseStatus::Error => "error".to_string(),
-            IpcResponseStatus::Aborted => "aborted".to_string(),
+            CommandResponseStatus::Success => "success".to_string(),
+            CommandResponseStatus::Error => "error".to_string(),
+            CommandResponseStatus::Aborted => "aborted".to_string(),
         }
     }
 }
 
-pub trait IpcResponseError<T = ()> {
-    fn error(message: &str) -> Self;
-}
-
-pub trait IpcResponseSuccess<T> {
-    fn success(message: &str, data: T) -> Self;
-}
-
-impl<T> IpcResponse<T> {
-    pub fn new(body: T, message: &str, status: IpcResponseStatus) -> Self {
+impl<T: Clone + Default + Serialize> CommandResponse<T> {
+    pub fn new(body: T) -> Self {
         Self {
-            body,
-            message: message.to_string(),
+            body: Some(body),
+            ..Default::default()
+        }
+    }
+    pub fn set_status(&self, status: CommandResponseStatus) -> Self {
+        Self {
             status,
+            body: self.body.clone(),
+            message: self.message.to_owned(),
         }
     }
 
-    pub fn success(message: &str, body: T) -> Self {
+    pub fn set_message(&self, message: &str) -> Self {
         Self {
-            body,
+            body: Some(self.body.clone().unwrap().to_owned()),
             message: message.to_string(),
-            status: IpcResponseStatus::Success,
-        }
-    }
-}
-
-impl IpcResponseError for IpcResponse<()> {
-    fn error(message: &str) -> Self {
-        Self {
-            body: (),
-            message: message.to_string(),
-            status: IpcResponseStatus::Error,
+            status: self.status.to_owned(),
         }
     }
 }
