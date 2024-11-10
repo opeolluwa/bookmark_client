@@ -1,15 +1,14 @@
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
 
-#[derive(Debug, Serialize, Deserialize, Clone, Default)]
-// #[ts(export)]
+#[derive(Debug, Serialize, Deserialize, TS, Clone, Default)]
+#[ts(export)]
 
 pub struct CommandResponse<T> {
     pub body: Option<T>,
     pub message: String,
     pub status: CommandResponseStatus,
 }
-
 
 // }
 #[derive(Debug, Serialize, Deserialize, TS, Clone)]
@@ -59,3 +58,5 @@ impl<T: Clone + Default + Serialize> CommandResponse<T> {
         }
     }
 }
+
+pub type CommandResult<T> = Result<CommandResponse<T>, CommandResponse<()>>;

@@ -10,6 +10,7 @@ pub mod commands;
 pub mod helpers;
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(
             tauri_plugin_stronghold::Builder::new(|password| {
                 // Hash the password here with e.g. argon2, blake2b or any other secure algorithm

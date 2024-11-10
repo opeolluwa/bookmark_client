@@ -219,6 +219,7 @@ dependencies = [
  "tauri-plugin-os",
  "tauri-plugin-single-instance",
  "tauri-plugin-sql",
+ "tauri-plugin-store",
  "tauri-plugin-stronghold",
  "tauri-plugin-updater",
  "tokio",
@@ -4709,7 +4710,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c1318b19085f08681016926435853bbf7858f9c082d0999b80550ff5d9abe15"
 dependencies = [
  "bytes",
- "heck 0.4.1",
+ "heck 0.5.0",
  "itertools",
  "log",
  "multimap",
@@ -6706,6 +6707,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-store"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e9a580be53f04bb62422d239aa798e88522877f58a0d4a0e745f030055a51bb4"
+dependencies = [
+ "dunce",
+ "log",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-plugin",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
 name = "tauri-plugin-stronghold"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7537,14 +7554,16 @@ dependencies = [
 
 [[package]]
 name = "vault_grpc"
-version = "0.6.0"
-source = "git+https://github.com/opeolluwa/vault_grpc#b383a626ffd7ee50b54b5bf00b7f66365ab17bbd"
+version = "0.7.0"
+source = "git+https://github.com/opeolluwa/vault_grpc?tag=v0.7.5#e95044def2760100b0a21406e4e25aa5fc8f0090"
 dependencies = [
  "prost",
  "prost-types",
+ "serde",
  "tonic",
  "tonic-build",
  "tonic-reflection",
+ "ts-rs",
 ]
 
 [[package]]
@@ -7838,7 +7857,7 @@ version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
 dependencies = [
- "windows-sys 0.48.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
