@@ -39,7 +39,7 @@ pub async fn get_all_vaults<R: Runtime>(
     payload: ListVaultsRequest,
 ) -> CommandResult<ListVaultsResponse> {
     let token = extract_token(&app);
-    println!("{:#?}", token.clone().unwrap()["value"].take());
+    // println!("{:#?}", token.clone().unwrap()["value"].take());
     let Some(mut client) = VaultManagerClient::connect("http://127.0.0.1:50051")
         .await
         .ok()
