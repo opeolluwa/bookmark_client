@@ -23,7 +23,7 @@ const config: Config = {
       accent: "rgba(226,233,252,255)",
       card: "#f9fbfe",
       slate: colors.slate,
-      
+
       "app-secondary": {
         DEFAULT: "#EC8305",
         50: "#FDD8AB",
@@ -52,20 +52,7 @@ const config: Config = {
         900: "#062455",
         950: "#04193B",
       },
-      appsss: {
-        DEFAULT: "#024CAA",
-        50: "#66A9FD",
-        100: "#529DFD",
-        200: "#2A87FC",
-        300: "#0370FB",
-        400: "#025ED2",
-        500: "#024CAA",
-        600: "#013373",
-        700: "#011A3B",
-        800: "#000204",
-        900: "#000000",
-        950: "#000000",
-      },
+     
     },
     extend: {
       backgroundImage: {
@@ -75,6 +62,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
 export default config;
