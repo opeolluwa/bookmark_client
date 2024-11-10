@@ -1,13 +1,15 @@
+use std::str::FromStr;
+
+use crate::helpers::authorization::extract_token;
 use crate::helpers::ipc_manager::{CommandResponse, CommandResponseStatus, CommandResult};
-use serde::{Deserialize, Serialize};
-use serde_json::json;
-use serde_json::Value;
+use tauri::Runtime;
+use tonic::metadata::MetadataValue;
 use tonic::Request;
-use ts_rs::TS;
 use vault_grpc::client_stub::vault::{vault_manager_client::VaultManagerClient, NewVaultRequest};
+use vault_grpc::client_stub::vault::{ListVaultsRequest, ListVaultsResponse, NewVaultResponse};
 
 #[tauri::command]
-async fn create_vault(payload: CreateVaultRequest) -> CommandResult<Value> {
+pub async fn create_vault(payload: NewVaultRequest) -> CommandResult<NewVaultResponse> {
     let Some(mut client) = VaultManagerClient::connect("http://127.0.0.1:50051")
         .await
         .ok()
@@ -17,9 +19,7 @@ async fn create_vault(payload: CreateVaultRequest) -> CommandResult<Value> {
             .set_status(CommandResponseStatus::Error));
     };
 
-    let CreateVaultRequest { name, description } = payload;
-    let request = Request::new(NewVaultRequest { name, description });
-
+    let request = Request::new(payload);
     let response = client
         .create_new_vault(request)
         .await
@@ -30,14 +30,38 @@ async fn create_vault(payload: CreateVaultRequest) -> CommandResult<Value> {
         })?
         .into_inner();
 
-    Ok(CommandResponse::new(json!({
-        "data": response
-    })))
+    Ok(CommandResponse::new(response))
 }
 
-#[derive(Debug, TS, Serialize, Deserialize)]
-#[ts(export)]
-pub struct CreateVaultRequest {
-    pub name: String,
-    pub description: String,
+#[tauri::command]
+pub async fn get_all_vaults<R: Runtime>(
+    app: tauri::AppHandle<R>,
+    payload: ListVaultsRequest,
+) -> CommandResult<ListVaultsResponse> {
+    let token = extract_token(&app);
+    println!("{:#?}", token.clone().unwrap()["value"].take());
+    let Some(mut client) = VaultManagerClient::connect("http://127.0.0.1:50051")
+        .await
+        .ok()
+    else {
+        return Err(CommandResponse::new(())
+            .set_message("Internal server error")
+            .set_status(CommandResponseStatus::Error));
+    };
+
+    let mut request = Request::new(payload);
+    let token = MetadataValue::from_str( "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2VtYWlsIjoiYWRlb3llQHlhaG9vLmNvbSIsInVzZXJfaWQiOiJjMjI3NTdiNC03YjNjLTQ4NDUtYTcwMy05YzRjNDQ0OGM2ZjQiLCJleHAiOjIwMDAwMDAwMDB9.TgvSelgkIitziyzTl-1th-u0gATdcG2GxvICe77O5Uc").unwrap();
+    request.metadata_mut().insert("authorization", token);
+
+    let response = client
+        .list_vaults(request)
+        .await
+        .map_err(|err| {
+            CommandResponse::new(())
+                .set_message(err.message())
+                .set_status(CommandResponseStatus::Error)
+        })?
+        .into_inner();
+
+    Ok(CommandResponse::new(response))
 }
