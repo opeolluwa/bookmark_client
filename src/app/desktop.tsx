@@ -8,11 +8,10 @@ import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import type { LoginResponse } from "vault_grpc_bindings/bindings";
 import { CommandResponse } from "../../tauri/bindings/CommandResponse";
 import { LoginData } from "../../tauri/bindings/LoginData";
 import { FormFieldTypes } from "./page";
-import { load } from "@tauri-apps/plugin-store";
-import type { LoginResponse } from "vault_grpc_bindings/bindings";
 
 export default function DesktopAppEntry() {
   const [form] = Form.useForm();
@@ -35,17 +34,7 @@ export default function DesktopAppEntry() {
           return;
         } else {
           set_processing_request(false);
-          const key = "access token";
-          const value = result.body?.token;
-          load("store.json", { autoSave: true })
-            .then((store) => {
-              store.set(key, value).then(() => {
-                router.push("/dashboard");
-              });
-            })
-            .catch((err) => {
-              console.error(err.message);
-            });
+          router.push("/dashboard");
         }
       });
     } catch (error) {
