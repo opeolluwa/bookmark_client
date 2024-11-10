@@ -36,7 +36,9 @@ impl JwtClaims {
             &Validation::default(),
         ) {
             Ok(claim) => Ok(claim.claims),
-            Err(_) => todo!("impl this"),
+            Err(error_message) => {
+                log!("{:?}", error_message);
+            }
         }
     }
 }

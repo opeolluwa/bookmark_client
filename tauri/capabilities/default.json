@@ -2,9 +2,7 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "enables the default permissions",
-  "windows": [
-    "main"
-  ],
+  "windows": ["main"],
   "permissions": [
     "core:default",
     "clipboard-manager:default",
@@ -14,12 +12,12 @@
     "os:allow-os-type",
     "os:allow-locale",
     "os:allow-hostname",
-    "stronghold:default",
-    "stronghold:allow-create-client", 
-    "stronghold:allow-save",
-    "stronghold:allow-get-store-record",
-    "stronghold:allow-destroy",
-    "stronghold:allow-save-secret",
-    "stronghold:allow-remove-store-record"
+    "store:allow-clear",
+    "store:allow-get-store",
+    "store:allow-has",
+    "store:allow-delete",
+    "store:allow-set",
+    "store:default",
+    "dialog:default"
   ]
 }

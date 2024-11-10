@@ -16,10 +16,12 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-autostart": "^2.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.0.0",
+    "@tauri-apps/plugin-dialog": "^2.0.1",
     "@tauri-apps/plugin-notification": "^2.0.0",
     "@tauri-apps/plugin-os": "^2.0.0",
     "@tauri-apps/plugin-shell": "^2",
     "@tauri-apps/plugin-sql": "^2.0.0",
+    "@tauri-apps/plugin-store": "^2.1.0",
     "@tauri-apps/plugin-stronghold": "^2.0.0",
     "@tauri-apps/plugin-updater": "^2.0.0",
     "@types/uuid": "^10.0.0",
@@ -34,6 +36,7 @@
     "react-dom": "^18.2.0",
     "react-tag-input-component": "^2.0.2",
     "uuid": "^10.0.0",
+    "vault_grpc_bindings": "github:opeolluwa/vault_grpc#v0.7.5",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
@@ -43,6 +46,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "daisyui": "^4.12.14",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "postcss": "^8",

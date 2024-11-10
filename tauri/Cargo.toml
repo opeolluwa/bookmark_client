@@ -51,7 +51,9 @@ tokio = { version = "1.41.0", features = ["full"] }
 ts-rs = "10.0.0"
 uuid = { version = "1.11.0", features = ["v4"] }
 validator = { version = "0.18.1", features = ["derive"] }
-vault_grpc = { git = "https://github.com/opeolluwa/vault_grpc", version = "0.6.0" }
+vault_grpc = { git = "https://github.com/opeolluwa/vault_grpc", version = "0.7.0", tag = "v0.7.5" }
+tauri-plugin-store = "2"
+tauri-plugin-dialog = "2"
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-autostart = "2.0.0-beta.0"
 tauri-plugin-single-instance = "2.0.0-beta.0"

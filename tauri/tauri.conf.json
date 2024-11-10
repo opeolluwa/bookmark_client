@@ -1,7 +1,7 @@
 {
-  "productName": "Mobile Vault",
+  "productName": "Bookmarks",
   "version": "0.1.0",
-  "identifier": "com.vault.app",
+  "identifier": "com.bookmarks.app",
   "build": {
     "frontendDist": "../out",
     "devUrl": "http://localhost:3000",
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "Mobile Vault",
+        "title": "Bookmarks",
         "width": 1000,
         "height": 800,
         "resizable": true,
