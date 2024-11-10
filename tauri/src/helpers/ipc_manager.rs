@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
 
-#[derive(Debug, Serialize, Deserialize, TS, Clone, Default)]
+#[derive(Debug, Serialize, Deserialize, Clone, TS, Default)]
 #[ts(export)]
 
 pub struct CommandResponse<T> {
@@ -10,7 +10,6 @@ pub struct CommandResponse<T> {
     pub status: CommandResponseStatus,
 }
 
-// }
 #[derive(Debug, Serialize, Deserialize, TS, Clone)]
 #[ts(export)]
 pub enum CommandResponseStatus {

@@ -2,35 +2,37 @@
 import Heading from "@/components/Heading";
 import View from "@/components/View";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import type { FormProps } from "antd";
-import { Button, Form, Input, Modal } from "antd";
+import { invoke } from "@tauri-apps/api/core";
+import type { FormProps, TableProps } from "antd";
+import { Button, Form, Input, Modal, Table } from "antd";
 import { SearchProps } from "antd/es/input";
-import { useState } from "react";
-const { TextArea } = Input;
-
-import { Space, Table } from "antd";
-
-const { Column } = Table;
-
-interface DataType {
-  key: React.Key;
-  name: string;
-  "last modified": string;
-  "created on": string;
-  description: string;
-}
-
-
-type FormFieldTypes = {
-  title?: string;
-  "last modified"?: string;
-};
+import { useEffect, useState } from "react";
+import type {
+  ListVaultsRequest,
+  ListVaultsResponse,
+} from "vault_grpc_bindings/bindings";
+import {
+  Column,
+  columns,
+  CommandResponse,
+  DataType,
+  FormFieldTypes,
+  TableParams,
+  TextArea,
+} from "./utils";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [vaults, setVaults] = useState<ListVaultsResponse>();
   const [keywords, setKeywords] = useState<Array<string>>([]);
-
   const [form] = Form.useForm();
+  const [tableParams, setTableParams] = useState<TableParams>({
+    pagination: {
+      current: 1,
+      pageSize: 5,
+    },
+  });
+  const [loading, setLoading] = useState(false);
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
 
@@ -58,11 +60,61 @@ export default function Home() {
     form.resetFields();
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const payload: ListVaultsRequest = {
+        page: 1,
+        page_size: 5,
+      };
+      const response = await invoke("get_all_vaults", { payload }).catch(
+        (error) => {
+          console.log(error.message);
+        }
+      );
+      let result = response as unknown as CommandResponse<ListVaultsResponse>;
+      setVaults(result.body as ListVaultsResponse);
+      setTableParams({
+        ...tableParams,
+        pagination: {
+          ...tableParams.pagination,
+          total: result.body?.total_count,
+        },
+      });
+    };
+
+    fetchData();
+  }, [
+    tableParams.pagination?.current,
+    tableParams.pagination?.pageSize,
+    tableParams?.sortOrder,
+    tableParams?.sortField,
+    JSON.stringify(tableParams.filters),
+  ]);
+
+  const handleTableChange: TableProps<DataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter
+  ) => {
+    setTableParams({
+      pagination,
+      filters,
+      sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
+      sortField: Array.isArray(sorter) ? undefined : sorter.field,
+    });
+
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+      //  setVaults();
+    }
+  };
+
   return (
     <>
       <View className="my-6 relative">
         <View className="flex justify-between items-center">
           <Heading>Vaults</Heading>
+
           <Button
             className=" w-fit bg-app-600 shadow text-white inline-flex text-sm  px-2"
             onClick={showModal}
@@ -72,30 +124,34 @@ export default function Home() {
         </View>
       </View>
       <View>
-        <Table<DataType> className="my-6">
+        <Table<DataType>
+          className="my-6 cursor-pointer"
+          dataSource={vaults?.vaults as unknown as DataType[]}
+          columns={columns}
+          pagination={{
+            ...tableParams.pagination,
+            position: ["bottomCenter", "bottomCenter"],
+          }}
+          loading={loading}
+        >
           <Column title="Name" dataIndex="name" key="name" />
           <Column
             title="Description"
             dataIndex="description"
             key="description"
           />
-          <Column title="created on" dataIndex="created on" key="created on" />
+          <Column
+            title="Date created"
+            dataIndex="created_at"
+            key="created_at"
+          />
           <Column
             title="Last modified"
-            dataIndex="last modified"
-            key="last modified"
+            dataIndex="updated_at"
+            key="updated_at"
           />
 
-          <Column
-            title="Action"
-            key="action"
-            render={(_: any, record: DataType) => (
-              <Space size="middle">
-                <a>Invite</a>
-                <a>Delete</a>
-              </Space>
-            )}
-          />
+          <Column title="Action" key="action" dataIndex="action" />
         </Table>
       </View>
 
