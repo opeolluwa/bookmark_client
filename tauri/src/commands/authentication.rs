@@ -1,32 +1,41 @@
 use crate::helpers::ipc_manager::CommandResponse;
 use crate::helpers::ipc_manager::CommandResponseStatus;
-// use crate::GRPC_SERVER_ENDPOINT;/`         /
+use crate::helpers::ipc_manager::CommandResult;
 use serde::Deserialize;
 use serde::Serialize;
-use serde_json::json;
-use serde_json::Value;
 use tonic::Request;
 use ts_rs::TS;
 use validator::Validate;
 
 use vault_grpc::client_stub::authentication::authentication_client::AuthenticationClient;
 use vault_grpc::client_stub::authentication::LoginRequest;
+use vault_grpc::client_stub::authentication::LoginResponse;
+
 #[tauri::command]
-pub async fn sign_in(payload: LoginData) -> Result<CommandResponse<Value>, CommandResponse<()>> {
-    let mut client = AuthenticationClient::connect("http://127.0.0.1:50051")
+pub async fn sign_in(payload: LoginRequest) -> CommandResult<LoginResponse> {
+    let Some(mut client) = AuthenticationClient::connect("http://127.0.0.1:50051")
         .await
-        .unwrap();
+        .ok()
+    else {
+        return Err(CommandResponse::new(())
+            .set_message("Internal server error")
+            .set_status(CommandResponseStatus::Error));
+    };
 
-    let LoginData { email, password } = payload;
-    let request = Request::new(LoginRequest { email, password });
+    let request = Request::new(payload);
+    let response = client
+        .login(request)
+        .await
+        .map_err(|err| {
+            CommandResponse::new(())
+                .set_message(err.message())
+                .set_status(CommandResponseStatus::Error)
+        })?
+        .into_inner();
 
-    let response = client.login(request).await.unwrap().into_inner();
-
-    Ok(CommandResponse::new(json!({
-        "token": response.token
-    }))
-    .set_message(&response.message)
-    .set_status(CommandResponseStatus::Success))
+    Ok(CommandResponse::new(response.clone())
+        .set_message(&response.message)
+        .set_status(CommandResponseStatus::Success))
 }
 
 #[derive(Debug, Serialize, Validate, Deserialize)]
