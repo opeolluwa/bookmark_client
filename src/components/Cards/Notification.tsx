@@ -1,18 +1,17 @@
 "use client";
 
 import React from "react";
-import Card from "../Card";
+import Card from ".";
 import Heading from "../Heading";
 import Text from "../Text";
 import SmallText from "../SmallText";
 
-export interface Props  {
+export interface Props {
   heading: string;
   body: string;
   date: string;
   className?: string;
 }
-
 
 export default function Component({ heading, body, date, className }: Props) {
   return (
@@ -30,4 +29,3 @@ export default function Component({ heading, body, date, className }: Props) {
     </Card>
   );
 }
-

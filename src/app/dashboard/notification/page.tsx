@@ -1,7 +1,7 @@
 "use client";
 
 import View from "@/components/View";
-import Notification from "@/components/Notification";
+import Notification from "@/components/Cards/Notification";
 import Heading from "@/components/Heading";
 import { Key, useState } from "react";
 import { Empty } from "antd";

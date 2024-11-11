@@ -120,7 +120,7 @@ export const columns: TableColumnsType<DataType> = [
 ];
 export type FormFieldTypes = {
   title?: string;
-  "last modified"?: string;
+  description?: string;
 };
 
 export type TablePaginationConfig = Exclude<

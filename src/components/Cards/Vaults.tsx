@@ -1,4 +1,4 @@
-import Card from "../Card";
+import Card from ".";
 import React from "react";
 import Heading from "../Heading";
 import Text from "../Text";
@@ -30,7 +30,7 @@ const items: MenuProps["items"] = [
   },
 ];
 
-export default function Component() {
+export default function Vault() {
   return (
     <Card className="border-[2px] my-3 border-gray-100 flex justify-between items-center">
       <div className=" flex flex-col justify-center items-center border-r border-gray-200 px-4">

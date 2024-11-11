@@ -1,43 +1,24 @@
 "use client";
+import Bookmark from "@/components/Cards/Bookmarks";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
-import { PlusIcon } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/core";
-import type { FormProps, TableProps } from "antd";
-import { Button, Form, Input, Modal, Table } from "antd";
-import { SearchProps } from "antd/es/input";
+import type { FormProps } from "antd";
+import { Button, Form, Input, Modal } from "antd";
 import { useEffect, useState } from "react";
 import type {
   ListVaultsRequest,
   ListVaultsResponse,
 } from "vault_grpc_bindings/bindings";
-import {
-  Column,
-  columns,
-  CommandResponse,
-  DataType,
-  FormFieldTypes,
-  TableParams,
-  TextArea,
-} from "./utils";
+import { CommandResponse, FormFieldTypes, TextArea } from "./utils";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [vaults, setVaults] = useState<ListVaultsResponse>();
-  const [keywords, setKeywords] = useState<Array<string>>([]);
   const [form] = Form.useForm();
-  const [tableParams, setTableParams] = useState<TableParams>({
-    pagination: {
-      current: 1,
-      pageSize: 5,
-    },
-  });
-  const [loading, setLoading] = useState(false);
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
-    console.log(info?.source, value);
 
   const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    console.log("Success:", { ...values, keywords });
+    console.log("Success:", { ...values });
     setIsModalOpen(false);
     form.resetFields();
   };
@@ -73,91 +54,40 @@ export default function Home() {
       );
       let result = response as unknown as CommandResponse<ListVaultsResponse>;
       setVaults(result.body as ListVaultsResponse);
-      setTableParams({
-        ...tableParams,
-        pagination: {
-          ...tableParams.pagination,
-          total: result.body?.total_count,
-        },
-      });
     };
 
     fetchData();
-  }, [
-    tableParams.pagination?.current,
-    tableParams.pagination?.pageSize,
-    tableParams?.sortOrder,
-    tableParams?.sortField,
-    JSON.stringify(tableParams.filters),
-  ]);
-
-  const handleTableChange: TableProps<DataType>["onChange"] = (
-    pagination,
-    filters,
-    sorter
-  ) => {
-    setTableParams({
-      pagination,
-      filters,
-      sortOrder: Array.isArray(sorter) ? undefined : sorter.order,
-      sortField: Array.isArray(sorter) ? undefined : sorter.field,
-    });
-
-    // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      //  setVaults();
-    }
-  };
+  });
 
   return (
     <>
       <View className="my-6 relative">
         <View className="flex justify-between items-center">
-          <Heading>Vaults</Heading>
+          <Heading>Collections</Heading>
 
           <Button
-            className=" w-fit bg-app-600 shadow text-white inline-flex text-sm  px-2"
+            className="w-fit hover:bg-black bg-app-600 shadow text-white border-none"
             onClick={showModal}
           >
-            <PlusIcon className="w-6 h-6" /> Create new{" "}
+            Create new
           </Button>
         </View>
       </View>
-      <View>
-        <Table<DataType>
-          className="my-6 cursor-pointer"
-          dataSource={vaults?.vaults as unknown as DataType[]}
-          columns={columns}
-          pagination={{
-            ...tableParams.pagination,
-            position: ["bottomCenter", "bottomCenter"],
-          }}
-          loading={loading}
-        >
-          <Column title="Name" dataIndex="name" key="name" />
-          <Column
-            title="Description"
-            dataIndex="description"
-            key="description"
-          />
-          <Column
-            title="Date created"
-            dataIndex="created_at"
-            key="created_at"
-          />
-          <Column
-            title="Last modified"
-            dataIndex="updated_at"
-            key="updated_at"
-          />
 
-          <Column title="Action" key="action" dataIndex="action" />
-        </Table>
+      <View className="">
+        {vaults?.vaults.map((entry) => (
+          <Bookmark
+            name={entry.name}
+            description={entry.description}
+            date={entry.created_at}
+            key={entry.vault_id}
+          />
+        ))}
       </View>
 
-      <View className=" h-screen ">
+      <View className="h-screen">
         <Modal
-          title="New Vault"
+          title="New Collection"
           open={isModalOpen}
           onOk={handleOk}
           centered
@@ -167,7 +97,12 @@ export default function Home() {
             <Button key="back" onClick={handleCancel}>
               Cancel
             </Button>,
-            <Button key="submit" type="primary" onClick={handleOk}>
+            <Button
+              key="submit"
+              type="primary"
+              htmlType="submit"
+              onClick={handleOk}
+            >
               Submit
             </Button>,
           ]}
