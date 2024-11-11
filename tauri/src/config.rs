@@ -28,7 +28,7 @@ impl Config {
             format!("sqlite://{db_path}/mobile.vault.db?mode=rwc")
         };
 
-        let jwt_signing_key = "nr2CRwaADKauevLmN9KdRG482k1gWkl7cb51".to_string(); //TODO: use randog key generation
+        let jwt_signing_key = "nr2CRwaADKauevLmN9KdRG482k1gWkl7cb51".to_string(); //TODO: use random key generation
         Self {
             database_connection_string,
             jwt_signing_key,
