@@ -25,8 +25,8 @@ pub fn run() {
         .plugin(tauri_plugin_clipboard_manager::init())
         .invoke_handler(tauri::generate_handler![
             commands::authentication::sign_in,
-            commands::vaults::get_all_vaults,
-            commands::vaults::create_vault
+            commands::bookmarks::get_all_bookmark_collections,
+            commands::bookmarks::create_bookmark_collection
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

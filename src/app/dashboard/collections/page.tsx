@@ -3,22 +3,64 @@ import Bookmark from "@/components/Cards/Bookmarks";
 import Heading from "@/components/Heading";
 import View from "@/components/View";
 import { invoke } from "@tauri-apps/api/core";
+import { message } from "@tauri-apps/plugin-dialog";
 import type { FormProps } from "antd";
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Empty, Form, Input, Modal, notification } from "antd";
+import Card from "@/components/Cards";
 import { useEffect, useState } from "react";
 import type {
   ListVaultsRequest,
   ListVaultsResponse,
+  NewBookmarkCollectionRequest,
+  NewVaultResponse,
 } from "vault_grpc_bindings/bindings";
 import { CommandResponse, FormFieldTypes, TextArea } from "./utils";
 
+type NotificationType = "success" | "info" | "warning" | "error";
+
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [vaults, setVaults] = useState<ListVaultsResponse>();
+  const [vault, setVaults] = useState<ListVaultsResponse>();
   const [form] = Form.useForm();
+  const [api, contextHolder] = notification.useNotification();
 
-  const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    console.log("Success:", { ...values });
+  const openNotification = ({
+    message,
+    kind,
+    description,
+  }: {
+    message: string;
+    description: string;
+    kind: NotificationType;
+  }) => {
+    api[kind]({
+      message,
+      description,
+      role: "status",
+      duration: 0,
+    });
+  };
+
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = async (values) => {
+    const payload: NewBookmarkCollectionRequest = {
+      name: String(values.name?.trim()),
+      description: String(values?.description?.trim()),
+    };
+    const response = (await invoke("create_bookmark_collection", {
+      payload,
+    }).catch(async (error) => {
+      await message(error.message, { title: "New collection", kind: "error" });
+    })) as unknown as CommandResponse<NewVaultResponse>;
+    openNotification({
+      message: response.message || "Collection created successfully",
+      kind: "success",
+      description: "",
+    });
+
+    // await message("collection created successfully", {
+    //   title: "New collection",
+    //   kind: "info",
+    // });
     setIsModalOpen(false);
     form.resetFields();
   };
@@ -42,25 +84,26 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const payload: ListVaultsRequest = {
-        page: 1,
-        page_size: 5,
-      };
-      const response = await invoke("get_all_vaults", { payload }).catch(
-        (error) => {
-          console.log(error.message);
-        }
-      );
-      let result = response as unknown as CommandResponse<ListVaultsResponse>;
-      setVaults(result.body as ListVaultsResponse);
+    const payload: ListVaultsRequest = {
+      page: 0,
+      page_size: 5,
     };
-
-    fetchData();
-  });
+    invoke("get_all_bookmark_collections", {
+      payload,
+    })
+      .then((response) => {
+        let result = response as unknown as CommandResponse<ListVaultsResponse>;
+        console.log(result);
+        setVaults(result.body as ListVaultsResponse);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   return (
     <>
+      {contextHolder}
       <View className="my-6 relative">
         <View className="flex justify-between items-center">
           <Heading>Collections</Heading>
@@ -74,15 +117,21 @@ export default function Home() {
         </View>
       </View>
 
-      <View className="">
-        {vaults?.vaults.map((entry) => (
-          <Bookmark
-            name={entry.name}
-            description={entry.description}
-            date={entry.created_at}
-            key={entry.vault_id}
-          />
-        ))}
+      <View className="flex  flex-wrap gap-6">
+        {vault?.vaults.length == 0 ? (
+         <Card>
+
+         </Card>
+        ) : (
+          vault?.vaults.map((entry) => (
+            <Bookmark
+              name={entry.name}
+              description={entry.description}
+              date={entry.created_at}
+              key={entry.vault_id}
+            />
+          ))
+        )}
       </View>
 
       <View className="h-screen">
@@ -118,19 +167,25 @@ export default function Home() {
             form={form}
           >
             <Form.Item<FormFieldTypes>
-              label="Title"
-              name="title"
-              rules={[{ required: true, message: "Please input the title!" }]}
+              label="Name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input the collection name!",
+                },
+              ]}
             >
               <Input
                 autoFocus
                 type="text"
-                name="title"
+                name="name"
                 className="w-full rounded py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
               />
             </Form.Item>
             <Form.Item<FormFieldTypes>
               label="Description"
+              name="description"
               rules={[
                 { required: true, message: "Please input the description" },
               ]}

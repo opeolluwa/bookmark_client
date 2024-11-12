@@ -4,7 +4,6 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Vault } from "@tauri-apps/plugin-stronghold";
 import {
   Dropdown,
   GetProp,
@@ -16,6 +15,7 @@ import {
   TableProps,
 } from "antd";
 import { SorterResult } from "antd/es/table/interface";
+import { Vault } from "vault_grpc_bindings/bindings";
 
 export type { CommandResponse } from "../../../../tauri/bindings/CommandResponse";
 
@@ -53,6 +53,16 @@ export const items: MenuProps["items"] = [
   },
   {
     key: "edit",
+    label: (
+      <span className="flex gap-x-[2px] items-center">
+        <PencilSquareIcon className="w-4 h-4 mr-2" />
+        Edit
+      </span>
+    ),
+  },
+
+  {
+    key: "set default",
     label: (
       <span className="flex gap-x-[2px] items-center">
         <PencilSquareIcon className="w-4 h-4 mr-2" />
@@ -119,7 +129,7 @@ export const columns: TableColumnsType<DataType> = [
   },
 ];
 export type FormFieldTypes = {
-  title?: string;
+  name?: string;
   description?: string;
 };
 

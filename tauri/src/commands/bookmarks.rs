@@ -9,7 +9,11 @@ use vault_grpc::client_stub::vault::{vault_manager_client::VaultManagerClient, N
 use vault_grpc::client_stub::vault::{ListVaultsRequest, ListVaultsResponse, NewVaultResponse};
 
 #[tauri::command]
-pub async fn create_vault(payload: NewVaultRequest) -> CommandResult<NewVaultResponse> {
+pub async fn create_bookmark_collection<R: Runtime>(
+    payload: NewVaultRequest,
+    app: tauri::AppHandle<R>,
+) -> CommandResult<NewVaultResponse> {
+    let extracted_token = extract_token(&app);
     let Some(mut client) = VaultManagerClient::connect("http://127.0.0.1:50051")
         .await
         .ok()
@@ -19,7 +23,11 @@ pub async fn create_vault(payload: NewVaultRequest) -> CommandResult<NewVaultRes
             .set_status(CommandResponseStatus::Error));
     };
 
-    let request = Request::new(payload);
+    // let mut request = Request::new(payload);
+
+    let mut request = Request::new(payload);
+    let token = MetadataValue::from_str(&format!("Bearer {extracted_token}")).unwrap();
+    request.metadata_mut().insert("authorization", token);
     let response = client
         .create_new_vault(request)
         .await
@@ -34,7 +42,7 @@ pub async fn create_vault(payload: NewVaultRequest) -> CommandResult<NewVaultRes
 }
 
 #[tauri::command]
-pub async fn get_all_vaults<R: Runtime>(
+pub async fn get_all_bookmark_collections<R: Runtime>(
     app: tauri::AppHandle<R>,
     payload: ListVaultsRequest,
 ) -> CommandResult<ListVaultsResponse> {
@@ -61,6 +69,5 @@ pub async fn get_all_vaults<R: Runtime>(
                 .set_status(CommandResponseStatus::Error)
         })?
         .into_inner();
-
     Ok(CommandResponse::new(response))
 }

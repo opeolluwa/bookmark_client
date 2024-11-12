@@ -12,13 +12,13 @@ export default function DashboardLayout({ children }: Props) {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Layout className="h-screen overflow-hidden">
       <Layout>
         <Sider
-          width={250}
+          width={200}
           style={{ background: colorBgContainer }}
           className="relative bg-gray-50 overflow-hidden "
           collapsible
