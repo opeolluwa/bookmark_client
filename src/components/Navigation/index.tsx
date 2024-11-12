@@ -7,7 +7,6 @@ import {
   QueueListIcon,
   RectangleStackIcon,
   UserIcon,
-  WalletIcon,
 } from "@heroicons/react/24/outline";
 import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import Link from "next/link";
@@ -20,8 +19,8 @@ export const routes: ItemType<MenuItemType>[] = [
   },
   {
     icon: <RectangleStackIcon className="w-6 h-6" />,
-    label: <Link href={"/dashboard/vaults"}>Vaults</Link>,
-    key: "vaults",
+    label: <Link href={"/dashboard/collections"}>collections</Link>,
+    key: "collections",
   },
 
   {

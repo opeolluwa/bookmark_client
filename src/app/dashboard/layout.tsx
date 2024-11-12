@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }: Props) {
     <Layout className="h-screen overflow-hidden">
       <Layout>
         <Sider
-          width={250}
+          width={200}
           style={{ background: colorBgContainer }}
           className="relative bg-gray-50 overflow-hidden "
           collapsible

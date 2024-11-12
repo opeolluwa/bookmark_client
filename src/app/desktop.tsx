@@ -26,25 +26,34 @@ export default function DesktopAppEntry() {
       password: values.password?.trim(),
     };
     try {
-      invoke("sign_in", { payload: login_details }).then((response) => {
-        console.log(login_details);
-        const result = response as CommandResponse<LoginResponse>;
-        if (result.status == "Error") {
-          messageApi.error(result.message);
-          return;
-        } else {
+      invoke("sign_in", { payload: login_details })
+        .then((response) => {
+          console.log(login_details);
+          const result = response as CommandResponse<LoginResponse>;
+          if (result.status != "Success") {
+            messageApi.error(result.message);
+            return;
+          } else {
+            set_processing_request(false);
+            messageApi.success(result.message || "Login successful");
+            router.push("/dashboard");
+          }
+        })
+        .catch((error) => {
           set_processing_request(false);
-          router.push("/dashboard");
-        }
-      });
+          return;
+        });
     } catch (error) {
       messageApi.error((error as any).message);
       set_processing_request(false);
+      return;
     }
   };
 
   return (
     <View className="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full ">
+      {contextHolder}
+
       <View className="col-span-5 py-8 px-6 w-[40%] ">
         <Form
           initialValues={{ remember: true }}

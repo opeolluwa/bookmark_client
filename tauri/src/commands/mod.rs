@@ -1,2 +1,2 @@
 pub mod authentication;
-pub mod vaults;
+pub mod bookmarks;
