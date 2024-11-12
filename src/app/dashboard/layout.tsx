@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }: Props) {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <Layout className="h-screen overflow-hidden">
