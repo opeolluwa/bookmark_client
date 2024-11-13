@@ -65,7 +65,7 @@ export default function ForgottenPassword() {
       </Form>
       <Link
         href="/mobile"
-        className="text-app font-semibold"
+        className="text-app text-sm font-semibold"
       >
         Remember the password? Log in
       </Link>

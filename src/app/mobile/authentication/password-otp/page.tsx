@@ -28,6 +28,8 @@ export default function ForgottenPassword() {
 
   const sharedProps: OTPProps = {
     onChange,
+    size: "large",
+    className:"py-4"
   };
 
   return (
@@ -42,7 +44,7 @@ export default function ForgottenPassword() {
         form={form}
       >
         <View className="mb-14 flex justify-between items-center">
-          <Link href="/mobile/">
+          <Link href="/mobile/authentication/forgotten-password">
             <ArrowLongLeftIcon className="w-6 h-6" />
           </Link>
         </View>
@@ -50,27 +52,27 @@ export default function ForgottenPassword() {
         <View className="mb-6">
           <Heading className="font-bold">Confirm OTP</Heading>
           <Text className="leading-1 mt-2 text-sm">
-           If an account exist for <span className="font-medium">test@user.com,</span> you will receive a password reset token
+           If an account exist for <span className="font-semibold">test@user.com,</span> you will receive a password reset token
           </Text>
         </View>
 
-        <Form.Item<FormFieldTypes> label="Email" name="email">
+        <Form.Item<FormFieldTypes> label="" name="email">
           <Input.OTP
             {...sharedProps}
             size="large"
             type="number"
-            className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
+          
           />
         </Form.Item>
 
         <button
           onClick={() => router.push("/mobile/authentication/password-otp")}
-          className="w-full rounded-lg py-4 bg-app-600 font-medium text-white "
+          className="w-full rounded-lg py-4  bg-app-600 font-medium text-white "
         >
           Continue
         </button>
       </Form>
-      <Link href="/mobile/" className="text-app font-semibold">
+      <Link href="/mobile/" className="text-app text-sm font-semibold">
         Didn&apos;t get an OTP? Request new
       </Link>
     </>
