@@ -17,7 +17,7 @@ import {
 import { SorterResult } from "antd/es/table/interface";
 import { Vault } from "vault_grpc_bindings/bindings";
 
-export type { CommandResponse } from "../../../../tauri/bindings/CommandResponse";
+export type { CommandResponse } from "../../../../../tauri/bindings/CommandResponse";
 
 export interface TableParams {
   pagination?: TablePaginationConfig;

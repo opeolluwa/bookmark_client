@@ -9,7 +9,7 @@ import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
 import { useRouter } from "next/navigation";
-import { LoginData } from "../../../../tauri/bindings/LoginData";
+import { LoginData } from "../../../../../tauri/bindings/LoginData";
 import Link from "next/link";
 
 export default function LoginWithEmail() {
@@ -25,14 +25,14 @@ export default function LoginWithEmail() {
     });
   };
   return (
-    <View className="pt-24 px-6 relative min-h-screen ">
+    <View className="py-14 px-6 relative min-h-screen ">
       <View className="mb-12 flex justify-between items-center">
-        <a href="/mobile/authentication/sign-up">
+        <Link href="/mobile/authentication/sign-up">
           <ArrowLongLeftIcon className="w-6 h-6" />
-        </a>
+        </Link>
       </View>
 
-      <View className="mb-12">
+      <View className="mb-6">
         <Heading className="font-bold">Log in</Heading>
         <Text className="leading-1 mt-2 text-sm">
           Enter your email and password to log in
@@ -45,7 +45,7 @@ export default function LoginWithEmail() {
         autoComplete="off"
         name="save-data"
         layout="vertical"
-        className=" flex flex-col rounded-lg shadow-gray-300 gap-y-2"
+        className=" flex flex-col rounded-lg shadow-gray-300 pb-6"
         form={form}
       >
         <Form.Item<FormFieldTypes> label="Email" name="email">
@@ -78,7 +78,7 @@ export default function LoginWithEmail() {
       </Form>
       <Link
         href="/mobile/authentication/forgotten-password"
-        className=" text-app block text-sm"
+        className=" text-app block text-sm font-bold"
       >
         Forgotten password?
       </Link>

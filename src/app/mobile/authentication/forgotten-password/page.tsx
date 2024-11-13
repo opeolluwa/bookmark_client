@@ -3,15 +3,14 @@ import { FormFieldTypes } from "@/app/page";
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoginData } from "../../../../../tauri/bindings/LoginData";
-import Link from "next/link";
-import SmallText from "@/components/SmallText";
+import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 
-export default function LoginWithEmail() {
+export default function ForgottenPassword() {
   const [form] = Form.useForm();
   const router = useRouter();
   const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
@@ -34,16 +33,17 @@ export default function LoginWithEmail() {
         className=" flex flex-col rounded-lg shadow-gray-300 gap-y-2 py-6"
         form={form}
       >
-        <View className="mb-14 flex justify-end items-center">
-          <Link href="/mobile/" className="text-app font-bold">
-            Have an account? Log in
+        <View className="mb-14 flex justify-between items-center">
+          <Link href="/mobile/">
+            <ArrowLongLeftIcon className="w-6 h-6" />
           </Link>
         </View>
 
-        <View className="mb-12">
-          <Heading className="font-bold">Create your account</Heading>
+        <View className="mb-6">
+          <Heading className="font-bold">Let&apos;s get you back in</Heading>
           <Text className="leading-1 mt-2 text-sm">
-            Let&apos;s create an account for free to get started
+            Provide the email associated with your account and we&apos; send
+            more instruction
           </Text>
         </View>
 
@@ -57,16 +57,18 @@ export default function LoginWithEmail() {
         </Form.Item>
 
         <button
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.push("/mobile/authentication/password-otp")}
           className="w-full rounded-lg py-4 bg-app-600 font-medium text-white "
         >
           Continue
         </button>
       </Form>
-      <SmallText className=" text-sm text-gray-400">
-        By clicking continue you agree to the terms of{" "}
-        <a href="#">terms of service </a> and <a href="#">privacy policy</a>
-      </SmallText>
+      <Link
+        href="/mobile"
+        className="text-app text-sm font-semibold"
+      >
+        Remember the password? Log in
+      </Link>
     </>
   );
 }

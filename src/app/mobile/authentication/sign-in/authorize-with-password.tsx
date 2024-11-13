@@ -10,7 +10,7 @@ import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import SmallText from "@/components/SmallText";
 import { useState } from "react";
 import { FormFieldTypes } from "@/app/page";
-import { LoginData } from "../../../../tauri/bindings/LoginData";
+import { LoginData } from "../../../../../tauri/bindings/LoginData";
 import Link from "next/link";
 
 export default function AuthorizeWithPassword() {
@@ -46,7 +46,7 @@ export default function AuthorizeWithPassword() {
           </SmallText>
         </View>
 
-        <View className="mb-12">
+        <View className="mb-6">
           <Heading className="font-bold">Welcome, Adeoye</Heading>
           <Text className="leading-1 mt-2 text-sm">
             Enter your password to log into your account

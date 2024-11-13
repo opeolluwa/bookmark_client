@@ -9,9 +9,9 @@ import { Form, FormProps, Input, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { LoginResponse } from "vault_grpc_bindings/bindings";
-import { CommandResponse } from "../../tauri/bindings/CommandResponse";
-import { LoginData } from "../../tauri/bindings/LoginData";
-import { FormFieldTypes } from "./page";
+import { CommandResponse } from "../../../tauri/bindings/CommandResponse";
+import { LoginData } from "../../../tauri/bindings/LoginData";
+import { FormFieldTypes } from "../page";
 
 export default function DesktopAppEntry() {
   const [form] = Form.useForm();
