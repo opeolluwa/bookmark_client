@@ -1,7 +1,7 @@
 "use client";
 import { OsType, type } from "@tauri-apps/plugin-os";
 import { useEffect, useState } from "react";
-import DesktopAppEntry from "./desktop";
+import DesktopAppEntry from "./desktop/page";
 import MobileAppEntry from "./mobile/page";
 
 export type FormFieldTypes = {

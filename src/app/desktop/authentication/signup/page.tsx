@@ -7,7 +7,7 @@ import View from "@/components/View";
 import { Checkbox, Form, FormProps, Input } from "antd";
 import { invoke } from "@tauri-apps/api/core";
 import { EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
-import { User } from "../../../../tauri/bindings/User";
+import { User } from "../../../../../tauri/bindings/User";
 
 type FormFieldTypes = {
   firstName: string;

@@ -22,7 +22,7 @@ import {
   UploadProps,
 } from "antd";
 import { FormProps } from "antd/es/form";
-import { User } from "../../../../tauri/bindings/User";
+import { User } from "../../../../../tauri/bindings/User";
 import { useState } from "react";
 type FormFieldTypes = {
   firstName: string;

@@ -62,12 +62,11 @@ export default function LoginWithEmail() {
         >
           Continue
         </button>
-
-        <SmallText className=" text-sm text-gray-400">
-          By clicking continue you agree to the terms of{" "}
-          <a href="#">terms of service </a> and <a href="#">privacy policy</a>
-        </SmallText>
       </Form>
+      <SmallText className=" text-sm text-gray-400">
+        By clicking continue you agree to the terms of{" "}
+        <a href="#">terms of service </a> and <a href="#">privacy policy</a>
+      </SmallText>
     </>
   );
 }
