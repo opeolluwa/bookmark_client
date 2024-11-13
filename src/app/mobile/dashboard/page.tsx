@@ -57,6 +57,7 @@ export default function page() {
             name={bookmark.name}
             description={bookmark.description}
             isStarred={bookmark.isStarred}
+            key={bookmark.name}
           />
         ))}
       </View>
