@@ -31,10 +31,10 @@ export default function LoginWithEmail() {
         autoComplete="off"
         name="save-data"
         layout="vertical"
-        className=" flex flex-col rounded-lg shadow-gray-300 gap-y-2 py-6"
+        className=" flex flex-col rounded-lg shadow-gray-300 pb-6"
         form={form}
       >
-        <View className="mb-14 flex justify-end items-center">
+        <View className="mb-12 flex justify-end items-center">
           <Link href="/mobile/" className="text-app font-bold">
             Have an account? Log in
           </Link>

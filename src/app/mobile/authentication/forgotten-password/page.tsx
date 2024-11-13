@@ -30,10 +30,10 @@ export default function ForgottenPassword() {
         autoComplete="off"
         name="save-data"
         layout="vertical"
-        className=" flex flex-col rounded-lg shadow-gray-300 gap-y-2 py-6"
+        className=" flex flex-col rounded-lg shadow-gray-300 pb-6"
         form={form}
       >
-        <View className="mb-14 flex justify-between items-center">
+        <View className="mb-12 flex justify-between items-center">
           <Link href="/mobile/">
             <ArrowLongLeftIcon className="w-6 h-6" />
           </Link>

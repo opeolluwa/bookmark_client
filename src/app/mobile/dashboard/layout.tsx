@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import View from "@/components/View";
-import { BellIcon, Cog6ToothIcon, UserIcon } from "@heroicons/react/24/outline";
-import { HomeIcon } from "@heroicons/react/24/solid";
+import { BellIcon, Cog6ToothIcon, UserIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/outline";
 import React, { ReactNode } from "react";
 
 interface Route {
@@ -14,20 +13,26 @@ const bottom_navigation: Route[] = [
   {
     label: "home",
     path: "/",
-    icon: <HomeIcon className="w-6 h-6" />,
+    icon: <HomeIcon className="w-5 h-5" />,
   },
   {
-    icon: <BellIcon className="w-6 h-6" />,
+    icon: <BellIcon className="w-5 h-5" />,
     label: "notification",
     path: "notification",
   },
   {
-    icon: <UserIcon className="w-6 h-6" />,
-    label: "profile",
+    icon: <PlusIcon className="w-8 h-8 font-black" />,
+    label: "save",
     path: "profile",
   },
   {
-    icon: <Cog6ToothIcon className="w-6 h-6" />,
+    icon: <UserIcon className="w-5 h-5" />,
+    label: "profile",
+    path: "profile",
+  },
+
+  {
+    icon: <Cog6ToothIcon className="w-5 h-5" />,
     label: "settings",
     path: "settings",
   },
@@ -41,11 +46,22 @@ export default function MobileAppDashboardLayout({
     <View className="py-12 px-6">
       {children}
 
-      <View className="btm-nav py-3">
+      <View className="btm-nav rounded-t-xl text-gray-500 py-4 bg-white/30">
         {bottom_navigation.map((route) => (
-          <a href={`mobile/dashboard/${route.path}`}>
-            {route.icon}
-            <span className="btm-nav-sm">{route.label}</span>
+          <a href={`/mobile/dashboard/${route.path}`} key={route.label}>
+            {route.label == "save" ? (
+              <button className="flex flex-col justify-center items-center text-white bg-app rounded-full p-1 shadow-sm">
+                {route.icon}
+               
+              </button>
+            ) : (
+              <button className="flex flex-col justify-center items-center hover:text-app">
+                {route.icon}
+                <span className="btm-nav-label text-sm font-medium capitalize">
+                  {route.label}
+                </span>
+              </button>
+            )}
           </a>
         ))}
       </View>

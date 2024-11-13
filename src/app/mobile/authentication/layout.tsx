@@ -7,5 +7,5 @@ export default function LoginWithEmail({
 }: {
   children: React.ReactNode;
 }) {
-  return <View className="pt-14 px-6 relative min-h-screen ">{children}</View>;
+  return <View className="py-14 px-6 relative min-h-screen ">{children}</View>;
 }

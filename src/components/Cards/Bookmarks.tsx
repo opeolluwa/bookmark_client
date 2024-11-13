@@ -1,31 +1,27 @@
+"use client"
 import {
-  EllipsisHorizontalIcon,
   EllipsisVerticalIcon,
   PencilSquareIcon,
-  PlusCircleIcon,
-  TrashIcon,
+  StarIcon,
+  TrashIcon
 } from "@heroicons/react/24/outline";
 import { Dropdown, MenuProps } from "antd";
 import Card from ".";
-import Heading from "../Heading";
+import SmallText from "../SmallText";
 import Text from "../Text";
-import { parseDate } from "./utils";
-import View from "../View";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
-import ReactTimeAgo from "react-time-ago";
-interface Props {
+import Gravatar from "react-gravatar";
+export interface BookmarkProps {
   name: string;
   description: string;
-  date: string;
+  isStarred?: boolean;
 }
 export const items: MenuProps["items"] = [
   {
-    key: "add",
+    key: "star",
     label: (
       <span className="flex gap-x-[2px] items-center">
-        <PlusCircleIcon className="w-4 h-4 mr-2" />
-        Add entry
+        <StarIcon className="w-4 h-4 mr-2" />
+        Star
       </span>
     ),
   },
@@ -50,32 +46,30 @@ export const items: MenuProps["items"] = [
     ),
   },
 ];
-export default function Bookmark({ name, date, description }: Props) {
-  // const result = useTimeAgo(date);
-  TimeAgo.addDefaultLocale(en);
+export default function Bookmark({ name, description, isStarred }: BookmarkProps) {
 
   return (
-    <Card className="border-[2px] relative card w-[180px] h-[180px] border-gray-100 flex  cursor-pointer  px-6 rounded-xl">
-      <div className=" ">
-        <Heading className="font-semibold text-gray-600 card-title text-xl leading-relaxed">
-          {name}
-        </Heading>
-        <Text className="leading-1">{description}</Text>
+    <Card className="flex gap-x-3 justify-between items-center">
+      <div className="flex gap-x-3 items-center">
+        <Gravatar
+          email={name}
+          className="grayscale-0 w-[50px] h-[50px] rounded-lg"
+        />
+        <div className="flex flex-col">
+          <Text className="text-bold ic  flex gap-2 text-black">
+            {" "}
+            {name}
+            {"  "}
+            {isStarred && (
+              <StarIcon className="w-4 h-4 text-app-secondary-200" />
+            )}
+          </Text>
+          <SmallText className="truncate w-[40vw]">{description}</SmallText>
+        </div>
       </div>
-      <View className="flex text-gray-600 text-sm absolute w-[150px justify-between bottom-4 right-6 left-6">
-        <>
-          created:{" "}
-          <ReactTimeAgo
-            date={parseDate(date)}
-            locale="en-Us"
-            timeStyle="twitter"
-          />{" "}
-          ago
-        </>
-        <Dropdown menu={{ items }}>
-          <EllipsisHorizontalIcon className="w-6 h-6 cursor-pointer" />
-        </Dropdown>
-      </View>
+      <Dropdown menu={{ items }}>
+        <EllipsisVerticalIcon className="w-6 h-6 text-gray-400 justify-self-end" />
+      </Dropdown>
     </Card>
   );
 }
