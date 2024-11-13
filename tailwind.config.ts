@@ -39,7 +39,7 @@ const config: Config = {
         950: "#000000",
       },
       app: {
-        DEFAULT: "#488AF3",
+        DEFAULT: "#1368F0",
         50: "#F4F8FE",
         100: "#E1ECFD",
         200: "#BBD3FB",
@@ -52,7 +52,6 @@ const config: Config = {
         900: "#062455",
         950: "#04193B",
       },
-     
     },
     extend: {
       backgroundImage: {

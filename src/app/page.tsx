@@ -4,12 +4,10 @@ import { useEffect, useState } from "react";
 import DesktopAppEntry from "./desktop";
 import MobileAppEntry from "./mobile";
 
-
 export type FormFieldTypes = {
   email: string;
   password: string;
 };
-
 
 export default function LoginPage() {
   const [osType, setOsType] = useState<OsType>("" as OsType);
@@ -34,6 +32,3 @@ export default function LoginPage() {
     return <DesktopAppEntry />;
   }
 }
-
-
-
