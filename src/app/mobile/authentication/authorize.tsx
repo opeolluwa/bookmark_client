@@ -5,15 +5,18 @@ import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
-import { LoginData } from "../../../tauri/bindings/LoginData";
-import { FormFieldTypes } from "../page";
 import { useRouter } from "next/navigation";
 import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import SmallText from "@/components/SmallText";
+import { useState } from "react";
+import { FormFieldTypes } from "@/app/page";
+import { LoginData } from "../../../../tauri/bindings/LoginData";
+import Link from "next/link";
 
-export default function MobileAppEntry() {
+export default function AuthorizeWithPassword() {
   const [form] = Form.useForm();
   const router = useRouter();
+  const [accountExist, setAccountExist] = useState(false);
   const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
     const new_user: LoginData = {
       email: values.email?.trim(),
@@ -24,7 +27,7 @@ export default function MobileAppEntry() {
     });
   };
   return (
-    <View className=" pt-4 px-6 relative min-h-screen ">
+    <View className="py-14 px-6 relative min-h-screen ">
       <Form
         initialValues={{ remember: true }}
         onFinish={submit_form}
@@ -35,7 +38,9 @@ export default function MobileAppEntry() {
         form={form}
       >
         <View className="mb-12 flex justify-between items-center">
-          <ArrowLongLeftIcon className="w-6 h-6" />
+          <Link href="/mobile/authentication/sign-up">
+            <ArrowLongLeftIcon className="w-6 h-6" />
+          </Link>
           <SmallText className="font-medium text-app-600">
             Not Adeoye?
           </SmallText>
@@ -48,31 +53,11 @@ export default function MobileAppEntry() {
           </Text>
         </View>
 
-        {/* <Form.Item<FormFieldTypes>
-          label="email"
-          name="email"
-          // rules={[{ required: true, message: "password is required!" }]}
-        >
-          <Input.Password
-            type="email"
-            name="password"
-            className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="enter your password"
-            iconRender={(visible) =>
-              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-            }
-          />
-        </Form.Item> */}
-
-        <Form.Item<FormFieldTypes>
-          label="Password"
-          name="password"
-          // rules={[{ required: true, message: "password is required!" }]}
-        >
+        <Form.Item<FormFieldTypes> label="Password" name="password">
           <Input.Password
             type="password"
             name="password"
-            className="w-full rounded-lg py-3 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
+            className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
             placeholder="enter your password"
             iconRender={(visible) =>
               visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
@@ -82,11 +67,17 @@ export default function MobileAppEntry() {
 
         <button
           onClick={() => router.push("/dashboard")}
-          className="btn left-4 right-4 bottom-10 border-none flex justify-center items-center bg-app-600 text-center text-white"
+          className="w-full rounded-lg py-4 bg-app-600 text-white font-medium"
         >
           Sign in
         </button>
       </Form>
+      <Link
+        href="/mobile/authentication/forgotten-password"
+        className=" text-app block text-sm font-bold"
+      >
+        Forgotten password?
+      </Link>
     </View>
   );
 }
