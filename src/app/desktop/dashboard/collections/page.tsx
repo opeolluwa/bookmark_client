@@ -127,7 +127,7 @@ export default function Home() {
             <Bookmark
               name={entry.name}
               description={entry.description}
-              date={entry.created_at}
+              // date={entry.created_at}
               key={entry.vault_id}
             />
           ))
