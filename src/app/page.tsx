@@ -2,14 +2,12 @@
 import { OsType, type } from "@tauri-apps/plugin-os";
 import { useEffect, useState } from "react";
 import DesktopAppEntry from "./desktop";
-import MobileAppEntry from "./mobile";
-
+import MobileAppEntry from "./mobile/page";
 
 export type FormFieldTypes = {
   email: string;
   password: string;
 };
-
 
 export default function LoginPage() {
   const [osType, setOsType] = useState<OsType>("" as OsType);
@@ -34,6 +32,3 @@ export default function LoginPage() {
     return <DesktopAppEntry />;
   }
 }
-
-
-

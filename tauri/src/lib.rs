@@ -1,14 +1,16 @@
-use lazy_static::lazy_static;
+
+// use lazy_static::lazy_static;
 use tauri_plugin_store::StoreExt;
-lazy_static! {
+lazy_static::lazy_static! {
     pub static ref GRPC_SERVER_ENDPOINT: String = String::from("http://127.0.0.1:50051");
 }
 
 pub mod app_state;
-#[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub mod commands;
 pub mod config;
 pub mod helpers;
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+
 pub fn run() {
     // let app_state = JsonDb::new::<TokenStore>("token_store").unwrap();
 
