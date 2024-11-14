@@ -13,7 +13,7 @@ import {
   UserIcon as SolidUserIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 
 export interface ApplicationRoute {
@@ -26,7 +26,7 @@ export interface ApplicationRoute {
 const bottomNavigation: ApplicationRoute[] = [
   {
     label: "home",
-    path: "/",
+    path: "",
     icon: <HomeIcon />,
     alternateIcon: <SolidHomeIcon />,
   },
@@ -57,28 +57,19 @@ export default function BottomNavItem({
   label,
   path: slug,
 }: ApplicationRoute) {
-  const [currentIcon, setIcon] = useState<ReactNode>(icon);
-  const router = useRouter();
+  const currentPath = usePathname();
   const previewClass =
     "flex flex-col justify-center items-center hover:text-app";
-  const activeClass =
-    "flex flex-col justify-center items-center text-app active";
+  const activeClass = "flex flex-col justify-center items-center text-app";
   const path = `/mobile/dashboard/${slug}`;
+  const defaultPath = "/mobile/dashboard/";
   return (
     <div>
-      <Link
-        onBlur={() => setIcon(icon)}
-        onMouseEnter={() => setIcon(alternateIcon)}
-        onClick={() => setIcon(alternateIcon)}
-        onMouseLeave={() => setIcon(icon)}
-        href={path}
-        key={label}
-      >
-        <button
-          className={previewClass}
-          // className={router.path() == slug ? activeClass : previewClass}
-        >
-          <span className="size-5">{currentIcon}</span>
+      <Link href={path} key={label}>
+        <button className={currentPath == path ? activeClass : previewClass}>
+          <span className="size-5">
+            {currentPath == path ? alternateIcon : icon}
+          </span>
           <span className="btm-nav-label text-sm font-medium capitalize">
             {label}
           </span>
