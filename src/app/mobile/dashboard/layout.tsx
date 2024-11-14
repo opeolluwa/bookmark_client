@@ -13,9 +13,8 @@ import {
   HomeIcon as SolidHomeIcon,
   UserIcon as SolidUserIcon,
 } from "@heroicons/react/24/solid";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { ReactNode, useState } from "react";
+
+import React, { ReactNode } from "react";
 
 export interface ApplicationRoute {
   label: string;
@@ -56,10 +55,9 @@ export default function MobileAppDashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [currentIcon, setIcon] = useState<ReactNode>(null);
-  const router = useRouter();
+
   return (
-    <View className="py-12 px-6 min-h-screen">
+    <View className="pt-4 pb-12 px-6 min-h-screen">
       {children}
 
       <View className="btm-nav z-50 bg-white rounded-t-xl text-gray-500 py-4">
