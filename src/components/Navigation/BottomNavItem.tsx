@@ -1,5 +1,4 @@
 "use client";
-import BottomNavItem from "@/components/Navigation/BottomNavItem";
 import View from "@/components/View";
 import {
   BellIcon,
@@ -13,8 +12,9 @@ import {
   HomeIcon as SolidHomeIcon,
   UserIcon as SolidUserIcon,
 } from "@heroicons/react/24/solid";
-
-import React, { ReactNode } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { ReactNode, useState } from "react";
 
 export interface ApplicationRoute {
   label: string;
@@ -26,7 +26,7 @@ export interface ApplicationRoute {
 const bottomNavigation: ApplicationRoute[] = [
   {
     label: "home",
-    path: "/",
+    path: "",
     icon: <HomeIcon />,
     alternateIcon: <SolidHomeIcon />,
   },
@@ -50,30 +50,31 @@ const bottomNavigation: ApplicationRoute[] = [
     path: "settings",
   },
 ];
-export default function MobileAppDashboardLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
 
+export default function BottomNavItem({
+  icon,
+  alternateIcon,
+  label,
+  path: slug,
+}: ApplicationRoute) {
+  const currentPath = usePathname();
+  const previewClass =
+    "flex flex-col justify-center items-center hover:text-app";
+  const activeClass = "flex flex-col justify-center items-center text-app";
+  const path = `/mobile/dashboard/${slug}`;
+  const defaultPath = "/mobile/dashboard/";
   return (
-    <View className="pt-4 pb-12 px-6 min-h-screen">
-      {children}
-
-      <View className="btm-nav z-50 bg-white rounded-t-xl text-gray-500 py-4">
-        {bottomNavigation.map((route) => {
-          const { icon, alternateIcon, label, path: slug } = route;
-          return (
-            <BottomNavItem
-              label={label}
-              alternateIcon={alternateIcon}
-              icon={icon}
-              path={slug}
-              key={label}
-            />
-          );
-        })}
-      </View>
-    </View>
+    <div>
+      <Link href={path} key={label}>
+        <button className={currentPath == path ? activeClass : previewClass}>
+          <span className="size-5">
+            {currentPath == path ? alternateIcon : icon}
+          </span>
+          <span className="btm-nav-label text-sm font-medium capitalize">
+            {label}
+          </span>
+        </button>
+      </Link>
+    </div>
   );
 }

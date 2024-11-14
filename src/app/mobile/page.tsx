@@ -33,18 +33,18 @@ export default function LoginWithEmail() {
           <Link href="/mobile/authentication/sign-up">
             <ArrowLongLeftIcon className="w-6 h-6" />
           </Link>
-          <SmallText
+          <button
             onClick={() => setAccountExist(false)}
-            className="font-medium text-app-600"
+            className="font-medium text-sm  text-gray-600"
           >
             Not Adeoye?
-          </SmallText>
+          </button>
         </View>
       ) : (
         <View className="mb-12 flex justify-between items-center">
-          <Link href="/mobile/authentication/sign-up">
+          <button onClick={() => setAccountExist(true)}>
             <ArrowLongLeftIcon className="w-6 h-6" />
-          </Link>
+          </button>
         </View>
       )}
       {accountExist ? (
