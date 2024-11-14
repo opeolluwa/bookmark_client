@@ -1,15 +1,15 @@
 "use client";
 import View from "@/components/View";
-import { BellIcon, Cog6ToothIcon, UserIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { BellIcon, Cog6ToothIcon, HomeIcon, PlusIcon, UserIcon } from "@heroicons/react/24/outline";
 import React, { ReactNode } from "react";
 
-interface Route {
+export interface ApplicationRoute {
   label: string;
   path?: string;
   icon?: ReactNode;
   action?: () => void;
 }
-const bottom_navigation: Route[] = [
+const bottomNavigation: ApplicationRoute[] = [
   {
     label: "home",
     path: "/",
@@ -42,14 +42,14 @@ export default function MobileAppDashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <View className="py-12 px-6">
+    <View className="py-12 px-6 min-h-screen">
       {children}
 
-      <View className="btm-nav rounded-t-xl text-gray-500 py-4 bg-white/30">
-        {bottom_navigation.map((route) => (
+      <View className="btm-nav z-50 bg-white rounded-t-xl text-gray-500 py-4">
+        {bottomNavigation.map((route) => (
           <a href={`/mobile/dashboard/${route.path}`} key={route.label}>
             {route.label == "save" ? (
-              <button className="flex flex-col justify-center items-center text-white bg-app rounded-full p-1 shadow-sm">
+              <button className="flex flex-col justify-center items-center text-white bg-app rounded-full p-1 mb-8 shadow-sm">
                 {route.icon}
                
               </button>

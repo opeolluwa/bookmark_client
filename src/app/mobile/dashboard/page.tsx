@@ -47,7 +47,7 @@ export default function page() {
       <View className="mb-6">
         <header className="flex items-center justify-between">
           <Bars3Icon className="w-6 h-6 text-gray-700" />
-          <Text className="text-gray-400 font-normal">Default collection</Text>
+          <Text className="text-gray-400 font-bold text-sm">Default collection</Text>
           <Avatar icon={<UserOutlined />} />
         </header>
       </View>
