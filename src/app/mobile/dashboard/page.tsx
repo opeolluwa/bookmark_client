@@ -62,7 +62,7 @@ let test_data: BookmarkProps[] = [
   },
 ];
 
-export default function page() {
+export default function Page() {
   const [form] = Form.useForm();
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSideNavigation, setOpenSideNavigation] = useState<boolean>(false);
