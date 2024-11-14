@@ -4,7 +4,7 @@ import View from "@/components/View";
 import Notification from "@/components/Cards/Notification";
 import Heading from "@/components/Heading";
 import { Key, useState } from "react";
-import { Empty } from "antd";
+import { Divider, Empty } from "antd";
 
 export default function Page() {
   const [data, setData] = useState<any>();
@@ -27,6 +27,10 @@ export default function Page() {
     <>
       <View>
         <Heading>Notification</Heading>
+        <Divider />
+      </View>
+
+      <View className="flex items-center justify-center">
         <Empty description="such emptiness" />
       </View>
     </>

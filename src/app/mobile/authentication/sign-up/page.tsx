@@ -1,15 +1,20 @@
 "use client";
-import { FormFieldTypes } from "@/app/page";
 import Heading from "@/components/Heading";
+import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoginData } from "../../../../../tauri/bindings/LoginData";
-import Link from "next/link";
-import SmallText from "@/components/SmallText";
+
+export type FormFieldTypes = {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+};
 
 export default function LoginWithEmail() {
   const [form] = Form.useForm();
@@ -47,6 +52,24 @@ export default function LoginWithEmail() {
           </Text>
         </View>
 
+        <Form.Item<FormFieldTypes> label="First name" name="firstname">
+          <Input
+            type="firstname"
+            name="firstname"
+            className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
+            placeholder="enter your email"
+          />
+        </Form.Item>
+
+        <Form.Item<FormFieldTypes> label="Last name" name="lastname">
+          <Input
+            type="text"
+            name="lastname"
+            className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
+            placeholder="enter your email"
+          />
+        </Form.Item>
+
         <Form.Item<FormFieldTypes> label="Email" name="email">
           <Input
             type="email"
@@ -56,6 +79,14 @@ export default function LoginWithEmail() {
           />
         </Form.Item>
 
+        <Form.Item<FormFieldTypes> label="Password" name="password">
+          <Input
+            type="password"
+            name="password"
+            className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
+            placeholder="enter your email"
+          />
+        </Form.Item>
         <button
           onClick={() => router.push("/dashboard")}
           className="w-full rounded-lg py-4 bg-app-600 font-medium text-white "

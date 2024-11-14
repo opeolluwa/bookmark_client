@@ -23,7 +23,6 @@ const bottom_navigation: Route[] = [
   {
     icon: <PlusIcon className="w-8 h-8 font-black" />,
     label: "save",
-    path: "profile",
   },
   {
     icon: <UserIcon className="w-5 h-5" />,
