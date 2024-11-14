@@ -3,10 +3,8 @@ import Bookmark, { BookmarkProps } from "@/components/Cards/Bookmarks";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { UserOutlined } from "@ant-design/icons";
-import {
-  Bars3Icon
-} from "@heroicons/react/24/solid";
-import { Avatar } from "antd";
+import { Bars3Icon, PlusIcon } from "@heroicons/react/24/solid";
+import { Avatar, FloatButton } from "antd";
 
 let test_data: BookmarkProps[] = [
   {
@@ -47,7 +45,9 @@ export default function page() {
       <View className="mb-6">
         <header className="flex items-center justify-between">
           <Bars3Icon className="w-6 h-6 text-gray-700" />
-          <Text className="text-gray-400 font-bold text-sm">Default collection</Text>
+          <Text className="text-gray-400 font-bold text-sm">
+            Default collection
+          </Text>
           <Avatar icon={<UserOutlined />} />
         </header>
       </View>
@@ -61,6 +61,14 @@ export default function page() {
           />
         ))}
       </View>
+      <FloatButton
+        shape="circle"
+        type="primary"
+        className="mr-4 mb-4"
+        style={{ insetInlineEnd: 24 }}
+        icon={<PlusIcon className="size-4" />}
+        // onClick={showModal}
+      />
     </>
   );
 }

@@ -1,5 +1,4 @@
 "use client";
-import BottomNavItem from "@/components/Navigation/BottomNavItem";
 import View from "@/components/View";
 import {
   BellIcon,
@@ -51,31 +50,40 @@ const bottomNavigation: ApplicationRoute[] = [
     path: "settings",
   },
 ];
-export default function MobileAppDashboardLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const [currentIcon, setIcon] = useState<ReactNode>(null);
-  const router = useRouter();
-  return (
-    <View className="py-12 px-6 min-h-screen">
-      {children}
 
-      <View className="btm-nav z-50 bg-white rounded-t-xl text-gray-500 py-4">
-        {bottomNavigation.map((route) => {
-          const { icon, alternateIcon, label, path: slug } = route;
-          return (
-            <BottomNavItem
-              label={label}
-              alternateIcon={alternateIcon}
-              icon={icon}
-              path={slug}
-              key={label}
-            />
-          );
-        })}
-      </View>
-    </View>
+export default function BottomNavItem({
+  icon,
+  alternateIcon,
+  label,
+  path: slug,
+}: ApplicationRoute) {
+  const [currentIcon, setIcon] = useState<ReactNode>(icon);
+  const router = useRouter();
+  const previewClass =
+    "flex flex-col justify-center items-center hover:text-app";
+  const activeClass =
+    "flex flex-col justify-center items-center text-app active";
+  const path = `/mobile/dashboard/${slug}`;
+  return (
+    <div>
+      <Link
+        onBlur={() => setIcon(icon)}
+        onMouseEnter={() => setIcon(alternateIcon)}
+        onClick={() => setIcon(alternateIcon)}
+        onMouseLeave={() => setIcon(icon)}
+        href={path}
+        key={label}
+      >
+        <button
+          className={previewClass}
+          // className={router.path() == slug ? activeClass : previewClass}
+        >
+          <span className="size-5">{currentIcon}</span>
+          <span className="btm-nav-label text-sm font-medium capitalize">
+            {label}
+          </span>
+        </button>
+      </Link>
+    </div>
   );
 }
