@@ -1,10 +1,33 @@
 "use client";
 import Bookmark, { BookmarkProps } from "@/components/Cards/Bookmarks";
+import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { UserOutlined } from "@ant-design/icons";
-import { Bars3Icon, PlusIcon } from "@heroicons/react/24/solid";
-import { Avatar, FloatButton } from "antd";
+import {
+  ArrowLeftStartOnRectangleIcon,
+  Bars3Icon,
+  PlusIcon,
+} from "@heroicons/react/24/solid";
+import {
+  Avatar,
+  Button,
+  Drawer,
+  FloatButton,
+  Form,
+  FormProps,
+  Input,
+  Space,
+} from "antd";
+import { useState } from "react";
+import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
+
+const { TextArea, Search } = Input;
+
+type FormFieldTypes = {
+  title?: string;
+  description?: string;
+};
 
 let test_data: BookmarkProps[] = [
   {
@@ -40,35 +63,127 @@ let test_data: BookmarkProps[] = [
 ];
 
 export default function page() {
+  const [form] = Form.useForm();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openSideNavigation, setOpenSideNavigation] = useState<boolean>(false);
+  const [loadingBookmarks, setLoadingBookmarks] = useState<boolean>(true);
+  const [bookmarks, setBookmarks] = useState<BookmarkCollectionEntries[]>();
+
+  const hideDrawer = () => setOpenDrawer(false);
+  const showDrawer = () => setOpenDrawer(true);
+
+  const hideSideNavigation = () => setOpenSideNavigation(false);
+  const showSideNavigation = () => setOpenSideNavigation(true);
+
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = (values) => {
+    console.log("Success:", { ...values });
+    form.resetFields();
+  };
+
   return (
     <>
       <View className="mb-6">
         <header className="flex items-center justify-between">
-          <Bars3Icon className="w-6 h-6 text-gray-700" />
+          <Bars3Icon
+            className="w-6 h-6 text-gray-700"
+            onClick={showSideNavigation}
+          />
           <Text className="text-gray-400 font-bold text-sm">
             Default collection
           </Text>
           <Avatar icon={<UserOutlined />} />
         </header>
       </View>
-      <View className="mb-6">
-        {test_data.map((bookmark) => (
-          <Bookmark
-            name={bookmark.name}
-            description={bookmark.description}
-            isStarred={bookmark.isStarred}
-            key={bookmark.name}
+
+      {!bookmarks?.length ? (
+        <View className="flex flex-col justify-center items-center mt-24">
+          <img
+            src="/illustrations/empty-bookmarks.png"
+            alt="empty"
+            className="grayscale sepia"
           />
-        ))}
-      </View>
+          <SmallText>Such Emptiness!</SmallText>
+        </View>
+      ) : (
+        <View className="mb-6">
+          {test_data.map((bookmark) => (
+            <Bookmark
+              name={bookmark.name}
+              description={bookmark.description}
+              isStarred={bookmark.isStarred}
+              key={bookmark.name}
+            />
+          ))}
+        </View>
+      )}
+
       <FloatButton
         shape="circle"
         type="primary"
-        className="mr-4 mb-4"
+        className="mr-6 mb-5"
         style={{ insetInlineEnd: 24 }}
         icon={<PlusIcon className="size-4" />}
-        // onClick={showModal}
+        onClick={showDrawer}
       />
+      <Drawer
+        placement="bottom"
+        title="New bookmark"
+        onClose={hideDrawer}
+        className="rounded-t-2xl"
+        open={openDrawer}
+        extra={
+          <Space>
+            <Button type="primary" onClick={hideDrawer}>
+              Save
+            </Button>
+          </Space>
+        }
+      >
+        <Form
+          initialValues={{ remember: true }}
+          onFinish={submitForm}
+          autoComplete="off"
+          name="save-data"
+          layout="vertical"
+          className="my-4 flex flex-col"
+          form={form}
+        >
+          <Form.Item<FormFieldTypes> label="Title" name="title">
+            <Input
+              autoFocus
+              type="text"
+              name="title"
+              className="w-full rounded py-3 focus:border-app-500 focus:outline-none border bg-white border-gray-300 block placeholder:pb-2 px-2 "
+            />
+          </Form.Item>
+          <Form.Item<FormFieldTypes> label="Description" name="description">
+            <TextArea
+              showCount
+              maxLength={100}
+              name="description"
+              style={{ height: 100, resize: "none" }}
+            />
+          </Form.Item>
+          <View></View>
+        </Form>
+      </Drawer>
+      {/**side navigation */}
+      <Drawer
+        closable
+        destroyOnClose
+        title={"Collections"}
+        placement="left"
+        open={openSideNavigation}
+        loading={loadingBookmarks}
+        height={"80vh"}
+        width={"80vw"}
+        onClose={() => setOpenSideNavigation(false)}
+        footer={
+          <div className="flex gap-x-4 py-2 font-medium">
+            <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout
+          </div>
+        }
+      ></Drawer>
     </>
   );
 }
