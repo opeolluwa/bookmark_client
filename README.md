@@ -9,10 +9,7 @@ Bookmark is a distributed, easy to use bookmarking application.
   - [Executing program](#executing-program)
 - [Documentation](#documentation)
 - [Help](#help)
-- [Authors](#authors)
-- [Version History](#version-history)
 - [License](#license)
-- [Acknowledgments](#acknowledgments)
 
 ## Description
 
@@ -23,10 +20,11 @@ Bookmark mobile and desktop application
 ### Dependencies
 
 - [Rust](https://rust-lang.org)
-- [Nodejs]()
-- [Typescript]()
-- [Android Studio]()
-- [Xcode]()
+- [Nodejs](https://nodejs.org)
+- [Typescript](https://www.typescriptlang.org)
+- [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=Cj0KCQiA_9u5BhCUARIsABbMSPvpJZzVdOjGyOPL7Fab19qxvad1bH5sU51xk7z0C5qFnT7TNYpXsMwaAvc8EALw_wcB&gclsrc=aw.ds)
+  for Android app
+- [Xcode](https://developer.apple.com/xcode/) for IOS app
 
 ### Installing
 
@@ -40,19 +38,39 @@ just install
 
 #### Run the android application in watch mode
 
+```sh
+just watch android
+```
+
 #### Run the IOS in watch mode
+
+```sh
+just watch ios
+```
 
 #### Run the desktop application in watch mode
 
+```sh
+just watch
+```
+
 #### Build the mobile app
+
+```sh
+just build android
+```
 
 #### Build the IOS application
 
+```sh
+just build ios
+```
+
 #### Build the desktop app
 
-#### Build all apps
-
-#### Export the build
+```sh
+just build
+```
 
 ```
 code blocks for commands
@@ -65,32 +83,10 @@ package on your computer (if applicable).
 
 ## Help
 
-Any advise for common problems or issues.
-
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie\
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-- 0.2
-  - Various bug fixes and optimizations
-  - See [commit change]() or See [release history]()
-- 0.1
-  - Initial Release
+If you run into any setup issues consider looking at
+[Tauri v2 documentation](https://v2.tauri.app/)
 
 ## License
 
 This project is licensed under the [NAME HERE] License - see the LICENSE.md file
 for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
