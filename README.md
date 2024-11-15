@@ -1,37 +1,96 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bookmark Client
+
+Bookmark is a distributed, easy to use bookmarking application.
+
+- [Description](#description)
+- [Getting Started](#getting-started)
+  - [Dependencies](#dependencies)
+  - [Installing](#installing)
+  - [Executing program](#executing-program)
+- [Documentation](#documentation)
+- [Help](#help)
+- [Authors](#authors)
+- [Version History](#version-history)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
+## Description
+
+Bookmark mobile and desktop application
 
 ## Getting Started
 
-First, run the development server:
+### Dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Rust](https://rust-lang.org)
+- [Nodejs]()
+- [Typescript]()
+- [Android Studio]()
+- [Xcode]()
+
+### Installing
+
+```
+git clone https://github.com/opeolluwa/bookmark_client bookmark
+cd bookmark 
+just install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Executing program
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Run the android application in watch mode
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Run the IOS in watch mode
 
-## Learn More
+#### Run the desktop application in watch mode
 
-To learn more about Next.js, take a look at the following resources:
+#### Build the mobile app
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Build the IOS application
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Build the desktop app
 
-## Deploy on Vercel
+#### Build all apps
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Export the build
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# carbonyl
+```
+code blocks for commands
+```
+
+## Documentation
+
+Describe any special instructions that are necessary to install a software
+package on your computer (if applicable).
+
+## Help
+
+Any advise for common problems or issues.
+
+```
+command to run if program contains helper info
+```
+
+## Authors
+
+Contributors names and contact info
+
+ex. Dominique Pizzie\
+ex. [@DomPizzie](https://twitter.com/dompizzie)
+
+## Version History
+
+- 0.2
+  - Various bug fixes and optimizations
+  - See [commit change]() or See [release history]()
+- 0.1
+  - Initial Release
+
+## License
+
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file
+for details
+
+## Acknowledgments
+
+Inspiration, code snippets, etc.
