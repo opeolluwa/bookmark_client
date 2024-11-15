@@ -120,7 +120,7 @@ export default function Page() {
       <FloatButton
         shape="circle"
         type="primary"
-        className="mr-6 mb-5"
+        className="mb-5"
         style={{ insetInlineEnd: 24 }}
         icon={<PlusIcon className="size-4" />}
         onClick={showDrawer}
@@ -145,7 +145,7 @@ export default function Page() {
           autoComplete="off"
           name="save-data"
           layout="vertical"
-          className="my-4 flex flex-col"
+          className=""
           form={form}
         >
           <Form.Item<FormFieldTypes> label="Title" name="title">
@@ -175,9 +175,10 @@ export default function Page() {
         placement="left"
         open={openSideNavigation}
         loading={loadingBookmarks}
-        height={"80vh"}
+        height={"70vh"}
         width={"80vw"}
         onClose={() => setOpenSideNavigation(false)}
+        className="rounded-r-xl"
         footer={
           <div className="flex gap-x-4 py-2 font-medium">
             <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout
