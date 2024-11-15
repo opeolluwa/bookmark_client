@@ -1,37 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Bookmark Client
+
+Bookmark is a distributed, easy to use bookmarking application.
+
+- [Description](#description)
+- [Getting Started](#getting-started)
+  - [Dependencies](#dependencies)
+  - [Installing](#installing)
+  - [Executing program](#executing-program)
+- [Documentation](#documentation)
+- [Help](#help)
+- [License](#license)
+
+## Description
+
+Bookmark mobile and desktop application
 
 ## Getting Started
 
-First, run the development server:
+### Dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Rust](https://rust-lang.org)
+- [Nodejs](https://nodejs.org)
+- [Typescript](https://www.typescriptlang.org)
+- [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=Cj0KCQiA_9u5BhCUARIsABbMSPvpJZzVdOjGyOPL7Fab19qxvad1bH5sU51xk7z0C5qFnT7TNYpXsMwaAvc8EALw_wcB&gclsrc=aw.ds)
+  for Android app
+- [Xcode](https://developer.apple.com/xcode/) for IOS app
+
+### Installing
+
+```
+git clone https://github.com/opeolluwa/bookmark_client bookmark
+cd bookmark 
+just install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Executing program
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Run the android application in watch mode
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```sh
+just watch android
+```
 
-## Learn More
+#### Run the IOS in watch mode
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+just watch ios
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Run the desktop application in watch mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```sh
+just watch
+```
 
-## Deploy on Vercel
+#### Build the mobile app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```sh
+just build android
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# carbonyl
+#### Build the IOS application
+
+```sh
+just build ios
+```
+
+#### Build the desktop app
+
+```sh
+just build
+```
+
+```
+code blocks for commands
+```
+
+## Documentation
+
+Describe any special instructions that are necessary to install a software
+package on your computer (if applicable).
+
+## Help
+
+If you run into any setup issues consider looking at
+[Tauri v2 documentation](https://v2.tauri.app/)
+
+## License
+
+This project is licensed under the [NAME HERE] License - see the LICENSE.md file
+for details
