@@ -14,7 +14,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { authenticate, checkStatus } from "@tauri-apps/plugin-biometric";
 import { message } from "@tauri-apps/plugin-dialog";
-import { useState } from "react";
 import { FingerPrintIcon } from "@heroicons/react/24/outline";
 
 export default function LoginWithEmail() {
