@@ -1,0 +1,12 @@
+{
+  "identifier": "mobile-capability",
+  "platforms": [
+    "android",
+    "iOS"
+  ],
+  "permissions": [
+    "biometric:default",
+    "biometric:allow-status",
+    "biometric:allow-authenticate"
+  ]
+}
