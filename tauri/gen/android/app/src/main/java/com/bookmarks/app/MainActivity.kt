@@ -6,10 +6,13 @@ import android.os.Bundle
 class MainActivity : TauriActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // setContentView(R.layout.process_text_main);
+        //TODO: set the view to the page where the bookmark will be added 
+        // setContentView()
+
+        // TODO: parse the text, if it a url filed, set it as URL 
         val text: CharSequence? = intent?.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT)
-        // Process the text as string to remove color formatting or styles
         val formattedText = text.toString()
+
+
     }
 }
-
