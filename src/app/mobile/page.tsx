@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { LoginData } from "../../../tauri/bindings/LoginData";
 import Link from "next/link";
 import { useState } from "react";
+import { FingerPrintIcon } from "@heroicons/react/24/outline";
 
 export default function LoginWithEmail() {
   const [accountExist, setAccountExist] = useState(true);
@@ -108,6 +109,11 @@ export default function LoginWithEmail() {
       >
         Forgotten password?
       </Link>
+      <View className="flex items-center justify-center absolute bottom-24 left-0 right-0">
+        <button className="btn bg-app-50 border-none  ">
+          <FingerPrintIcon className="size-6 text-app" />
+        </button>
+      </View>
     </View>
   );
 }
