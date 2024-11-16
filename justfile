@@ -30,6 +30,8 @@ lint:
 [group('watch')]
 watch target:
     #!/usr/bin/env sh
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     if [ $target = "android" ]; then
         npm run tauri android dev
     elif [ $target = "ios" ]; then 
