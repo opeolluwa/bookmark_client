@@ -1,4 +1,3 @@
-
 // use lazy_static::lazy_static;
 use tauri_plugin_store::StoreExt;
 lazy_static::lazy_static! {
@@ -15,6 +14,7 @@ pub fn run() {
     // let app_state = JsonDb::new::<TokenStore>("token_store").unwrap();
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_biometric::init())
         .setup(|app| {
             let _ = app.store("store.json")?;
             // app.manage(app_state);

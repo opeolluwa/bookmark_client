@@ -42,4 +42,3 @@ pub async fn sign_in<R: Runtime>(
     store.set("access token", json!({"value":response.token}));
     Ok(CommandResponse::new(()))
 }
-

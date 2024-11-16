@@ -11,11 +11,15 @@ import { Form, FormProps, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { LoginData } from "../../../tauri/bindings/LoginData";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { authenticate, checkStatus } from "@tauri-apps/plugin-biometric";
+import { message } from "@tauri-apps/plugin-dialog";
 import { useState } from "react";
 import { FingerPrintIcon } from "@heroicons/react/24/outline";
 
 export default function LoginWithEmail() {
   const [accountExist, setAccountExist] = useState(true);
+  const [useBiometrics, setUseBiometrics] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
   const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
@@ -27,6 +31,37 @@ export default function LoginWithEmail() {
       console.log({ res });
     });
   };
+
+  const authenticateWithBiometrics = async () => {
+    const options = {
+      allowDeviceCredential: true,
+      cancelTitle: "Feature won't work if Canceled",
+      fallbackTitle: "Sorry, authentication failed",
+      title: "Continue with fingerprint",
+      subtitle: "Authenticate to access the locked Tauri function",
+      confirmationRequired: true,
+    };
+    try {
+      await authenticate("Continue with fingerprint", options);
+      router.push("/mobile/dashboard");
+    } catch (error) {
+      await message("Biometrics login failed", {
+        title: "Bookmark",
+        kind: "error",
+      });
+    }
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const biometricsSupportStatus = await checkStatus();
+      if (biometricsSupportStatus.isAvailable) {
+        setUseBiometrics(true);
+      } else {
+        setUseBiometrics(false);
+      }
+    };
+    fetchData();
+  });
   return (
     <View className="py-14 px-6 relative min-h-screen ">
       {accountExist ? (
