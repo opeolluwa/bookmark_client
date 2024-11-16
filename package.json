@@ -12,12 +12,14 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@buildyourwebapp/tauri-plugin-sharesheet": "^0.0.1",
     "@heroicons/react": "^2.1.5",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-autostart": "^2.0.0",
     "@tauri-apps/plugin-biometric": "^2.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.0.0",
     "@tauri-apps/plugin-dialog": "^2.0.1",
+    "@tauri-apps/plugin-http": "^2.0.1",
     "@tauri-apps/plugin-notification": "^2.0.0",
     "@tauri-apps/plugin-os": "^2.0.0",
     "@tauri-apps/plugin-shell": "^2",
@@ -34,6 +36,7 @@
     "react-dom": "^18.2.0",
     "react-gravatar": "^2.6.3",
     "react-tag-input-component": "^2.0.2",
+    "react-use-is-online": "^1.2.2",
     "vault_grpc_bindings": "github:opeolluwa/bookmark_grpc_codegen#v0.7.7"
   },
   "devDependencies": {

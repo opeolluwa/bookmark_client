@@ -19,7 +19,8 @@ import {
   Input,
   Space,
 } from "antd";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
 
 const { TextArea, Search } = Input;
@@ -34,31 +35,61 @@ let test_data: BookmarkProps[] = [
     name: "Project Alpha",
     description: "A top-priority project for developing an AI-based solution.",
     isStarred: true,
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
   {
     name: "Research Paper Review",
     description:
       "Review recent papers on machine learning trends and applications.",
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
   {
     name: "Documentation Update",
     description: "Update the documentation for the latest API changes.",
     isStarred: false,
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
   {
     name: "Team Sync Meeting",
     description: "Weekly sync meeting with the engineering team.",
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
   {
     name: "Feature Request",
     description:
       "Investigate adding multi-language support to the application.",
     isStarred: true,
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
   {
     name: "Code Refactoring",
     description:
       "Refactor the codebase for improved maintainability and readability.",
+    title: "",
+    created_at: "",
+    updated_at: "",
+    bookmark_collection_id: "",
+    more_fields: {},
   },
 ];
 
@@ -68,7 +99,8 @@ export default function Page() {
   const [openSideNavigation, setOpenSideNavigation] = useState<boolean>(false);
   const [loadingBookmarks, setLoadingBookmarks] = useState<boolean>(true);
   const [bookmarks, setBookmarks] = useState<BookmarkCollectionEntries[]>();
-
+  const router = useRouter();
+  
   const hideDrawer = () => setOpenDrawer(false);
   const showDrawer = () => setOpenDrawer(true);
 
@@ -79,6 +111,10 @@ export default function Page() {
     console.log("Success:", { ...values });
     form.resetFields();
   };
+
+  useEffect(() => {
+    setBookmarks(test_data);
+  });
 
   return (
     <>
@@ -112,6 +148,11 @@ export default function Page() {
               description={bookmark.description}
               isStarred={bookmark.isStarred}
               key={bookmark.name}
+              title={""}
+              created_at={""}
+              updated_at={""}
+              bookmark_collection_id={""}
+              more_fields={{}}
             />
           ))}
         </View>
@@ -178,9 +219,12 @@ export default function Page() {
         height={"70vh"}
         width={"80vw"}
         onClose={() => setOpenSideNavigation(false)}
-        className="rounded-r-xl"
+        className="rounded-br-xl"
         footer={
-          <div className="flex gap-x-4 py-2 font-medium">
+          <div
+            className="flex gap-x-4 py-2 font-medium"
+            onClick={()=>router.push("/mobile")}
+          >
             <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout
           </div>
         }

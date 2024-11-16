@@ -14,6 +14,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoginData } from "../../../tauri/bindings/LoginData";
+import { fetch } from "@tauri-apps/plugin-http";
+
 
 export default function LoginWithEmail() {
   const [accountExist, setAccountExist] = useState(true);
@@ -142,16 +144,7 @@ export default function LoginWithEmail() {
       >
         Forgotten password?
       </Link>
-      {/* {biometricsIsSupported && (
-        <div
-          className="flex items-center justify-center absolute bottom-24 left-0 right-0"
-          onClick={authenticateWithBiometrics}
-        >
-          <button className="btn bg-app-50 border-none  ">
-            <FingerPrintIcon className="size-6 text-app" />
-          </button>
-        </div>
-      )} */}
+     
       <div
         className="flex items-center justify-center absolute bottom-24 left-0 right-0"
         onClick={authenticateWithBiometrics}

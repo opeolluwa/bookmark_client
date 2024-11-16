@@ -1,16 +1,22 @@
-"use client"
+"use client";
 import {
   EllipsisVerticalIcon,
   PencilSquareIcon,
+  ShareIcon,
   StarIcon,
-  TrashIcon
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Dropdown, MenuProps } from "antd";
 import Card from ".";
 import SmallText from "../SmallText";
 import Text from "../Text";
+import { shareText } from "@buildyourwebapp/tauri-plugin-sharesheet";
 import Gravatar from "react-gravatar";
-export interface BookmarkProps {
+import {
+  BookmarkCollection,
+  BookmarkCollectionEntries,
+} from "vault_grpc_bindings/bindings";
+export interface BookmarkProps extends BookmarkCollectionEntries {
   name: string;
   description: string;
   isStarred?: boolean;
@@ -22,6 +28,18 @@ export const items: MenuProps["items"] = [
       <span className="flex gap-x-[2px] items-center">
         <StarIcon className="w-4 h-4 mr-2" />
         Star
+      </span>
+    ),
+  },
+  {
+    key: "share",
+    label: (
+      <span
+        className="flex gap-x-[2px] items-center"
+        onClick={() => shareText("Tauri is great!")} //TODO: get the actual content
+      >
+        <ShareIcon className="w-4 h-4 mr-2" />
+        Share
       </span>
     ),
   },
@@ -46,8 +64,11 @@ export const items: MenuProps["items"] = [
     ),
   },
 ];
-export default function Bookmark({ name, description, isStarred }: BookmarkProps) {
-
+export default function Bookmark({
+  name,
+  description,
+  isStarred,
+}: BookmarkProps) {
   return (
     <Card className="flex gap-x-3 justify-between items-center">
       <div className="flex gap-x-3 items-center">
