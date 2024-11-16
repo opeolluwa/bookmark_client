@@ -12,9 +12,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  rules: {
-    "@next/next/no-img-element": "off",
-  },
+
   // Configure assetPrefix or else the server won't properly resolve your assets.
   assetPrefix: isProd ? null : `http://${internalHost}:3000`,
 };
