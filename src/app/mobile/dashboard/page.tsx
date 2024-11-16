@@ -100,7 +100,7 @@ export default function Page() {
   const [loadingBookmarks, setLoadingBookmarks] = useState<boolean>(true);
   const [bookmarks, setBookmarks] = useState<BookmarkCollectionEntries[]>();
   const router = useRouter();
-  
+
   const hideDrawer = () => setOpenDrawer(false);
   const showDrawer = () => setOpenDrawer(true);
 
@@ -131,7 +131,7 @@ export default function Page() {
         </header>
       </View>
 
-      {!bookmarks?.length ? (
+      {!bookmarks?.length && (
         <View className="flex flex-col justify-center items-center mt-24">
           <img
             src="/illustrations/empty-bookmarks.png"
@@ -140,7 +140,8 @@ export default function Page() {
           />
           <SmallText>Such Emptiness!</SmallText>
         </View>
-      ) : (
+      )}
+      {bookmarks?.length && (
         <View className="mb-6">
           {test_data.map((bookmark) => (
             <Bookmark
@@ -223,7 +224,7 @@ export default function Page() {
         footer={
           <div
             className="flex gap-x-4 py-2 font-medium"
-            onClick={()=>router.push("/mobile")}
+            onClick={() => router.push("/mobile")}
           >
             <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout
           </div>

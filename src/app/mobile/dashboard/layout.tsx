@@ -55,9 +55,8 @@ export default function MobileAppDashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <View className="pt-4 pb-12 px-6 min-h-screen">
+    <View className="pt-4 pb-12 px-6 h-screen overflow-y-auto ">
       {children}
 
       <View className="btm-nav z-50 bg-white rounded-t-xl text-gray-500 py-4">

@@ -5,21 +5,10 @@
 body {
   user-select: none;
 }
-#layout>main {
-  min-height: 100vh;
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
-}
 
-#layout {
-  min-width: 100vw !important;
+html {
+  scroll-behavior: smooth;
 }
-
-#app__navigation {
-  height: 90vh !important;
-  position: fixed;
-}
-
 
 
 
