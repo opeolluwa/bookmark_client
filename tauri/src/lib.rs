@@ -14,12 +14,14 @@ pub fn run() {
     // let app_state = JsonDb::new::<TokenStore>("token_store").unwrap();
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_biometric::init())
         .setup(|app| {
             let _ = app.store("store.json")?;
             // app.manage(app_state);
             Ok(())
         })
+         .plugin(tauri_plugin_sharesheet::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_os::init())
