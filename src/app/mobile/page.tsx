@@ -142,7 +142,7 @@ export default function LoginWithEmail() {
       >
         Forgotten password?
       </Link>
-      {biometricsIsSupported && (
+      {/* {biometricsIsSupported && (
         <div
           className="flex items-center justify-center absolute bottom-24 left-0 right-0"
           onClick={authenticateWithBiometrics}
@@ -151,7 +151,15 @@ export default function LoginWithEmail() {
             <FingerPrintIcon className="size-6 text-app" />
           </button>
         </div>
-      )}
+      )} */}
+      <div
+        className="flex items-center justify-center absolute bottom-24 left-0 right-0"
+        onClick={authenticateWithBiometrics}
+      >
+        <button className="btn bg-app-50 border-none  ">
+          <FingerPrintIcon className="size-6 text-app" />
+        </button>
+      </div>
     </View>
   );
 }
