@@ -1,24 +1,23 @@
 "use client";
 import { FormFieldTypes } from "@/app/page";
 import Heading from "@/components/Heading";
-import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { FingerPrintIcon } from "@heroicons/react/24/outline";
 import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/core";
-import { Form, FormProps, Input } from "antd";
-import { useRouter } from "next/navigation";
-import { LoginData } from "../../../tauri/bindings/LoginData";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { authenticate, checkStatus } from "@tauri-apps/plugin-biometric";
 import { message } from "@tauri-apps/plugin-dialog";
-import { FingerPrintIcon } from "@heroicons/react/24/outline";
+import { Form, FormProps, Input } from "antd";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { LoginData } from "../../../tauri/bindings/LoginData";
 
 export default function LoginWithEmail() {
   const [accountExist, setAccountExist] = useState(true);
-  const [useBiometrics, setUseBiometrics] = useState(false);
+  const [biometricsIsSupported, setBiometricsIsSupported] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
   const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
@@ -44,7 +43,7 @@ export default function LoginWithEmail() {
       await authenticate("Continue with fingerprint", options);
       router.push("/mobile/dashboard");
     } catch (error) {
-      await message("Biometrics login failed", {
+      await message("Biometrics login failed, please email and password", {
         title: "Bookmark",
         kind: "error",
       });
@@ -54,9 +53,9 @@ export default function LoginWithEmail() {
     const fetchData = async () => {
       const biometricsSupportStatus = await checkStatus();
       if (biometricsSupportStatus.isAvailable) {
-        setUseBiometrics(true);
+        setBiometricsIsSupported(true);
       } else {
-        setUseBiometrics(false);
+        setBiometricsIsSupported(false);
       }
     };
     fetchData();
@@ -143,11 +142,16 @@ export default function LoginWithEmail() {
       >
         Forgotten password?
       </Link>
-      <View className="flex items-center justify-center absolute bottom-24 left-0 right-0">
-        <button className="btn bg-app-50 border-none  ">
-          <FingerPrintIcon className="size-6 text-app" />
-        </button>
-      </View>
+      {biometricsIsSupported && (
+        <div
+          className="flex items-center justify-center absolute bottom-24 left-0 right-0"
+          onClick={authenticateWithBiometrics}
+        >
+          <button className="btn bg-app-50 border-none  ">
+            <FingerPrintIcon className="size-6 text-app" />
+          </button>
+        </div>
+      )}
     </View>
   );
 }

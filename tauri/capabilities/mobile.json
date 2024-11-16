@@ -6,7 +6,7 @@
   ],
   "permissions": [
     "biometric:default",
-    "biometric::allow-status",
+    "biometric:allow-status",
     "biometric:allow-authenticate"
   ]
 }
