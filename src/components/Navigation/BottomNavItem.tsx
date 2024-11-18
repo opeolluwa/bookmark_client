@@ -70,7 +70,7 @@ export default function BottomNavItem({
           <span className="size-5">
             {currentPath == path ? alternateIcon : icon}
           </span>
-          <span className="btm-nav-label text-sm font-medium capitalize">
+          <span className="btm-nav-label text-[0.75rem] font-medium capitalize">
             {label}
           </span>
         </button>

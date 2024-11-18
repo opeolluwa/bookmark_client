@@ -6,9 +6,19 @@ body {
   user-select: none;
 }
 
-html {
-  scroll-behavior: smooth;
+input {
+  font-size: 16px !important;
 }
 
+html {
+  scroll-behavior: smooth;
+  virtual-keyboard: overlays-content;
+}
 
+body.keyboard {
+  height: calc(100% + 500px); /* add padding for keyboard */
+}
 
+body.virtual-keyboard-padding {
+  height: calc(100% + 500px) !important;
+}
