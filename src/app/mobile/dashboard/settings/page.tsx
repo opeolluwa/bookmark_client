@@ -17,7 +17,7 @@ export default function Page() {
         return (
           <>
             <View
-              className="my-16 first:mt-4 last:mb-4"
+              className="my-12 first:mt-0 last:mb-4"
               key={title?.toString()}
             >
               <Text className="text-sm font-medium capitalize"> {title} </Text>
@@ -29,7 +29,7 @@ export default function Page() {
                     key={route.path}
                   >
                     <a
-                      href={route?.path}
+                      href={"/mobile/dashboard/settings/tabs/" + route.path}
                       className="flex items-center gap-x-4  px-0 mx-0"
                     >
                       <span className="size-5 font-semibold">{route.icon}</span>

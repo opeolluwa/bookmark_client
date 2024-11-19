@@ -1,26 +1,28 @@
 "use client";
-import Bookmark, { BookmarkProps } from "@/components/Cards/Bookmarks";
+import Bookmark from "@/components/Cards/Bookmarks";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { UserOutlined } from "@ant-design/icons";
+import { BellIcon } from "@heroicons/react/24/outline";
 import {
   ArrowLeftStartOnRectangleIcon,
   Bars3Icon,
   PlusIcon,
 } from "@heroicons/react/24/solid";
 import {
-  Avatar,
+  Badge,
   Button,
   Drawer,
   FloatButton,
   Form,
   FormProps,
   Input,
+  Modal,
   Space,
 } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
 
 const { TextArea, Search } = Input;
@@ -30,79 +32,23 @@ type FormFieldTypes = {
   description?: string;
 };
 
-let test_data: BookmarkProps[] = [
-  {
-    name: "Project Alpha",
-    description: "A top-priority project for developing an AI-based solution.",
-    isStarred: true,
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-  {
-    name: "Research Paper Review",
-    description:
-      "Review recent papers on machine learning trends and applications.",
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-  {
-    name: "Documentation Update",
-    description: "Update the documentation for the latest API changes.",
-    isStarred: false,
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-  {
-    name: "Team Sync Meeting",
-    description: "Weekly sync meeting with the engineering team.",
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-  {
-    name: "Feature Request",
-    description:
-      "Investigate adding multi-language support to the application.",
-    isStarred: true,
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-  {
-    name: "Code Refactoring",
-    description:
-      "Refactor the codebase for improved maintainability and readability.",
-    title: "",
-    created_at: "",
-    updated_at: "",
-    bookmark_collection_id: "",
-    more_fields: {},
-  },
-];
-
 export default function Page() {
   const [form] = Form.useForm();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const [processingForm, setProcessingForm] = useState(false);
   const [openSideNavigation, setOpenSideNavigation] = useState<boolean>(false);
   const [loadingBookmarks, setLoadingBookmarks] = useState<boolean>(true);
   const [bookmarks, setBookmarks] = useState<BookmarkCollectionEntries[]>();
   const router = useRouter();
 
-  const hideDrawer = () => setOpenDrawer(false);
-  const showDrawer = () => setOpenDrawer(true);
+  const hideDrawer = () => setOpenForm(false);
+  const showDrawer = () => setOpenForm(true);
+  const handleDrawerOk = () => {
+    setProcessingForm(true);
+    setTimeout(() => {
+      setProcessingForm(false);
+    }, 2000);
+  };
 
   const hideSideNavigation = () => setOpenSideNavigation(false);
   const showSideNavigation = () => setOpenSideNavigation(true);
@@ -111,10 +57,6 @@ export default function Page() {
     console.log("Success:", { ...values });
     form.resetFields();
   };
-
-  useEffect(() => {
-    setBookmarks(test_data);
-  });
 
   return (
     <>
@@ -127,11 +69,15 @@ export default function Page() {
           <Text className="text-gray-400 font-bold text-sm">
             Default collection
           </Text>
-          <Avatar icon={<UserOutlined />} />
+          <Link href={"/mobile/dashboard/notification"}>
+            <Badge count={5} size="small">
+              <BellIcon className="size-5" />
+            </Badge>
+          </Link>
         </header>
       </View>
 
-      {!bookmarks?.length && (
+      {!bookmarks?.length ? (
         <View className="flex flex-col justify-center items-center mt-24">
           <img
             src="/illustrations/empty-bookmarks.png"
@@ -140,20 +86,18 @@ export default function Page() {
           />
           <SmallText>Such Emptiness!</SmallText>
         </View>
-      )}
-      {bookmarks?.length && (
+      ) : (
         <View className="mb-6">
-          {test_data.map((bookmark) => (
+          {bookmarks.map((bookmark) => (
             <Bookmark
-              name={bookmark.name}
               description={bookmark.description}
-              isStarred={bookmark.isStarred}
-              key={bookmark.name}
               title={""}
               created_at={""}
               updated_at={""}
               bookmark_collection_id={""}
               more_fields={{}}
+              key={bookmark.bookmark_collection_id}
+              name={""}
             />
           ))}
         </View>
@@ -162,24 +106,27 @@ export default function Page() {
       <FloatButton
         shape="circle"
         type="primary"
-        className="mb-5"
+        className="mb-8"
         style={{ insetInlineEnd: 24 }}
         icon={<PlusIcon className="size-4" />}
         onClick={showDrawer}
       />
-      <Drawer
-        placement="bottom"
+      {/** add entry modal‚ */}
+      <Modal
         title="New bookmark"
         onClose={hideDrawer}
         className="rounded-t-2xl"
-        open={openDrawer}
-        extra={
-          <Space>
-            <Button type="primary" onClick={hideDrawer}>
-              Save
-            </Button>
-          </Space>
-        }
+        open={openForm}
+        onOk={handleDrawerOk}
+        centered
+        confirmLoading={processingForm}
+        // extra={
+        //   <Space>
+        //     <Button type="primary" onClick={hideDrawer}>
+        //       Save
+        //     </Button>
+        //   </Space>
+        // }
       >
         <Form
           initialValues={{ remember: true }}
@@ -208,7 +155,7 @@ export default function Page() {
           </Form.Item>
           <View></View>
         </Form>
-      </Drawer>
+      </Modal>
       {/**side navigation */}
       <Drawer
         closable
@@ -216,20 +163,24 @@ export default function Page() {
         title={"Collections"}
         placement="left"
         open={openSideNavigation}
-        loading={loadingBookmarks}
+        // loading={loadingBookmarks}
         height={"70vh"}
         width={"80vw"}
         onClose={() => setOpenSideNavigation(false)}
         className="rounded-br-xl"
         footer={
           <div
-            className="flex gap-x-4 py-2 font-medium"
+            className="flex gap-x-2 py-2 font-medium"
             onClick={() => router.push("/mobile")}
           >
             <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout
           </div>
         }
-      ></Drawer>
+      >
+        <button className="btn flex justify-center w-full border-app text-app bg-transparent">
+          <PlusIcon className="size-4" /> <span>New collection</span>
+        </button>
+      </Drawer>
     </>
   );
 }

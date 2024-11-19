@@ -10,7 +10,6 @@ import { Dropdown, MenuProps } from "antd";
 import Card from ".";
 import SmallText from "../SmallText";
 import Text from "../Text";
-import { shareText } from "@buildyourwebapp/tauri-plugin-sharesheet";
 import Gravatar from "react-gravatar";
 import {
   BookmarkCollection,
@@ -34,10 +33,7 @@ export const items: MenuProps["items"] = [
   {
     key: "share",
     label: (
-      <span
-        className="flex gap-x-[2px] items-center"
-        onClick={() => shareText("Tauri is great!")} //TODO: get the actual content
-      >
+      <span className="flex gap-x-[2px] items-center">
         <ShareIcon className="w-4 h-4 mr-2" />
         Share
       </span>

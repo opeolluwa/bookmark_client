@@ -26,7 +26,7 @@ export interface ApplicationRoute {
 const bottomNavigation: ApplicationRoute[] = [
   {
     label: "home",
-    path: "",
+    path: "/",
     icon: <HomeIcon />,
     alternateIcon: <SolidHomeIcon />,
   },
