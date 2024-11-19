@@ -17,7 +17,7 @@ export default function Page() {
         return (
           <>
             <View
-              className="my-12 first:mt-2 last:mb-4"
+              className="my-12 first:mt-0 last:mb-4"
               key={title?.toString()}
             >
               <Text className="text-sm font-medium capitalize"> {title} </Text>

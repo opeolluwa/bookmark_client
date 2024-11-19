@@ -69,7 +69,7 @@ export default function Page() {
           <Text className="text-gray-400 font-bold text-sm">
             Default collection
           </Text>
-          <Link href={"/notification"}>
+          <Link href={"/mobile/dashboard/notification"}>
             <Badge count={5} size="small">
               <BellIcon className="size-5" />
             </Badge>
@@ -118,6 +118,7 @@ export default function Page() {
         className="rounded-t-2xl"
         open={openForm}
         onOk={handleDrawerOk}
+        centered
         confirmLoading={processingForm}
         // extra={
         //   <Space>
