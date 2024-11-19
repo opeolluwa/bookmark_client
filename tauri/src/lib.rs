@@ -1,11 +1,7 @@
-// use lazy_static::lazy_static;
 use tauri_plugin_store::StoreExt;
-lazy_static::lazy_static! {
-    pub static ref GRPC_SERVER_ENDPOINT: String = String::from("http://127.0.0.1:50051");
-}
+
 
 pub mod app_state;
-pub mod commands;
 pub mod config;
 pub mod helpers;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -14,6 +10,7 @@ pub fn run() {
     // let app_state = JsonDb::new::<TokenStore>("token_store").unwrap();
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_biometric::init())
         .setup(|app| {
             let _ = app.store("store.json")?;
@@ -25,11 +22,7 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_clipboard_manager::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::authentication::sign_in,
-            commands::bookmarks::get_all_bookmark_collections,
-            commands::bookmarks::create_bookmark_collection
-        ])
+        .invoke_handler(tauri::generate_handler![])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

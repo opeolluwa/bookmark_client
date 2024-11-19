@@ -44,6 +44,8 @@ watch target:
 [group('watch')]
 build target:
     #!/usr/bin/env sh
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     if [ $target = "android" ]; then
         npm run tauri android build --apk
     elif [ $target = "ios" ]; then 

@@ -119,16 +119,18 @@ export default function Home() {
 
       <View className="flex  flex-wrap gap-6">
         {vault?.vaults.length == 0 ? (
-         <Card>
-
-         </Card>
+          <Card></Card>
         ) : (
           vault?.vaults.map((entry) => (
             <Bookmark
               name={entry.name}
               description={entry.description}
-              // date={entry.created_at}
               key={entry.vault_id}
+              title={""}
+              created_at={""}
+              updated_at={""}
+              bookmark_collection_id={""}
+              more_fields={{}}
             />
           ))
         )}

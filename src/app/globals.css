@@ -5,21 +5,20 @@
 body {
   user-select: none;
 }
-#layout>main {
-  min-height: 100vh;
-  overflow-y: scroll !important;
-  overflow-x: hidden !important;
+
+input {
+  font-size: 16px !important;
 }
 
-#layout {
-  min-width: 100vw !important;
+html {
+  scroll-behavior: smooth;
+  virtual-keyboard: overlays-content;
 }
 
-#app__navigation {
-  height: 90vh !important;
-  position: fixed;
+body.keyboard {
+  height: calc(100% + 500px); /* add padding for keyboard */
 }
 
-
-
-
+body.virtual-keyboard-padding {
+  height: calc(100% + 500px) !important;
+}
