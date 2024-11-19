@@ -30,6 +30,7 @@ lint:
 [group('watch')]
 watch target:
     #!/usr/bin/env sh
+    export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     if [ $target = "android" ]; then
