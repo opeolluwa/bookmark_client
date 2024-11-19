@@ -1,9 +1,8 @@
 "use client";
-import Bookmark, { BookmarkProps } from "@/components/Cards/Bookmarks";
+import Bookmark from "@/components/Cards/Bookmarks";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { UserOutlined } from "@ant-design/icons";
 import { BellIcon } from "@heroicons/react/24/outline";
 import {
   ArrowLeftStartOnRectangleIcon,
@@ -11,7 +10,6 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/solid";
 import {
-  Avatar,
   Badge,
   Button,
   Drawer,
@@ -19,10 +17,12 @@ import {
   Form,
   FormProps,
   Input,
+  Modal,
   Space,
 } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
 
 const { TextArea, Search } = Input;
@@ -34,14 +34,21 @@ type FormFieldTypes = {
 
 export default function Page() {
   const [form] = Form.useForm();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const [processingForm, setProcessingForm] = useState(false);
   const [openSideNavigation, setOpenSideNavigation] = useState<boolean>(false);
   const [loadingBookmarks, setLoadingBookmarks] = useState<boolean>(true);
   const [bookmarks, setBookmarks] = useState<BookmarkCollectionEntries[]>();
   const router = useRouter();
 
-  const hideDrawer = () => setOpenDrawer(false);
-  const showDrawer = () => setOpenDrawer(true);
+  const hideDrawer = () => setOpenForm(false);
+  const showDrawer = () => setOpenForm(true);
+  const handleDrawerOk = () => {
+    setProcessingForm(true);
+    setTimeout(() => {
+      setProcessingForm(false);
+    }, 2000);
+  };
 
   const hideSideNavigation = () => setOpenSideNavigation(false);
   const showSideNavigation = () => setOpenSideNavigation(true);
@@ -62,9 +69,11 @@ export default function Page() {
           <Text className="text-gray-400 font-bold text-sm">
             Default collection
           </Text>
-          <Badge count={5} size="small">
-            <BellIcon className="size-5" />
-          </Badge>
+          <Link href={"/notification"}>
+            <Badge count={5} size="small">
+              <BellIcon className="size-5" />
+            </Badge>
+          </Link>
         </header>
       </View>
 
@@ -102,19 +111,21 @@ export default function Page() {
         icon={<PlusIcon className="size-4" />}
         onClick={showDrawer}
       />
-      <Drawer
-        placement="bottom"
+      {/** add entry modal‚ */}
+      <Modal
         title="New bookmark"
         onClose={hideDrawer}
         className="rounded-t-2xl"
-        open={openDrawer}
-        extra={
-          <Space>
-            <Button type="primary" onClick={hideDrawer}>
-              Save
-            </Button>
-          </Space>
-        }
+        open={openForm}
+        onOk={handleDrawerOk}
+        confirmLoading={processingForm}
+        // extra={
+        //   <Space>
+        //     <Button type="primary" onClick={hideDrawer}>
+        //       Save
+        //     </Button>
+        //   </Space>
+        // }
       >
         <Form
           initialValues={{ remember: true }}
@@ -143,7 +154,7 @@ export default function Page() {
           </Form.Item>
           <View></View>
         </Form>
-      </Drawer>
+      </Modal>
       {/**side navigation */}
       <Drawer
         closable
@@ -158,7 +169,7 @@ export default function Page() {
         className="rounded-br-xl"
         footer={
           <div
-            className="flex gap-x-4 py-2 font-medium"
+            className="flex gap-x-2 py-2 font-medium"
             onClick={() => router.push("/mobile")}
           >
             <ArrowLeftStartOnRectangleIcon className="size-5" /> Logout

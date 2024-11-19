@@ -2,15 +2,14 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 // use app_lib::config;
-use vault_database::migration::Migrator;
-use vault_database::migration::MigratorTrait;
+use bookmark_database_codegen::migration::Migrator;
+use bookmark_database_codegen::migration::MigratorTrait;
 pub mod app_state;
-pub mod commands;
+// pub mod commands;
 pub mod config;
 pub mod helpers;
 fn main() {
     tauri::async_runtime::spawn(exec_db_migration());
-
     app_lib::run();
 }
 

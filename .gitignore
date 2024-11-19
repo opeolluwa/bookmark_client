@@ -42,3 +42,5 @@ next-env.d.ts
 tauri/gen/android/app/upload-keystore.jks
 
 .zcrash
+
+tauri/resources/mobile.vault.db
