@@ -1,5 +1,6 @@
+import View from "@/components/View";
 import React from "react";
 
 export default function Page() {
-  return <div>page</div>;
+  return <View>page</View>;
 }

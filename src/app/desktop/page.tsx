@@ -20,34 +20,35 @@ export default function DesktopAppEntry() {
   const [messageApi, contextHolder] = message.useMessage();
 
   const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    set_processing_request(true);
-    const login_details: LoginData = {
-      email: values.email?.trim().toLowerCase(),
-      password: values.password?.trim(),
-    };
-    try {
-      invoke("sign_in", { payload: login_details })
-        .then((response) => {
-          console.log(login_details);
-          const result = response as CommandResponse<LoginResponse>;
-          if (result.status != "Success") {
-            messageApi.error(result.message);
-            return;
-          } else {
-            set_processing_request(false);
-            messageApi.success(result.message || "Login successful");
-            router.push("/dashboard");
-          }
-        })
-        .catch((error) => {
-          set_processing_request(false);
-          return;
-        });
-    } catch (error) {
-      messageApi.error((error as any).message);
-      set_processing_request(false);
-      return;
-    }
+          router.push("/desktop/dashboard");
+    // set_processing_request(true);
+    // const login_details: LoginData = {
+    //   email: values.email?.trim().toLowerCase(),
+    //   password: values.password?.trim(),
+    // };
+    // try {
+    //   invoke("sign_in", { payload: login_details })
+    //     .then((response) => {
+    //       console.log(login_details);
+    //       const result = response as CommandResponse<LoginResponse>;
+    //       if (result.status != "Success") {
+    //         messageApi.error(result.message);
+    //         return;
+    //       } else {
+    //         set_processing_request(false);
+    //         messageApi.success(result.message || "Login successful");
+    //         router.push("/dashboard");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       set_processing_request(false);
+    //       return;
+    //     });
+    // } catch (error) {
+    //   messageApi.error((error as any).message);
+    //   set_processing_request(false);
+    //   return;
+    // }
   };
 
   return (

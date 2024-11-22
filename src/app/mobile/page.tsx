@@ -144,14 +144,16 @@ export default function LoginWithEmail() {
         Forgotten password?
       </Link>
 
-      <div className="flex items-center justify-center absolute bottom-24 left-0 right-0">
-        <button
-          className="btn bg-app-50 border-none  "
-          onClick={authenticateWithBiometrics}
-        >
-          <FingerPrintIcon className="size-6 text-app" />
-        </button>
-      </div>
+      {biometricsIsSupported && (
+        <div className="flex items-center justify-center absolute bottom-24 left-0 right-0">
+          <button
+            className="btn bg-app-50 border-none  "
+            onClick={authenticateWithBiometrics}
+          >
+            <FingerPrintIcon className="size-6 text-app" />
+          </button>
+        </div>
+      )}
     </View>
   );
 }

@@ -11,14 +11,12 @@ import {
 } from "@heroicons/react/24/solid";
 import {
   Badge,
-  Button,
   Drawer,
   FloatButton,
   Form,
   FormProps,
   Input,
-  Modal,
-  Space,
+  Modal
 } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -120,13 +118,7 @@ export default function Page() {
         onOk={handleDrawerOk}
         centered
         confirmLoading={processingForm}
-        // extra={
-        //   <Space>
-        //     <Button type="primary" onClick={hideDrawer}>
-        //       Save
-        //     </Button>
-        //   </Space>
-        // }
+
       >
         <Form
           initialValues={{ remember: true }}
@@ -163,7 +155,7 @@ export default function Page() {
         title={"Collections"}
         placement="left"
         open={openSideNavigation}
-        // loading={loadingBookmarks}
+        loading={loadingBookmarks}
         height={"70vh"}
         width={"80vw"}
         onClose={() => setOpenSideNavigation(false)}
