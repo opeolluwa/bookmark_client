@@ -7,12 +7,11 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Dropdown, MenuProps } from "antd";
+import type { BookmarkCollectionEntries } from "bookmark_grpc_codegen/bindings/BookmarkCollectionEntries";
+import Gravatar from "react-gravatar";
 import Card from ".";
 import SmallText from "../SmallText";
 import Text from "../Text";
-import Gravatar from "react-gravatar";
-import type { BookmarkCollection } from "bookmark_grpc_codegen/bindings/BookmarkCollection";
-import type { BookmarkCollectionEntries } from "bookmark_grpc_codegen/bindings/BookmarkCollectionEntries";
 
 export interface BookmarkProps extends BookmarkCollectionEntries {
   name: string;
