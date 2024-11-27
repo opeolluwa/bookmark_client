@@ -11,10 +11,9 @@ import Card from ".";
 import SmallText from "../SmallText";
 import Text from "../Text";
 import Gravatar from "react-gravatar";
-import {
-  BookmarkCollection,
-  BookmarkCollectionEntries,
-} from "vault_grpc_bindings/bindings";
+import type { BookmarkCollection } from "bookmark_grpc_codegen/bindings/BookmarkCollection";
+import type { BookmarkCollectionEntries } from "bookmark_grpc_codegen/bindings/BookmarkCollectionEntries";
+
 export interface BookmarkProps extends BookmarkCollectionEntries {
   name: string;
   description: string;

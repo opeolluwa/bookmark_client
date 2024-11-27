@@ -16,12 +16,12 @@ import {
   Form,
   FormProps,
   Input,
-  Modal
+  Modal,
 } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
+import type { BookmarkCollectionEntries } from "bookmark_grpc_codegen/bindings/BookmarkCollectionEntries";
 
 const { TextArea, Search } = Input;
 
@@ -86,7 +86,7 @@ export default function Page() {
         </View>
       ) : (
         <View className="mb-6">
-          {bookmarks.map((bookmark) => (
+          {/* {bookmarks.map((bookmark) => (
             <Bookmark
               description={bookmark.description}
               title={""}
@@ -97,7 +97,7 @@ export default function Page() {
               key={bookmark.bookmark_collection_id}
               name={""}
             />
-          ))}
+          ))} */}
         </View>
       )}
 
@@ -118,7 +118,6 @@ export default function Page() {
         onOk={handleDrawerOk}
         centered
         confirmLoading={processingForm}
-
       >
         <Form
           initialValues={{ remember: true }}

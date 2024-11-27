@@ -8,6 +8,7 @@ import { Form, FormProps, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoginData } from "../../../../../tauri/bindings/LoginData";
+import {SignUpRequest} from "bookmark_grpc_codegen/bindings";
 
 export type FormFieldTypes = {
   email: string;

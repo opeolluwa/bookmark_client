@@ -4,13 +4,9 @@ import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { LoginResponse } from "vault_grpc_bindings/bindings";
-import { CommandResponse } from "../../../tauri/bindings/CommandResponse";
-import { LoginData } from "../../../tauri/bindings/LoginData";
 import { FormFieldTypes } from "../page";
 
 export default function DesktopAppEntry() {

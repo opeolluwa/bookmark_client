@@ -14,6 +14,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
     "@heroicons/react": "^2.1.5",
+    "@next/env": "^15.0.3",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-biometric": "^2.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.0.0",
@@ -28,7 +29,7 @@
     "@types/react-gravatar": "^2.6.14",
     "antd": "^5.21.4",
     "antd-mobile": "^5.38.1",
-    "bookmark_grpc_codegen": "github:opeolluwa/vault_grpc#v1.0.0",
+    "bookmark_grpc_codegen": "github:opeolluwa/vault_grpc#v1.0.7",
     "next": "14.2.5",
     "npm": "^10.9.0",
     "rc-tween-one": "^3.0.6",
@@ -36,8 +37,7 @@
     "react-dom": "^18.2.0",
     "react-gravatar": "^2.6.3",
     "react-tag-input-component": "^2.0.2",
-    "react-use-is-online": "^1.2.2",
-    "vault_grpc_bindings": "github:opeolluwa/bookmark_grpc_codegen#v0.7.7"
+    "react-use-is-online": "^1.2.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.1.0",
