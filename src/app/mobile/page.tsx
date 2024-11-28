@@ -1,34 +1,53 @@
 "use client";
-import { FormFieldTypes } from "@/app/page";
+import SubmitButton from "@/components/Button/SubmitButton";
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { FingerPrintIcon } from "@heroicons/react/24/outline";
 import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
-import { invoke } from "@tauri-apps/api/core";
 import { authenticate, checkStatus } from "@tauri-apps/plugin-biometric";
 import { message } from "@tauri-apps/plugin-dialog";
 import { Form, FormProps, Input } from "antd";
+import type { LoginRequest as FormFieldTypes } from "bookmark_grpc_codegen/bindings/LoginRequest";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LoginData } from "../../../tauri/bindings/LoginData";
-import { fetch } from "@tauri-apps/plugin-http";
+import { httpClient } from "../axios";
 
 export default function LoginWithEmail() {
   const [accountExist, setAccountExist] = useState(true);
   const [biometricsIsSupported, setBiometricsIsSupported] = useState(false);
+  const [isProcessingForm, setIsProcessingForm] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
-  const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    const new_user: LoginData = {
-      email: values.email?.trim(),
-      password: values.password?.trim(),
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = async (values) => {
+    setIsProcessingForm(true);
+    const payload: FormFieldTypes = {
+      email: values.email.trim(),
+      password: values.password.trim(),
     };
-    invoke("sign_in", { user: new_user }).then((res) => {
-      console.log({ res });
-    });
+    try {
+      const response = await httpClient.post("/users/login", { ...payload });
+      if (response.status !== 200) {
+        await message(response.data.message, {
+          title: "Bookmark",
+          kind: "error",
+        });
+        return;
+      } else {
+        router.push("/mobile/dashboard");
+        //todo: store token 
+        return;
+      }
+    } catch (error: any) {
+      await message(error.message, {
+        title: "Bookmark",
+        kind: "error",
+      });
+    } finally {
+      setIsProcessingForm(false);
+    }
   };
 
   const authenticateWithBiometrics = async () => {
@@ -100,7 +119,7 @@ export default function LoginWithEmail() {
 
       <Form
         initialValues={{ remember: true }}
-        onFinish={submit_form}
+        onFinish={submitForm}
         autoComplete="off"
         name="save-data"
         layout="vertical"
@@ -130,12 +149,11 @@ export default function LoginWithEmail() {
           />
         </Form.Item>
 
-        <button
-          onClick={() => router.push("/mobile/dashboard")}
+        <SubmitButton
           className="w-full rounded-lg py-4 bg-app-600 text-white font-medium"
-        >
-          Sign in
-        </button>
+          text="Sign in"
+          loadingState={isProcessingForm}
+        />
       </Form>
       <Link
         href="/mobile/authentication/forgotten-password"
@@ -144,14 +162,16 @@ export default function LoginWithEmail() {
         Forgotten password?
       </Link>
 
-      <div className="flex items-center justify-center absolute bottom-24 left-0 right-0">
-        <button
-          className="btn bg-app-50 border-none  "
-          onClick={authenticateWithBiometrics}
-        >
-          <FingerPrintIcon className="size-6 text-app" />
-        </button>
-      </div>
+      {biometricsIsSupported && (
+        <div className="flex items-center justify-center absolute bottom-24 left-0 right-0">
+          <button
+            className="btn bg-app-50 border-none  "
+            onClick={authenticateWithBiometrics}
+          >
+            <FingerPrintIcon className="size-6 text-app" />
+          </button>
+        </div>
+      )}
     </View>
   );
 }

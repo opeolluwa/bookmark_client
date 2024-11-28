@@ -11,19 +11,17 @@ import {
 } from "@heroicons/react/24/solid";
 import {
   Badge,
-  Button,
   Drawer,
   FloatButton,
   Form,
   FormProps,
   Input,
   Modal,
-  Space,
 } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BookmarkCollectionEntries } from "vault_grpc_bindings/bindings";
+import type { BookmarkCollectionEntries } from "bookmark_grpc_codegen/bindings/BookmarkCollectionEntries";
 
 const { TextArea, Search } = Input;
 
@@ -88,7 +86,7 @@ export default function Page() {
         </View>
       ) : (
         <View className="mb-6">
-          {bookmarks.map((bookmark) => (
+          {/* {bookmarks.map((bookmark) => (
             <Bookmark
               description={bookmark.description}
               title={""}
@@ -99,7 +97,7 @@ export default function Page() {
               key={bookmark.bookmark_collection_id}
               name={""}
             />
-          ))}
+          ))} */}
         </View>
       )}
 
@@ -120,13 +118,6 @@ export default function Page() {
         onOk={handleDrawerOk}
         centered
         confirmLoading={processingForm}
-        // extra={
-        //   <Space>
-        //     <Button type="primary" onClick={hideDrawer}>
-        //       Save
-        //     </Button>
-        //   </Space>
-        // }
       >
         <Form
           initialValues={{ remember: true }}
@@ -163,7 +154,7 @@ export default function Page() {
         title={"Collections"}
         placement="left"
         open={openSideNavigation}
-        // loading={loadingBookmarks}
+        loading={loadingBookmarks}
         height={"70vh"}
         width={"80vw"}
         onClose={() => setOpenSideNavigation(false)}

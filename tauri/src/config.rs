@@ -4,6 +4,7 @@ use std::fmt::Display;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
+
     /// database url for the embedded Sqlite database
     pub database_connection_string: String,
     /// jwt key
@@ -25,7 +26,7 @@ impl Config {
         let database_connection_string = {
             let db_path = "resources".to_string();
             let _ = std::fs::create_dir_all(&db_path);
-            format!("sqlite://{db_path}/mobile.vault.db?mode=rwc")
+            format!("sqlite://{db_path}/bookmark.backup.db?mode=rwc")
         };
 
         let jwt_signing_key = "nr2CRwaADKauevLmN9KdRG482k1gWkl7cb51".to_string(); //TODO: use random key generation

@@ -1,38 +1,47 @@
 "use client";
+import { httpClient } from "@/app/axios";
+import SubmitButton from "@/components/Button/SubmitButton";
 import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import { invoke } from "@tauri-apps/api/core";
 import { Form, FormProps, Input } from "antd";
+import type { SignUpRequest } from "bookmark_grpc_codegen/bindings/SignUpRequest";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LoginData } from "../../../../../tauri/bindings/LoginData";
+import { useState } from "react";
 
-export type FormFieldTypes = {
-  email: string;
-  password: string;
-  firstname: string;
-  lastname: string;
-};
+type FormFieldTypes = SignUpRequest;
 
 export default function LoginWithEmail() {
   const [form] = Form.useForm();
   const router = useRouter();
-  const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-    const new_user: LoginData = {
+  const [isProcessingForm, setIsProcessingForm] = useState(false);
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = async (values) => {
+    const signUpRequest: SignUpRequest = {
       email: values.email?.trim(),
       password: values.password?.trim(),
+      first_name: values.first_name.trim(),
+      last_name: values.last_name.trim(),
     };
-    invoke("sign_in", { user: new_user }).then((res) => {
-      console.log({ res });
-    });
+
+    setIsProcessingForm(true);
+    await httpClient
+      .post("/users/register", {
+        ...signUpRequest,
+      })
+      .then((response) => {
+        setIsProcessingForm(false);
+        // if(response.status!==200){}
+        console.log(response);
+        router.push("/mobile/dashboard");
+      });
   };
   return (
     <>
       <Form
         initialValues={{ remember: true }}
-        onFinish={submit_form}
+        onFinish={submitForm}
         autoComplete="off"
         name="save-data"
         layout="vertical"
@@ -52,21 +61,21 @@ export default function LoginWithEmail() {
           </Text>
         </View>
 
-        <Form.Item<FormFieldTypes> label="First name" name="firstname">
+        <Form.Item<FormFieldTypes> label="First name" name="first_name">
           <Input
             type="firstname"
             name="firstname"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="enter your email"
+            placeholder="first name"
           />
         </Form.Item>
 
-        <Form.Item<FormFieldTypes> label="Last name" name="lastname">
+        <Form.Item<FormFieldTypes> label="Last name" name="last_name">
           <Input
             type="text"
             name="lastname"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="enter your email"
+            placeholder="last name"
           />
         </Form.Item>
 
@@ -75,7 +84,7 @@ export default function LoginWithEmail() {
             type="email"
             name="email"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="enter your email"
+            placeholder="email"
           />
         </Form.Item>
 
@@ -84,15 +93,14 @@ export default function LoginWithEmail() {
             type="password"
             name="password"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="enter your email"
+            placeholder="password"
           />
         </Form.Item>
-        <button
-          onClick={() => router.push("/dashboard")}
-          className="w-full rounded-lg py-4 bg-app-600 font-medium text-white "
-        >
-          Continue
-        </button>
+        <SubmitButton
+          className="w-full rounded-lg py-4 bg-app-600 font-medium text-white"
+          text="Continue"
+          loadingState={isProcessingForm}
+        />
       </Form>
       <SmallText className=" text-sm text-gray-400">
         By clicking continue you agree to the terms of{" "}
