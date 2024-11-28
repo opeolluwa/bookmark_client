@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const httpClient = axios.create({
-  baseURL: "http://localhost:4576/v1",
-  timeout: 10000,
-  //   headers:[],//TODO:
+  baseURL: "https://ecfe-102-88-37-101.ngrok-free.app/v1",
+  timeout: 5000,// 5 seconds 
 });

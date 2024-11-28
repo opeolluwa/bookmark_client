@@ -1,11 +1,11 @@
 "use client";
 import { httpClient } from "@/app/axios";
+import SubmitButton from "@/components/Button/SubmitButton";
 import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { Form, FormProps, Input } from "antd";
-import axios from "axios";
 import type { SignUpRequest } from "bookmark_grpc_codegen/bindings/SignUpRequest";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -96,17 +96,11 @@ export default function LoginWithEmail() {
             placeholder="password"
           />
         </Form.Item>
-        <button
-          disabled={isProcessingForm}
+        <SubmitButton
           className="w-full rounded-lg py-4 bg-app-600 font-medium text-white"
-          type="submit"
-        >
-          {isProcessingForm ? (
-            <span className="loading loading-ring loading-sm"></span>
-          ) : (
-            "Continue"
-          )}
-        </button>
+          text="Continue"
+          loadingState={isProcessingForm}
+        />
       </Form>
       <SmallText className=" text-sm text-gray-400">
         By clicking continue you agree to the terms of{" "}
