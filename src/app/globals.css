@@ -4,6 +4,7 @@
 
 body {
   user-select: none;
+  transition: padding 0.3s ease;
 }
 
 input {
@@ -12,7 +13,6 @@ input {
 
 html {
   scroll-behavior: smooth;
-  virtual-keyboard: overlays-content;
 }
 
 body.keyboard {

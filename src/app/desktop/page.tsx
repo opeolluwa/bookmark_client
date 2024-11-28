@@ -4,57 +4,34 @@ import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Form, FormProps, Input, message } from "antd";
+import { message } from "@tauri-apps/plugin-dialog";
+import { Form, FormProps, Input } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FormFieldTypes } from "../page";
+import { httpClient } from "../axios";
+import { LoginRequest as FormFieldTypes } from "bookmark_grpc_codegen/bindings/LoginRequest";
+import SubmitButton from "@/components/Button/SubmitButton";
+import { loginHandler } from "@/hooks/useIsLoggedIn";
 
 export default function DesktopAppEntry() {
   const [form] = Form.useForm();
   const router = useRouter();
-  const [processing_request, set_processing_request] = useState(false);
-  const [messageApi, contextHolder] = message.useMessage();
+  const [isProcessingForm, setIsProcessingForm] = useState(false);
 
-  const submit_form: FormProps<FormFieldTypes>["onFinish"] = (values) => {
-          router.push("/desktop/dashboard");
-    // set_processing_request(true);
-    // const login_details: LoginData = {
-    //   email: values.email?.trim().toLowerCase(),
-    //   password: values.password?.trim(),
-    // };
-    // try {
-    //   invoke("sign_in", { payload: login_details })
-    //     .then((response) => {
-    //       console.log(login_details);
-    //       const result = response as CommandResponse<LoginResponse>;
-    //       if (result.status != "Success") {
-    //         messageApi.error(result.message);
-    //         return;
-    //       } else {
-    //         set_processing_request(false);
-    //         messageApi.success(result.message || "Login successful");
-    //         router.push("/dashboard");
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       set_processing_request(false);
-    //       return;
-    //     });
-    // } catch (error) {
-    //   messageApi.error((error as any).message);
-    //   set_processing_request(false);
-    //   return;
-    // }
+  const submitForm: FormProps<FormFieldTypes>["onFinish"] = async (values) => {
+    setIsProcessingForm(true);
+    const payload: FormFieldTypes = {
+      email: values.email.trim(),
+      password: values.password.trim(),
+    };
   };
 
   return (
     <View className="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full ">
-      {contextHolder}
-
       <View className="col-span-5 py-8 px-6 w-[40%] ">
         <Form
           initialValues={{ remember: true }}
-          onFinish={submit_form}
+          onFinish={submitForm}
           autoComplete="off"
           name="save-data"
           layout="vertical"
@@ -94,18 +71,11 @@ export default function DesktopAppEntry() {
           </Form.Item>
 
           <Form.Item>
-            <button
-              disabled={processing_request}
-              type="submit"
-              onClick={() => submit_form}
+            <SubmitButton
               className=" bg-app-600 btn disabled:bg-app-600 disabled:text-white border-white w-full text-white"
-            >
-              {processing_request ? (
-                <span className="loading loading-ring loading-sm"></span>
-              ) : (
-                "Sign in"
-              )}
-            </button>
+              text="Sign in"
+              loadingState={isProcessingForm}
+            />
           </Form.Item>
 
           <SmallText

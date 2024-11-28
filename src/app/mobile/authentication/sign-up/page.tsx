@@ -5,6 +5,7 @@ import Heading from "@/components/Heading";
 import SmallText from "@/components/SmallText";
 import Text from "@/components/Text";
 import View from "@/components/View";
+import { useUserProfileInformation } from "@/context/userInformation";
 import { Form, FormProps, Input } from "antd";
 import type { SignUpRequest } from "bookmark_grpc_codegen/bindings/SignUpRequest";
 import Link from "next/link";
@@ -66,7 +67,7 @@ export default function LoginWithEmail() {
             type="firstname"
             name="firstname"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="first name"
+            placeholder="enter your first name"
           />
         </Form.Item>
 
@@ -75,7 +76,7 @@ export default function LoginWithEmail() {
             type="text"
             name="lastname"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="last name"
+            placeholder="enter your last name"
           />
         </Form.Item>
 
@@ -84,7 +85,7 @@ export default function LoginWithEmail() {
             type="email"
             name="email"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="email"
+            placeholder="enter your email"
           />
         </Form.Item>
 
@@ -93,7 +94,7 @@ export default function LoginWithEmail() {
             type="password"
             name="password"
             className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
-            placeholder="password"
+            placeholder="choose a password"
           />
         </Form.Item>
         <SubmitButton

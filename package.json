@@ -33,12 +33,14 @@
     "bookmark_grpc_codegen": "github:opeolluwa/vault_grpc#v1.0.7",
     "next": "14.2.5",
     "npm": "^10.9.0",
+    "on-screen-keyboard-detector": "^2.3.0",
     "rc-tween-one": "^3.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-gravatar": "^2.6.3",
     "react-tag-input-component": "^2.0.2",
-    "react-use-is-online": "^1.2.2"
+    "react-use-is-online": "^1.2.2",
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.1.0",

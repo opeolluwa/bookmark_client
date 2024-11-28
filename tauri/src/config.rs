@@ -4,11 +4,11 @@ use std::fmt::Display;
 
 #[derive(Debug, Serialize, Deserialize, Default)]
 pub struct Config {
-
     /// database url for the embedded Sqlite database
     pub database_connection_string: String,
     /// jwt key
     pub jwt_signing_key: String,
+    pub api_base_url: String,
 }
 
 impl Display for Config {
@@ -33,10 +33,15 @@ impl Config {
         Self {
             database_connection_string,
             jwt_signing_key,
+            api_base_url: "http://localhost:4576".to_string(),
         }
     }
 }
 
 lazy_static! {
     pub static ref CONFIG: Config = Config::parse();
+}
+
+pub fn request_endpoint(endpoint: &str) -> String {
+    format!("{base_url}/{endpoint}", base_url = CONFIG.api_base_url)
 }

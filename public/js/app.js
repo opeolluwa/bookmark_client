@@ -1,46 +1,47 @@
-// import { init, on } from "./vendor/virtual-keyboard-detector.js";
+// // focus events don't bubble, must use capture phase
+// document.body.addEventListener(
+//   "focus",
+//   (event) => {
+//     const target = event.target;
+//     switch (target.tagName) {
+//       case "INPUT":
+//       case "TEXTAREA":
+//       case "SELECT":
+//         alert("focus  in");
+//         document.body.style.marginBottom += "200px";
+//     }
+//   },
+//   true
+// );
 
-// // // Start listening for virtual keyboard (dis)appearences
-// init({ recentlyFocusedTimeoutDuration: 300 });
-// // Handle the appearing of the virtual keyboard
-// on("virtualKeyboardVisible", (document.body.style.marginBottom += "200px"));
-// // Handle the disappearing of the virtual keyboard
-// on("virtualKeyboardHidden", (document.body.style.marginBottom -= "200px"));
+// document.body.addEventListener(
+//   "focusout",
+//   (event) => {
+//     const target = event.target;
+//     switch (target.tagName) {
+//       case "INPUT":
+//       case "TEXTAREA":
+//       case "SELECT":
+//         alert("focus out");
+//         document.body.style.marginBottom -= "200px";
+//     }
+//   },
+//   true
+// );
 
+const inputFields = document.querySelectorAll("input, textarea, select");
 
-// focus events don't bubble, must use capture phase
-document.body.addEventListener(
-  "focus",
-  (event) => {
-    const target = event.target;
-    switch (target.tagName) {
-      case "INPUT":
-      case "TEXTAREA":
-      case "SELECT":
-        document.body.style.marginBottom += "200px";
-    }
-  },
-  true
-);
+const handleInputFieldFocus = () => {
+  // alert("focus in");
+  document.body.style.marginBottom += "150px";
+};
 
-document.body.addEventListener(
-  "blur",
-  (event) => {
-    const target = event.target;
-    switch (target.tagName) {
-      case "INPUT":
-      case "TEXTAREA":
-      case "SELECT":
-        document.body.style.marginBottom -= "200px";
-    }
-  },
-  true
-);
+const handleInputFieldFocusOut = () => {
+  // alert("focus out");
+  document.body.style.marginBottom -= "150px";
+};
 
-document.body.addEventListener(
-  "click",
-  () => {
-    document.body.style.marginBottom -= "200px";
-  },
-  true
-);
+inputFields.forEach((element) => {
+  element.addEventListener("focus", handleInputFieldFocus);
+  element.addEventListener("focusout", handleInputFieldFocusOut);
+});

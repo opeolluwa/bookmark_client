@@ -125,6 +125,7 @@ export default function LoginWithEmail() {
         layout="vertical"
         className=" flex flex-col rounded-lg shadow-gray-300 pb-6"
         form={form}
+        
       >
         {!accountExist && (
           <Form.Item<FormFieldTypes> label="Email" name="email">
@@ -133,6 +134,7 @@ export default function LoginWithEmail() {
               name="email"
               className="w-full rounded-lg py-4 focus:border-app-500 focus:outline-none border-[2px] bg-white border-gray-300 placeholder:pb-2 px-2 "
               placeholder="enter your email"
+        
             />
           </Form.Item>
         )}
