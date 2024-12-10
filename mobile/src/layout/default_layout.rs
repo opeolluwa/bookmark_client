@@ -1,4 +1,4 @@
-use bookmark_components::bottom_navigation::BottomNavigation;
+// use bookmark_components::bottom_navigation::BottomNavigation;
 use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::{children::Children, view};
 
@@ -15,7 +15,7 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
                 {children}
             </main>
             <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50  bg-white border-t border-gray-200 text-gray-500/90 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50">
-                <BottomNavigation />
+                // <BottomNavigation />
             </nav>
         </div>
     }

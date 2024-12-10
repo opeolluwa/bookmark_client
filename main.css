@@ -19,3 +19,22 @@
   scroll-behavior: smooth;
   box-sizing: border-box;
 }
+
+
+.form-input {
+  @apply flex flex-col gap-y-2 py-2;
+}
+
+.form-input input,
+.form-input select,
+.form-input button {
+  @apply w-full input input-bordered;
+}
+
+.form-input label {
+  @apply text-sm font-medium text-gray-400;
+}
+
+.small-text {
+  @apply text-gray-400;
+}
