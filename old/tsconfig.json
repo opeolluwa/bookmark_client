@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "public/js/virtual-keyboard.js", "public/js/app.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "public/js/virtual-keyboard.js", "public/js/app.js", "bookmark/tailwind.config.js"],
   "exclude": ["node_modules"]
 }

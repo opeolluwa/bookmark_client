@@ -1,0 +1,31 @@
+{
+  "name": "bookmark",
+  "version": "1.0.0",
+  "description": "keep all your bookmarks in one place ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opeolluwa/bookmark_client.git"
+  },
+  "keywords": [
+    "bookmark",
+    "leptos",
+    "tauri",
+    "mobile",
+    "desktop",
+    "rust"
+  ],
+  "author": "Adeoye Adefemi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opeolluwa/bookmark_client/issues"
+  },
+  "homepage": "https://github.com/opeolluwa/bookmark_client#readme",
+  "devDependencies": {
+    "daisyui": "^4.12.20",
+    "tailwindcss": "^3.4.16"
+  }
+}
