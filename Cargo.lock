@@ -248,6 +248,9 @@ dependencies = [
 [[package]]
 name = "bookmark_components"
 version = "0.1.0"
+dependencies = [
+ "leptos",
+]
 
 [[package]]
 name = "bookmark_desktop_app"
@@ -270,6 +273,7 @@ dependencies = [
 name = "bookmark_mobile_app"
 version = "0.1.0"
 dependencies = [
+ "bookmark_components",
  "console_error_panic_hook",
  "js-sys",
  "leptos",
