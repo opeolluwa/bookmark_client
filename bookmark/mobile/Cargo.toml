@@ -1,0 +1,6 @@
+[package]
+name = "bookmark_mobile_app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
