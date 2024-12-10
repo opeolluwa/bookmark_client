@@ -1,15 +1,5 @@
 {
-  "cSpell.words": [
-    "bindgen",
-    "firstname",
-    "fullscreen",
-    "lastname",
-    "leptos",
-    "newkeywords",
-    "protos",
-    "Sider",
-    "tauri",
-    "uuidv"
-  ],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "emmet.includeLanguages": {
+    "rust": "html"
+  }
 }
