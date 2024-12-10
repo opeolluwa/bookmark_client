@@ -1,10 +1,10 @@
 use crate::platform::Platform;
-use desktop_ui::desktop_application::DesktopApplication;
+use bookmark_mobile_app::app::MobileApplication;
 use leptos::prelude::{signal, Get, Set};
 use leptos::{component, control_flow::Show, view, IntoView};
-use mobile_ui::mobile_application::MobileApplication;
 use std::str::FromStr;
 use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
+use bookmark_desktop_app::app::DesktopApplication;
 
 #[component]
 pub fn App() -> impl IntoView {

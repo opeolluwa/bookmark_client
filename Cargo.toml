@@ -35,3 +35,4 @@ wasm-bindgen-futures = "0.4"
 leptos_router = { version = "0.7.0" }
 leptos-use = "0.13.11"
 thaw = { version = "0.4.0-beta-5", features = ["csr"] }
+leptos_reactive = "0.6.15"

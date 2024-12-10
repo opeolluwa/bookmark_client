@@ -1,12 +1,15 @@
-import type { Config } from "tailwindcss";
-import colors, { slate } from "tailwindcss/colors";
+/** @type {import('tailwindcss').Config} */
 
-const config: Config = {
+const colors = require("tailwindcss/colors");
+const plugin = require("tailwindcss/plugin");
+
+module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/Layouts/**/*.{js,ts,jsx,tsx,mdx}",
+    "index.html",
+    "src/**/*.rs",
+    "mobile/**/*.rs",
+    "desktop/**/*.rs",
+    "components/**/*.rs",
   ],
   theme: {
     colors: {
@@ -63,4 +66,4 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
 };
-export default config;
+

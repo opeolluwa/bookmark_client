@@ -6,7 +6,7 @@ alias l:= lint
 alias install := install-dependencies
 alias pack := package
 
-APP_NAME := "filesync"
+APP_NAME := "bookmarks"
 APP_VERSION:="0.7.15"
 MINIMUM_STABLE_RUST_VERSION :="1.83.0"
 BINARIES_PATH := "bin"
