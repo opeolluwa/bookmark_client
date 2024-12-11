@@ -5,7 +5,6 @@ val keyPropertiesFile = rootProject.file("key.properties")
 val keyProperties = Properties()
 keyProperties.load(FileInputStream(keyPropertiesFile))
 
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,26 +20,25 @@ val tauriProperties = Properties().apply {
 
 android {
     compileSdk = 34
-    namespace = "com.bookmarks.app"
+    namespace = "com.bookmark.app"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "com.bookmarks.app"
+        applicationId = "com.bookmark.app"
         minSdk = 24
         targetSdk = 34
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
-    signingConfigs {
+     signingConfigs {
      create("release") {
             keyAlias = keyProperties["keyAlias"] as String
             keyPassword = keyProperties["keyPassword"] as String
             storeFile = file(keyProperties["storeFile"] as String)
             storePassword = keyProperties["storePassword"] as String
         }
-}
 
-
-buildTypes {
+        
+    buildTypes {
         getByName("debug") {
             manifestPlaceholders["usesCleartextTraffic"] = "true"
             isDebuggable = true
@@ -52,7 +50,6 @@ buildTypes {
                 jniLibs.keepDebugSymbols.add("*/x86_64/*.so")
             }
         }
-
         getByName("release") {
             signingConfig = signingConfigs.getByName("release")
         }
@@ -78,4 +75,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 }
 
+}
 apply(from = "tauri.build.gradle.kts")

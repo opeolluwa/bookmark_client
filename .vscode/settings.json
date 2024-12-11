@@ -1,13 +1,6 @@
 {
-  "cSpell.words": [
-    "firstname",
-    "fullscreen",
-    "lastname",
-    "newkeywords",
-    "protos",
-    "Sider",
-    "tauri",
-    "uuidv"
-  ],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "emmet.includeLanguages": {
+    "rust": "html"
+  },
+  "cSpell.words": ["heroicons", "icondata", "leptos"]
 }

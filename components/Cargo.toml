@@ -1,0 +1,11 @@
+[package]
+name = "bookmark_components"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { workspace = true }
+leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
+strum = { version = "0.26.3", features = ["derive"] }
+serde = { workspace = true, features = ["derive"] }
+thaw = { workspace = true, features = ["csr"] }

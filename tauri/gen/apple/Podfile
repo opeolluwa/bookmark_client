@@ -1,13 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 
-target 'app_iOS' do
+target 'bookmark_iOS' do
 platform :ios, '13.0'
-  # Pods for app_iOS
+  # Pods for bookmark_iOS
 end
 
-target 'app_macOS' do
+target 'bookmark_macOS' do
 platform :osx, '11.0'
-  # Pods for app_macOS
+  # Pods for bookmark_macOS
 end
 
 # Delete the deployment target for iOS and macOS, causing it to be inherited from the Podfile
