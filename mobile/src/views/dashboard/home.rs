@@ -2,11 +2,11 @@ use crate::layout::dashboard_layout::DashboardLayout;
 use bookmark_components::icons::plus_icon::PlusIcon;
 use bookmark_components::layout::view::View;
 use bookmark_components::typography::heading::PageHeading;
+use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::CustomAttribute;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::prelude::{OnAttribute, RwSignal, Set};
 use leptos::view;
-use leptos_heroicons::size_24::outline::PencilSquare;
 use thaw::{
     Avatar, DrawerBody, DrawerHeader, DrawerHeaderTitle, Menu, MenuItem, MenuTrigger,
     MenuTriggerType, OverlayDrawer,
@@ -21,7 +21,7 @@ pub fn HomePage() -> impl leptos::IntoView {
 
     view! {
         <DashboardLayout header_component=view! {
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center w-full">
                 <button on:click=move |_| open.set(true)>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -37,27 +37,49 @@ pub fn HomePage() -> impl leptos::IntoView {
                     </svg>
 
                 </button>
-                <PageHeading text="Home" />
-                    <Menu on_select trigger_type=MenuTriggerType::Hover>
-                        <MenuTrigger slot>
-                            <Avatar src="https://s3.bmp.ovh/imgs/2021/10/723d457d627fe706.jpg" />
-                        </MenuTrigger>
-                        <MenuItem value="facebook">"Logout"</MenuItem>
-                        <MenuItem value="facebook">"Profile"</MenuItem>
-                    </Menu>
+                <SmallText>Default Collection</SmallText>
+                <Menu on_select trigger_type=MenuTriggerType::Hover>
+                    <MenuTrigger slot>
+                        <Avatar src="https://s3.bmp.ovh/imgs/2021/10/723d457d627fe706.jpg" />
+                    </MenuTrigger>
+                    <MenuItem value="facebook">"Logout"</MenuItem>
+                    <MenuItem value="facebook">"Profile"</MenuItem>
+                </Menu>
             </div>
         }>""</DashboardLayout>
 
         <OverlayDrawer open>
             <DrawerHeader>
-                <DrawerHeaderTitle>
+                <DrawerHeaderTitle class="border-b flex justify-between">
                     <PageHeading text="Collections" />
+                    <button>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            class="size-5"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z"
+                                clip-rule="evenodd"
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                d="M19 10a.75.75 0 0 0-.75-.75H8.704l1.048-.943a.75.75 0 1 0-1.004-1.114l-2.5 2.25a.75.75 0 0 0 0 1.114l2.5 2.25a.75.75 0 1 0 1.004-1.114l-1.048-.943h9.546A.75.75 0 0 0 19 10Z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </button>
                 </DrawerHeaderTitle>
             </DrawerHeader>
-            <DrawerBody class="w-[60vw] relative">
-                <button class="btn border-app bg-transparent w-full absolute bottom-3 left-0 right-0">
-                    new collection <PlusIcon />
-                </button>
+            <DrawerBody class="relative">
+                <div class="w-full border-t absolute bottom-2 left-0 right-0">
+                    <button class="btn w-full flex border-app bg-transparent">
+                        New collection <PlusIcon />
+                    </button>
+
+                </div>
             </DrawerBody>
         </OverlayDrawer>
     }
