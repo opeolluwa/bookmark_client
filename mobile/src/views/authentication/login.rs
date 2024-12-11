@@ -2,6 +2,7 @@ use bookmark_components::icon::HeroIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
+use leptos::prelude::StyleAttribute;
 use leptos::prelude::{OnAttribute, Set};
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
@@ -16,7 +17,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
     let (is_loading, _set_is_loading) = signal(false);
 
     view! {
-        <div class="">
+        <div class="relative " style="height:calc(100vh - 100px)">
             {if account_exists.get() == true {
                 Either::Right(
                     view! {
@@ -112,7 +113,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
             </form> <a href="/forgotten-password" class="text-app block  text-sm font-bold mt-3">
                 Forgotten password?
             </a>
-            <div class="flex items-center justify-center  fixed z-50  bottom-24 left-0 right-0">
+            <div class="flex items-center hidden justify-center ">
                 <button class="btn  shadow-none bg-app-50 border-none ">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
