@@ -5,7 +5,7 @@ use leptos::{prelude::Children, view, IntoView};
 #[leptos::component]
 pub fn SmallText(
     #[prop(optional)] class: &'static str,
-    #[prop(optional, default="")] href: &'static str,
+    #[prop(optional, default = "")] href: &'static str,
     children: Children,
 ) -> impl IntoView {
     {
@@ -14,13 +14,11 @@ pub fn SmallText(
                 view! { <p class=format!("leading-5 text-sm text-inherit {class}")>{children()}</p> },
             )
         } else {
-            Either::Left(
-                view! {
-                    <a href=href class=format!("leading-5 text-sm text-inherit {class}")>
-                        {children()}
-                    </a>
-                },
-            )
+            Either::Left(view! {
+                <a href=href class=format!("leading-5 text-sm text-inherit {class}")>
+                    {children()}
+                </a>
+            })
         }
     }
 }
