@@ -16,7 +16,7 @@ bookmark_desktop_app = { path = "./desktop" }
 bookmark_mobile_app = { path = "./mobile" }
 tauri_wasm_bindgen = { path = "./tauri_wasm" }
 leptos_heroicons.workspace = true
-
+thaw = { workspace = true, features = ["csr"] }
 
 [workspace]
 members = ["components", "desktop", "mobile", "tauri", "tauri_wasm"]

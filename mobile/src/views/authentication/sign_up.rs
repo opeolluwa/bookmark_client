@@ -1,4 +1,4 @@
-use bookmark_components::icon::HeroIcon;
+use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
@@ -6,8 +6,6 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use leptos_heroicons::size_24::outline::ArrowLongLeft;
-
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
@@ -18,7 +16,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
 
             <div class="mb-12 flex justify-between items-center">
                 <a href="/" class="block size-6">
-                    <HeroIcon icon_data=ArrowLongLeft />
+                    <ArrowLongLeftIcon />
                 </a>
             </div>
             <div class="mb-6">

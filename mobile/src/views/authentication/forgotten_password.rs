@@ -1,4 +1,4 @@
-use bookmark_components::icon::HeroIcon;
+use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 
@@ -8,7 +8,6 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use leptos_heroicons::size_24::outline::ArrowLongLeft;
 
 #[leptos::component]
 pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
@@ -18,7 +17,7 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
         <div class="">
 
             <a href="/" class="mb-12 flex justify-between items-center">
-                <HeroIcon icon_data=ArrowLongLeft class="size-6" />
+                <ArrowLongLeftIcon />
             </a>
 
             <div class="mb-6">

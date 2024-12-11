@@ -1,4 +1,4 @@
-use bookmark_components::icon::HeroIcon;
+use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
@@ -8,11 +8,10 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use leptos_heroicons::size_24::outline::ArrowLongLeft;
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
-    let (account_exists, set_account_exists) = signal(true);
+    let (account_exists, set_account_exists) = signal(false);
 
     let (is_loading, _set_is_loading) = signal(false);
 
@@ -24,7 +23,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                         <div class="mb-12 flex justify-between items-center">
                             <a href="/sign-up" class="block size-6">
 
-                                <HeroIcon icon_data=ArrowLongLeft />
+                                <ArrowLongLeftIcon />
                             </a>
                             <button
                                 on:click=move |_| set_account_exists.set(false)
@@ -39,11 +38,9 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Left(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <button on:click=move |_| { set_account_exists.set(false) }>
-                                <a href="/">
-                                    <HeroIcon icon_data=ArrowLongLeft class="size-6" />
-                                </a>
-                            </button>
+                            <a href="/sign-up">
+                                <ArrowLongLeftIcon />
+                            </a>
                         </div>
                     },
                 )
@@ -95,7 +92,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     )
                 }}
                 <a
-                    href="/sign-up"
+                    href="/dashboard"
                     // disabled=is_loading
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
@@ -110,7 +107,8 @@ pub fn LoginPage() -> impl leptos::IntoView {
 
                 </a>
             // href="/mobile/authentication/forgotten-password"
-            </form> <a href="/forgotten-password" class="text-app block  text-sm font-bold mt-3">
+            </form>
+            <a href="/forgotten-password" class="text-app block  text-sm font-bold mt-3">
                 Forgotten password?
             </a>
             <div class="flex items-center hidden justify-center ">

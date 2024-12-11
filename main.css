@@ -32,7 +32,7 @@
 }
 
 .form-input label {
-  @apply text-sm font-medium text-gray-400;
+  @apply text-sm font-medium text-gray-400 first-letter:capitalize;
 }
 
 .small-text {

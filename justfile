@@ -26,7 +26,9 @@ install-dependencies:
 
 [doc('Lint')]
 lint:
-    cargo fmt && cargo clippy
+    cargo fmt
+    leptosfmt .
+    cargo clippy 
 
 [doc('Run the application in watch mode')]
 watch target:
@@ -96,3 +98,4 @@ package:
     just export all
     echo date > release-date.text
     cp "{{BINARIES_PATH}}/*" "{{EXPORT_PATH}}/*"
+

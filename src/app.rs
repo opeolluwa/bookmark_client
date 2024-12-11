@@ -1,10 +1,12 @@
 use crate::platform::Platform;
+use bookmark_desktop_app::app::DesktopApplication;
 use bookmark_mobile_app::app::MobileApplication;
+use leptos::either::Either;
 use leptos::prelude::{signal, Get, Set};
-use leptos::{component, control_flow::Show, view, IntoView};
+use leptos::{component, view, IntoView};
 use std::str::FromStr;
 use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
-use bookmark_desktop_app::app::DesktopApplication;
+use thaw::ConfigProvider;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -15,15 +17,11 @@ pub fn App() -> impl IntoView {
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
     view! {
-        <Show
-            when=move || {
-                device_platform == Platform::Android || device_platform == Platform::Ios
-            }
-            fallback=|| {
-                view! { <DesktopApplication /> }
-            }
-        >
-            <MobileApplication />
-        </Show>
+        <ConfigProvider>
+            {match device_platform {
+                Platform::Android | Platform::Ios => Either::Left(view! { <MobileApplication /> }),
+                _ => Either::Right(view! { <DesktopApplication /> }),
+            }}
+        </ConfigProvider>
     }
 }
