@@ -1,3 +1,4 @@
+use bookmark_components::icon::HeroIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
@@ -6,14 +7,13 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-
-
+use leptos_heroicons::size_24::outline::ArrowLongLeft;
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
     let (account_exists, set_account_exists) = signal(true);
 
-    let (is_loading, set_is_loading) = signal(false);
+    let (is_loading, _set_is_loading) = signal(false);
 
     view! {
         <div class="">
@@ -21,9 +21,9 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Right(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <a href="/sign-up">
-                                // <ArrowLongLeft />
-                            </a>
+                            // <a href="sign-up">
+                                <HeroIcon icon_data=ArrowLongLeft />
+                            // </a>
                             <button
                                 on:click=move |_| set_account_exists.set(false)
                                 class="font-medium text-sm  text-gray-600"
@@ -37,8 +37,9 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Left(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <button on:click=move |_| set_account_exists.set(false)>
-                                // <ArrowLongLeftIcon />
+                            <button on:click=move |_| {
+                                set_account_exists.set(false)
+                            }>// <ArrowLongLeftIcon />
                             </button>
                         </div>
                     },
@@ -59,8 +60,9 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     view! {
                         <div class="mb-6">
                             <Heading class="font-bold".into()>Log in</Heading>
-                            <SmallText class="leading-1 mt-2 text-sm small-text"
-                                .into()>Enter your email and password to log in</SmallText>
+                            <SmallText class="leading-1 mt-2 text-sm small-text">
+                                Enter your email and password to log in
+                            </SmallText>
                         </div>
                     },
                 )
