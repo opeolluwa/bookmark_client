@@ -14,5 +14,6 @@ pub mod scan_qr_icon;
 pub mod search_icon;
 pub mod settings_icon;
 pub mod share_icon;
+pub mod star_icon;
 pub mod sun_icon;
 pub mod user_icon;
