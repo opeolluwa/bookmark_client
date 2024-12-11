@@ -1,10 +1,9 @@
-use filesync_icons::calendar_icon::CalendarIconOutline;
-use filesync_icons::home_icon::HomeIcon;
-use filesync_icons::plus_icon::PlusIcon;
-use filesync_icons::settings_icon::SettingsIconOutline;
-use filesync_icons::user_icon::UserIconMultipleOutline;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
+
+use leptos_heroicons::size_24::outline::{Calendar, Cog6Tooth, Home, Plus, User};
+
+use crate::icon::HeroIcon;
 
 #[leptos::component]
 pub fn BottomNavigationRoute<F>(
@@ -20,7 +19,8 @@ where
             href=format!("/dashboard/{href}")
             class="flex flex-col items-center p-0 m-0  w-full rounded-lg size-6"
         >
-            {icon}
+
+            <HeroIcon icon_data=icon />
             <span class="text-sm capitalize sr-only">{label}</span>
         </a>
     }
@@ -29,11 +29,11 @@ where
 #[leptos::component]
 
 pub fn BottomNavigation() -> impl leptos::IntoView {
-    let settings_icon = SettingsIconOutline();
-    let home_icon = HomeIcon();
-    let calendar_icon = CalendarIconOutline();
-    let plus_icon = PlusIcon();
-    let people_icon = UserIconMultipleOutline();
+    let settings_icon = Cog6Tooth();
+    let home_icon = Home();
+    let calendar_icon = Calendar();
+    let plus_icon = Plus();
+    let people_icon = User();
 
     view! {
         <nav class="btm-nav">

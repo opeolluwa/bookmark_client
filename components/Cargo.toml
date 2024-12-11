@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 leptos = { workspace = true }
+leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }

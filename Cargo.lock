@@ -252,6 +252,7 @@ name = "bookmark_components"
 version = "0.1.0"
 dependencies = [
  "leptos",
+ "leptos_heroicons",
 ]
 
 [[package]]

@@ -16,8 +16,10 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
 
     view! {
         <div class="">
-            <HeroIcon icon_data=ArrowLongLeft />
-            <a href="/" class="mb-12 flex justify-between items-center"></a>
+
+            <a href="/" class="mb-12 flex justify-between items-center">
+                <HeroIcon icon_data=ArrowLongLeft class="size-6" />
+            </a>
 
             <div class="mb-6">
                 <Heading class="font-bold".into()>"Let's get you back in"</Heading>

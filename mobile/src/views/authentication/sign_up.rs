@@ -17,7 +17,9 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         <div class="">
 
             <div class="mb-12 flex justify-between items-center">
-                <HeroIcon icon_data=ArrowLongLeft />
+                <a href="/" class="block size-6">
+                    <HeroIcon icon_data=ArrowLongLeft />
+                </a>
             </div>
             <div class="mb-6">
                 <Heading class="font-bold".into()>Create account</Heading>

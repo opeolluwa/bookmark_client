@@ -21,9 +21,10 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Right(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            // <a href="sign-up">
+                            <a href="/sign-up" class="block size-6">
+
                                 <HeroIcon icon_data=ArrowLongLeft />
-                            // </a>
+                            </a>
                             <button
                                 on:click=move |_| set_account_exists.set(false)
                                 class="font-medium text-sm  text-gray-600"
@@ -37,9 +38,10 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Left(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <button on:click=move |_| {
-                                set_account_exists.set(false)
-                            }>// <ArrowLongLeftIcon />
+                            <button on:click=move |_| { set_account_exists.set(false) }>
+                                <a href="/">
+                                    <HeroIcon icon_data=ArrowLongLeft class="size-6" />
+                                </a>
                             </button>
                         </div>
                     },
@@ -92,7 +94,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     )
                 }}
                 <a
-                    href="/dashboard"
+                    href="/sign-up"
                     // disabled=is_loading
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
