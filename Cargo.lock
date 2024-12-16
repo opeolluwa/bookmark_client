@@ -263,9 +263,11 @@ dependencies = [
 name = "bookmark_desktop_app"
 version = "0.1.0"
 dependencies = [
+ "bookmark_components",
  "console_error_panic_hook",
  "js-sys",
  "leptos",
+ "leptos_heroicons",
  "leptos_reactive",
  "leptos_router",
  "serde",

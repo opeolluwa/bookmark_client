@@ -17,5 +17,6 @@ dist
 
 node_modules 
 
+bin
 
 old_repo

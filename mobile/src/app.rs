@@ -13,7 +13,6 @@ use crate::views::{
 pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-
             <Routes fallback=|| "Page not found">
                 <ParentRoute path=path!("/") view=AuthenticationUI>
                     <Route path=path!("") view=LoginPage />
@@ -26,8 +25,6 @@ pub fn MobileApplication() -> impl leptos::IntoView {
                     <Route path=path!("") view=HomePage />
                     <Route path=path!("/favorites") view=FavoritesPage />
                     <Route path=path!("settings") view=SettingsPage />
-                // <Route path=path!("students") view=PeoplePage />
-                // <Route path=path!("/new-entry") view=NewEntry />
                 </ParentRoute>
             </Routes>
         </Router>
