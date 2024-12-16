@@ -25,19 +25,19 @@ pub fn LoginPage() -> impl leptos::IntoView {
             <form class="flex flex-col gap-y-4 mt-6">
 
                 <div class="form-input">
-                    <label for="email">Email</label>
+                    <label for="email" class="text-black">Email</label>
                     <input type="email" placeholder="type your email" />
                 </div>
                 <div class="form-input">
-                    <label for="password">Password</label>
-                    <input type="password"  class="input-sm" placeholder="type your password" />
+                    <label for="password" class="text-black" >Password</label>
+                    <input type="password"   placeholder="type your password" />
                 </div>
 
                 <a
                     href="/dashboard"
                     // disabled=is_loading
                     type="submit"
-                    class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
+                    class="btn w-full rounded-lg py-4 bg-gray-400 text-white"
                 >
                     {if is_loading.get() == true {
                         Either::Right(

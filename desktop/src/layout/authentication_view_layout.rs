@@ -6,8 +6,8 @@ pub fn AuthenticationLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
 
     view! {
-        <div class="h-screen flex justify-center items-center flex-col bg-gray-50 absolute w-full bg-app-50/20 ">
-            <div class="w-[60%] py-12 bg-white rounded-lg shadow px-8 flex flex-col items-center justify-center">
+        <div class="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full ">
+            <div class="pb-6 py-2 px-6 w-[40%] bg-white rounded-lg shadow">
                 {children}
             </div>
         </div>
