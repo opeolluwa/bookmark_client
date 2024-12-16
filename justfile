@@ -70,9 +70,9 @@ build target:
 
 
 [doc("Export binaries into $PWD/bin")]
-export target: 
+ship target: 
     #!/usr/bin/env sh
-    # mkdir bin 
+    mkdir bin
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do
