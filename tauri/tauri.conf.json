@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "bookmark",
+  "productName": "Bookmarks",
   "version": "0.1.0",
   "identifier": "com.bookmark.app",
   "build": {
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "bookmark",
+        "title": "Awesome Bookmarks",
         "width": 800,
         "height": 600
       }

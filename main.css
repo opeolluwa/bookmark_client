@@ -20,21 +20,27 @@
   box-sizing: border-box;
 }
 
-
 .form-input {
-  @apply flex flex-col gap-y-2 py-2;
+  @apply flex flex-col gap-y-1 py-2;
 }
 
 .form-input input,
 .form-input select,
 .form-input button {
-  @apply w-full input input-bordered;
+  @apply w-full input input-bordered focus:border-app focus:outline-none;
 }
 
+.form-input input {
+  @apply placeholder:dark:text-gray-700;
+}
 .form-input label {
-  @apply text-sm font-medium text-gray-400 first-letter:capitalize;
+  @apply text-sm font-medium text-gray-400 first-letter:capitalize dark:text-gray-400;
 }
 
 .small-text {
   @apply text-gray-400;
+}
+
+.form-input.desktop label {
+  @apply text-sm  text-black first-letter:capitalize dark:text-gray-500;
 }

@@ -1,6 +1,5 @@
 use crate::layout::dashboard_layout::DashboardLayout;
 use bookmark_components::icons::plus_icon::PlusIcon;
-use bookmark_components::layout::view::View;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::CustomAttribute;
@@ -50,14 +49,14 @@ pub fn HomePage() -> impl leptos::IntoView {
 
         <OverlayDrawer open>
             <DrawerHeader>
-                <DrawerHeaderTitle class="border-b flex justify-between">
+                <DrawerHeaderTitle class="border-b flex w-full justify-between">
                     <PageHeading text="Collections" />
                     <button>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
                             fill="currentColor"
-                            class="size-5"
+                            class="size-5 hidden"
                         >
                             <path
                                 fill-rule="evenodd"
