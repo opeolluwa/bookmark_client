@@ -11,7 +11,7 @@ use leptos::{
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
-    let (account_exists, set_account_exists) = signal(false);
+    let (account_exists, set_account_exists) = signal(true);
 
     let (is_loading, _set_is_loading) = signal(false);
 
@@ -51,7 +51,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                         <div class="mb-6">
                             <Heading class="font-bold".into()>Welcome, Adeoye</Heading>
                             <SmallText class="leading-1 text-gray-400"
-                                .into()>Enter your email and password to log in</SmallText>
+                                .into()>Enter your password to log in</SmallText>
                         </div>
                     },
                 )

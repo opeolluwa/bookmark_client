@@ -27,14 +27,14 @@
 .form-input input,
 .form-input select,
 .form-input button {
-  @apply w-full input input-bordered focus:border-app focus:outline-none;
+  @apply w-full input input-bordered focus:border-app/90 focus:border-[1.5px] focus:outline-none;
 }
 
 .form-input input {
-  @apply placeholder:dark:text-gray-700;
+  @apply placeholder:dark:text-gray-700 placeholder:text-sm;
 }
 .form-input label {
-  @apply text-sm font-medium text-gray-400 first-letter:capitalize dark:text-gray-400;
+  @apply text-sm text-gray-400 first-letter:capitalize dark:text-gray-400;
 }
 
 .small-text {

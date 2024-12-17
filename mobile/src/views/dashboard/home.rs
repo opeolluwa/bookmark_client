@@ -1,5 +1,8 @@
 use crate::layout::dashboard_layout::DashboardLayout;
-use bookmark_components::icons::plus_icon::PlusIcon;
+use bookmark_components::icon::HeroIcon;
+use bookmark_components::icons::bell_icon::BellIconOutline;
+use bookmark_components::icons::plus_icon::PlusIconCircle;
+use bookmark_components::layout::view::View;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::CustomAttribute;
@@ -37,13 +40,21 @@ pub fn HomePage() -> impl leptos::IntoView {
 
                 </button>
                 <SmallText>Default Collection</SmallText>
-                <Menu on_select trigger_type=MenuTriggerType::Hover>
-                    <MenuTrigger slot>
-                        <Avatar src="https://s3.bmp.ovh/imgs/2021/10/723d457d627fe706.jpg" />
-                    </MenuTrigger>
-                    <MenuItem value="facebook">"Logout"</MenuItem>
-                    <MenuItem value="facebook">"Profile"</MenuItem>
-                </Menu>
+                <div class="flex gap-y-2 items-center align-center">
+                    <Menu on_select trigger_type=MenuTriggerType::Hover>
+                        <MenuTrigger slot>
+                            <Avatar
+                                src="assets/img/default-user.png"
+                                size=20
+                            />
+                        </MenuTrigger>
+                        <MenuItem value="facebook">"Logout"</MenuItem>
+                        <MenuItem value="facebook">"Profile"</MenuItem>
+                    </Menu>
+                    <button>
+                    <HeroIcon class="size-4" icon_data =BellIconOutline() />
+                    </button>
+                </div>
             </div>
         }>""</DashboardLayout>
 
@@ -74,8 +85,9 @@ pub fn HomePage() -> impl leptos::IntoView {
             </DrawerHeader>
             <DrawerBody class="relative">
                 <div class="w-full border-t absolute bottom-2 left-0 right-0">
-                    <button class="btn w-full flex border-app bg-transparent">
-                        New collection <PlusIcon />
+                    <button class="btn w-full flex border-transparent text-white dark:text-gray-400 bg-app/90 shadow">
+                        <PlusIconCircle />
+                        New collection
                     </button>
 
                 </div>
