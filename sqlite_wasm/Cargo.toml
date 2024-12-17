@@ -1,0 +1,10 @@
+[package]
+name = "sqlite_wasm"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.94"
+include_dir = "0.7.4"
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+serde = { workspace = true, features = ["derive"] }
