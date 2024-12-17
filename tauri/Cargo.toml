@@ -23,4 +23,4 @@ tauri-plugin-shell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 tauri-plugin-os = "2"
-
+sqlite_wasm = { workspace = true }

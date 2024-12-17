@@ -25,12 +25,12 @@ pub fn LoginPage() -> impl leptos::IntoView {
             <form class="flex flex-col gap-y-4 mt-6">
 
                 <div class="form-input desktop">
-                    <label for="email" >Email</label>
+                    <label for="email">Email</label>
                     <input type="email" placeholder="type your email" />
                 </div>
                 <div class="form-input desktop">
-                    <label for="password" >Password</label>
-                    <input type="password"   placeholder="type your password" />
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="type your password" />
                 </div>
 
                 <a
@@ -50,10 +50,13 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 </a>
             // href="/mobile/authentication/forgotten-password"
             </form>
-            <a href="/forgotten-password" class="text-gray-400 block text-center text-sm  mt-6 dark:text-gray-500 flex justify-end">
+            <a
+                href="/forgotten-password"
+                class="text-gray-400 block text-center text-sm  mt-6 dark:text-gray-500 flex justify-end"
+            >
                 Forgotten password?
             </a>
-           
+
         </div>
     }
 }
