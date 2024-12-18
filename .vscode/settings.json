@@ -2,5 +2,5 @@
   "emmet.includeLanguages": {
     "rust": "html"
   },
-  "cSpell.words": ["heroicons", "icondata", "leptos", "rusqlite"]
+  "cSpell.words": ["heroicons", "icondata", "leptos", "rusqlite", "tauri"]
 }

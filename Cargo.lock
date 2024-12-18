@@ -231,6 +231,7 @@ dependencies = [
 name = "bookmark"
 version = "0.1.0"
 dependencies = [
+ "bookmark_components",
  "itertools",
  "native_db",
  "native_model",

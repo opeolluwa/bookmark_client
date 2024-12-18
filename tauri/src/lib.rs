@@ -1,6 +1,4 @@
 use models::application_settings::AppSettings;
-use native_db::{Database, Models};
-use once_cell::sync::Lazy;
 use tauri::Manager;
 
 pub mod commands;
@@ -15,19 +13,21 @@ fn greet(name: &str) -> String {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    // let _ = sqlite_wasm::database::SqliteWasm::init();
-    let db = database::BookmarksDatabaseWasm::init().unwrap();
+    let db_instance = database::BookmarksDatabaseWasm::init().unwrap();
 
     tauri::Builder::default()
         .setup(|app| {
-            let rw = db
+            let read_write_transaction = db_instance
                 .rw_transaction()
-                .expect("failed to create rw migration transaction");
-            rw.migrate::<AppSettings>()
+                .expect("failed to create read_write_transaction migration transaction");
+            read_write_transaction
+                .migrate::<AppSettings>()
                 .expect("failed to migrate Person");
-            rw.commit().expect("failed to commit migration");
+            read_write_transaction
+                .commit()
+                .expect("failed to commit migration");
 
-            app.manage(db);
+            app.manage(db_instance);
             Ok(())
         })
         .plugin(tauri_plugin_os::init())
