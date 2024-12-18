@@ -22,6 +22,7 @@ install-dependencies:
     echo "Installing dependencies"
     cargo install trunk --locked
     rustup target add wasm32-unknown-unknown
+    # download wasi-ssdk
 
 
 [doc('Lint')]
@@ -98,4 +99,50 @@ package:
     just export all
     echo date > release-date.text
     cp "{{BINARIES_PATH}}/*" "{{EXPORT_PATH}}/*"
+
+
+[doc('build the database')]
+db:
+    #!/bin/bash
+    export WASI_SDK_PATH="../wasi-sdk-25.0-arm64-macos"
+    export WASI_SYSROOT="${WASI_SDK_PATH}/share/wasi-sysroot"
+    export CC="${WASI_SDK_PATH}/bin/clang --sysroot=${WASI_SYSROOT}"
+    export CC_wasm32_wasi="${WASI_SDK_PATH}/bin/clang"
+    export CARGO_TARGET_WASM32_WASI_LINKER="${WASI_SDK_PATH}/bin/clang"
+    # export RUSTFLAGS="-C target-feature=-crt-static"
+
+    export LIBSQLITE3_FLAGS="\
+        -DSQLITE_OS_OTHER \
+        -USQLITE_TEMP_STORE \
+        -DSQLITE_TEMP_STORE=3 \
+        -USQLITE_THREADSAFE \
+        -DSQLITE_THREADSAFE=0 \
+        -DSQLITE_OMIT_LOCALTIME \
+        -DSQLITE_OMIT_LOAD_EXTENSION \
+        -DLONGDOUBLE_TYPE=double"
+        
+     cargo build --lib --target "wasm32-wasip1" --manifest-path sqlite_wasm/Cargo.toml
+
+
+
+ddb:
+    #!/usr/bin/env bash
+    export WASI_SDK_PATH=../wasi-sdk-25.0-arm64-macos
+    export WASI_SYSROOT="${WASI_SDK_PATH}/share/wasi-sysroot"
+    export CC="${WASI_SDK_PATH}/bin/clang --sysroot=${WASI_SYSROOT}"
+    export AR="${WASI_SDK_PATH}/bin/llvm-ar"
+    export CC_wasm32_wasi="${CC}"
+    export CARGO_TARGET_WASM32_WASI_LINKER="${WASI_SDK_PATH}/bin/clang"
+
+    export LIBSQLITE3_FLAGS="\
+        -DSQLITE_OS_OTHER \
+        -USQLITE_TEMP_STORE \
+        -DSQLITE_TEMP_STORE=3 \
+        -USQLITE_THREADSAFE \
+        -DSQLITE_THREADSAFE=0 \
+        -DSQLITE_OMIT_LOCALTIME \
+        -DSQLITE_OMIT_LOAD_EXTENSION \
+        -DLONGDOUBLE_TYPE=double"
+
+    cargo build --release --target "wasm32-wasi" --manifest-path sqlite_wasm/Cargo.toml 
 

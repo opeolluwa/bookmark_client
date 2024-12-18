@@ -20,3 +20,5 @@ node_modules
 bin
 
 old_repo
+
+wasi-sdk-25.0-arm64-macos

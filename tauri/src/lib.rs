@@ -6,7 +6,7 @@ fn greet(name: &str) -> String {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let _ = sqlite_wasm::database::SqliteWasm::init();
+    // let _ = sqlite_wasm::database::SqliteWasm::init();
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
