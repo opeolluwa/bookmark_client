@@ -121,7 +121,7 @@ db:
         -DSQLITE_OMIT_LOAD_EXTENSION \
         -DLONGDOUBLE_TYPE=double"
         
-     cargo build --lib --target "wasm32-wasip1" --manifest-path sqlite_wasm/Cargo.toml
+     cargo build --lib --target "wasm32-unknown-emscripten" --manifest-path sqlite_wasm/Cargo.toml
 
 
 

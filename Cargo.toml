@@ -17,7 +17,6 @@ bookmark_mobile_app = { path = "./mobile" }
 tauri_wasm_bindgen = { path = "./tauri_wasm" }
 leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
-sqlite_wasm = {workspace = true}
 
 [workspace]
 members = [
@@ -48,4 +47,4 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
     "24-solid",
     "24-outline",
 ] }
-sqlite_wasm = { path = "sqlite_wasm" }
+# sqlite_wasm = { path = "sqlite_wasm" }
