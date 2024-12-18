@@ -34,7 +34,7 @@
   @apply placeholder:dark:text-gray-700 placeholder:text-sm;
 }
 .form-input label {
-  @apply text-sm text-gray-400 first-letter:capitalize dark:text-gray-400;
+  @apply text-sm text-gray-700 first-letter:capitalize dark:text-gray-400;
 }
 
 .small-text {

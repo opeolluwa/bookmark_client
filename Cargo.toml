@@ -19,14 +19,7 @@ leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
 
 [workspace]
-members = [
-    "components",
-    "desktop",
-    "mobile",
-    "sqlite_wasm",
-    "tauri",
-    "tauri_wasm",
-]
+members = ["components", "desktop", "mobile", "tauri", "tauri_wasm"]
 
 [workspace.dependencies]
 console_error_panic_hook = "0.1.7"

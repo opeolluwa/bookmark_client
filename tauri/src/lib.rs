@@ -16,6 +16,7 @@ pub fn run() {
     let db_instance = database::BookmarksDatabaseWasm::init().unwrap();
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .setup(|app| {
             let read_write_transaction = db_instance
                 .rw_transaction()

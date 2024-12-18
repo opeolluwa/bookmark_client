@@ -42,16 +42,13 @@ pub fn HomePage() -> impl leptos::IntoView {
                 <div class="flex gap-y-2 items-center align-center">
                     <Menu on_select trigger_type=MenuTriggerType::Hover>
                         <MenuTrigger slot>
-                            <Avatar
-                                src="assets/img/default-user.png"
-                                size=20
-                            />
+                            <Avatar src="assets/img/default-user.png" size=20 class="hidden" />
                         </MenuTrigger>
                         <MenuItem value="facebook">"Logout"</MenuItem>
                         <MenuItem value="facebook">"Profile"</MenuItem>
                     </Menu>
                     <button>
-                    <HeroIcon class="size-4" icon_data =BellIconOutline() />
+                        <HeroIcon class="size-4" icon_data=BellIconOutline() />
                     </button>
                 </div>
             </div>
@@ -83,12 +80,29 @@ pub fn HomePage() -> impl leptos::IntoView {
                 </DrawerHeaderTitle>
             </DrawerHeader>
             <DrawerBody class="relative">
-                <div class="w-full border-t absolute bottom-2 left-0 right-0">
+                <div class="w-full border-t absolute bottom-0 left-0 right-0">
                     <button class="btn w-full flex border-transparent text-white dark:text-gray-400 bg-app/90 shadow">
                         <PlusIconCircle />
                         New collection
                     </button>
 
+                    <button class=" w-full mt-2 gap-y-2 font-medium items-center flex border-transparent text-gray-400">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+                            />
+                        </svg>
+                        Logout
+                    </button>
                 </div>
             </DrawerBody>
         </OverlayDrawer>
