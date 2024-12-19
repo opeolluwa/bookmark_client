@@ -11,7 +11,7 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use tauri_wasm_bindgen::api::invoke::{invoke, invoke_tauri_command};
+use tauri_wasm_bindgen::api::invoke::invoke;
 use tauri_wasm_bindgen::command_hooks::SIGN_UP_COMMAND_HOOK;
 use tauri_wasm_bindgen::hooks::TauriCommandArgument;
 
