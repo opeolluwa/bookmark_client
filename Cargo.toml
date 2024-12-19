@@ -40,6 +40,6 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
     "24-solid",
     "24-outline",
 ] }
-
+bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
 
 # sqlite_wasm = { path = "sqlite_wasm" }
