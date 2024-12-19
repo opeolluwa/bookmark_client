@@ -1,3 +1,4 @@
+pub mod forms;
 pub mod icon;
 pub mod icons;
 pub mod layout;

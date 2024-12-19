@@ -17,17 +17,9 @@ bookmark_mobile_app = { path = "./mobile" }
 tauri_wasm_bindgen = { path = "./tauri_wasm" }
 leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
-sqlite_wasm = {workspace = true}
 
 [workspace]
-members = [
-    "components",
-    "desktop",
-    "mobile",
-    "sqlite_wasm",
-    "tauri",
-    "tauri_wasm",
-]
+members = ["components", "desktop", "mobile", "tauri", "tauri_wasm", "."]
 
 [workspace.dependencies]
 console_error_panic_hook = "0.1.7"
@@ -42,11 +34,12 @@ tauri-plugin-shell = "2"
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 leptos_router = { version = "0.7.0" }
-leptos-use = "0.13.11"
 thaw = { version = "0.4.0-beta-5", features = ["csr"] }
 leptos_reactive = "0.6.15"
 leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", features = [
     "24-solid",
     "24-outline",
 ] }
-sqlite_wasm = { path = "sqlite_wasm" }
+
+
+# sqlite_wasm = { path = "sqlite_wasm" }

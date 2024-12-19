@@ -1,15 +1,66 @@
+use bookmark_components::forms::sign_up::SignUpFormData;
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
+// use bookmark_lib::commands::authentication::SIGN_UP_COMMAND;
 use leptos::either::Either;
+use leptos::ev::SubmitEvent;
+use leptos::html;
+use leptos::prelude::{NodeRef, NodeRefAttribute, OnAttribute, Set};
+use leptos::task::spawn_local;
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
+use tauri_wasm_bindgen::api::invoke::invoke_tauri_command;
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
-    let (is_loading, _set_is_loading) = signal(false);
+    let (is_loading, set_is_loading) = signal(false);
+    let (first_name, set_first_name) = signal("".to_string());
+    let (last_name, set_last_name) = signal("".to_string());
+    let (email, set_email) = signal("".to_string());
+    let (password, set_password) = signal("".to_string());
+
+    let first_name_input_element: NodeRef<html::Input> = NodeRef::new();
+    let last_name_input_element: NodeRef<html::Input> = NodeRef::new();
+    let email_input_element: NodeRef<html::Input> = NodeRef::new();
+    let password_input_element: NodeRef<html::Input> = NodeRef::new();
+
+    let on_submit = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        set_is_loading.set(true);
+
+        // let first_name_binding = first_name_input_element.get().unwrap().value();
+        let last_name_binding = last_name_input_element
+            .get()
+            .unwrap()
+            // .expect("error parsing the last name")
+            .value();
+        let email_binding = email_input_element.get().unwrap().value();
+        let password_binding = password_input_element.get().unwrap().value();
+
+        // set_first_name.set(first_name_binding);
+        set_last_name.set(last_name_binding);
+        set_email.set(email_binding);
+        set_password.set(password_binding);
+
+        let sign_up_form_data = SignUpFormData::new(
+            first_name.get(),
+            last_name.get(),
+            email.get(),
+            password.get(),
+        );
+
+        // spawn_local(async move {
+        //     let command_argument = serde_wasm_bindgen::to_value(&sign_up_form_data).unwrap();
+        //     let result = invoke_tauri_command(SIGN_UP_COMMAND, command_argument).await;
+
+        //     println!("{:?}", result);
+        // });
+
+        // set_is_loading.set(false);
+    };
 
     view! {
         <div class="">
@@ -25,29 +76,51 @@ pub fn SignUpPage() -> impl leptos::IntoView {
                     Create and account to begin
                 </SmallText>
             </div>
-            <form class="flex flex-col gap-y-4 mt-6">
+            <form class="flex flex-col gap-y-4 mt-6" on:submit=on_submit>
                 <div class="form-input">
                     <label for="first_name">First name</label>
-                    <input type="text" placeholder="type your first name" />
+                    <input
+                        value=first_name
+                        node_ref=first_name_input_element
+                        type="text"
+                        placeholder="type your first name"
+                    />
+                    {first_name}
+                    "hh"
                 </div>
 
                 <div class="form-input">
                     <label for="last_name">last name</label>
-                    <input type="text" placeholder="type your last name" />
+                    <input
+                        value=last_name
+                        node_ref=last_name_input_element
+                        type="text"
+                        placeholder="type your last name"
+                    />
                 </div>
                 <div class="form-input">
                     <label for="email">Email</label>
-                    <input type="email" placeholder="type your email" />
+                    <input
+                        value=email
+                        node_ref=email_input_element
+                        type="email"
+                        placeholder="type your email"
+                    />
                 </div>
                 <div class="form-input">
                     <label for="password">Password</label>
-                    <input type="password" placeholder="type your password" />
+                    <input
+                        value=password
+                        node_ref=password_input_element
+                        type="password"
+                        placeholder="type your password"
+                    />
                 </div>
 
                 <button
                     disabled=is_loading
                     type="submit"
-                    class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
+                    class="btn w-full disabled:bg-100 rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
                     {if is_loading.get() == true {
                         Either::Right(

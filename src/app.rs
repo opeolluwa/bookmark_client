@@ -10,8 +10,6 @@ use thaw::ConfigProvider;
 
 #[component]
 pub fn App() -> impl IntoView {
-
-
     let (device_operating_system, set_device_operating_system) = signal(String::new());
     let operating_system = get_device_operating_system().as_string();
     set_device_operating_system.set(operating_system.unwrap());
