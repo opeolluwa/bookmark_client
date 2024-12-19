@@ -7,6 +7,9 @@ use crate::views::{
         set_new_password::SetNewPasswordPage, sign_up::SignUpPage, AuthenticationUI,
     },
     dashboard::{favorites::FavoritesPage, home::HomePage, settings::SettingsPage, DashboardUI},
+    walkthrough::{
+        feature::FeaturePage, get_started::GetStartedPage, welcome::WelcomePage, WalkthroughUI,
+    },
 };
 
 #[component]
@@ -14,8 +17,14 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
             <Routes fallback=|| "Page not found">
-                <ParentRoute path=path!("/") view=AuthenticationUI>
-                    <Route path=path!("") view=LoginPage />
+                <ParentRoute path=path!("/") view=WalkthroughUI>
+                    <Route path=path!("") view=WelcomePage />
+                    <Route path=path!("/feature") view=FeaturePage />
+                    <Route path=path!("/get-started") view=GetStartedPage />
+                </ParentRoute>
+
+                <ParentRoute path=path!("/auth") view=AuthenticationUI>
+                    <Route path=path!("login") view=LoginPage />
                     <Route path=path!("sign-up") view=SignUpPage />
                     <Route path=path!("forgotten-password") view=ForgottenPasswordPage />
                     <Route path=path!("/set-new-password") view=SetNewPasswordPage />

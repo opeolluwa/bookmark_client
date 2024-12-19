@@ -24,8 +24,6 @@ impl IpcResponseError {
     }
 }
 
-
-
 #[derive(Debug, Serialize)]
 pub struct IpcResponse<T>
 where
