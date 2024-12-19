@@ -5,18 +5,15 @@ pub mod commands;
 pub mod database;
 pub mod models;
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+use crate::commands::application_settings;
+use crate::commands::authentication;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let db_instance = database::BookmarksDatabaseWasm::init().unwrap();
 
     tauri::Builder::default()
-        .plugin(tauri_plugin_http::init())
+        // .plugin(tauri_plugin_http::init())
         .setup(|app| {
             let read_write_transaction = db_instance
                 .rw_transaction()
@@ -33,7 +30,10 @@ pub fn run() {
         })
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            authentication::sign_up,
+            application_settings::fetch_default_settings
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -9,12 +9,7 @@ pub struct SignUpFormData {
 }
 
 impl SignUpFormData {
-    pub fn new(
-        first_name: &'static str,
-        last_name: &'static str,
-        email: &'static str,
-        password: &'static str,
-    ) -> Self {
+    pub fn new(first_name: String, last_name: String, email: String, password: String) -> Self {
         Self {
             first_name: first_name.into(),
             last_name: last_name.into(),

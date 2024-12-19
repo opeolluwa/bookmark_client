@@ -6,9 +6,7 @@
   "permissions": [
     "core:default",
     "shell:allow-open",
-    "os:default",
-    "http:default",
-    "http:allow-fetch",
-    "http:allow-fetch-send"
+    "os:default"
+ 
   ]
 }
