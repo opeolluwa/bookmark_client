@@ -2,7 +2,6 @@ use bookmark_components::forms::sign_up::SignUpFormData;
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
-// use bookmark_lib::commands::authentication::SIGN_UP_COMMAND;
 use leptos::either::Either;
 use leptos::ev::SubmitEvent;
 use leptos::html;
@@ -12,7 +11,9 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use tauri_wasm_bindgen::api::invoke::invoke_tauri_command;
+use tauri_wasm_bindgen::api::invoke::{invoke, invoke_tauri_command};
+use tauri_wasm_bindgen::command_hooks::SIGN_UP_COMMAND_HOOK;
+use tauri_wasm_bindgen::hooks::TauriCommandArgument;
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
@@ -31,16 +32,24 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         ev.prevent_default();
         set_is_loading.set(true);
 
-        // let first_name_binding = first_name_input_element.get().unwrap().value();
+        let first_name_binding = first_name_input_element
+            .get()
+            .expect("<input> should be mounted")
+            .value();
         let last_name_binding = last_name_input_element
             .get()
-            .unwrap()
-            // .expect("error parsing the last name")
+            .expect("<input> should be mounted")
             .value();
-        let email_binding = email_input_element.get().unwrap().value();
-        let password_binding = password_input_element.get().unwrap().value();
+        let email_binding = email_input_element
+            .get()
+            .expect("<input> should be mounted")
+            .value();
+        let password_binding = password_input_element
+            .get()
+            .expect("<input> should be mounted")
+            .value();
 
-        // set_first_name.set(first_name_binding);
+        set_first_name.set(first_name_binding);
         set_last_name.set(last_name_binding);
         set_email.set(email_binding);
         set_password.set(password_binding);
@@ -52,19 +61,21 @@ pub fn SignUpPage() -> impl leptos::IntoView {
             password.get(),
         );
 
-        // spawn_local(async move {
-        //     let command_argument = serde_wasm_bindgen::to_value(&sign_up_form_data).unwrap();
-        //     let result = invoke_tauri_command(SIGN_UP_COMMAND, command_argument).await;
+        spawn_local(async move {
+            let command_argument = serde_wasm_bindgen::to_value(&TauriCommandArgument {
+                payload: sign_up_form_data,
+            })
+            .unwrap();
+            let result = invoke(SIGN_UP_COMMAND_HOOK, command_argument).await;
 
-        //     println!("{:?}", result);
-        // });
+            println!("{:?}", result);
+        });
 
         // set_is_loading.set(false);
     };
 
     view! {
         <div class="">
-
             <div class="mb-12 flex justify-between items-center">
                 <a href="/" class="block size-6">
                     <ArrowLongLeftIcon />
@@ -85,8 +96,10 @@ pub fn SignUpPage() -> impl leptos::IntoView {
                         type="text"
                         placeholder="type your first name"
                     />
-                    {first_name}
-                    "hh"
+                // <p>"Name is: " {first_name}</p>
+                // <p>"Name is: " {last_name}</p>
+                // <p>"Name is: " {email}</p>
+                // <p>"Name is: " {password}</p>
                 </div>
 
                 <div class="form-input">
