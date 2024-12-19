@@ -4,6 +4,8 @@ use tauri::Manager;
 pub mod commands;
 pub mod database;
 pub mod models;
+pub mod api_request;
+pub mod ipc_response; 
 
 use crate::commands::application_settings;
 use crate::commands::authentication;
