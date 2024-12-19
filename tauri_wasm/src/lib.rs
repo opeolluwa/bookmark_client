@@ -1,6 +1,5 @@
 pub mod api;
+pub mod command_hooks;
 pub mod hooks;
+pub mod ipc_response;
 pub mod plugins;
-pub mod command_hooks {
-    pub static SIGN_UP_COMMAND_HOOK: &'static str = "sign_up";
-}

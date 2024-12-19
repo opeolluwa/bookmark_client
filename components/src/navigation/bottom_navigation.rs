@@ -1,7 +1,7 @@
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
-use leptos_heroicons::size_24::outline::{Cog6Tooth, Home, Sparkles};
+use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 
 use crate::icon::HeroIcon;
 
@@ -32,12 +32,18 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     let settings_icon = Cog6Tooth();
     let home_icon = Home();
     let star_icon = Sparkles();
+    let bell_icon = Bell();
+    let profile_icon = User();
 
     view! {
         <nav class="btm-nav">
             <BottomNavigationRoute label="home" href="" icon=home_icon />
 
+                  <BottomNavigationRoute label="notification" href="notifications" icon=bell_icon />
+
             <BottomNavigationRoute label="favorites" href="favorites" icon=star_icon />
+
+            <BottomNavigationRoute label="profile" href="profile" icon=profile_icon />
 
             <BottomNavigationRoute label="settings" href="settings" icon=settings_icon />
 

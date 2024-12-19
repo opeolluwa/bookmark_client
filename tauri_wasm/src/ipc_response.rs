@@ -1,4 +1,6 @@
-use serde::Serialize;
+use std::str::FromStr;
+
+use serde::{Deserialize, Serialize};
 
 pub type IpcResponseError = IpcResponse<()>;
 pub type IpcResponseSuccess<T> = IpcResponse<T>;
@@ -24,7 +26,7 @@ impl IpcResponseError {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct IpcResponse<T>
 where
     T: Serialize,
@@ -34,7 +36,7 @@ where
     pub body: Option<T>,
 }
 
-#[derive(Debug, Default, Serialize, PartialEq)]
+#[derive(Debug, Default, Serialize, Deserialize, PartialEq)]
 pub enum IpcResponseStatus {
     #[default]
     Success,
@@ -60,6 +62,18 @@ impl ToString for IpcResponseStatus {
     }
 }
 
+impl FromStr for IpcResponseStatus {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s.trim().to_lowercase().as_str() {
+            "failed" => Ok(IpcResponseStatus::Failed),
+            "success" => Ok(IpcResponseStatus::Success),
+            _ => Err(()),
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -71,6 +85,21 @@ mod test {
         );
     }
 
+    #[test]
+    fn failed_status_from_str() {
+        assert_eq!(
+            IpcResponseStatus::from_str("failed  ").ok(),
+            Some(IpcResponseStatus::Failed)
+        )
+    }
+
+    #[test]
+    fn success_status_from_str() {
+        assert_eq!(
+            IpcResponseStatus::from_str("  success ").ok(),
+            Some(IpcResponseStatus::Success)
+        )
+    }
     #[test]
     fn ipc_response_status_enum_case_conversion_success_arm() {
         assert_eq!(
