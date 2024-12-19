@@ -21,7 +21,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Right(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <a href="/sign-up" class="block size-6">
+                            <a href="/auth/sign-up" class="block size-6">
 
                                 <ArrowLongLeftIcon />
                             </a>
@@ -38,7 +38,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Left(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
-                            <a href="/sign-up">
+                            <a href="/auth/sign-up">
                                 <ArrowLongLeftIcon />
                             </a>
                         </div>
@@ -108,7 +108,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 </a>
             // href="/mobile/authentication/forgotten-password"
             </form>
-            <a href="/forgotten-password" class="text-app block  text-sm font-bold mt-3">
+            <a href="/auth/forgotten-password" class="text-app block  text-sm font-bold mt-3">
                 Forgotten password?
             </a>
             <div class="flex items-center hidden justify-center ">

@@ -9,7 +9,7 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
     view! {
         <div class="relative h-screen overflow-y-scroll w-full bg-white dark:bg-base-100">
             <main
-                class="px-4 my-6 pt-16 overflow-y-scroll my-4 dark:text-gray-400/90"
+                class="px-4 my-6 pt-12 overflow-y-scroll my-4 dark:text-gray-400/90"
                 style="height:calc(100vh-10rem); overflow-y:scroll "
             >
                 {children}

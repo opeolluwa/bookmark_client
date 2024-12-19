@@ -12,7 +12,7 @@ pub fn FeaturePage() -> impl leptos::IntoView {
             <div class="text-center">
                 <h1 class="text-3xl font-black">Offline first</h1>
                 <p class="leading-2 text-[18px] text-gray-400 mt-2">
-                   Access all your important bookmarks without internet
+                    Access all your important bookmarks without internet
                 </p>
             </div>
 

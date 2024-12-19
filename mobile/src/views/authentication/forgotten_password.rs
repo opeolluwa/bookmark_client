@@ -16,7 +16,7 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
     view! {
         <div class="">
 
-            <a href="/" class="mb-12 flex justify-between items-center">
+            <a href="/auth/login" class="mb-12 flex justify-between items-center">
                 <ArrowLongLeftIcon />
             </a>
 
@@ -34,7 +34,7 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
                 </div>
 
                 <a
-                    href="/set-new-password"
+                    href="/auth/set-new-password"
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
@@ -48,7 +48,7 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
 
                 </a>
             </form>
-            <a href="/" class="text-app block text-sm font-bold mt-3">
+            <a href="/auth/login" class="text-app block text-sm font-bold mt-3">
                 "Remember your password? Login!"
             </a>
         </div>
