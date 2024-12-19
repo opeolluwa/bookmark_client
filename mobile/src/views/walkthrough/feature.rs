@@ -1,21 +1,19 @@
 use bookmark_components::layout::view::View;
-use bookmark_components::typography::heading::PageHeading;
-use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 
 #[leptos::component]
 pub fn FeaturePage() -> impl leptos::IntoView {
     view! {
-        <View class="flex flex-col relative h-[80vh]">
+        <View class="flex flex-col relative h-[90vh] overflow-hidden">
             <div>
                 <img src="/assets/illustrations/feature.png" alt="welcome" />
             </div>
             <div class="text-center">
-                <PageHeading text="Lorem Ipsum" />
-                <SmallText>
-                    Over 500+ professionally designed, fully responsive, expertly crafted component examples you can drop into your Tailwind projects and customize to your hears content.
-                </SmallText>
+                <h1 class="text-3xl font-black">Offline first</h1>
+                <p class="leading-2 text-[18px] text-gray-400 mt-2">
+                   Access all your important bookmarks without internet
+                </p>
             </div>
 
             <div class="flex justify-between absolute w-full bottom-0 mt-6 left-0  right-0">

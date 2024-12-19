@@ -5,5 +5,5 @@ use leptos::view;
 pub fn WalkthroughLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
 
-    view! { <div class="px-4 py-6 relative w-full h-screen overflow-y-hidden">{children}</div> }
+    view! { <div class="px-4 py-6 relative w-full overflow-y-hidden">{children}</div> }
 }

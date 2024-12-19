@@ -1,31 +1,31 @@
 use bookmark_components::layout::view::View;
-use bookmark_components::typography::heading::PageHeading;
-use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 
 #[leptos::component]
 pub fn WelcomePage() -> impl leptos::IntoView {
     view! {
-        <View class="flex flex-col relative h-[80vh] overflow-y-hidden">
+        <View class="flex flex-col relative h-[90vh] overflow-hidden">
             <div>
                 <img src="/assets/illustrations/welcome.png" alt="welcome" />
             </div>
             <div class="text-center">
-                <PageHeading text="Lorem Ipsum" />
-                <SmallText>
-                    Over 500+ professionally designed, fully responsive, expertly crafted component examples you can drop into your Tailwind projects and customize to your hears content.
-                </SmallText>
+                <h1 class="text-3xl font-black">Awesome bookmarks</h1>
+                <p class="leading-2 text-[18px] text-gray-400 mt-2">
+                    Craft, curate and share all important data on a single platform
+                </p>
             </div>
 
-            <div class="flex justify-between absolute w-full bottom-2 left-0  right-0">
-                <a href="" disabled class="btn btn-sm">
+            <div class="flex justify-end absolute w-full bottom-2 left-0  right-0">
+                <a href="" disabled class="btn hidden  px-4 bg-gray-400 text-black btn-sm">
                     Prev
                 </a>
-                <a href="/feature" class="btn btn-sm bg-app text-white">
+                <a href="feature" class="btn px-4 btn-sm bg-app text-white">
                     Next
                 </a>
+
             </div>
+            " "
         </View>
     }
 }

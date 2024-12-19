@@ -11,7 +11,9 @@ pub mod welcome;
 pub fn WalkthroughUI() -> impl leptos::IntoView {
     view! {
         <WalkthroughLayout>
+
             <Outlet />
+
         </WalkthroughLayout>
     }
 }
