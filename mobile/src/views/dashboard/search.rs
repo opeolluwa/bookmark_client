@@ -52,7 +52,7 @@ pub fn SearchPage() -> impl leptos::IntoView {
             </form>
         }>
 
-            <View class="flex flex-col  h-full items-center justify-center">
+            <View class="flex flex-col  h-[85vh] items-center justify-center">
                 <PageHeading text="No result" />
                 <SmallText class="mt-1 text-gray-400">try another keyword</SmallText>
             </View>

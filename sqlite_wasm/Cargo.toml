@@ -1,0 +1,19 @@
+[package]
+name = "sqlite_wasm_bindgen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# sqlite-web = { git = "https://github.com/opeolluwa/sqlite-web-rs", branch = "main" }
+sqlite-web = { path = "../../../devs/sqlite-web-rs" }
+wasm-bindgen = "=0.2.99"
+wasm-bindgen-futures = "0.4"
+diesel = "2.2"
+console_error_panic_hook = { version = "0.1.6" }
+diesel_migrations = "2.2"
+serde = "1"
+serde-wasm-bindgen = "0.6"
+anyhow = "1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing = "0.1"
+tracing-wasm = "0.2"

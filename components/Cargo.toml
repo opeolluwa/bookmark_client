@@ -9,3 +9,4 @@ leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
 strum = { version = "0.26.3", features = ["derive"] }
 serde = { workspace = true, features = ["derive"] }
 thaw = { workspace = true, features = ["csr"] }
+leptos_router ={workspace = true}

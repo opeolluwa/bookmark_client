@@ -7,7 +7,7 @@ use crate::layout::dashboard_layout::DashboardLayout;
 pub fn UserAccountPage() -> impl leptos::IntoView {
     view! {
         <DashboardLayout header_component=view! {
-            <PageHeading text="Notification" />
+            <PageHeading text="Profile" />
         }>""</DashboardLayout>
     }
 }
