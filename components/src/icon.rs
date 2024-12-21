@@ -6,5 +6,5 @@ pub fn HeroIcon<F>(#[prop(optional)] class: &'static str, icon_data: F) -> impl 
 where
     F: IntoView,
 {
-    view! { <span class=format!("size-6 {class}")>{icon_data}</span> }
+    view! { <span class=format!("size-5 {class}")>{icon_data}</span> }
 }

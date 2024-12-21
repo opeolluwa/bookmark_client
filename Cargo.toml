@@ -19,7 +19,15 @@ leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
 
 [workspace]
-members = ["components", "desktop", "mobile", "tauri", "tauri_wasm", "."]
+members = [
+    "components",
+    "desktop",
+    "mobile",
+    "tauri",
+    "tauri_wasm",
+    ".",
+    "sqlite_wasm",
+]
 
 [workspace.dependencies]
 console_error_panic_hook = "0.1.7"
@@ -39,7 +47,18 @@ leptos_reactive = "0.6.15"
 leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", features = [
     "24-solid",
     "24-outline",
+
 ] }
 bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
+sqlite_wasm_bindgen = { path = "sqlite_wasm" }
 
-# sqlite_wasm = { path = "sqlite_wasm" }
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+
+
+[package.metadata.leptos]
+lib-profile-release = "wasm-release"
