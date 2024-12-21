@@ -17,7 +17,6 @@ anyhow = "1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing = "0.1"
 tracing-wasm = "0.2"
-gluesql = { version = "0.16.3", default-features = false, features = [
-    "gluesql-idb-storage",
-] }
+gluesql = { version = "0.16.3", default-features = false, features = ["gluesql-idb-storage", "gluesql-web-storage", "gluesql_memory_storage"] }
+gluesql-idb-storage = "0.16.3"
 

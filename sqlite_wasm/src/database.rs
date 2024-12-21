@@ -1,14 +1,17 @@
 use crate::table_names::{APPLICATION_SETTINGS_TABLE, BOOKMARK_COLLECTION_TABLE};
-use gluesql::prelude::Glue;
+use gluesql::{gluesql_memory_storage::MemoryStorage, prelude::Glue};
 pub struct SqliteWasm {}
 
 impl SqliteWasm {
-    pub fn init() {
-        // let storage = IdbStorage::new("bookmark");
-        // let mut gluesql_db_instance = Glue::new(storage);
-        // Self::create_table_statements()
-        //     .into_iter()
-        //     .map(async |statement| gluesql_db_instance.execute(statement).await);
+    pub async fn init() {
+        let storage = MemoryStorage::default();
+        let mut gluesql_db_instance = Glue::new(storage);
+        for statement in Self::create_table_statements().into_iter() {
+            gluesql_db_instance
+                .execute(statement)
+                .await
+                .expect("error initializing storage engine");
+        }
     }
 
     fn create_table_statements() -> Vec<String> {
