@@ -145,3 +145,6 @@ ddb:
 
     cargo build --release --target "wasm32-wasi" --manifest-path sqlite_wasm/Cargo.toml 
 
+
+check-db: 
+     cargo build --lib --target "wasm32-unknown-unknown"

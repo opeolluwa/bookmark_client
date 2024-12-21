@@ -1,4 +1,5 @@
 use models::application_settings::AppSettings;
+use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
 use tauri::Manager;
 
 pub mod api_request;
@@ -14,6 +15,7 @@ use crate::commands::authentication;
 pub fn run() {
     let db_instance = database::BookmarksDatabaseWasm::init().unwrap();
 
+    let _ = sqlite_wasm_bindgen_database::SqliteWasm::init();
     tauri::Builder::default()
         // .plugin(tauri_plugin_http::init())
         .setup(|app| {
