@@ -48,7 +48,6 @@
 .btn-animated {
   transition-duration: 0.4s;
   -webkit-transition-duration: 0.4s;
-  display: none!important;
 }
 
 .btn-animated:hover {

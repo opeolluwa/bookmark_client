@@ -41,7 +41,7 @@ where
                 view! {
                     <a
                         href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated" 
                     >
                         <HeroIcon icon_data=icon />
                         <span class="text-sm sr-only">{label}</span>

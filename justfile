@@ -147,4 +147,4 @@ ddb:
 
 
 check-db: 
-     cargo build --lib --target "wasm32-unknown-unknown"
+        cargo build --lib --target "wasm32-unknown-unknown" --manifest-path sqlite_wasm/Cargo.toml

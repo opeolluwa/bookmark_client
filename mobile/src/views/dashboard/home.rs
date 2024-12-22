@@ -6,7 +6,6 @@ use leptos::prelude::{CustomAttribute, Get};
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::prelude::{OnAttribute, RwSignal, Set};
 use leptos::view;
-use leptos_router::hooks::{use_location, use_url};
 use thaw::{
     Avatar, DrawerBody, DrawerHeader, DrawerHeaderTitle, Menu, MenuItem, MenuTrigger,
     MenuTriggerType, OverlayDrawer,
