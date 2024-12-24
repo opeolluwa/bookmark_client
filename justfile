@@ -21,7 +21,7 @@ install-dependencies:
     echo "Installing dependencies"
     cargo install trunk --locked
     rustup target add wasm32-unknown-unknown
-    # download wasi-ssdk
+    #todo: downlaod sqljs and extract to sqlite_wasm
     npm i -g esbuild
 
 
@@ -73,7 +73,7 @@ build target:
 [doc("Export binaries into $PWD/bin")]
 ship target: 
     #!/usr/bin/env sh
-    mkdir bin
+    mkdir -p bin
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do

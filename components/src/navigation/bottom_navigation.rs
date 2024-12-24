@@ -32,7 +32,7 @@ where
                         class="flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
                     >
                         <HeroIcon icon_data=alternate_icon />
-                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
+                        <span class="text-[12px] font-medium  capitalize">{label}</span>
                     </a>
                 },
             )
@@ -44,7 +44,7 @@ where
                         class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
                     >
                         <HeroIcon icon_data=icon />
-                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
+                        <span class="text-[12px] font-medium  capitalize">{label}</span>
                     </a>
                 },
             )
