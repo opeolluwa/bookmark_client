@@ -7,14 +7,14 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
 
     view! {
-        <div class="relative h-screen overflow-y-scroll w-full bg-white dark:bg-base-100">
+        <div class="relative h-[98vh] overflow-y-hidden w-full bg-white dark:bg-base-100">
             <main
-                class="px-4 my-6 pt-16 overflow-y-scroll my-4 dark:text-gray-400/90"
-                style="height:calc(100vh-10rem); overflow-y:scroll "
+                class="px-4 my-6 pt-6 overflow-y-scroll my-4 dark:text-gray-400/90 bg-gray-100"
+                style="height:100%; overflow-y:scroll "
             >
                 {children}
             </main>
-            <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50  bg-white border-t border-gray-200 text-gray-500/90 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50">
+            <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50  bg-white border-t border-gray-200 text-gray-500/90 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50 border-t">
                 <BottomNavigation />
             </nav>
         </div>

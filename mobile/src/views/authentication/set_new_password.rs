@@ -13,7 +13,7 @@ pub fn SetNewPasswordPage() -> impl leptos::IntoView {
 
     view! {
         <div class="">
-            <a href="/" class="mb-12 flex justify-between items-center">
+            <a href="/auth/forgotten-password" class="mb-12 flex justify-between items-center">
                 <ArrowLongLeftIcon />
             </a>
 

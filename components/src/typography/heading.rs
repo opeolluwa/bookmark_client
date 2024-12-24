@@ -10,7 +10,7 @@ pub fn Heading(#[prop(optional)] class: &'static str, children: Children) -> imp
 #[leptos::component]
 pub fn PageHeading(#[prop(optional)] text: &'static str) -> impl IntoView {
     view! {
-        <Text class="font-medium leading-2 text-xl capitalize text-gray-700 dark:text-gray-400 dark:text-gray-500/90">
+        <Text class="font-medium leading-2 text-xl capitalize text-gray-700 dark:text-gray-400 dark:text-gray-500/90 block">
             {text}
         </Text>
     }
