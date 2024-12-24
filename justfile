@@ -22,6 +22,7 @@ install-dependencies:
     cargo install trunk --locked
     rustup target add wasm32-unknown-unknown
     # download wasi-ssdk
+    npm i -g esbuild
 
 
 [doc('Lint')]

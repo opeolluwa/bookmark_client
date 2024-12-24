@@ -20,20 +20,20 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
             <Routes fallback=|| "Page not found">
-                <ParentRoute path=path!("/dd") view=WalkthroughUI>
+                <ParentRoute path=path!("") view=WalkthroughUI>
                     <Route path=path!("/") view=WelcomePage />
                     <Route path=path!("/feature") view=FeaturePage />
                     <Route path=path!("/get-started") view=GetStartedPage />
                 </ParentRoute>
 
-                <ParentRoute path=path!("/a") view=AuthenticationUI>
+                <ParentRoute path=path!("/auth") view=AuthenticationUI>
                     <Route path=path!("login") view=LoginPage />
                     <Route path=path!("sign-up") view=SignUpPage />
                     <Route path=path!("forgotten-password") view=ForgottenPasswordPage />
                     <Route path=path!("/set-new-password") view=SetNewPasswordPage />
                 </ParentRoute>
 
-                <ParentRoute path=path!("") view=DashboardUI>
+                <ParentRoute path=path!("/dashboard") view=DashboardUI>
                     <Route path=path!("") view=HomePage />
                     <Route path=path!("/favorites") view=FavoritesPage />
                     <Route path=path!("settings") view=SettingsPage />
