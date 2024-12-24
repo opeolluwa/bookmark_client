@@ -22,6 +22,7 @@ install-dependencies:
     cargo install trunk --locked
     rustup target add wasm32-unknown-unknown
     # download wasi-ssdk
+    npm i -g esbuild
 
 
 [doc('Lint')]
@@ -36,7 +37,7 @@ watch target:
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-    
+ 
     if [ {{target}} = "android" ]; then
         cargo tauri android dev 
     elif [ {{target}} = "ios" ]; then 
@@ -147,4 +148,4 @@ ddb:
 
 
 check-db: 
-     cargo build --lib --target "wasm32-unknown-unknown"
+        cargo build --lib --target "wasm32-unknown-unknown" --manifest-path sqlite_wasm/Cargo.toml

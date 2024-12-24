@@ -2,11 +2,10 @@ use crate::layout::dashboard_layout::DashboardLayout;
 use bookmark_components::icons::plus_icon::PlusIconCircle;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
-use leptos::prelude::{CustomAttribute, Get};
 use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::prelude::{CustomAttribute, Get};
 use leptos::prelude::{OnAttribute, RwSignal, Set};
 use leptos::view;
-use leptos_router::hooks::{use_location, use_url};
 use thaw::{
     Avatar, DrawerBody, DrawerHeader, DrawerHeaderTitle, Menu, MenuItem, MenuTrigger,
     MenuTriggerType, OverlayDrawer,

@@ -1,3 +1,3 @@
 pub mod database;
-mod table_names;
-
+pub mod entities;
+pub mod table_names;

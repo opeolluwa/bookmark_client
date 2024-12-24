@@ -1819,7 +1819,7 @@ dependencies = [
  "futures-channel",
  "futures-core",
  "futures-sink",
- "gloo-utils",
+ "gloo-utils 0.2.0",
  "http",
  "js-sys",
  "pin-project",
@@ -1828,6 +1828,34 @@ dependencies = [
  "thiserror 1.0.69",
  "wasm-bindgen",
  "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-storage"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5d6ab60bf5dbfd6f0ed1f7843da31b41010515c745735c970e821945ca91e480"
+dependencies = [
+ "gloo-utils 0.1.7",
+ "js-sys",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
+name = "gloo-utils"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "037fcb07216cb3a30f7292bd0176b050b7b9a052ba830ef7d5d65f6dc64ba58e"
+dependencies = [
+ "js-sys",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
  "web-sys",
 ]
 
@@ -1852,6 +1880,8 @@ checksum = "948111f461eb5099a13e8d9f202ad2809fef19ad7bf45fb2b1fda4084f299fc0"
 dependencies = [
  "gluesql-core",
  "gluesql-idb-storage",
+ "gluesql-web-storage",
+ "gluesql_memory_storage",
 ]
 
 [[package]]
@@ -1893,7 +1923,7 @@ checksum = "5e07656bdd2044bb8707532500815823ff09c5b696fa76b990c9438247d6a59d"
 dependencies = [
  "async-trait",
  "futures",
- "gloo-utils",
+ "gloo-utils 0.2.0",
  "gluesql-core",
  "idb",
  "serde",
@@ -1912,6 +1942,33 @@ dependencies = [
  "futures",
  "indexmap 1.9.3",
  "pin-project",
+]
+
+[[package]]
+name = "gluesql-web-storage"
+version = "0.16.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c81870ed9d55dd42e0ed9219259d3713980d011e839e37b15c93503d5caa92d9"
+dependencies = [
+ "async-trait",
+ "futures",
+ "gloo-storage",
+ "gluesql-core",
+ "serde",
+ "uuid",
+ "web-sys",
+]
+
+[[package]]
+name = "gluesql_memory_storage"
+version = "0.16.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2389e95c8ff1417722ad42696a0abffb9456e4d4fdb7c08255f218ad7e21bd47"
+dependencies = [
+ "async-trait",
+ "futures",
+ "gluesql-core",
+ "serde",
 ]
 
 [[package]]
@@ -5067,6 +5124,7 @@ dependencies = [
  "anyhow",
  "console_error_panic_hook",
  "gluesql",
+ "gluesql-idb-storage",
  "serde",
  "serde-wasm-bindgen",
  "tracing",
