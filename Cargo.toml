@@ -26,7 +26,7 @@ members = [
     "tauri",
     "tauri_wasm",
     ".",
-    "sqlite_wasm",
+    "sqlite_wasm_bindgen",
 ]
 
 [workspace.dependencies]
