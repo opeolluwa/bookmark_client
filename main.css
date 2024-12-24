@@ -44,3 +44,42 @@
 .form-input.desktop label {
   @apply text-sm  text-black first-letter:capitalize dark:text-gray-500;
 }
+
+.btn-animated {
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+}
+
+.btn-animated:hover {
+  transition-duration: 0.1s;
+  opacity: 0.9;
+}
+
+.btn-animated::after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px #e1ecfd;
+}
+
+.btn-animated:active:after {
+  box-shadow: 0 0 0 0 #e1ecfd;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.btn-animated:active {
+  top: 1px;
+}
+

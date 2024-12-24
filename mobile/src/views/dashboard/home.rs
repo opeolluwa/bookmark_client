@@ -1,11 +1,9 @@
 use crate::layout::dashboard_layout::DashboardLayout;
-use bookmark_components::icon::HeroIcon;
-use bookmark_components::icons::bell_icon::BellIconOutline;
 use bookmark_components::icons::plus_icon::PlusIconCircle;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
-use leptos::prelude::CustomAttribute;
 use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::prelude::{CustomAttribute, Get};
 use leptos::prelude::{OnAttribute, RwSignal, Set};
 use leptos::view;
 use thaw::{
@@ -47,12 +45,28 @@ pub fn HomePage() -> impl leptos::IntoView {
                         <MenuItem value="facebook">"Logout"</MenuItem>
                         <MenuItem value="facebook">"Profile"</MenuItem>
                     </Menu>
-                    <button>
-                        <HeroIcon class="size-4" icon_data=BellIconOutline() />
-                    </button>
+                    <a href="/dashboard/search">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            class="size-5"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+
+                    </a>
                 </div>
             </div>
-        }>""</DashboardLayout>
+        }>
+
+            <div>the page location is {leptos_router::hooks::use_location().pathname.get()}</div>
+
+        </DashboardLayout>
 
         <OverlayDrawer open>
             <DrawerHeader>
@@ -86,7 +100,7 @@ pub fn HomePage() -> impl leptos::IntoView {
                         New collection
                     </button>
 
-                    <button class=" w-full mt-2 gap-y-2 font-medium items-center flex border-transparent text-gray-400">
+                    <button class="hidden w-full mt-2 gap-y-2 font-medium items-center flex border-transparent text-gray-400">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
