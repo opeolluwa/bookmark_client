@@ -2,7 +2,7 @@ use crate::icon::HeroIcon;
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,
@@ -24,7 +24,7 @@ where
     let page_route = format!("/dashboard/{href}");
 
     view! {
-        {if page_route ==current_page_location   {
+        {if page_route == current_page_location {
             Either::Right(
                 view! {
                     <a
@@ -32,7 +32,7 @@ where
                         class="flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
                     >
                         <HeroIcon icon_data=alternate_icon />
-                        <span class="text-sm capitalize sr-only">{label}</span>
+                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
                     </a>
                 },
             )
@@ -41,10 +41,10 @@ where
                 view! {
                     <a
                         href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated" 
+                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
                     >
                         <HeroIcon icon_data=icon />
-                        <span class="text-sm sr-only">{label}</span>
+                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
                     </a>
                 },
             )
