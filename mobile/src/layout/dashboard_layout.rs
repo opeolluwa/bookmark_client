@@ -14,7 +14,7 @@ where
                 {header_component}
             </header>
 
-            <div class="pb-12">{children}</div>
+            <div>{children}</div>
         </div>
     }
 }

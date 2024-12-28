@@ -32,3 +32,4 @@ ehttp = { version = "0.5.0", features = ["json", "native-async"] }
 bookmark_grpc_codegen = { workspace = true }
 tauri_wasm_bindgen = { path = "../tauri_wasm", version = "*" }
 sqlite_wasm_bindgen = { workspace = true }
+
