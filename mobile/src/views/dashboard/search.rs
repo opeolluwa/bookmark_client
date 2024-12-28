@@ -10,8 +10,8 @@ use crate::layout::dashboard_layout::DashboardLayout;
 pub fn SearchPage() -> impl leptos::IntoView {
     view! {
         <DashboardLayout header_component=view! {
-            <form class="flex items-center justify-between w-full py-0 my-0">
-                <a href="/dashboard">
+            <form class="grid grid-cols-12 items-center w-full py-0 my-0">
+                <a href="/dashboard" class="col-span-1">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -25,15 +25,15 @@ pub fn SearchPage() -> impl leptos::IntoView {
                         />
                     </svg>
                 </a>
-                <div class="flex items-center gap-2">
+                <div class="col-span-10 bg-gray-100/40 rounded">
                     <input
                         type="text"
                         autofocus
                         placeholder="search"
-                        class="input my-0 py-0 input-ghost input-sm w-full max-w-xs grow focus:border-none focus:outline-none   @apply placeholder:dark:text-gray-700 placeholder:text-sm"
+                        class="input my-0 py-0 input-ghost input-sm w-full max-w-xs grow focus:border-none focus:outline-none  placeholder:dark:text-gray-700 placeholder:text-sm bg-transparent"
                     />
-
-                    <button type="submit" class="mx-0 px-0">
+                </div>
+                  <button type="submit" class="mx-0 px-0 col-span-1">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -48,8 +48,8 @@ pub fn SearchPage() -> impl leptos::IntoView {
                         </svg>
 
                     </button>
-                </div>
             </form>
+            
         }>
 
             <View class="flex flex-col  h-[85vh] items-center justify-center">

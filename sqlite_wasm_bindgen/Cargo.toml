@@ -1,0 +1,16 @@
+[package]
+name = "sqlite_wasm_bindgen"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+
+[dependencies]
+serde-wasm-bindgen = { workspace = true }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+include_dir = "0.7.4"
+lazy_static = "1.5.0"
+rayon = "1.10.0"

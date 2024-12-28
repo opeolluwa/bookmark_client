@@ -13,25 +13,8 @@ use crate::commands::authentication;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let db_instance = database::BookmarksDatabaseWasm::init().unwrap();
-
-    let _ = sqlite_wasm_bindgen_database::SqliteWasm::init();
+    let connection = sqlite_wasm_bindgen_database::SqliteWasm::init();
     tauri::Builder::default()
-        // .plugin(tauri_plugin_http::init())
-        .setup(|app| {
-            let read_write_transaction = db_instance
-                .rw_transaction()
-                .expect("failed to create read_write_transaction migration transaction");
-            read_write_transaction
-                .migrate::<AppSettings>()
-                .expect("failed to migrate Person");
-            read_write_transaction
-                .commit()
-                .expect("failed to commit migration");
-
-            app.manage(db_instance);
-            Ok(())
-        })
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![

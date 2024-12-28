@@ -17,4 +17,4 @@ wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 bookmark_components = { path = "../components" }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
-sqlite_wasm_bindgen = { workspace = true }
+

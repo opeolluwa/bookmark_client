@@ -12,13 +12,9 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
-use std::str::FromStr;
-use tauri_wasm_bindgen::api::invoke::invoke;
+
 use tauri_wasm_bindgen::command_hooks::SIGN_UP_COMMAND_HOOK;
-use tauri_wasm_bindgen::hooks::TauriCommandArgument;
-use tauri_wasm_bindgen::ipc_response::{
-    IpcResponseStatus, IpcResponseSuccess, TauriCommandResponse,
-};
+use tauri_wasm_bindgen::core::invoke::invoke_command;
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
@@ -67,18 +63,31 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         );
 
         spawn_local(async move {
-            let command_argument = serde_wasm_bindgen::to_value(&TauriCommandArgument {
-                payload: sign_up_form_data,
-            })
-            .unwrap();
+            let command_response: Result<SignUpResponse, String> =
+                invoke_command(SIGN_UP_COMMAND_HOOK, Some(sign_up_form_data)).await;
 
-            let result = invoke(SIGN_UP_COMMAND_HOOK, command_argument).await;
-            let api_response =
-                serde_wasm_bindgen::from_value::<IpcResponseSuccess<SignUpResponse>>(result)
-                    .expect("error parsing APi response");
-            if api_response.status == IpcResponseStatus::Failed {
-                //todo
-            };
+            println!("res   {:#?}", command_response);
+            // let command_argument = serde_wasm_bindgen::to_value(&TauriCommandArgument {
+            //     payload: sign_up_form_data,
+            // })
+            // .unwrap();
+
+            // let result = tauri_sys::core::invoke::<TauriCommandResponse<SignUpResponse>>(
+            //     SIGN_UP_COMMAND_HOOK,
+            //     command_argument,
+            // )
+            // .await
+            // .unwrap();
+
+            // println!("{:#?}", result);
+
+            // let result = invoke(SIGN_UP_COMMAND_HOOK, command_argument).await;
+            // let api_response =
+            //     serde_wasm_bindgen::from_value::<IpcResponseSuccess<SignUpResponse>>(result)
+            //         .expect("error parsing APi response");
+            // if api_response.status == IpcResponseStatus::Failed {
+            //     //todo
+            // };
             set_is_loading.set(false);
         });
     };

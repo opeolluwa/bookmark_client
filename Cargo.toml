@@ -26,7 +26,7 @@ members = [
     "tauri",
     "tauri_wasm",
     ".",
-    "sqlite_wasm",
+    "sqlite_wasm_bindgen",
 ]
 
 [workspace.dependencies]
@@ -50,7 +50,7 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
 
 ] }
 bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
-sqlite_wasm_bindgen = { path = "sqlite_wasm" }
+sqlite_wasm_bindgen = { path = "sqlite_wasm_bindgen" }
 
 
 [profile.wasm-release]

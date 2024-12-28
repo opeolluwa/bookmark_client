@@ -24,7 +24,7 @@ where
     let page_route = format!("/dashboard/{href}");
 
     view! {
-        {if page_route ==current_page_location   {
+        {if page_route == current_page_location {
             Either::Right(
                 view! {
                     <a
@@ -32,7 +32,7 @@ where
                         class="flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
                     >
                         <HeroIcon icon_data=alternate_icon />
-                        <span class="text-sm capitalize sr-only">{label}</span>
+                        <span class="text-[12px] font-medium  capitalize">{label}</span>
                     </a>
                 },
             )
@@ -41,10 +41,10 @@ where
                 view! {
                     <a
                         href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated" 
+                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
                     >
                         <HeroIcon icon_data=icon />
-                        <span class="text-sm sr-only">{label}</span>
+                        <span class="text-[12px] font-medium  capitalize">{label}</span>
                     </a>
                 },
             )
@@ -55,17 +55,50 @@ where
 #[leptos::component]
 
 pub fn BottomNavigation() -> impl leptos::IntoView {
-    let settings_icon = Cog6Tooth();
-    let home_icon = Home();
-    let star_icon = Sparkles();
-    let bell_icon = Bell();
-    let profile_icon = User();
+    // let settings_icon = Cog6Tooth();
+    // let home_icon = Home();
+    // let star_icon = Sparkles();
+    // let bell_icon = Bell();
+    // let profile_icon = User();
 
-    let solid_settings_icon = SolidCog6Tooth();
-    let solid_home_icon = SolidHome();
-    let solid_star_icon = SolidSparkles();
-    let solid_bell_icon = SolidBell();
-    let solid_profile_icon = SolidUser();
+    // let solid_settings_icon = SolidCog6Tooth();
+    // let solid_home_icon = SolidHome();
+    // let solid_star_icon = SolidSparkles();
+    // let solid_bell_icon = SolidBell();
+    // let solid_profile_icon = SolidUser();
+
+    // Define icons
+    let settings_icon = view! {
+        <Cog6Tooth/>
+    };
+    let home_icon = view! {
+        <Home/>
+    };
+    let star_icon = view! {
+        <Sparkles/>
+    };
+    let bell_icon = view! {
+        <Bell/>
+    };
+    let profile_icon = view! {
+        <User/>
+    };
+
+    let solid_settings_icon = view! {
+        <SolidCog6Tooth/>
+    };
+    let solid_home_icon = view! {
+        <SolidHome/>
+    };
+    let solid_star_icon = view! {
+        <SolidSparkles/>
+    };
+    let solid_bell_icon = view! {
+        <SolidBell/>
+    };
+    let solid_profile_icon = view! {
+        <SolidUser/>
+    };
 
     view! {
         <nav class="btm-nav">
