@@ -17,8 +17,8 @@ impl SqliteWasm {
         // }
 
         // let database_path = Self::get_db_path();
-        let database_connection = Connection::open(database_path)?;
-        // let database_connection = Connection::open_in_memory()?;
+        // let database_connection = Connection::open(database_path)?;
+        let database_connection = Connection::open_in_memory()?;
 
         let create_tables_result =
             database_connection.execute_batch(&Self::create_table_statements());
