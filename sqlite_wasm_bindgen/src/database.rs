@@ -1,41 +1,24 @@
-use include_dir::{include_dir, Dir};
-use lazy_static::lazy_static;
 use rusqlite::Connection;
-use std::{env::var, path::PathBuf};
+use std::fs;
+use std::path::Path;
 
 use crate::{
     entities::settings::Settings,
     table_names::{APPLICATION_SETTINGS_TABLE, BOOKMARK_COLLECTION_TABLE},
 };
 
-static RESOURCES_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/resources");
-static DEVELOPMENT_ENVIRONMENT: &'static str = "development";
-static NONE_DEVELOPMENT_ENVIRONMENT: &'static str = "production";
-static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.dev.sqlite";
-static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.sqlite";
-
-lazy_static! {
-    static ref DATABASE_PATH: PathBuf = {
-        let application_run_environment =
-            var("ENV").unwrap_or(NONE_DEVELOPMENT_ENVIRONMENT.to_string());
-
-        let database_file_path = if application_run_environment.as_str() == DEVELOPMENT_ENVIRONMENT
-        {
-            RESOURCES_DIR.get_file(DEVELOPMENT_DATABASE_FILE_PATH)
-            // DEVELOPMENT_DATABASE_FILE_PATH
-        } else {
-            RESOURCES_DIR.get_file(NON_DEVELOPMENT_DATABASE_FILE_PATH)
-            // NON_DEVELOPMENT_DATABASE_FILE_PATH
-        };
-
-        PathBuf::from(database_file_path.expect("error reading embedded database").path())
-    };
-}
 pub struct SqliteWasm {}
 
 impl SqliteWasm {
-    pub fn init() -> rusqlite::Result<Connection> {
-        let database_connection = Connection::open(DATABASE_PATH.as_path())?;
+    pub fn init(_database_path: &str) -> rusqlite::Result<Connection> {
+        // if !Self::db_file_exists() {
+        //     Self::create_db_file();
+        // }
+
+        // let database_path = Self::get_db_path();
+        // let database_connection = Connection::open(database_path)?;
+        let database_connection = Connection::open_in_memory()?;
+
 
         let create_tables_result =
             database_connection.execute_batch(&Self::create_table_statements());
@@ -48,6 +31,33 @@ impl SqliteWasm {
         } else {
             return Ok(database_connection);
         }
+    }
+
+    // / Create the database file.
+    fn create_db_file() {
+        let db_path = Self::get_db_path();
+        let db_dir = Path::new(&db_path).parent().unwrap();
+
+        // If the parent directory does not exist, create it.
+        if !db_dir.exists() {
+            fs::create_dir_all(db_dir).unwrap();
+        }
+
+        // Create the database file.
+        fs::File::create(db_path).unwrap();
+    }
+
+    // Check whether the database file exists.
+    fn db_file_exists() -> bool {
+        let db_path = Self::get_db_path();
+        Path::new(&db_path).exists()
+    }
+
+    // Get the path where the database file should be located.
+    fn get_db_path() -> String {
+        // let home_dir = dirs::home_dir().unwrap();
+        // home_dir.to_str().unwrap().to_string() + "/.config/bookmark/bookmark.sqlite"
+         "/.config/bookmark/bookmark.sqlite".to_string()
     }
 
     fn create_table_statements() -> String {

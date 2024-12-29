@@ -1,6 +1,8 @@
+use std::env::var;
 use std::sync::Mutex;
 
 use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
+use tauri::path::BaseDirectory;
 use tauri::Manager;
 
 pub mod api_request;
@@ -13,13 +15,34 @@ pub mod state;
 use crate::commands::authentication;
 use crate::commands::settings;
 
+static DEVELOPMENT_ENVIRONMENT: &'static str = "development";
+static NONE_DEVELOPMENT_ENVIRONMENT: &'static str = "production";
+static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.dev.sqlite";
+static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.sqlite";
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let connection =
-        sqlite_wasm_bindgen_database::SqliteWasm::init().expect("error initializing database");
-
     tauri::Builder::default()
         .setup(|app| {
+            // let application_run_environment =
+            //     var("ENV").unwrap_or(NONE_DEVELOPMENT_ENVIRONMENT.to_string());
+
+            // let database_file_path =
+            //     if application_run_environment.as_str() == DEVELOPMENT_ENVIRONMENT {
+            //         DEVELOPMENT_DATABASE_FILE_PATH
+            //     } else {
+            //         NON_DEVELOPMENT_DATABASE_FILE_PATH
+            //     };
+
+            let database_path = app
+                .path()
+                .resolve("sqlite/bookmark.sqlite", BaseDirectory::Resource)?;
+
+            // let path = std::fs::File::open(&database_path).unwrap();
+
+            let connection = sqlite_wasm_bindgen_database::SqliteWasm::init("test.db")
+                .expect("error initializing database");
+
             app.manage(state::AppState {
                 conn: Mutex::new(connection),
             });

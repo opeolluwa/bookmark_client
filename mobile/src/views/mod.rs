@@ -1,32 +1,27 @@
-use leptos::view;
-
 pub mod authentication;
 pub mod dashboard;
 pub mod walkthrough;
 
-// decide which UI to show based on the available data
-#[leptos::component]
-pub fn AuthenticationIndexView() -> impl leptos::IntoView {
-    view! {}
-}
-
-#[leptos::component]
-pub fn DashboardIndexView() -> impl leptos::IntoView {
-    view! {}
-}
-
-#[leptos::component]
-pub fn WalkthroughIndexView() -> impl leptos::IntoView {
-    view! {}
-}
-
 #[leptos::component]
 pub fn IndexView() -> impl leptos::IntoView {
     let account_exists = true;
-    let access_token_exists = true;
-    let is_authenticated = account_exists && access_token_exists;
+    let access_token_exists = false;
+    let is_initialized = true;
+    let access_token_expired = true;
 
-    view! {
-        
+    let navigate = leptos_router::hooks::use_navigate();
+
+    let index_view = if account_exists && access_token_exists {
+        navigate("/dashboard", Default::default())
+    } else if account_exists && !access_token_exists || account_exists && access_token_expired {
+        navigate("/auth/login", Default::default())
+    } else if !account_exists && !is_initialized {
+        navigate("/walkthrough", Default::default())
+    } else {
+        navigate("/auth/signup", Default::default())
+    };
+
+    {
+        index_view
     }
 }
