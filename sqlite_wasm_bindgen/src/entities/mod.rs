@@ -1,3 +1,4 @@
-pub mod bookmark_collection;
-pub mod bookmark_entry;
+pub mod bookmark;
+pub mod collections;
 pub mod settings;
+pub mod user;

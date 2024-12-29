@@ -55,6 +55,8 @@ build target:
     #!/usr/bin/env sh
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+    export ENV="production"
+
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do

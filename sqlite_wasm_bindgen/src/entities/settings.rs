@@ -15,7 +15,7 @@ impl Settings {
             id: 1,
             language: language.to_string(),
             theme: theme.to_string(),
-            initialized: true,
+            initialized: false,
         }
     }
 
@@ -47,6 +47,19 @@ impl Settings {
         })?;
 
         Ok(app_settings)
+    }
+
+    // change the application initialization status
+    pub fn change_initialization_status(status: bool, conn: &Connection) {
+        conn.execute(
+            &format!(
+                r#"
+            UPDATE {APPLICATION_SETTINGS_TABLE} SET initialized = ?1 WHERE id = 1
+            "#,
+            ),
+            &[&status.to_string()],
+        )
+        .unwrap();
     }
 }
 

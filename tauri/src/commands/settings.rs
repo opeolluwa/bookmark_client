@@ -9,9 +9,19 @@ pub async fn fetch_default_settings(state: tauri::State<'_, AppState>) -> Result
     Ok(settings)
 }
 
+// change the application initialization status, this is used to determine if the application has been initialized or not yet, it will prevent the application from reinitializing the application settings and from displaying the walkthrough screen
+#[tauri::command]
+pub async fn update_application_initialization_status(
+    state: tauri::State<'_, AppState>,
+    status: bool,
+) -> Result<(), String> {
+    let conn = state.conn.lock().unwrap();
+    Settings::change_initialization_status(status, &conn);
+    Ok(())
+}
+
 #[cfg(test)]
 mod test {
-
 
     #[test]
     fn test_settings() {
