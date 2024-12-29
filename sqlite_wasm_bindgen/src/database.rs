@@ -3,13 +3,16 @@ use lazy_static::lazy_static;
 use rusqlite::Connection;
 use std::{env::var, path::PathBuf};
 
-use crate::table_names::{APPLICATION_SETTINGS_TABLE, BOOKMARK_COLLECTION_TABLE};
+use crate::{
+    entities::settings::Settings,
+    table_names::{APPLICATION_SETTINGS_TABLE, BOOKMARK_COLLECTION_TABLE},
+};
 
 static RESOURCES_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/resources");
 static DEVELOPMENT_ENVIRONMENT: &'static str = "development";
 static NONE_DEVELOPMENT_ENVIRONMENT: &'static str = "production";
-static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "bookmark.dev.sqlite";
-static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "bookmark.sqlite";
+static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.dev.sqlite";
+static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.sqlite";
 
 lazy_static! {
     static ref DATABASE_PATH: PathBuf = {
@@ -19,11 +22,13 @@ lazy_static! {
         let database_file_path = if application_run_environment.as_str() == DEVELOPMENT_ENVIRONMENT
         {
             RESOURCES_DIR.get_file(DEVELOPMENT_DATABASE_FILE_PATH)
+            // DEVELOPMENT_DATABASE_FILE_PATH
         } else {
             RESOURCES_DIR.get_file(NON_DEVELOPMENT_DATABASE_FILE_PATH)
+            // NON_DEVELOPMENT_DATABASE_FILE_PATH
         };
 
-        PathBuf::from(database_file_path.unwrap().path())
+        PathBuf::from(database_file_path.expect("error reading embedded database").path())
     };
 }
 pub struct SqliteWasm {}
@@ -35,6 +40,9 @@ impl SqliteWasm {
         let create_tables_result =
             database_connection.execute_batch(&Self::create_table_statements());
 
+        // default settings and other presets
+        Self::create_default_settings(&database_connection);
+
         if create_tables_result.is_err() {
             return Err(create_tables_result.err().unwrap());
         } else {
@@ -42,7 +50,7 @@ impl SqliteWasm {
         }
     }
 
-    pub fn create_table_statements() -> String {
+    fn create_table_statements() -> String {
         format!(
             r#"
         BEGIN;
@@ -64,17 +72,8 @@ impl SqliteWasm {
         "#
         )
     }
-}
 
-// hook the sqliteJs
-mod wasm_bridge {
-
-    use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
-    use wasm_bindgen_futures::js_sys::JsString;
-    #[wasm_bindgen]
-    extern "C" {
-
-        #[wasm_bindgen(js_namespace = ["window", "initSqlJs"],js_name = initSqlJs)]
-        pub async fn init_sql_js(locate_file: JsString) -> JsValue;
+    fn create_default_settings(conn: &Connection) {
+        Settings::new("english", "light").save(conn);
     }
 }
