@@ -20,13 +20,14 @@ thaw = { workspace = true, features = ["csr"] }
 
 [workspace]
 members = [
-    "components",
-    "desktop",
-    "mobile",
-    "tauri",
-    "tauri_wasm",
     ".",
-    "sqlite_wasm_bindgen", "data_sync",
+    "tauri",
+    "mobile",
+    "desktop",
+    "data_sync",
+    "components",
+    "tauri_wasm_bindgen",
+    "sqlite_wasm_bindgen",
 ]
 
 [workspace.dependencies]
