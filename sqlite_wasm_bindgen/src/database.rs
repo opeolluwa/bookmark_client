@@ -8,8 +8,8 @@ use crate::table_names::{APPLICATION_SETTINGS_TABLE, BOOKMARK_COLLECTION_TABLE};
 static RESOURCES_DIR: Dir = include_dir!("$CARGO_MANIFEST_DIR/resources");
 static DEVELOPMENT_ENVIRONMENT: &'static str = "development";
 static NONE_DEVELOPMENT_ENVIRONMENT: &'static str = "production";
-static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "bookmark.dev.sqlite";
-static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "bookmark.sqlite";
+static DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.dev.sqlite";
+static NON_DEVELOPMENT_DATABASE_FILE_PATH: &'static str = "resources/bookmark.sqlite";
 
 lazy_static! {
     static ref DATABASE_PATH: PathBuf = {
@@ -18,12 +18,14 @@ lazy_static! {
 
         let database_file_path = if application_run_environment.as_str() == DEVELOPMENT_ENVIRONMENT
         {
-            RESOURCES_DIR.get_file(DEVELOPMENT_DATABASE_FILE_PATH)
+            // RESOURCES_DIR.get_file(DEVELOPMENT_DATABASE_FILE_PATH)
+            DEVELOPMENT_DATABASE_FILE_PATH
         } else {
-            RESOURCES_DIR.get_file(NON_DEVELOPMENT_DATABASE_FILE_PATH)
+            // RESOURCES_DIR.get_file(NON_DEVELOPMENT_DATABASE_FILE_PATH)
+            NON_DEVELOPMENT_DATABASE_FILE_PATH
         };
 
-        PathBuf::from(database_file_path.unwrap().path())
+        PathBuf::from(database_file_path)
     };
 }
 pub struct SqliteWasm {}
@@ -63,18 +65,5 @@ impl SqliteWasm {
         COMMIT;
         "#
         )
-    }
-}
-
-// hook the sqliteJs
-mod wasm_bridge {
-
-    use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
-    use wasm_bindgen_futures::js_sys::JsString;
-    #[wasm_bindgen]
-    extern "C" {
-
-        #[wasm_bindgen(js_namespace = ["window", "initSqlJs"],js_name = initSqlJs)]
-        pub async fn init_sql_js(locate_file: JsString) -> JsValue;
     }
 }
