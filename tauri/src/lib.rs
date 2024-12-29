@@ -1,4 +1,5 @@
-use models::application_settings::AppSettings;
+use std::sync::Mutex;
+
 use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
 use tauri::Manager;
 
@@ -7,19 +8,28 @@ pub mod commands;
 pub mod database;
 pub mod ipc_response;
 pub mod models;
+pub mod state;
 
-use crate::commands::application_settings;
 use crate::commands::authentication;
+use crate::commands::settings;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let connection = sqlite_wasm_bindgen_database::SqliteWasm::init();
+    let connection =
+        sqlite_wasm_bindgen_database::SqliteWasm::init().expect("error initializing database");
+
     tauri::Builder::default()
+        .setup(|app| {
+            app.manage(state::AppState {
+                conn: Mutex::new(connection),
+            });
+            Ok(())
+        })
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
             authentication::sign_up,
-            application_settings::fetch_default_settings
+            settings::fetch_default_settings
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

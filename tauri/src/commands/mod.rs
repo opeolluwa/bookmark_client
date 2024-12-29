@@ -1,2 +1,2 @@
-pub mod application_settings;
+pub mod settings;
 pub mod authentication;

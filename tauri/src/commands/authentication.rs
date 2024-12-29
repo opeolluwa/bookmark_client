@@ -2,10 +2,7 @@ use crate::api_request::RequestEndpoint;
 use bookmark_components::forms::sign_up::SignUpFormData;
 use bookmark_grpc_codegen::client_stub::authentication::SignUpResponse;
 use ehttp::{fetch_async, Request};
-use tauri_wasm_bindgen::{
-    error::CommandError,
-    ipc_response::{IpcResponseError, IpcResponseSuccess},
-};
+
 
 #[tauri::command]
 pub async fn sign_up(payload: SignUpFormData) -> Result<SignUpResponse, String> {

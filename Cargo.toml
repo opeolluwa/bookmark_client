@@ -51,7 +51,7 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
 ] }
 bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
 sqlite_wasm_bindgen = { path = "sqlite_wasm_bindgen" }
-
+rusqlite = { version = "0.32.1", features = ["bundled"] }
 
 [profile.wasm-release]
 inherits = "release"
