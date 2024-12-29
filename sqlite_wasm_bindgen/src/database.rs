@@ -9,16 +9,16 @@ use crate::{
 
 pub struct SqliteWasm {}
 
+#[allow(dead_code)]
 impl SqliteWasm {
-    pub fn init(_database_path: &str) -> rusqlite::Result<Connection> {
+    pub fn init(database_path: &str) -> rusqlite::Result<Connection> {
         // if !Self::db_file_exists() {
         //     Self::create_db_file();
         // }
 
         // let database_path = Self::get_db_path();
-        // let database_connection = Connection::open(database_path)?;
-        let database_connection = Connection::open_in_memory()?;
-
+        let database_connection = Connection::open(database_path)?;
+        // let database_connection = Connection::open_in_memory()?;
 
         let create_tables_result =
             database_connection.execute_batch(&Self::create_table_statements());
@@ -57,7 +57,7 @@ impl SqliteWasm {
     fn get_db_path() -> String {
         // let home_dir = dirs::home_dir().unwrap();
         // home_dir.to_str().unwrap().to_string() + "/.config/bookmark/bookmark.sqlite"
-         "/.config/bookmark/bookmark.sqlite".to_string()
+        "/.config/bookmark/bookmark.sqlite".to_string()
     }
 
     fn create_table_statements() -> String {
