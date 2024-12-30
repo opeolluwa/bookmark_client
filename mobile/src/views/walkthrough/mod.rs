@@ -1,7 +1,6 @@
+use bookmark_components::layouts::mobile::walkthrough::WalkthroughLayout;
 use leptos::view;
 use leptos_router::components::Outlet;
-
-use crate::layout::walkthrough::WalkthroughLayout;
 
 pub mod feature;
 pub mod get_started;

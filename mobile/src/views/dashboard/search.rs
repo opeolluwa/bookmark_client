@@ -1,10 +1,9 @@
-use bookmark_components::layout::view::View;
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
+use bookmark_components::view::View;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
-
-use crate::layout::dashboard_layout::DashboardLayout;
 
 #[leptos::component]
 pub fn SearchPage() -> impl leptos::IntoView {
@@ -33,23 +32,22 @@ pub fn SearchPage() -> impl leptos::IntoView {
                         class="input my-0 py-0 input-ghost input-sm w-full max-w-xs grow focus:border-none focus:outline-none  placeholder:dark:text-gray-700 placeholder:text-sm bg-transparent"
                     />
                 </div>
-                  <button type="submit" class="mx-0 px-0 col-span-1">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            class="size-5"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
+                <button type="submit" class="mx-0 px-0 col-span-1">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        class="size-5"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
 
-                    </button>
+                </button>
             </form>
-            
         }>
 
             <View class="flex flex-col  h-[85vh] items-center justify-center">

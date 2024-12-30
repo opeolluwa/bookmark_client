@@ -1,7 +1,6 @@
+use bookmark_components::layouts::mobile::authentication::AuthenticationLayout;
 use leptos::view;
 use leptos_router::components::Outlet;
-
-use crate::layout::authentication_view_layout::AuthenticationLayout;
 
 pub mod forgotten_password;
 pub mod login;

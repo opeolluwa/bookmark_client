@@ -21,7 +21,7 @@ pub fn ForgottenPasswordPage() -> impl leptos::IntoView {
             </a>
 
             <div class="mb-6">
-                <Heading class="font-bold".into()>"Let's get you back in"</Heading>
+                <Heading class="font-bold">"Let's get you back in"</Heading>
                 <SmallText class="leading-1 text-gray-400">
                     "Provide the email associated with your account and we'd send more instruction"
                 </SmallText>

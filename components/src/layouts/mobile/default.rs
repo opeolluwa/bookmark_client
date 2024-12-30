@@ -1,4 +1,4 @@
-use bookmark_components::navigation::bottom_navigation::BottomNavigation;
+use crate::navigation::bottom_navigation::BottomNavigation;
 use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::{children::Children, view};
 

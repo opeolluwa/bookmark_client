@@ -14,7 +14,7 @@ serde-wasm-bindgen = { workspace = true }
 console_error_panic_hook = { workspace = true }
 bookmark_desktop_app = { path = "./desktop" }
 bookmark_mobile_app = { path = "./mobile" }
-tauri_wasm_bindgen = { path = "./tauri_wasm" }
+tauri_wasm_bindgen = { path = "./tauri_wasm_bindgen" }
 leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
 
@@ -27,7 +27,7 @@ members = [
     "data_sync",
     "components",
     "tauri_wasm_bindgen",
-    "sqlite_wasm_bindgen",
+    "sqlite_wasm_bindgen", 
 ]
 
 [workspace.dependencies]

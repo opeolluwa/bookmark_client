@@ -12,11 +12,6 @@ pub struct SqliteWasm {}
 #[allow(dead_code)]
 impl SqliteWasm {
     pub fn init(database_path: &str) -> rusqlite::Result<Connection> {
-        // if !Self::db_file_exists() {
-        //     Self::create_db_file();
-        // }
-
-        // let database_path = Self::get_db_path();
         // let database_connection = Connection::open(database_path)?;
         let database_connection = Connection::open_in_memory()?;
 

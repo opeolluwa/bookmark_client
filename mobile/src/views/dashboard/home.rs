@@ -1,5 +1,5 @@
-use crate::layout::dashboard_layout::DashboardLayout;
 use bookmark_components::icons::plus_icon::PlusIconCircle;
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::prelude::{ClassAttribute, ElementChild};
@@ -123,7 +123,3 @@ pub fn HomePage() -> impl leptos::IntoView {
     }
 }
 
-#[leptos::component]
-pub fn HomePageHeader() -> impl leptos::IntoView {
-    view! {}
-}

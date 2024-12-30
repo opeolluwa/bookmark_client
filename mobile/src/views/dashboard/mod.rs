@@ -1,7 +1,6 @@
+use bookmark_components::layouts::mobile::default::DefaultLayout;
 use leptos::view;
 use leptos_router::components::Outlet;
-
-use crate::layout::default_layout::DefaultLayout;
 
 pub mod favorites;
 pub mod home;

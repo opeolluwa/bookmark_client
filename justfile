@@ -23,6 +23,10 @@ install-dependencies:
     rustup target add wasm32-unknown-unknown
     #todo: downlaod sqljs and extract to sqlite_wasm
     npm i -g esbuild
+    cargo install --git https://github.com/cpg314/cargo-group-imports
+    cargo install cargo-sort
+    
+
 
 
 [doc('Lint')]
@@ -30,6 +34,8 @@ fmt:
     cargo fmt
     leptosfmt .
     cargo clippy 
+    cargo sort
+    cargo group-imports
 
 [doc('Run the application in watch mode')]
 watch target:

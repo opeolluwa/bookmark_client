@@ -17,7 +17,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
 
     view! {
         <div class="relative " style="height:calc(100vh - 100px)">
-            {if account_exists.get() == true {
+            {if account_exists.get() {
                 Either::Right(
                     view! {
                         <div class="mb-12 flex justify-between items-center">
@@ -45,13 +45,14 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     },
                 )
             }}
-            {if account_exists.get() == true {
+            {if account_exists.get() {
                 Either::Right(
                     view! {
                         <div class="mb-6">
-                            <Heading class="font-bold".into()>Welcome, Adeoye</Heading>
-                            <SmallText class="leading-1 text-gray-400"
-                                .into()>Enter your password to log in</SmallText>
+                            <Heading class="font-bold">Welcome, Adeoye</Heading>
+                            <SmallText class="leading-1 text-gray-400">
+                                Enter your password to log in
+                            </SmallText>
                         </div>
                     },
                 )
@@ -59,7 +60,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 Either::Left(
                     view! {
                         <div class="mb-6">
-                            <Heading class="font-bold".into()>Log in</Heading>
+                            <Heading class="font-bold">Log in</Heading>
                             <SmallText class="leading-1 mt-2 text-sm small-text">
                                 Enter your email and password to log in
                             </SmallText>
@@ -68,7 +69,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 )
             }}
             <form class="flex flex-col gap-y-4 mt-6">
-                {if account_exists.get() == false {
+                {if !account_exists.get() {
                     Either::Right(
                         view! {
                             <div class="form-input">
@@ -97,7 +98,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() == true {
+                    {if is_loading.get()  {
                         Either::Right(
                             view! { <span class="loading loading-ring loading-sm"></span> },
                         )

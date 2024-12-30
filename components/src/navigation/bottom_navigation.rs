@@ -68,37 +68,17 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     // let solid_profile_icon = SolidUser();
 
     // Define icons
-    let settings_icon = view! {
-        <Cog6Tooth/>
-    };
-    let home_icon = view! {
-        <Home/>
-    };
-    let star_icon = view! {
-        <Sparkles/>
-    };
-    let bell_icon = view! {
-        <Bell/>
-    };
-    let profile_icon = view! {
-        <User/>
-    };
+    let settings_icon = view! { <Cog6Tooth /> };
+    let home_icon = view! { <Home /> };
+    let star_icon = view! { <Sparkles /> };
+    let bell_icon = view! { <Bell /> };
+    let profile_icon = view! { <User /> };
 
-    let solid_settings_icon = view! {
-        <SolidCog6Tooth/>
-    };
-    let solid_home_icon = view! {
-        <SolidHome/>
-    };
-    let solid_star_icon = view! {
-        <SolidSparkles/>
-    };
-    let solid_bell_icon = view! {
-        <SolidBell/>
-    };
-    let solid_profile_icon = view! {
-        <SolidUser/>
-    };
+    let solid_settings_icon = view! { <SolidCog6Tooth /> };
+    let solid_home_icon = view! { <SolidHome /> };
+    let solid_star_icon = view! { <SolidSparkles /> };
+    let solid_bell_icon = view! { <SolidBell /> };
+    let solid_profile_icon = view! { <SolidUser /> };
 
     view! {
         <nav class="btm-nav">

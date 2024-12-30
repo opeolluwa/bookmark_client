@@ -16,8 +16,7 @@ where
             serde_wasm_bindgen::to_value(&TauriCommandArgument { payload }).unwrap();
 
         let command_result = wasm_bridge::invoke_tauri_command(command, payload_js_value).await;
-        let result = serde_wasm_bindgen::from_value::<T>(command_result).unwrap();
-        result
+        serde_wasm_bindgen::from_value::<T>(command_result).unwrap()
     } else {
         todo!()
     };

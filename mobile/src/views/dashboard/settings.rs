@@ -12,7 +12,7 @@ use leptos::{
 };
 use thaw::{Menu, MenuItem, MenuTrigger, MenuTriggerType};
 
-use crate::layout::dashboard_layout::DashboardLayout;
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 
 #[leptos::component]
 pub fn SettingsPage() -> impl leptos::IntoView {

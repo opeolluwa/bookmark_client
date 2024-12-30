@@ -3,7 +3,6 @@ use bookmark_components::forms::sign_up::SignUpFormData;
 use bookmark_grpc_codegen::client_stub::authentication::SignUpResponse;
 use ehttp::{fetch_async, Request};
 
-
 #[tauri::command]
 pub async fn sign_up(payload: SignUpFormData) -> Result<SignUpResponse, String> {
     println!("heheheheh {:#?}", payload);

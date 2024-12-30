@@ -12,14 +12,15 @@ use crate::views::{
     },
     walkthrough::{
         feature::FeaturePage, get_started::GetStartedPage, welcome::WelcomePage, WalkthroughUI,
-    }, IndexView,
+    },
+    IndexView,
 };
 
 #[component]
 pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-        // <Route path=path!("") view=WelcomePage />
+            // <Route path=path!("") view=WelcomePage />
             <Routes fallback=|| IndexView>
                 <ParentRoute path=path!("/welcome") view=WalkthroughUI>
                     <Route path=path!("") view=WelcomePage />

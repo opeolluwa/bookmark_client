@@ -39,7 +39,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() == true {
+                    {if is_loading.get() {
                         Either::Right(
                             view! { <span class="loading loading-ring loading-sm"></span> },
                         )

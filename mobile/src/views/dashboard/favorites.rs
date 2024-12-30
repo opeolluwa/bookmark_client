@@ -1,4 +1,4 @@
-use crate::layout::dashboard_layout::DashboardLayout;
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 use leptos::prelude::{ElementChild, Get};
 use leptos::view;

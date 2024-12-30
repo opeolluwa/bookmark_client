@@ -1,7 +1,7 @@
 pub mod authentication;
 pub mod dashboard;
+pub mod editor;
 pub mod walkthrough;
-
 #[leptos::component]
 pub fn IndexView() -> impl leptos::IntoView {
     let account_exists = true;
@@ -11,17 +11,13 @@ pub fn IndexView() -> impl leptos::IntoView {
 
     let navigate = leptos_router::hooks::use_navigate();
 
-    let index_view = if account_exists && access_token_exists {
+    if account_exists && access_token_exists {
         navigate("/dashboard", Default::default())
-    } else if account_exists && !access_token_exists || account_exists && access_token_expired {
+    } else if !(!account_exists || access_token_exists && !access_token_expired) {
         navigate("/auth/login", Default::default())
     } else if !account_exists && !is_initialized {
         navigate("/walkthrough", Default::default())
     } else {
         navigate("/auth/signup", Default::default())
     };
-
-    {
-        index_view
-    }
 }
