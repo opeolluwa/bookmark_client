@@ -33,7 +33,7 @@ install-dependencies:
 fmt:
     cargo fmt
     leptosfmt .
-    cargo clippy --fix 
+    cargo clippy 
     cargo sort
     cargo group-imports --fix 
 

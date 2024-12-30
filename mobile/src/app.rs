@@ -10,6 +10,7 @@ use crate::views::{
         favorites::FavoritesPage, home::HomePage, notification::NotificationsPage,
         profile::UserAccountPage, search::SearchPage, settings::SettingsPage, DashboardUI,
     },
+    editor::{new_bookmark::NewBookmarkPage, EditorUI},
     walkthrough::{
         feature::FeaturePage, get_started::GetStartedPage, welcome::WelcomePage, WalkthroughUI,
     },
@@ -20,7 +21,6 @@ use crate::views::{
 pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-            // <Route path=path!("") view=WelcomePage />
             <Routes fallback=|| IndexView>
                 <ParentRoute path=path!("/welcome") view=WalkthroughUI>
                     <Route path=path!("") view=WelcomePage />
@@ -42,6 +42,10 @@ pub fn MobileApplication() -> impl leptos::IntoView {
                     <Route path=path!("search") view=SearchPage />
                     <Route path=path!("notifications") view=NotificationsPage />
                     <Route path=path!("profile") view=UserAccountPage />
+                </ParentRoute>
+
+                <ParentRoute path=path!("/editor") view=EditorUI>
+                    <Route path=path!("") view=NewBookmarkPage />
                 </ParentRoute>
             </Routes>
         </Router>
