@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{component, view, IntoView};
 use serde::{Deserialize, Serialize};
@@ -13,17 +15,22 @@ pub enum Language {
 }
 
 impl Language {
-    pub fn to_string(&self) -> String {
-        match self {
-            Language::English => "english".to_string(),
-            Language::French => "french".to_string(),
-            Language::Spanish => "spanish".to_string(),
-        }
-    }
     pub fn collect() -> Vec<(String, String)> {
         Self::iter()
             .map(|entry| (entry.to_string(), entry.to_string()))
             .collect()
+    }
+}
+
+impl Display for Language {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let string_value = match self {
+            Language::English => "english".to_string(),
+            Language::French => "french".to_string(),
+            Language::Spanish => "spanish".to_string(),
+        };
+
+        write!(f, "{}", string_value)
     }
 }
 

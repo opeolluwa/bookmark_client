@@ -53,12 +53,13 @@ impl<T: Serialize> Default for IpcResponse<T> {
     }
 }
 
-impl ToString for IpcResponseStatus {
-    fn to_string(&self) -> String {
-        match self {
+impl std::fmt::Display for IpcResponseStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let string_value = match self {
             IpcResponseStatus::Failed => "failed".to_string(),
             IpcResponseStatus::Success => "success".to_string(),
-        }
+        };
+        write!(f, "{}", string_value)
     }
 }
 

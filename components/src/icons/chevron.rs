@@ -1,5 +1,6 @@
 use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
+
 #[leptos::component]
 pub fn ChevronRightIcon() -> impl leptos::IntoView {
     view! {

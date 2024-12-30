@@ -100,7 +100,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
                 </a>
             </div>
             <div class="mb-6">
-                <Heading class="font-bold".into()>Create account</Heading>
+                <Heading class="font-bold">Create account</Heading>
                 <SmallText class="leading-1 mt-2 text-sm small-text">
                     Create and account to begin
                 </SmallText>
@@ -153,7 +153,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
                     type="submit"
                     class="btn w-full disabled:bg-100 rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() == true {
+                    {if is_loading.get() {
                         Either::Right(
                             view! { <span class="loading loading-ring loading-sm"></span> },
                         )

@@ -1,3 +1,10 @@
+use leptos::{
+    prelude::{ClassAttribute, CollectView, CustomAttribute, ElementChild},
+    view,
+};
+use thaw::{Menu, MenuItem, MenuTrigger, MenuTriggerType};
+
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::{
     icons::{
         bell_icon::BellIconOutline, language_icon::LanguageIcon,
@@ -6,13 +13,6 @@ use bookmark_components::{
     settings::{Language, SettingsRoute, SettingsTab},
     typography::heading::PageHeading,
 };
-use leptos::{
-    prelude::{ClassAttribute, CollectView, CustomAttribute, ElementChild},
-    view,
-};
-use thaw::{Menu, MenuItem, MenuTrigger, MenuTriggerType};
-
-use crate::layout::dashboard_layout::DashboardLayout;
 
 #[leptos::component]
 pub fn SettingsPage() -> impl leptos::IntoView {

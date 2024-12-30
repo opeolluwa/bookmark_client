@@ -1,7 +1,8 @@
 pub mod forms;
 pub mod icon;
 pub mod icons;
-pub mod layout;
+pub mod layouts;
 pub mod navigation;
 pub mod settings;
 pub mod typography;
+pub mod view;

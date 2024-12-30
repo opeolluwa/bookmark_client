@@ -14,19 +14,20 @@ serde-wasm-bindgen = { workspace = true }
 console_error_panic_hook = { workspace = true }
 bookmark_desktop_app = { path = "./desktop" }
 bookmark_mobile_app = { path = "./mobile" }
-tauri_wasm_bindgen = { path = "./tauri_wasm" }
+tauri_wasm_bindgen = { path = "./tauri_wasm_bindgen" }
 leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
 
 [workspace]
 members = [
-    "components",
-    "desktop",
-    "mobile",
-    "tauri",
-    "tauri_wasm",
     ".",
-    "sqlite_wasm_bindgen",
+    "tauri",
+    "mobile",
+    "desktop",
+    "data_sync",
+    "components",
+    "tauri_wasm_bindgen",
+    "sqlite_wasm_bindgen", 
 ]
 
 [workspace.dependencies]
@@ -51,7 +52,7 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
 ] }
 bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
 sqlite_wasm_bindgen = { path = "sqlite_wasm_bindgen" }
-
+rusqlite = { version = "0.32.1", features = ["bundled"] }
 
 [profile.wasm-release]
 inherits = "release"

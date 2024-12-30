@@ -1,6 +1,8 @@
-use crate::table_names::APPLICATION_SETTINGS_TABLE;
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
+
+use crate::table_names::APPLICATION_SETTINGS_TABLE;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Settings {
     id: i32,
@@ -15,7 +17,7 @@ impl Settings {
             id: 1,
             language: language.to_string(),
             theme: theme.to_string(),
-            initialized: true,
+            initialized: false,
         }
     }
 
@@ -47,6 +49,19 @@ impl Settings {
         })?;
 
         Ok(app_settings)
+    }
+
+    // change the application initialization status
+    pub fn change_initialization_status(status: bool, conn: &Connection) {
+        conn.execute(
+            &format!(
+                r#"
+            UPDATE {APPLICATION_SETTINGS_TABLE} SET initialized = ?1 WHERE id = 1
+            "#,
+            ),
+            &[&status.to_string()],
+        )
+        .unwrap();
     }
 }
 

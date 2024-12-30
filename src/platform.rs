@@ -10,18 +10,18 @@ pub enum Platform {
     Windows,
 }
 
-impl ToString for Platform {
-    fn to_string(&self) -> String {
-        match self {
+impl std::fmt::Display for Platform {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let string_value = match self {
             Platform::Android => "android".to_string(),
             Platform::Ios => "ios".to_string(),
-            Platform::Mac => "mac".to_string(),
             Platform::Linux => "linux".to_string(),
             Platform::Windows => "windows".to_string(),
-        }
+            Platform::Mac => "mac".to_string(),
+        };
+        write!(f, "{}", string_value)
     }
 }
-
 #[derive(Debug, PartialEq)]
 pub struct PlatformParseError(String);
 

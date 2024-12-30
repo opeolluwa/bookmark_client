@@ -11,5 +11,5 @@ open = false
 
 # [[hooks]]
 # stage = "build"
-# command = "just watch"
-# command_argument = ["styles"]
+# command = "just watch styles"
+# command_argument = ["watch","styles"]
