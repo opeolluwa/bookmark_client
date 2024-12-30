@@ -1,9 +1,11 @@
+use std::fmt::Display;
+
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{component, view, IntoView};
 use serde::{Deserialize, Serialize};
-use std::fmt::Display;
 use strum::EnumIter;
 use strum::IntoEnumIterator;
+
 #[derive(Debug, Serialize, Deserialize, Default, EnumIter)]
 pub enum Language {
     #[default]

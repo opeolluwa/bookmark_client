@@ -1,9 +1,6 @@
-use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
-use leptos::prelude::StyleAttribute;
-use leptos::prelude::{OnAttribute, Set};
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,

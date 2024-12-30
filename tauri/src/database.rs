@@ -1,6 +1,9 @@
-use crate::models::{application_settings::AppSettings, DATABASE_MODELS};
-use bookmark_components::settings::Language;
 use native_db::{db_type, Database};
+
+use bookmark_components::settings::Language;
+
+use crate::models::{application_settings::AppSettings, DATABASE_MODELS};
+
 pub struct BookmarksDatabaseWasm {}
 
 impl BookmarksDatabaseWasm {

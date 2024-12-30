@@ -1,7 +1,8 @@
-use bookmark_components::view::View;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 use thaw::Image;
+
+use bookmark_components::view::View;
 
 #[leptos::component]
 pub fn WelcomePage() -> impl leptos::IntoView {

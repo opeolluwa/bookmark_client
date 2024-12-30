@@ -1,4 +1,3 @@
-use crate::icon::HeroIcon;
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
@@ -8,6 +7,8 @@ use leptos_heroicons::size_24::solid::{
     User as SolidUser,
 };
 use leptos_router::hooks::use_location;
+
+use crate::icon::HeroIcon;
 
 #[leptos::component]
 pub fn BottomNavigationRoute<U, K>(

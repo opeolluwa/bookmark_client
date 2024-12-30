@@ -1,9 +1,10 @@
+use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::view;
+
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 use bookmark_components::typography::small_text::SmallText;
 use bookmark_components::view::View;
-use leptos::prelude::{ClassAttribute, ElementChild};
-use leptos::view;
 
 #[leptos::component]
 pub fn SearchPage() -> impl leptos::IntoView {

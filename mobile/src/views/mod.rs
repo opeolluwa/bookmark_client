@@ -2,6 +2,7 @@ pub mod authentication;
 pub mod dashboard;
 pub mod editor;
 pub mod walkthrough;
+
 #[leptos::component]
 pub fn IndexView() -> impl leptos::IntoView {
     let account_exists = true;

@@ -1,6 +1,3 @@
-use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
-use bookmark_components::typography::heading::Heading;
-use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
 use leptos::prelude::StyleAttribute;
 use leptos::prelude::{OnAttribute, Set};
@@ -8,6 +5,10 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
+
+use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
+use bookmark_components::typography::heading::Heading;
+use bookmark_components::typography::small_text::SmallText;
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
@@ -98,7 +99,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get()  {
+                    {if is_loading.get() {
                         Either::Right(
                             view! { <span class="loading loading-ring loading-sm"></span> },
                         )

@@ -1,6 +1,8 @@
-use crate::table_names::APPLICATION_SETTINGS_TABLE;
 use rusqlite::{Connection, Result};
 use serde::{Deserialize, Serialize};
+
+use crate::table_names::APPLICATION_SETTINGS_TABLE;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Settings {
     id: i32,

@@ -1,6 +1,7 @@
-use crate::navigation::bottom_navigation::BottomNavigation;
 use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::{children::Children, view};
+
+use crate::navigation::bottom_navigation::BottomNavigation;
 
 #[leptos::component]
 pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {

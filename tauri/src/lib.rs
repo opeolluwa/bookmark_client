@@ -1,9 +1,3 @@
-#[allow(dead_code, unused_assignments)]
-use std::sync::Mutex;
-
-use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
-use tauri::Manager;
-
 pub mod api_request;
 pub mod commands;
 pub mod database;
@@ -11,9 +5,15 @@ pub mod ipc_response;
 pub mod models;
 pub mod state;
 
+#[allow(dead_code, unused_assignments)]
+use std::sync::Mutex;
+
+use tauri::Manager;
+
+use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
+
 use crate::commands::authentication;
 use crate::commands::settings;
-
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

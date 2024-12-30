@@ -1,6 +1,7 @@
-use rusqlite::Connection;
 use std::fs;
 use std::path::Path;
+
+use rusqlite::Connection;
 
 use crate::{
     entities::settings::Settings,

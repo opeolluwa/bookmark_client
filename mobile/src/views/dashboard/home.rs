@@ -122,4 +122,3 @@ pub fn HomePage() -> impl leptos::IntoView {
         </OverlayDrawer>
     }
 }
-

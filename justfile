@@ -33,9 +33,9 @@ install-dependencies:
 fmt:
     cargo fmt
     leptosfmt .
-    cargo clippy 
+    cargo clippy --fix 
     cargo sort
-    cargo group-imports
+    cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]
 watch target:
