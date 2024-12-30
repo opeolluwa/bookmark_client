@@ -3,8 +3,8 @@ use bookmark_components::typography::heading::PageHeading;
 use leptos::prelude::OnAttribute;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
-use leptos_heroicons::size_24::solid::MagnifyingGlass as SearchIcon;
 use leptos_heroicons::size_24::outline::Plus as PlusIcon;
+use leptos_heroicons::size_24::solid::MagnifyingGlass as SearchIcon;
 
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
@@ -25,8 +25,11 @@ pub fn HomePage() -> impl leptos::IntoView {
             <div></div>
         </DashboardLayout>
 
-        <button class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-24 right-6">
+        <a
+            href="/editor"
+            class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-24 right-6"
+        >
             <PlusIcon />
-        </button>
+        </a>
     }
 }
