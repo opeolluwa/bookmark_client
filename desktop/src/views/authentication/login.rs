@@ -8,8 +8,6 @@ use leptos::{
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
-    let (account_exists, set_account_exists) = signal(true);
-
     let (is_loading, _set_is_loading) = signal(false);
 
     view! {

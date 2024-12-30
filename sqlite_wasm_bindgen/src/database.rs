@@ -12,7 +12,7 @@ pub struct SqliteWasm {}
 
 #[allow(dead_code)]
 impl SqliteWasm {
-    pub fn init(database_path: &str) -> rusqlite::Result<Connection> {
+    pub fn init(_database_path: &str) -> rusqlite::Result<Connection> {
         // let database_connection = Connection::open(database_path)?;
         let database_connection = Connection::open_in_memory()?;
 
