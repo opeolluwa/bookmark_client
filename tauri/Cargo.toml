@@ -26,7 +26,7 @@ native_model = { workspace = true }
 once_cell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-sqlite_wasm_bindgen = { workspace = true }
+bookmark_local_database = { workspace = true }
 tauri = { workspace = true, features = [] }
 tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }

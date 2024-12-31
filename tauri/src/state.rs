@@ -1,6 +1,6 @@
 use std::sync::Mutex;
 
-use sqlite_wasm_bindgen::rusqlite::Connection;
+use bookmark_local_database::rusqlite::Connection;
 
 #[derive(Debug)]
 pub struct AppState {

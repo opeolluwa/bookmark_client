@@ -1,5 +1,5 @@
 [package]
-name = "sqlite_wasm_bindgen"
+name = "bookmark_local_database"
 version = "0.0.0"
 edition = "2021"
 publish = false

@@ -413,6 +413,7 @@ version = "0.1.0"
 dependencies = [
  "bookmark_components",
  "bookmark_grpc_codegen",
+ "bookmark_local_database",
  "ehttp",
  "itertools 0.13.0",
  "native_db",
@@ -420,7 +421,6 @@ dependencies = [
  "once_cell",
  "serde",
  "serde_json",
- "sqlite_wasm_bindgen",
  "tauri",
  "tauri-build",
  "tauri-plugin-os",
@@ -490,6 +490,23 @@ dependencies = [
  "tonic-build",
  "tonic-reflection",
  "ts-rs",
+]
+
+[[package]]
+name = "bookmark_local_database"
+version = "0.0.0"
+dependencies = [
+ "dirs",
+ "include_dir",
+ "lazy_static",
+ "rayon",
+ "rusqlite",
+ "sea-orm",
+ "serde",
+ "serde-wasm-bindgen",
+ "uuid",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
 ]
 
 [[package]]
@@ -5358,23 +5375,6 @@ checksum = "7bba3a93db0cc4f7bdece8bb09e77e2e785c20bfebf79eb8340ed80708048790"
 dependencies = [
  "nom",
  "unicode_categories",
-]
-
-[[package]]
-name = "sqlite_wasm_bindgen"
-version = "0.0.0"
-dependencies = [
- "dirs",
- "include_dir",
- "lazy_static",
- "rayon",
- "rusqlite",
- "sea-orm",
- "serde",
- "serde-wasm-bindgen",
- "uuid",
- "wasm-bindgen",
- "wasm-bindgen-futures",
 ]
 
 [[package]]
