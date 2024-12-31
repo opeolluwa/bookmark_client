@@ -8,9 +8,9 @@ pub mod state;
 #[allow(dead_code, unused_assignments)]
 use std::sync::Mutex;
 
+use bookmark_local_database::database::SqliteWasm;
 use tauri::Manager;
 
-use sqlite_wasm_bindgen::database as sqlite_wasm_bindgen_database;
 
 use crate::commands::authentication;
 use crate::commands::settings;
@@ -20,7 +20,7 @@ pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             let database_path = "test.db";
-            let connection = sqlite_wasm_bindgen_database::SqliteWasm::init(&database_path)
+            let connection = SqliteWasm::init(&database_path)
                 .expect("error initializing database");
 
             app.manage(state::AppState {

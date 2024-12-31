@@ -21,6 +21,7 @@ where
     U: IntoView,
     K: IntoView,
 {
+    // let current_page_location = use_location().pathname.get();
     let current_page_location = use_location().pathname.get();
     let page_route = format!("/dashboard/{href}");
 

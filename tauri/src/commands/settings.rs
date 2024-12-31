@@ -1,4 +1,4 @@
-use sqlite_wasm_bindgen::entities::settings::Settings;
+use bookmark_local_database::entities::settings::Settings;
 
 use crate::state::AppState;
 

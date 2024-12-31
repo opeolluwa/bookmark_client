@@ -19,15 +19,15 @@ tauri-build = { workspace = true, features = [] }
 [dependencies]
 bookmark_components = { path = "../components" }
 bookmark_grpc_codegen = { workspace = true }
-ehttp = { version = "0.5.0", features = ["json", "native-async"] }
-itertools = "0.13.0"
-native_db = "0.8.0"
-native_model = "0.4.20"
-once_cell = "1.20.2"
+ehttp = { workspace = true, features = ["json", "native-async"] }
+itertools = { workspace = true }
+native_db = { workspace = true }
+native_model = { workspace = true }
+once_cell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-sqlite_wasm_bindgen = { workspace = true }
+bookmark_local_database = { workspace = true }
 tauri = { workspace = true, features = [] }
-tauri-plugin-os = "2"
+tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }
 tauri_wasm_bindgen = { path = "../tauri_wasm_bindgen", version = "*" }

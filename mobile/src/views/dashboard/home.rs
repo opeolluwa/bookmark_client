@@ -16,7 +16,7 @@ pub fn HomePage() -> impl leptos::IntoView {
                 <PageHeading text="Bookmarks" />
 
                 <button on:click=move |_| { navigate("/dashboard/search", Default::default()) }>
-                    <SearchIcon class="size-5" />
+                    <SearchIcon class="size-5 font-bold text-black" />
                 </button>
 
             </div>
@@ -27,7 +27,7 @@ pub fn HomePage() -> impl leptos::IntoView {
 
         <a
             href="/editor"
-            class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-24 right-6"
+            class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-20 right-4"
         >
             <PlusIcon />
         </a>
