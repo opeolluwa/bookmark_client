@@ -6,8 +6,8 @@ edition = "2021"
 [dependencies]
 leptos = { workspace = true }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
-leptos_router ={ workspace = true }
-markdown = "0.3.0"
+leptos_router = { workspace = true }
+markdown = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
-strum = { version = "0.26.3", features = ["derive"] }
+strum = { workspace = true, features = ["derive"] }
 thaw = { workspace = true, features = ["csr"] }

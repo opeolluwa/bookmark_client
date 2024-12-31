@@ -53,6 +53,20 @@ leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", 
 bookmark_grpc_codegen = { git = "https://github.com/opeolluwa/bookmark_grpc_codegen", tag = "v1.0.6", version = "1.0.0" }
 sqlite_wasm_bindgen = { path = "sqlite_wasm_bindgen" }
 rusqlite = { version = "0.32.1", features = ["bundled"] }
+dirs = "5.0.1"
+ehttp = "0.5.0"
+include_dir = "0.7.4"
+itertools = "0.13.0"
+lazy_static = "1.5.0"
+markdown = "0.3.0"
+native_db = "0.8.0"
+native_model = "0.4.20"
+once_cell = "1.20.2"
+rayon = "1.10.0"
+sea-orm = "1.1.0"
+strum = "0.26.3"
+tauri-plugin-os = "2"
+uuid = "1.11.0"
 
 [profile.wasm-release]
 inherits = "release"
