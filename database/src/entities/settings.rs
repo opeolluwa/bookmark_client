@@ -24,10 +24,10 @@ impl Settings {
     pub fn save(&self, conn: &Connection) {
         conn.execute(
             &format!(r#"
-            INSERT INTO {APPLICATION_SETTINGS_TABLE} (id, language, theme, initialized) VALUES (?1, ?2, ?3, ?4)"#),
+            INSERT OR REPLACE INTO {APPLICATION_SETTINGS_TABLE} (id, language, theme, initialized) VALUES (?1, ?2, ?3, ?4)"#),
             &[&self.id.to_string(), &self.language, &self.theme, &self.initialized.to_string()],
         )
-        .unwrap();
+        .expect("conflict error! record already exists");
     }
 
     pub fn fetch(conn: &Connection) -> Result<Self> {

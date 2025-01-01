@@ -1,3 +1,4 @@
+pub mod cards;
 pub mod editor;
 pub mod forms;
 pub mod icon;

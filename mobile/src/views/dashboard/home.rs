@@ -1,3 +1,4 @@
+use bookmark_components::cards::bookmark::BookmarkCard;
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 use leptos::prelude::OnAttribute;
@@ -22,7 +23,24 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
         }>
 
-            <div></div>
+            <div>
+
+                <BookmarkCard
+                    title="The dangers of doing as you like"
+                    date="July 5, 2023"
+                    description="all that is good is also all good"
+                />
+            // <BookmarkCard
+            // title="The dangers of doing as you like"
+            // date="July 5, 2023"
+            // description="all that is good is also all good"
+            // />
+            // <BookmarkCard
+            // title="The dangers of doing as you like"
+            // date="July 5, 2023"
+            // description="all that is good is also all good"
+            // />
+            </div>
         </DashboardLayout>
 
         <a

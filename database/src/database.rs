@@ -12,15 +12,15 @@ pub struct SqliteWasm {}
 
 #[allow(dead_code)]
 impl SqliteWasm {
-    pub fn init(_database_path: &str) -> rusqlite::Result<Connection> {
-        // let database_connection = Connection::open(database_path)?;
-        let database_connection = Connection::open_in_memory()?;
+    pub fn init(database_path: &str) -> rusqlite::Result<Connection> {
+        let database_connection = Connection::open(database_path)?;
+        // let database_connection = Connection::open_in_memory()?;
 
         let create_tables_result =
             database_connection.execute_batch(&Self::create_table_statements());
 
         // default settings and other presets
-        Self::create_default_settings(&database_connection);
+        // Self::create_default_settings(&database_connection);
 
         if create_tables_result.is_err() {
             return Err(create_tables_result.err().unwrap());

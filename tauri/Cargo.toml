@@ -18,11 +18,8 @@ tauri-build = { workspace = true, features = [] }
 
 [dependencies]
 bookmark_components = { path = "../components" }
-bookmark_grpc_codegen = { workspace = true }
 ehttp = { workspace = true, features = ["json", "native-async"] }
 itertools = { workspace = true }
-native_db = { workspace = true }
-native_model = { workspace = true }
 once_cell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
@@ -31,3 +28,4 @@ tauri = { workspace = true, features = [] }
 tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }
 tauri_wasm_bindgen = { path = "../tauri_wasm_bindgen", version = "*" }
+tauri-plugin-fs = { workspace = true }
