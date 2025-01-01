@@ -64,7 +64,7 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
         }>
 
-            <h2 class="text-[18px] leading-2 font-medium mb-2 mt-4">This week</h2>
+            <h2 class="text-[18px] leading-2 font-medium text-gray-600/90 mb-2 mt-4">This week</h2>
             <div class="flex flex-col gap-y-3">
                 {bookmark_one
                     .into_iter()
@@ -82,7 +82,7 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
 
 
-              <h2 class="text-[18px] leading-2 font-medium mb-2 mt-12">Last week week</h2>
+              <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">Last week week</h2>
             <div class="flex flex-col gap-y-3">
                 {bookmark_two
                     .into_iter()
