@@ -2,7 +2,8 @@ use crate::typography::small_text::SmallText;
 use crate::view::View;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
-use leptos_heroicons::size_24::solid::Star;
+use leptos_heroicons::size_24::outline::Star;
+use leptos_heroicons::size_24::solid::EllipsisVertical;
 
 #[leptos::component]
 pub fn BookmarkCard(
@@ -11,13 +12,20 @@ pub fn BookmarkCard(
     date: &'static str,
 ) -> impl leptos::IntoView {
     view! {
-        <View class="flex flex-col bg-white rounded-md border-gray-400 w-full px-3 py-6">
-            <div class="flex justify-between items-center">
-              <Star class="size-5 text-gray-400"/>
-                <h3 class="text-bold">{title}</h3>
-                <SmallText>{date}</SmallText>
+        <View class="flex gap-x-3 items-center  bg-white rounded-md border-gray-400 w-full px-3 py-6">
+            <button>
+                <Star class="size-5 text-gray-400" />
+            </button>
+            <div class="flex flex-col justify-between items-center">
+                <div class="flex">
+                    <h3 class="text-bold">{title}</h3>
+                    <SmallText>{date}</SmallText>
+                </div>
+                <p class="mt-2 text-gray-400">{description}</p>
             </div>
-            <p class="mt-2 text-gray-400">{description}</p>
+            <button>
+                <EllipsisVertical class="size-5 text-gray-400" />
+            </button>
         </View>
     }
 }

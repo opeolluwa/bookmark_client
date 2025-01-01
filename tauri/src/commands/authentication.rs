@@ -4,7 +4,7 @@ use bookmark_components::forms::sign_up::SignUpFormData;
 use ehttp::{fetch_async, Request};
 
 #[tauri::command]
-pub async fn sign_up(payload: SignUpFormData)  {
+pub async fn sign_up(payload: SignUpFormData) {
     println!("heheheheh {:#?}", payload);
 
     // let request = Request::json(RequestEndpoint::new("users/register"), &payload).unwrap();

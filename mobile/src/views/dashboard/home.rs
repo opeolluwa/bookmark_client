@@ -24,22 +24,22 @@ pub fn HomePage() -> impl leptos::IntoView {
         }>
 
             <div>
-        
+
                 <BookmarkCard
                     title="The dangers of doing as you like"
                     date="July 5, 2023"
                     description="all that is good is also all good"
                 />
-                // <BookmarkCard
-                //     title="The dangers of doing as you like"
-                //     date="July 5, 2023"
-                //     description="all that is good is also all good"
-                // />
-                // <BookmarkCard
-                //     title="The dangers of doing as you like"
-                //     date="July 5, 2023"
-                //     description="all that is good is also all good"
-                // />
+            // <BookmarkCard
+            // title="The dangers of doing as you like"
+            // date="July 5, 2023"
+            // description="all that is good is also all good"
+            // />
+            // <BookmarkCard
+            // title="The dangers of doing as you like"
+            // date="July 5, 2023"
+            // description="all that is good is also all good"
+            // />
             </div>
         </DashboardLayout>
 
