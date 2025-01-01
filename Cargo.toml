@@ -17,6 +17,8 @@ bookmark_mobile_app = { path = "./mobile" }
 tauri_wasm_bindgen = { path = "./tauri_wasm_bindgen" }
 leptos_heroicons.workspace = true
 thaw = { workspace = true, features = ["csr"] }
+tauri.workspace = true
+fs = { workspace = true }
 
 [workspace]
 members = [
@@ -67,6 +69,7 @@ sea-orm = "1.1.0"
 strum = "0.26.3"
 tauri-plugin-os = "2"
 uuid = "1.11.0"
+fs = "0.0.5"
 
 [profile.wasm-release]
 inherits = "release"
