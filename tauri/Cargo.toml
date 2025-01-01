@@ -18,7 +18,6 @@ tauri-build = { workspace = true, features = [] }
 
 [dependencies]
 bookmark_components = { path = "../components" }
-bookmark_grpc_codegen = { workspace = true }
 ehttp = { workspace = true, features = ["json", "native-async"] }
 itertools = { workspace = true }
 once_cell = { workspace = true }
