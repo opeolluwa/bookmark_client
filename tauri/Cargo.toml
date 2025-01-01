@@ -21,8 +21,6 @@ bookmark_components = { path = "../components" }
 bookmark_grpc_codegen = { workspace = true }
 ehttp = { workspace = true, features = ["json", "native-async"] }
 itertools = { workspace = true }
-native_db = { workspace = true }
-native_model = { workspace = true }
 once_cell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }

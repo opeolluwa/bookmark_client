@@ -11,9 +11,6 @@ wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 rusqlite = { workspace = true, features = ["bundled"] }
-include_dir = { workspace = true }
 lazy_static = { workspace = true }
-rayon = { workspace = true }
 uuid = { workspace = true, features = ["v4"] }
-dirs = { workspace = true }
-sea-orm = { workspace = true, features = ["sqlx-sqlite", "runtime-tokio-rustls", "macros"] }
+
