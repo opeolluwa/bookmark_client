@@ -9,14 +9,8 @@
     "core:default",
     "shell:allow-open",
     "os:default",
-    {
-      "identifier": "fs:scope",
-      "allow": [
-        {
-          "path": "$APPDATA/databases/*"
-        }
-      ]
-    },
-    "fs:default"
+    "fs:default",
+    "fs:allow-app-write-recursive",
+    "fs:allow-appdata-read-recursive"
   ]
 }

@@ -11,5 +11,6 @@
     "leptos",
     "rusqlite",
     "tauri"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

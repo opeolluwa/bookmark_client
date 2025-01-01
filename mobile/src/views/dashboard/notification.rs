@@ -1,4 +1,3 @@
-
 use leptos::view;
 
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;

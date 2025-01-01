@@ -20,8 +20,6 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .setup(|app| {
             let scope = app.fs_scope();
-
-            // Allow directory and file access
             scope
                 .allow_directory("/databases", true)
                 .unwrap_or_else(|err| {

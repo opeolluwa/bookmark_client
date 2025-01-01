@@ -20,7 +20,7 @@ impl SqliteWasm {
             database_connection.execute_batch(&Self::create_table_statements());
 
         // default settings and other presets
-        Self::create_default_settings(&database_connection);
+        // Self::create_default_settings(&database_connection);
 
         if create_tables_result.is_err() {
             return Err(create_tables_result.err().unwrap());
