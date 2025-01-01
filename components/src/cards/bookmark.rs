@@ -12,16 +12,15 @@ pub fn BookmarkCard(
     date: &'static str,
 ) -> impl leptos::IntoView {
     view! {
-        <View class="flex gap-x-3 items-center  bg-white rounded-md border-gray-400 w-full px-3 py-6">
+        <View class="flex gap-x-3  bg-white rounded-xl border-gray-500 w-full px-3 py-6">
             <button>
                 <Star class="size-5 text-gray-400" />
             </button>
-            <div class="flex flex-col justify-between items-center">
-                <div class="flex">
-                    <h3 class="text-bold">{title}</h3>
-                    <SmallText>{date}</SmallText>
-                </div>
-                <p class="mt-2 text-gray-400">{description}</p>
+            <div class="flex  flex-col justify-between items-center">
+                    <h3 class="font-bold w-[4/5] truncate">{title}</h3>
+               
+                    <SmallText class="hidden">{date}</SmallText>
+                <p class="mt-2 hidden text-gray-400">{description}</p>
             </div>
             <button>
                 <EllipsisVertical class="size-5 text-gray-400" />
