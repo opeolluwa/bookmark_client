@@ -1,11 +1,12 @@
-use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
-use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
-use bookmark_components::typography::heading::PageHeading;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::prelude::{CollectView, OnAttribute};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Plus as PlusIcon;
 use leptos_heroicons::size_24::solid::MagnifyingGlass as SearchIcon;
+
+use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
+use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
+use bookmark_components::typography::heading::PageHeading;
 
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
@@ -34,7 +35,7 @@ pub fn HomePage() -> impl leptos::IntoView {
         },
     ];
 
-     let bookmark_two: Vec<BookmarkCardProps> = vec![
+    let bookmark_two: Vec<BookmarkCardProps> = vec![
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
@@ -64,8 +65,8 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
         }>
 
-            <h2 class="text-[18px] leading-2 font-medium text-gray-600/90 mb-2 mt-4">This week</h2>
-            <div class="flex flex-col gap-y-3">
+            <h2 class="text-[18px] leading-3 font text-gray-600/90 mb-2 mt-4">This week</h2>
+            <div class="flex flex-col gap-y-1">
                 {bookmark_one
                     .into_iter()
                     .map(|entry| {
@@ -81,9 +82,10 @@ pub fn HomePage() -> impl leptos::IntoView {
 
             </div>
 
-
-              <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">Last week week</h2>
-            <div class="flex flex-col gap-y-3">
+            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">
+                Last week week
+            </h2>
+            <div class="flex flex-col gap-y-1">
                 {bookmark_two
                     .into_iter()
                     .map(|entry| {

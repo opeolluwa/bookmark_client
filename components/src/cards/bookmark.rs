@@ -1,9 +1,10 @@
-use crate::typography::small_text::SmallText;
-use crate::view::View;
+use chrono::Local;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Star;
-use leptos_heroicons::size_24::solid::EllipsisVertical;
+
+use crate::typography::small_text::SmallText;
+use crate::view::View;
 
 #[leptos::component]
 pub fn BookmarkCard(
@@ -24,8 +25,14 @@ pub fn BookmarkCard(
             </div>
             <div>
                 <SmallText class="text-[10px]">{date}</SmallText>
-               
             </div>
         </View>
     }
+}
+
+fn parse_time(date: &str) -> String {
+    let current_time = Local::now();
+    // let target_date = Local::from(date);
+
+    todo!()
 }

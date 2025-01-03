@@ -37,7 +37,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
                 <ParentRoute path=path!("/dashboard") view=DashboardUI>
                     <Route path=path!("") view=HomePage />
-                    <Route path=path!("/favorites") view=FavoritesPage />
+                    <Route path=path!("favorites") view=FavoritesPage />
                     <Route path=path!("settings") view=SettingsPage />
                     <Route path=path!("search") view=SearchPage />
                     <Route path=path!("notifications") view=NotificationsPage />

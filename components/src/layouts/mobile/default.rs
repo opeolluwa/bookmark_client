@@ -15,7 +15,7 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
             >
                 {children}
             </main>
-            <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50  bg-white border-t border-gray-200 text-gray-500 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50 border-t">
+            <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50  bg-white border-t border-gray-200 text-gray-500 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50 border-t-2 border-gray-500">
                 <BottomNavigation />
             </nav>
         </div>

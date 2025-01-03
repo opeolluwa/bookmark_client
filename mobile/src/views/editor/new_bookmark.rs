@@ -1,8 +1,9 @@
-use bookmark_components::icons::chevron::ChevronLeftIcon;
-use bookmark_components::typography::heading::PageHeading;
 use leptos::prelude::ClassAttribute;
 use leptos::prelude::ElementChild;
 use leptos::view;
+
+use bookmark_components::icons::chevron::ChevronLeftIcon;
+use bookmark_components::typography::heading::PageHeading;
 
 #[leptos::component]
 pub fn NewBookmarkPage() -> impl leptos::IntoView {
