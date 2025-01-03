@@ -5,31 +5,30 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-leptos = { workspace = true, features = ["csr"] }
-wasm-bindgen = { workspace = true }
-wasm-bindgen-futures = { workspace = true }
-js-sys = { workspace = true }
-serde = { workspace = true, features = ["derive"] }
-serde-wasm-bindgen = { workspace = true }
-console_error_panic_hook = { workspace = true }
 bookmark_desktop_app = { path = "./desktop" }
 bookmark_mobile_app = { path = "./mobile" }
-tauri_wasm_bindgen = { path = "./tauri_wasm_bindgen" }
-leptos_heroicons.workspace = true
-thaw = { workspace = true, features = ["csr"] }
 chrono = "0.4.39"
-# tauri.workspace = true
+console_error_panic_hook = { workspace = true }
+js-sys = { workspace = true }
+leptos = { workspace = true, features = ["csr"] }
+leptos_heroicons = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde-wasm-bindgen = { workspace = true }
+tauri_wasm_bindgen = { path = "./tauri_wasm_bindgen" }
+thaw = { workspace = true, features = ["csr"] }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
 
 [workspace]
 members = [
     ".",
-    "tauri",
-    "mobile",
-    "desktop",
-    "data_sync",
     "components",
-    "tauri_wasm_bindgen",
+    "data_sync",
     "database",
+    "desktop",
+    "mobile",
+    "tauri",
+    "tauri_wasm_bindgen",
 ]
 
 [workspace.dependencies]
@@ -70,7 +69,6 @@ inherits = "release"
 opt-level = 'z'
 lto = true
 codegen-units = 1
-
 
 [package.metadata.leptos]
 lib-profile-release = "wasm-release"

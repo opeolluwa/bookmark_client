@@ -18,7 +18,7 @@ pub fn BookmarkCard(
                     <Star class="size-5 text-gray-400" />
                 </button>
                 <div>
-                    <h3 class="font-medium w-[4/5] text-gray-600 truncate">{title}</h3>
+                    <h3 class="font-medium w-[4/5] text-gray-600/80 truncate">{title}</h3>
                     <SmallText class="leading-1 text-gray-400">{description}</SmallText>
                 </div>
             </div>
