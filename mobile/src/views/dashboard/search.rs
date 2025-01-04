@@ -12,8 +12,8 @@ pub fn SearchPage() -> impl leptos::IntoView {
     view! {
         <DashboardLayout header_component=view! {
             <form class="flex gap-x-1 justify-evenly -mt-[3px]  items-center">
-                <a href="/dashboard" class="col-span-1">
-                    <ChevronLeft class="size-5 font-bold text-black" />
+                <a href="/dashboard" class="col-span-1 size-5 font-bold text-black">
+                    <ChevronLeft class="" />
                 </a>
                 <input
                     type="text"
@@ -21,8 +21,8 @@ pub fn SearchPage() -> impl leptos::IntoView {
                     placeholder="search"
                     class="input input-sm flex my-0 py-0 focus:border-none focus:outline-none  placeholder:dark:text-gray-700 w-[80vw] border rounded"
                 />
-                <button type="submit" class="col-span-1">
-                    <SearchIcon class="size-5 font-bold text-black " />
+                <button type="submit" class="col-span-1 size-5 font-bold text-black">
+                    <SearchIcon  />
                 </button>
             </form>
         }>

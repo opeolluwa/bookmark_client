@@ -4,6 +4,7 @@
 
 * {
   user-select: none !important;
+  scroll-behavior: smooth;
 }
 
 :root {

@@ -8,6 +8,7 @@ use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 
+
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
     let navigate = leptos_router::hooks::use_navigate();
@@ -58,8 +59,8 @@ pub fn HomePage() -> impl leptos::IntoView {
             <div class="flex justify-between items-center w-full">
                 <PageHeading text="Bookmarks" />
 
-                <button on:click=move |_| { navigate("/dashboard/search", Default::default()) }>
-                    <SearchIcon class="size-5 font-bold text-black" />
+                <button on:click=move |_| { navigate("/dashboard/search", Default::default()) } class="size-5">
+                    <SearchIcon  />
                 </button>
 
             </div>

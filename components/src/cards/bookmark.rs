@@ -13,12 +13,11 @@ pub fn BookmarkCard(
     #[prop(optional)] description: &'static str,
     date: &'static str,
 ) -> impl leptos::IntoView {
-    let star_icon = view! { <Star /> };
     view! {
         <View class="flex gap-x-3 justify-between bg-white rounded border-gray-500 w-full px-3 py-6">
-            <div class="flex gap-x-3 align-center">
-                <button>
-                    <HeroIcon icon_data=star_icon />
+            <div class="flex items-center gap-x-3 align-center">
+                <button class="text-gray-400 size-5">
+                  <Star/>
                 </button>
                 <div>
                     <h3 class="font-medium w-[4/5] text-gray-600/80 truncate">{title}</h3>
@@ -26,7 +25,7 @@ pub fn BookmarkCard(
                 </div>
             </div>
             <div>
-                <SmallText class="text-[10px]">{date}</SmallText>
+                <SmallText class="text-[9.5px] text-gray-500">{date}</SmallText>
             </div>
         </View>
     }

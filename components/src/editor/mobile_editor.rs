@@ -1,11 +1,8 @@
 use leptos::prelude::OnTargetAttribute;
-use leptos::prelude::{
-    signal, ElementChild, Get, GlobalAttributes, PropAttribute, Set, StyleAttribute,
-};
+use leptos::prelude::{signal, ElementChild, Get, GlobalAttributes, PropAttribute, Set};
 use leptos::{prelude::ClassAttribute, view};
 use leptos_heroicons::size_20::solid::{
-    Bars3 as AlignCenter, Bars3BottomLeft as AlignLeft, Bars3BottomRight as AlignRight, Bold,
-    CodeBracket, Italic, Link, ListBullet, NumberedList, Photo, Underline, H1, H2, H3,
+    Bold, CodeBracket, Italic, Link, ListBullet, NumberedList, Photo, Underline, H1, H2, H3,
 };
 
 use crate::editor::control_elements::control_btn::EditorControlButton;
