@@ -23,7 +23,7 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let h2_icon = view! { <H2 /> };
     let h3_icon = view! { <H3 /> };
     let code_icon = view! { <CodeBracket /> };
-    let image_icon = view! {<Photo/>};
+    let image_icon = view! { <Photo /> };
 
     let (content, set_content) = signal("".to_string());
 
