@@ -4,6 +4,7 @@
 
 * {
   user-select: none !important;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -83,8 +84,6 @@
   top: 1px;
 }
 
-
-
 /* HTML: <div class="loader"></div> */
 .loader-eyes {
   display: inline-flex;
@@ -96,15 +95,28 @@
   height: 20px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background:
-    linear-gradient(#222 0 0) top/100% 40% no-repeat,
-    radial-gradient(farthest-side,#000 95%,#0000) 50%/8px 8px no-repeat
-    #fff;
+  background: linear-gradient(#222 0 0) top/100% 40% no-repeat,
+    radial-gradient(farthest-side, #000 95%, #0000) 50%/8px 8px no-repeat #fff;
   animation: l7 1.5s infinite alternate ease-in;
 }
 @keyframes l7 {
   0%,
-  70% {background-size:100% 40%,8px 8px}
-  85% {background-size:100% 120%,8px 8px}
-  100% {background-size:100% 40%,8px 8px}
+  70% {
+    background-size: 100% 40%, 8px 8px;
+  }
+  85% {
+    background-size: 100% 120%, 8px 8px;
+  }
+  100% {
+    background-size: 100% 40%, 8px 8px;
+  }
+}
+
+.hide_element {
+  position: absolute;
+  left: -999px;
+}
+
+.fab {
+  @apply size-10 p-[10px] border-transparent text-white dark:text-gray-400 bg-app shadow-xl shadow-gray-300 fixed  rounded-full bottom-20 right-4;
 }

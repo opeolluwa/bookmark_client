@@ -26,7 +26,8 @@ members = [
     "data_sync",
     "database",
     "desktop",
-    "mobile", "sandbox",
+    "mobile",
+    "sandbox",
     "tauri",
     "tauri_wasm_bindgen",
 ]
@@ -49,7 +50,8 @@ leptos_reactive = "0.6.15"
 leptos_heroicons = { git = "https://github.com/opeolluwa/leptos_heroicons.git", features = [
     "24-solid",
     "24-outline",
-
+    "20-solid",
+    "16-solid",
 ] }
 
 bookmark_local_database = { path = "database" }

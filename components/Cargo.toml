@@ -13,3 +13,5 @@ serde = { workspace = true, features = ["derive"] }
 strum = { workspace = true, features = ["derive"] }
 thaw = { workspace = true, features = ["csr"] }
 timeago = "0.4.2"
+web-sys = { version = "0.3.76", features = ["Document", "Window", "Node", "HtmlElement"] }
+# wasm_bindgen = { workspace = true }

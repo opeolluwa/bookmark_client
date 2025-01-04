@@ -21,25 +21,42 @@ where
     U: IntoView,
     K: IntoView,
 {
-    let current_page_route = use_location().pathname.get();
     let page_route = if href.is_empty() {
         "/dashboard".to_string()
     } else {
         format!("/dashboard/{}", href)
     };
 
-    let is_active_route: bool = page_route == current_page_route;
+    // recompute the active route
+    let is_active_route = move || {
+        let current_page_route = use_location().pathname.get();
+        let page_route = if href.is_empty() {
+            "/dashboard".to_string()
+        } else {
+            format!("/dashboard/{}", href)
+        };
+        current_page_route == page_route
+    };
 
-    let menu_class = if is_active_route {
-        "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
-    } else {
-        "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+    // recompute the class
+    let menu_class = move || {
+        if is_active_route() {
+            "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
+        } else {
+            "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+        }
     };
-    let menu_icon = if is_active_route {
-        Either::Left(alternate_icon)
-    } else {
-        Either::Right(icon)
+
+    // recompute the icon
+    let menu_icon = move || {
+        if is_active_route() {
+            Either::Left(alternate_icon)
+        } else {
+            Either::Right(icon)
+        }
     };
+
+    let menu_icon = menu_icon();
 
     view! {
         <a href=page_route class=menu_class>

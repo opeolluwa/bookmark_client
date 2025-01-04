@@ -8,6 +8,7 @@ use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
 
+
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
     let navigate = leptos_router::hooks::use_navigate();
@@ -58,14 +59,14 @@ pub fn HomePage() -> impl leptos::IntoView {
             <div class="flex justify-between items-center w-full">
                 <PageHeading text="Bookmarks" />
 
-                <button on:click=move |_| { navigate("/dashboard/search", Default::default()) }>
-                    <SearchIcon class="size-5 font-bold text-black" />
+                <button on:click=move |_| { navigate("/dashboard/search", Default::default()) } class="size-5">
+                    <SearchIcon  />
                 </button>
 
             </div>
         }>
 
-            <h2 class="text-[18px] leading-3 font text-gray-600/90 mb-2 mt-4">This week</h2>
+            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2">This week</h2>
             <div class="flex flex-col gap-y-1">
                 {bookmark_one
                     .into_iter()
@@ -82,9 +83,7 @@ pub fn HomePage() -> impl leptos::IntoView {
 
             </div>
 
-            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">
-                Last week week
-            </h2>
+            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">Last week</h2>
             <div class="flex flex-col gap-y-1">
                 {bookmark_two
                     .into_iter()
@@ -102,10 +101,7 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
         </DashboardLayout>
 
-        <a
-            href="/editor"
-            class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-20 right-4"
-        >
+        <a href="/editor" class="fab">
             <PlusIcon />
         </a>
     }
