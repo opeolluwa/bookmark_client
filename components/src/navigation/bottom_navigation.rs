@@ -56,9 +56,11 @@ where
         }
     };
 
+    let menu_icon = menu_icon();
+
     view! {
         <a href=page_route class=menu_class>
-            <HeroIcon icon_data=menu_icon() />
+            <HeroIcon icon_data=menu_icon />
             <span class="text-[12px] font-medium  capitalize">{label}</span>
 
         </a>

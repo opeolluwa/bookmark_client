@@ -5,7 +5,7 @@ use leptos::prelude::{
 use leptos::{prelude::ClassAttribute, view};
 use leptos_heroicons::size_20::solid::{
     Bars3 as AlignCenter, Bars3BottomLeft as AlignLeft, Bars3BottomRight as AlignRight, Bold,
-    CodeBracket, Italic, Link, ListBullet, NumberedList, Underline, H1, H2, H3,
+    CodeBracket, Italic, Link, ListBullet, NumberedList, Photo, Underline, H1, H2, H3,
 };
 
 use crate::editor::control_elements::control_btn::EditorControlButton;
@@ -17,17 +17,15 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let italic_icon = view! { <Italic /> };
     let underline_icon = view! { <Underline /> };
     let link_icon = view! { <Link /> };
-    let align_left_icon = view! { <AlignLeft /> };
-    let align_center_icon = view! { <AlignCenter /> };
-    let align_right_icon = view! { <AlignRight /> };
     let list_bullet_icon = view! { <ListBullet /> };
     let numbered_list_icon = view! { <NumberedList /> };
     let h1_icon = view! { <H1 /> };
     let h2_icon = view! { <H2 /> };
     let h3_icon = view! { <H3 /> };
     let code_icon = view! { <CodeBracket /> };
+    let image_icon = view! {<Photo/>};
 
-    let (content, set_content) = signal("## Hello, *world*!".to_string());
+    let (content, set_content) = signal("".to_string());
 
     view! {
         <div class="relative">
@@ -43,8 +41,8 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
                 }
 
                 autofocus
-                style="display:hidden"
-                class="bg-transparent w-full relative top-2 outline-none border-none"
+                class="bg-transparent w-full relative top-2 outline-none border-none placeholder:font-italic"
+                placeholder="type here..."
                 prop:value=content
             ></textarea>
 
@@ -53,15 +51,13 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
                 <EditorControlButton icon=italic_icon token=MarkdownToken::Italic />
                 <EditorControlButton icon=underline_icon token=MarkdownToken::Underline />
                 <EditorControlButton icon=link_icon token=MarkdownToken::Link />
-                <EditorControlButton icon=align_left_icon token=MarkdownToken::AlignLeft />
-                <EditorControlButton icon=align_center_icon token=MarkdownToken::AlignCenter />
-                <EditorControlButton icon=align_right_icon token=MarkdownToken::AlignRight />
+                <EditorControlButton icon=code_icon token=MarkdownToken::Code />
+                <EditorControlButton icon=image_icon token=MarkdownToken::Image />
                 <EditorControlButton icon=list_bullet_icon token=MarkdownToken::ListBullet />
                 <EditorControlButton icon=numbered_list_icon token=MarkdownToken::NumberedList />
                 <EditorControlButton icon=h1_icon token=MarkdownToken::H1 />
                 <EditorControlButton icon=h2_icon token=MarkdownToken::H2 />
                 <EditorControlButton icon=h3_icon token=MarkdownToken::H3 />
-                <EditorControlButton icon=code_icon token=MarkdownToken::Code />
             </div>
         </div>
     }

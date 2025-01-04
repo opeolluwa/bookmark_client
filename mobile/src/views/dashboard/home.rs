@@ -65,7 +65,7 @@ pub fn HomePage() -> impl leptos::IntoView {
             </div>
         }>
 
-                 <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">
+                 <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2">
                This week
             </h2>
             <div class="flex flex-col gap-y-1">
@@ -106,7 +106,7 @@ pub fn HomePage() -> impl leptos::IntoView {
 
         <a
             href="/editor"
-            class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-20 right-4"
+            class="fab"
         >
             <PlusIcon />
         </a>

@@ -14,6 +14,7 @@ pub enum MarkdownToken {
     H2,
     H3,
     Code,
+    Image
 }
 
 impl Display for MarkdownToken {
@@ -32,6 +33,7 @@ impl Display for MarkdownToken {
             MarkdownToken::H2 => write!(f, "H2"),
             MarkdownToken::H3 => write!(f, "H3"),
             MarkdownToken::Code => write!(f, "Code"),
+            MarkdownToken::Image => write!(f, "image")
         }
     }
 }

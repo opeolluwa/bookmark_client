@@ -22,7 +22,7 @@ pub fn NewBookmarkPage() -> impl leptos::IntoView {
 
         <MarkdownEditor />
 
-        <button class=" size-10 p-2 border-transparent text-white dark:text-gray-400 bg-app shadow fixed  rounded-full bottom-20 right-4">
+        <button class="fab">
             <HeroIcon icon_data=save_icon />
         </button>
     }
