@@ -30,8 +30,8 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let (content, set_content) = signal("## Hello, *world*!".to_string());
 
     view! {
-        <div class="relative hidden">
-            <div id="output" class="z-50">
+        <div class="relative">
+            <div id="output" class="z-50 hidden">
                 {markdown::to_html(&content.get())}
             </div>
 
