@@ -1,8 +1,10 @@
-use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
 use leptos::view;
 use thaw::Image;
 
 use bookmark_components::view::View;
+
+use crate::app_state::installation_status::InstallationStatus;
 
 #[leptos::component]
 pub fn GetStartedPage() -> impl leptos::IntoView {
@@ -24,11 +26,23 @@ pub fn GetStartedPage() -> impl leptos::IntoView {
             </div>
 
             <div class="flex flex-col mt-6">
-                <a href="/dashboard" class="btn text-white bg-app font-medium border-none">
+                <a
+                    href="/dashboard"
+                    class="btn text-white bg-app font-medium border-none"
+                    on:click=|_| {
+                        InstallationStatus::set_installed();
+                    }
+                >
                     Get Started
                 </a>
 
-                <a href="/auth/login" class="btn  bg-gray-100/70 font-medium text-gray-400 mt-2">
+                <a
+                    href="/auth/login"
+                    class="btn  bg-gray-100/70 font-medium text-gray-400 mt-2"
+                    on:click=|_| {
+                        InstallationStatus::set_installed();
+                    }
+                >
                     Create Account
                 </a>
             </div>

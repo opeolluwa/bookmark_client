@@ -1,5 +1,5 @@
 use leptos::either::Either;
-use leptos::prelude::{ClassAttribute, ElementChild, Get, Read};
+use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
 use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
@@ -21,7 +21,6 @@ where
     U: IntoView,
     K: IntoView,
 {
-
     let current_page_route = use_location().pathname.get();
     let page_route = if href.is_empty() {
         "/dashboard".to_string()

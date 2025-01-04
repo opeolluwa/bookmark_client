@@ -1,3 +1,4 @@
 pub mod app;
-mod state;
+#[path = "state/mod.rs"]
+mod app_state;
 mod views;
