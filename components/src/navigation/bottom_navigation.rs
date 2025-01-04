@@ -1,5 +1,5 @@
 use leptos::either::Either;
-use leptos::prelude::{ClassAttribute, ElementChild, Get};
+use leptos::prelude::{signal, ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
 use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
@@ -21,21 +21,35 @@ where
     U: IntoView,
     K: IntoView,
 {
-    let current_page_route = use_location().pathname.get();
+    let (current_page_route, set_current_route) = signal(use_location().pathname.get());
     let page_route = if href.is_empty() {
         "/dashboard".to_string()
     } else {
         format!("/dashboard/{}", href)
     };
 
-    let is_active_route: bool = page_route == current_page_route;
-
-    let menu_class = if is_active_route {
-        "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
-    } else {
-        "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+    // recompute the active route
+    let is_active_route = move || {
+        let current_page_route = use_location().pathname.get();
+        let page_route = if href.is_empty() {
+            "/dashboard".to_string()
+        } else {
+            format!("/dashboard/{}", href)
+        };
+        current_page_route == page_route
     };
-    let menu_icon = if is_active_route {
+
+    // recompute the class
+    let menu_class = move || {
+        if is_active_route() {
+            "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
+        } else {
+            "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+        }
+    };
+
+    // recompute the icon
+    let menu_icon = if is_active_route() {
         Either::Left(alternate_icon)
     } else {
         Either::Right(icon)
@@ -45,7 +59,7 @@ where
         <a href=page_route class=menu_class>
             <HeroIcon icon_data=menu_icon />
             <span class="text-[12px] font-medium  capitalize">{label}</span>
-
+        // <span class="text-[7px] font-medium  capitalize">{     format!("/dashboard/{}", href)} <br/>{ use_location().pathname.get()}</span>
         </a>
     }
 }
