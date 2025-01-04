@@ -1,4 +1,4 @@
-use leptos::prelude::{signal, ElementChild, GlobalAttributes, PropAttribute, Set, StyleAttribute};
+use leptos::prelude::{signal, ElementChild, Get, GlobalAttributes, PropAttribute, Set, StyleAttribute};
 use leptos::{prelude::ClassAttribute, view};
 use leptos_heroicons::size_20::solid::{
     Bars3 as AlignCenter, Bars3BottomLeft as AlignLeft, Bars3BottomRight as AlignRight, Bold,
@@ -25,20 +25,23 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let h3_icon = view! { <H3 /> };
     let code_icon = view! { <CodeBracket /> };
 
-    let (content, set_content) = signal("type here...".to_string());
+    let (content, set_content) = signal("## Hello, *world*!".to_string());
+
 
     view! {
-      <div class="relative">
-        <div id="output" class="z-50">{content}</div>
+      <div class="relative hidden">
+        <div id="output" class="z-50">{markdown::to_html(&content.get())}</div>
+
         <textarea
             name="bookmark_content"
             id="content"
             on:input:target=move |ev| {
                 set_content.set(ev.target().value());
             }
+            
             autofocus
             style="display:hidden"
-            class="bg-transparent text-transparent relative top-2"
+            class="bg-transparent w-full relative top-2 outline-none border-none"
             prop:value=content
         ></textarea>
 
