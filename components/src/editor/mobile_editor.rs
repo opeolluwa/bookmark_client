@@ -1,4 +1,4 @@
-use leptos::prelude::{ElementChild, GlobalAttributes};
+use leptos::prelude::{signal, ElementChild, GlobalAttributes, PropAttribute, Set, StyleAttribute};
 use leptos::{prelude::ClassAttribute, view};
 use leptos_heroicons::size_20::solid::{
     Bars3 as AlignCenter, Bars3BottomLeft as AlignLeft, Bars3BottomRight as AlignRight, Bold,
@@ -7,6 +7,7 @@ use leptos_heroicons::size_20::solid::{
 
 use crate::editor::control_elements::control_btn::EditorControlButton;
 use crate::editor::control_hooks::token::MarkdownToken;
+use leptos::prelude::OnTargetAttribute;
 
 #[leptos::component]
 pub fn MarkdownEditor() -> impl leptos::IntoView {
@@ -24,23 +25,38 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let h3_icon = view! { <H3 /> };
     let code_icon = view! { <CodeBracket /> };
 
-    view! {
-    <div id="output"></div>
+    let (content, set_content) = signal("type here...".to_string());
 
-            <div class="flex btm-nav gap-x-3 overflow-x-scroll w-full bg-white p-2">
-                <EditorControlButton icon=bold_icon token=MarkdownToken::Bold />
-                <EditorControlButton icon=italic_icon token=MarkdownToken::Italic />
-                <EditorControlButton icon=underline_icon token=MarkdownToken::Underline />
-                <EditorControlButton icon=link_icon token=MarkdownToken::Link />
-                <EditorControlButton icon=align_left_icon token=MarkdownToken::AlignLeft />
-                <EditorControlButton icon=align_center_icon token=MarkdownToken::AlignCenter />
-                <EditorControlButton icon=align_right_icon token=MarkdownToken::AlignRight />
-                <EditorControlButton icon=list_bullet_icon token=MarkdownToken::ListBullet />
-                <EditorControlButton icon=numbered_list_icon token=MarkdownToken::NumberedList />
-                <EditorControlButton icon=h1_icon token=MarkdownToken::H1 />
-                <EditorControlButton icon=h2_icon token=MarkdownToken::H2 />
-                <EditorControlButton icon=h3_icon token=MarkdownToken::H3 />
-                <EditorControlButton icon=code_icon token=MarkdownToken::Code />
-            </div>
-        }
+    view! {
+      <div class="relative">
+        <div id="output" class="z-50">{content}</div>
+        <textarea
+            name="bookmark_content"
+            id="content"
+            on:input:target=move |ev| {
+                set_content.set(ev.target().value());
+            }
+            autofocus
+            style="display:hidden"
+            class="bg-transparent text-transparent relative top-2"
+            prop:value=content
+        ></textarea>
+
+        <div class="flex fixed bottom-0 left-0  z-50 right-0 px-4 btm-nav text-black overflow-x-scroll w-full bg-white p-2">
+            <EditorControlButton icon=bold_icon token=MarkdownToken::Bold />
+            <EditorControlButton icon=italic_icon token=MarkdownToken::Italic />
+            <EditorControlButton icon=underline_icon token=MarkdownToken::Underline />
+            <EditorControlButton icon=link_icon token=MarkdownToken::Link />
+            <EditorControlButton icon=align_left_icon token=MarkdownToken::AlignLeft />
+            <EditorControlButton icon=align_center_icon token=MarkdownToken::AlignCenter />
+            <EditorControlButton icon=align_right_icon token=MarkdownToken::AlignRight />
+            <EditorControlButton icon=list_bullet_icon token=MarkdownToken::ListBullet />
+            <EditorControlButton icon=numbered_list_icon token=MarkdownToken::NumberedList />
+            <EditorControlButton icon=h1_icon token=MarkdownToken::H1 />
+            <EditorControlButton icon=h2_icon token=MarkdownToken::H2 />
+            <EditorControlButton icon=h3_icon token=MarkdownToken::H3 />
+            <EditorControlButton icon=code_icon token=MarkdownToken::Code />
+        </div>
+      </div>
+    }
 }

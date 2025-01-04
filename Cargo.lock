@@ -302,6 +302,7 @@ dependencies = [
  "strum",
  "thaw",
  "timeago 0.4.2",
+ "web-sys",
 ]
 
 [[package]]
@@ -2363,7 +2364,7 @@ dependencies = [
 [[package]]
 name = "leptos_heroicons"
 version = "0.4.1"
-source = "git+https://github.com/opeolluwa/leptos_heroicons.git#fd6a5bf1341a59e768457e3cace33617daa0a7f0"
+source = "git+https://github.com/opeolluwa/leptos_heroicons.git#a615b4fe67ec2b81dbefaf259c11ab41c18d9344"
 dependencies = [
  "leptos",
 ]

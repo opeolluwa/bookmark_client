@@ -2,6 +2,7 @@ use leptos::prelude::ClassAttribute;
 use leptos::prelude::ElementChild;
 use leptos::view;
 
+use bookmark_components::editor::mobile_editor::MarkdownEditor;
 use bookmark_components::icons::chevron::ChevronLeftIcon;
 use bookmark_components::typography::heading::PageHeading;
 
@@ -14,5 +15,7 @@ pub fn NewBookmarkPage() -> impl leptos::IntoView {
             </a>
             <PageHeading text="New Bookmark" />
         </header>
+
+        <MarkdownEditor />
     }
 }
