@@ -4,9 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bookmark_components = { path = "../components" }
 console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
+leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
 leptos_reactive = { workspace = true }
 leptos_router = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
@@ -15,5 +17,3 @@ tauri_wasm_bindgen = { path = "../tauri_wasm_bindgen", version = "*" }
 thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
-bookmark_components = { path = "../components" }
-leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }

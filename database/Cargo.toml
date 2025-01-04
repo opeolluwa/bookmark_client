@@ -4,13 +4,12 @@ version = "0.0.0"
 edition = "2021"
 publish = false
 
-
 [dependencies]
+lazy_static = { workspace = true }
+rusqlite = { workspace = true, features = ["bundled"] }
+serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
+uuid = { workspace = true, features = ["v4"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
-serde = { workspace = true, features = ["derive"] }
-rusqlite = { workspace = true, features = ["bundled"] }
-lazy_static = { workspace = true }
-uuid = { workspace = true, features = ["v4"] }
 

@@ -1,10 +1,11 @@
-use bookmark_components::typography::heading::Heading;
-use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
+
+use bookmark_components::typography::heading::Heading;
+use bookmark_components::typography::small_text::SmallText;
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {

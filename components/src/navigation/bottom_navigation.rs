@@ -1,7 +1,7 @@
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,
@@ -21,54 +21,38 @@ where
     U: IntoView,
     K: IntoView,
 {
-    // let current_page_location = use_location().pathname.get();
-    let current_page_location = use_location().pathname.get();
-    let page_route = format!("/dashboard/{href}");
+    let current_page_route = use_location().pathname.get();
+    let page_route = if href.is_empty() {
+        "/dashboard".to_string()
+    } else {
+        format!("/dashboard/{}", href)
+    };
+
+    let is_active_route: bool = page_route == current_page_route;
+
+    let menu_class = if is_active_route {
+        "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
+    } else {
+        "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+    };
+    let menu_icon = if is_active_route {
+        Either::Left(alternate_icon)
+    } else {
+        Either::Right(icon)
+    };
 
     view! {
-        {if page_route == current_page_location {
-            Either::Right(
-                view! {
-                    <a
-                        href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
-                    >
-                        <HeroIcon icon_data=alternate_icon />
-                        <span class="text-[12px] font-medium  capitalize">{label}</span>
-                    </a>
-                },
-            )
-        } else {
-            Either::Left(
-                view! {
-                    <a
-                        href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
-                    >
-                        <HeroIcon icon_data=icon />
-                        <span class="text-[12px] font-medium  capitalize">{label}</span>
-                    </a>
-                },
-            )
-        }}
+        <a href=page_route class=menu_class>
+            <HeroIcon icon_data=menu_icon />
+            <span class="text-[12px] font-medium  capitalize">{label}</span>
+
+        </a>
     }
 }
 
 #[leptos::component]
 
 pub fn BottomNavigation() -> impl leptos::IntoView {
-    // let settings_icon = Cog6Tooth();
-    // let home_icon = Home();
-    // let star_icon = Sparkles();
-    // let bell_icon = Bell();
-    // let profile_icon = User();
-
-    // let solid_settings_icon = SolidCog6Tooth();
-    // let solid_home_icon = SolidHome();
-    // let solid_star_icon = SolidSparkles();
-    // let solid_bell_icon = SolidBell();
-    // let solid_profile_icon = SolidUser();
-
     // Define icons
     let settings_icon = view! { <Cog6Tooth /> };
     let home_icon = view! { <Home /> };

@@ -34,7 +34,7 @@ fmt:
     cargo fmt
     leptosfmt .
     cargo clippy 
-    cargo sort
+    cargo sort -w 
     cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]

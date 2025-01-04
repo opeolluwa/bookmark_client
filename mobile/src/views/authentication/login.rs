@@ -10,9 +10,14 @@ use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
 
+use crate::app_state::cached_user::CachedUser;
+
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
-    let (account_exists, set_account_exists) = signal(true);
+    let cached_user_data_exists = CachedUser::read_state().user.is_some();
+    let _cached_user_data = CachedUser::read_state().user;
+
+    let (account_exists, set_account_exists) = signal(cached_user_data_exists);
 
     let (is_loading, _set_is_loading) = signal(false);
 
@@ -27,7 +32,9 @@ pub fn LoginPage() -> impl leptos::IntoView {
                                 <ArrowLongLeftIcon />
                             </a>
                             <button
-                                on:click=move |_| set_account_exists.set(false)
+                                on:click=move |_| {
+                                    set_account_exists.set(false);
+                                }
                                 class="font-medium text-sm  text-gray-600"
                             >
                                 Not Adeoye?

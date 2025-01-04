@@ -1,8 +1,10 @@
-use bookmark_components::layouts::mobile::editor::EditorLayout;
+pub mod new_bookmark;
+
 use leptos::view;
 use leptos_router::components::Outlet;
 
-pub mod new_bookmark;
+use bookmark_components::layouts::mobile::editor::EditorLayout;
+
 #[leptos::component]
 pub fn EditorUI() -> impl leptos::IntoView {
     view! {

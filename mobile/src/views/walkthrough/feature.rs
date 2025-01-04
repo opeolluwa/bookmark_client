@@ -24,10 +24,10 @@ pub fn FeaturePage() -> impl leptos::IntoView {
             </div>
 
             <div class="flex justify-between absolute w-full bottom-0 mt-6 left-0  right-0">
-                <a href="/" class="btn btn-sm">
+                <a href="/walkthrough/feature" class="btn btn-sm">
                     Prev
                 </a>
-                <a href="/get-started" class="btn btn-sm bg-app text-white">
+                <a href="/walkthrough/get-started" class="btn btn-sm bg-app text-white">
                     Next
                 </a>
             </div>

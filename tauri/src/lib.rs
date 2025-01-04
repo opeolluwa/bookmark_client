@@ -7,9 +7,10 @@ use std::fs::create_dir_all;
 #[allow(dead_code, unused_assignments)]
 use std::sync::Mutex;
 
-use bookmark_local_database::database::SqliteWasm;
 use tauri::Manager;
 use tauri_plugin_fs::FsExt;
+
+use bookmark_local_database::database::SqliteWasm;
 
 use crate::commands::authentication;
 use crate::commands::settings;
