@@ -1,5 +1,5 @@
 use leptos::either::Either;
-use leptos::prelude::{signal, ClassAttribute, ElementChild, Get};
+use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
 use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
@@ -21,7 +21,6 @@ where
     U: IntoView,
     K: IntoView,
 {
-    let (current_page_route, set_current_route) = signal(use_location().pathname.get());
     let page_route = if href.is_empty() {
         "/dashboard".to_string()
     } else {
@@ -49,17 +48,19 @@ where
     };
 
     // recompute the icon
-    let menu_icon = if is_active_route() {
-        Either::Left(alternate_icon)
-    } else {
-        Either::Right(icon)
+    let menu_icon = move || {
+        if is_active_route() {
+            Either::Left(alternate_icon)
+        } else {
+            Either::Right(icon)
+        }
     };
 
     view! {
         <a href=page_route class=menu_class>
-            <HeroIcon icon_data=menu_icon />
+            <HeroIcon icon_data=menu_icon() />
             <span class="text-[12px] font-medium  capitalize">{label}</span>
-        // <span class="text-[7px] font-medium  capitalize">{     format!("/dashboard/{}", href)} <br/>{ use_location().pathname.get()}</span>
+
         </a>
     }
 }
