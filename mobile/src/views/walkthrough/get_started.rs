@@ -48,7 +48,7 @@ pub fn GetStartedPage() -> impl leptos::IntoView {
             </div>
 
             <div class="flex justify-between absolute w-full bottom-2 left-0  right-0">
-                <a href="/feature" class="btn btn-sm">
+                <a href="/walkthrough/feature" class="btn btn-sm">
                     Prev
                 </a>
 

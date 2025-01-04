@@ -27,7 +27,7 @@ pub fn WelcomePage() -> impl leptos::IntoView {
                 <a href="" disabled class="btn hidden  px-4 bg-gray-400 text-black btn-sm">
                     Prev
                 </a>
-                <a href="feature" class="btn px-4 btn-sm bg-app text-white">
+                <a href="/walkthrough/feature" class="btn px-4 btn-sm bg-app text-white">
                     Next
                 </a>
 
