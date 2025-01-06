@@ -1,16 +1,23 @@
 use serde::{Deserialize, Serialize};
+use validator::Validate;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct SignUpResponse {
     pub message: String,
-    pub status: i32,
+    pub success: bool,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+pub type SignUpError = SignUpResponse;
+
+#[derive(Debug, Serialize, Deserialize, Default, Validate)]
 pub struct SignUpFormData {
+    #[validate(length(min = 1, message = "first name cannot be empty"))]
     first_name: String,
+    #[validate(length(min = 1, message = "last name cannot be empty"))]
     last_name: String,
+    #[validate(email)]
     email: String,
+    #[validate(length(min = 8, message = "password must be at least 8 characters "))]
     password: String,
 }
 

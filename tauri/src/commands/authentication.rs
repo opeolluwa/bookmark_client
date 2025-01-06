@@ -1,18 +1,60 @@
-use crate::api_request::RequestEndpoint;
-use bookmark_components::forms::sign_up::SignUpFormData;
-// use bookmark_grpc_codegen::client_stub::authentication::SignUpResponse;
-use ehttp::{fetch_async, Request};
+use crate::api_request::{endpoints, RequestEndpoint};
+use bookmark_components::forms::{
+    login::LoginFormData,
+    sign_up::{SignUpError, SignUpFormData, SignUpResponse},
+};
 
 #[tauri::command]
-pub async fn sign_up(payload: SignUpFormData) {
-    println!("heheheheh {:#?}", payload);
+pub async fn sign_up(payload: SignUpFormData) -> Result<SignUpResponse, SignUpError> {
+    let client = reqwest::Client::new();
+    let response = client
+        .post(RequestEndpoint::new(endpoints::SIGN_UP_END_POINT))
+        .json(&payload)
+        .send()
+        .await
+        .map_err(|error| SignUpError {
+            message: error.to_string(),
+            success: false,
+        })?;
 
-    // let request = Request::json(RequestEndpoint::new("users/register"), &payload).unwrap();
-    // let response = fetch_async(request).await.unwrap();
-    // let status_code = response.status;
-    // if status_code != 201 {
-    //     return Err("errrrr".to_string());
-    // }
-    // let response = response.json::<SignUpResponse>().unwrap();
-    // Ok(response)
+    let response = response
+        .json::<SignUpResponse>()
+        .await
+        .map_err(|error| SignUpResponse {
+            message: error.to_string(),
+            success: false,
+        })?;
+
+    Ok(SignUpResponse {
+        message: response.message,
+        success: response.success,
+    })
+}
+
+#[tauri::command]
+pub async fn login(payload: LoginFormData) {
+    println!("{:?}", payload);
+    // let client = reqwest::Client::new();
+    // let response = client
+    //     .post(RequestEndpoint::new(endpoints::LOG_IN_END_POINT))
+    //     .json(&payload)
+    //     .send()
+    //     .await
+    //     .map_err(|error| SignUpError {
+    //         message: error.to_string(),
+    //         success: false,
+    //     })?;
+
+    // let response = response
+    //     .json::<SignUpResponse>()
+    //     .await
+    //     .map_err(|error| SignUpResponse {
+    //         message: error.to_string(),
+    //         success: false,
+    //     })?;
+
+    // Ok(SignUpResponse {
+    //     message: response.message,
+    //     success: response.success,
+    // })
 }

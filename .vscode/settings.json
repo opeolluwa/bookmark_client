@@ -9,6 +9,7 @@
     "heroicons",
     "icondata",
     "leptos",
+    "reqwest",
     "rusqlite",
     "tauri"
   ],

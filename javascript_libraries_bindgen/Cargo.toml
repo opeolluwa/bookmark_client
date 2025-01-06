@@ -1,0 +1,8 @@
+[package]
+name = "javascript_libraries_bindgen"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wasm-bindgen = { workspace = true }
+# web_sys = { workspace = true }

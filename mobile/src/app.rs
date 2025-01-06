@@ -21,7 +21,7 @@ use crate::views::{
 pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-            <Routes fallback=|| IndexView>
+            <Routes transition=true fallback=|| IndexView>
                 <ParentRoute path=path!("/walkthrough") view=WalkthroughUI>
                     <Route path=path!("") view=WelcomePage />
                     <Route path=path!("/feature") view=FeaturePage />
@@ -30,6 +30,8 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
                 <ParentRoute path=path!("/auth") view=AuthenticationUI>
                     <Route path=path!("login") view=LoginPage />
+                    // <Route path=path!("login") view=SignUpPage />
+
                     <Route path=path!("sign-up") view=SignUpPage />
                     <Route path=path!("forgotten-password") view=ForgottenPasswordPage />
                     <Route path=path!("/set-new-password") view=SetNewPasswordPage />

@@ -3,7 +3,6 @@ use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Star;
 
-use crate::icon::HeroIcon;
 use crate::typography::small_text::SmallText;
 use crate::view::View;
 
@@ -29,11 +28,4 @@ pub fn BookmarkCard(
             </div>
         </View>
     }
-}
-
-fn parse_time(date: &str) -> String {
-    let current_time = Local::now();
-    // let target_date = Local::from(date);
-
-    todo!()
 }
