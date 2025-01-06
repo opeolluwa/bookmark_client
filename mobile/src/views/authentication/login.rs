@@ -1,6 +1,7 @@
+use bookmark_components::loaders::loader_dots::LoaderDots;
 use leptos::either::Either;
-use leptos::prelude::StyleAttribute;
 use leptos::prelude::{OnAttribute, Set};
+use leptos::prelude::{RwSignal, StyleAttribute};
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
@@ -9,6 +10,7 @@ use leptos::{
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
+use leptos_router::hooks::use_navigate;
 
 use crate::app_state::cached_user::CachedUser;
 
@@ -16,10 +18,17 @@ use crate::app_state::cached_user::CachedUser;
 pub fn LoginPage() -> impl leptos::IntoView {
     let cached_user_data_exists = CachedUser::read_state().user.is_some();
     let _cached_user_data = CachedUser::read_state().user;
-
     let (account_exists, set_account_exists) = signal(cached_user_data_exists);
 
-    let (is_loading, _set_is_loading) = signal(false);
+    let open_loader = RwSignal::new(false);
+    let submit_form = move || {
+        open_loader.set(true);
+        std::thread::sleep(std::time::Duration::from_secs(5));
+        open_loader.set(false);
+
+        let navigate = use_navigate();
+        navigate("/dashboard", Default::default());
+    };
 
     view! {
         <div class="relative " style="height:calc(100vh - 100px)">
@@ -100,45 +109,23 @@ pub fn LoginPage() -> impl leptos::IntoView {
                         },
                     )
                 }}
-                <a
-                    href="/dashboard"
-                    // disabled=is_loading
+                <button
+                    on:click=move |event| {
+                        event.prevent_default();
+                        submit_form();
+                    }
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() {
-                        Either::Right(
-                            view! { <span class="loading loading-ring loading-sm"></span> },
-                        )
-                    } else {
-                        Either::Left("Continue")
-                    }}
-
-                </a>
-            // href="/mobile/authentication/forgotten-password"
+                    Continue
+                </button>
             </form>
             <a href="/auth/forgotten-password" class="text-app block  text-sm font-bold mt-3">
                 Forgotten password?
             </a>
-            <div class="flex items-center hidden justify-center ">
-                <button class="btn  shadow-none bg-app-50 border-none ">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-6 text-app bg-app-50/50"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"
-                        />
-                    </svg>
 
-                </button>
-            </div>
         </div>
+
+        <LoaderDots open_loader />
     }
 }
