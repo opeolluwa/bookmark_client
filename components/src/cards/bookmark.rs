@@ -13,7 +13,7 @@ pub fn BookmarkCard(
     date: &'static str,
 ) -> impl leptos::IntoView {
     view! {
-        <View class="flex gap-x-3 justify-between bg-white rounded border-gray-500 w-full px-3 py-6">
+        <View class="flex gap-x-3 justify-between bg-white rounded-lg shadow-sm border-gray-500 w-full px-3 py-6">
             <div class="flex items-center gap-x-3 align-center">
                 <button class="text-gray-400 size-5">
                     <Star />

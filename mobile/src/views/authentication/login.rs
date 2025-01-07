@@ -55,14 +55,13 @@ pub fn LoginPage() -> impl leptos::IntoView {
             let request_endpoint = RequestEndpoint::new(endpoints::LOG_IN_END_POINT);
             let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
                 .method(request_method)
-                .header("Access-Control-Allow-Origin","no-cors")
+                .header("Access-Control-Allow-Origin", "no-cors")
                 .json(&sign_up_form_data)
                 .unwrap()
                 .send()
                 .await;
             // let response = response.unwrap();
             println!("{:?}", response);
-
         });
     };
 
@@ -126,23 +125,23 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     Either::Right(
                         view! {
                             <div class="form-input">
-                    <label for="email">Email</label>
-                    <input
-                        value=email
-                        node_ref=email_input_element
-                        type="email"
-                        placeholder="type your email"
-                    />
-                </div>
-                <div class="form-input">
-                    <label for="password">Password</label>
-                    <input
-                        value=password
-                        node_ref=password_input_element
-                        type="password"
-                        placeholder="type your password"
-                    />
-                </div>
+                                <label for="email">Email</label>
+                                <input
+                                    value=email
+                                    node_ref=email_input_element
+                                    type="email"
+                                    placeholder="type your email"
+                                />
+                            </div>
+                            <div class="form-input">
+                                <label for="password">Password</label>
+                                <input
+                                    value=password
+                                    node_ref=password_input_element
+                                    type="password"
+                                    placeholder="type your password"
+                                />
+                            </div>
                         },
                     )
                 } else {

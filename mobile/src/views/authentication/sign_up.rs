@@ -8,13 +8,13 @@ use bookmark_components::typography::small_text::SmallText;
 use gloo_net::http::Method;
 use leptos::ev::SubmitEvent;
 use leptos::html;
+use leptos::prelude::GlobalAttributes;
 use leptos::prelude::{NodeRef, NodeRefAttribute, OnAttribute, Set};
 use leptos::task::spawn_local;
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get, RwSignal},
     view,
 };
-use leptos::prelude::GlobalAttributes;
 use leptos_router::hooks::use_navigate;
 
 #[leptos::component]
@@ -79,8 +79,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
             let res = &response.ok();
             if res.is_some() {
                 open_loader.set(false);
-                let navigate = use_navigate();
-                navigate("/dashboard", Default::default());
+                use_navigate()("/dashboard", Default::default());
             }
         });
         open_loader.set(false);
