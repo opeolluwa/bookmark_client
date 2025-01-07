@@ -25,7 +25,7 @@ members = [
     "components",
     "data_sync",
     "database",
-    "desktop",
+    "desktop", "javascript_libraries_bindgen",
     "mobile",
     "sandbox",
     "tauri",
@@ -67,6 +67,7 @@ uuid = "1.11.0"
 tauri-plugin-fs = "2"
 leptos-use = "0.15.1"
 codee = "0.2.0"
+web-sys = { version = "0.3.76" }
 
 [profile.wasm-release]
 inherits = "release"

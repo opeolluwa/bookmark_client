@@ -1,6 +1,13 @@
+use bookmark_components::forms::api_request::{endpoints, RequestEndpoint};
+use bookmark_components::forms::login::LoginFormData;
+use bookmark_components::loaders::loader_dots::LoaderDots;
+use gloo_net::http::Method;
 use leptos::either::Either;
-use leptos::prelude::StyleAttribute;
-use leptos::prelude::{OnAttribute, Set};
+use leptos::ev::SubmitEvent;
+use leptos::html;
+use leptos::prelude::{NodeRef, NodeRefAttribute, OnAttribute, Set};
+use leptos::prelude::{RwSignal, StyleAttribute};
+use leptos::task::spawn_local;
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
@@ -16,10 +23,47 @@ use crate::app_state::cached_user::CachedUser;
 pub fn LoginPage() -> impl leptos::IntoView {
     let cached_user_data_exists = CachedUser::read_state().user.is_some();
     let _cached_user_data = CachedUser::read_state().user;
-
     let (account_exists, set_account_exists) = signal(cached_user_data_exists);
+    let open_loader = RwSignal::new(false);
 
-    let (is_loading, _set_is_loading) = signal(false);
+    let (email, set_email) = signal("".to_string());
+    let (password, set_password) = signal("".to_string());
+
+    let email_input_element: NodeRef<html::Input> = NodeRef::new();
+    let password_input_element: NodeRef<html::Input> = NodeRef::new();
+
+    let on_submit = move |ev: SubmitEvent| {
+        ev.prevent_default();
+        open_loader.set(true);
+
+        let email_binding = email_input_element
+            .get()
+            .expect("<input> should be mounted")
+            .value();
+        let password_binding = password_input_element
+            .get()
+            .expect("<input> should be mounted")
+            .value();
+
+        set_email.set(email_binding);
+        set_password.set(password_binding);
+
+        let sign_up_form_data = LoginFormData::new(email.get(), password.get());
+
+        spawn_local(async move {
+            let request_method = Method::POST;
+            let request_endpoint = RequestEndpoint::new(endpoints::LOG_IN_END_POINT);
+            let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
+                .method(request_method)
+                .header("Access-Control-Allow-Origin", "no-cors")
+                .json(&sign_up_form_data)
+                .unwrap()
+                .send()
+                .await;
+            // let response = response.unwrap();
+            println!("{:?}", response);
+        });
+    };
 
     view! {
         <div class="relative " style="height:calc(100vh - 100px)">
@@ -76,17 +120,27 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     },
                 )
             }}
-            <form class="flex flex-col gap-y-4 mt-6">
+            <form class="flex flex-col gap-y-4 mt-6" on:submit=on_submit>
                 {if !account_exists.get() {
                     Either::Right(
                         view! {
                             <div class="form-input">
                                 <label for="email">Email</label>
-                                <input type="email" placeholder="type your email" />
+                                <input
+                                    value=email
+                                    node_ref=email_input_element
+                                    type="email"
+                                    placeholder="type your email"
+                                />
                             </div>
                             <div class="form-input">
                                 <label for="password">Password</label>
-                                <input type="password" placeholder="type your password" />
+                                <input
+                                    value=password
+                                    node_ref=password_input_element
+                                    type="password"
+                                    placeholder="type your password"
+                                />
                             </div>
                         },
                     )
@@ -100,45 +154,20 @@ pub fn LoginPage() -> impl leptos::IntoView {
                         },
                     )
                 }}
-                <a
-                    href="/dashboard"
-                    // disabled=is_loading
+                <button
+
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() {
-                        Either::Right(
-                            view! { <span class="loading loading-ring loading-sm"></span> },
-                        )
-                    } else {
-                        Either::Left("Continue")
-                    }}
-
-                </a>
-            // href="/mobile/authentication/forgotten-password"
+                    Continue
+                </button>
             </form>
-            <a href="/auth/forgotten-password" class="text-app block  text-sm font-bold mt-3">
+            <a href="/dashboard" class="text-app block  text-sm font-bold mt-3">
                 Forgotten password?
             </a>
-            <div class="flex items-center hidden justify-center ">
-                <button class="btn  shadow-none bg-app-50 border-none ">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="size-6 text-app bg-app-50/50"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33"
-                        />
-                    </svg>
 
-                </button>
-            </div>
         </div>
+
+        <LoaderDots open_loader />
     }
 }

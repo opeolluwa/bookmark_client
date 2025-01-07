@@ -22,7 +22,7 @@ pub fn SearchPage() -> impl leptos::IntoView {
                     class="input input-sm flex my-0 py-0 focus:border-none focus:outline-none  placeholder:dark:text-gray-700 w-[80vw] border rounded"
                 />
                 <button type="submit" class="col-span-1 size-5 font-bold text-black">
-                    <SearchIcon  />
+                    <SearchIcon />
                 </button>
             </form>
         }>

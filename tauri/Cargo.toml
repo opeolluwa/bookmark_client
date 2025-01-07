@@ -22,6 +22,7 @@ bookmark_local_database = { workspace = true }
 ehttp = { workspace = true, features = ["json", "native-async"] }
 itertools = { workspace = true }
 once_cell = { workspace = true }
+reqwest = { version = "0.12.12", features = ["json", "rustls-tls"], default-features = false }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 tauri = { workspace = true, features = [] }
