@@ -1,8 +1,8 @@
-use leptos::prelude::{ClassAttribute, ElementChild};
-use leptos::prelude::{CollectView, OnAttribute};
+use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute, Set};
+use leptos::prelude::{CollectView, RwSignal};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Plus as PlusIcon;
-use leptos_heroicons::size_24::solid::MagnifyingGlass as SearchIcon;
+use thaw::{DrawerBody, DrawerPosition, Icon, OverlayDrawer};
 
 use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
@@ -10,28 +10,27 @@ use bookmark_components::typography::heading::PageHeading;
 
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
-    let navigate = leptos_router::hooks::use_navigate();
-
+    let open = RwSignal::new(false);
     let bookmark_one: Vec<BookmarkCardProps> = vec![
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: "adfkln.a fd;kj",
+            description: "Voluptate ea Lorem Anim id excepteur elit ad aliqua aliqua. Culpa proident magna magna aliqua sint ipsum. cupidatat mollit excepteur pariatur nulla.",
         },
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: "m,d;'ejdn",
+            description: "Minim non fugiat magna incididunt ex eu dolor esse velit.",
         },
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: ";jladnf l",
+            description: "Lorem voluptate elit deserunt laboris nulla eu ullamco.",
         },
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: "q;jorqn",
+            description: "Pariatur proident officia commodo laborum nostrud.",
         },
     ];
 
@@ -39,32 +38,34 @@ pub fn HomePage() -> impl leptos::IntoView {
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: "m,d;'ejdn",
+            description: "Lorem reprehenderit ut culpa do qui dolore cupidatat culpa ullamco minim ea sit proident.",
         },
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: ";jladnf l",
+            description: "Id ipsum excepteur aliqua proident irure labore laboris incididunt velit non excepteur ea esse fugiat velit.",
         },
         BookmarkCardProps {
             title: "some title goes here",
             date: "2d",
-            description: "q;jorqn",
+            description: "Deserunt consequat velit sint consectetur nostrud pariatur laborum sunt velit sint minim incididunt.",
         },
     ];
 
     view! {
         <DashboardLayout header_component=view! {
             <div class="flex justify-between items-center w-full">
-                <PageHeading text="Bookmarks" />
+                <div class="flex  items-center gap-x-2">
+                    <button on:click=move |_| open.set(true)>
+                        <Icon icon=icondata::TbMenu2 class="size-5" />
+                    </button>
+                    <PageHeading text="Bookmarks" />
+                </div>
 
-                <button
-                    on:click=move |_| { navigate("/dashboard/search", Default::default()) }
-                    class="size-5"
-                >
-                    <SearchIcon />
-                </button>
+                <a href="/dashboard/search">
+                    <Icon icon=icondata::LuSearch class="size-5" />
 
+                </a>
             </div>
         }>
 
@@ -106,5 +107,11 @@ pub fn HomePage() -> impl leptos::IntoView {
         <a href="/editor" class="fab">
             <PlusIcon />
         </a>
+
+        <OverlayDrawer open position=DrawerPosition::Left>
+            <DrawerBody>
+                <p>"Drawer content"</p>
+            </DrawerBody>
+        </OverlayDrawer>
     }
 }

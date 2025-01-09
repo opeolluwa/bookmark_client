@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.39"
 ehttp = { workspace = true, features = ["json"] }
+icondata = { workspace = true }
 leptos = { workspace = true }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
 leptos_router = { workspace = true }
@@ -16,4 +17,9 @@ thaw = { workspace = true, features = ["csr"] }
 timeago = "0.4.2"
 validator = { version = "0.19", features = ["derive"] }
 wasm-bindgen = { workspace = true }
-web-sys = { version = "0.3.76", features = ["Document", "Window", "Node", "HtmlElement"] }
+web-sys = { version = "0.3.76", features = [
+    "Document",
+    "Window",
+    "Node",
+    "HtmlElement",
+] }

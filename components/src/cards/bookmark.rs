@@ -1,7 +1,6 @@
-use chrono::Local;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
-use leptos_heroicons::size_24::outline::Star;
+use thaw::Icon;
 
 use crate::typography::small_text::SmallText;
 use crate::view::View;
@@ -14,13 +13,13 @@ pub fn BookmarkCard(
 ) -> impl leptos::IntoView {
     view! {
         <View class="flex gap-x-3 justify-between bg-white rounded-lg shadow-sm border-gray-500 w-full px-3 py-6">
-            <div class="flex items-center gap-x-3 align-center">
-                <button class="text-gray-400 size-5">
-                    <Star />
-                </button>
-                <div>
+            <div class="grid grid-cols-12 items-center gap-x-3 align-center">
+                <Icon icon=icondata::HiStarOutlineLg class="text-gray-400 col-span-1 size-4" />
+                <div class="col-span-11">
                     <h3 class="font-medium w-[4/5] text-gray-600/80 truncate">{title}</h3>
-                    <SmallText class="leading-1 text-gray-400">{description}</SmallText>
+                    <SmallText class="leading-1 text-gray-400 line-clamp-2">
+                        {description}
+                    </SmallText>
                 </div>
             </div>
             <div>
