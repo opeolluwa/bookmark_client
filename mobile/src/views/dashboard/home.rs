@@ -1,110 +1,95 @@
-use leptos::prelude::{ClassAttribute, ElementChild};
-use leptos::prelude::{CollectView, OnAttribute};
+use leptos::prelude::{signal, ClassAttribute, CollectView, ElementChild, Get, OnAttribute, Set};
+use leptos::prelude::{RwSignal, Show};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Plus as PlusIcon;
-use leptos_heroicons::size_24::solid::MagnifyingGlass as SearchIcon;
+use thaw::{DrawerBody, DrawerPosition, Flex, FlexAlign, FlexJustify, Icon, Image, OverlayDrawer};
 
-use bookmark_components::cards::bookmark::{BookmarkCard, BookmarkCardProps};
+use bookmark_components::cards::bookmark::{BookmarkCardProps, BookmarkSectionTitle};
 use bookmark_components::layouts::mobile::dashboard::DashboardLayout;
 use bookmark_components::typography::heading::PageHeading;
+use bookmark_components::typography::small_text::SmallText;
 
 #[leptos::component]
 pub fn HomePage() -> impl leptos::IntoView {
-    let navigate = leptos_router::hooks::use_navigate();
-
-    let bookmark_one: Vec<BookmarkCardProps> = vec![
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: "adfkln.a fd;kj",
-        },
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: "m,d;'ejdn",
-        },
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: ";jladnf l",
-        },
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: "q;jorqn",
-        },
-    ];
-
-    let bookmark_two: Vec<BookmarkCardProps> = vec![
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: "m,d;'ejdn",
-        },
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: ";jladnf l",
-        },
-        BookmarkCardProps {
-            title: "some title goes here",
-            date: "2d",
-            description: "q;jorqn",
-        },
-    ];
+    let open = RwSignal::new(false);
+    let bookmarks: Vec<BookmarkCardProps> = vec![];
+    let (collections, _set_collections) = signal::<Vec<String>>(vec![]);
 
     view! {
         <DashboardLayout header_component=view! {
             <div class="flex justify-between items-center w-full">
-                <PageHeading text="Bookmarks" />
+                <div class="flex  items-center gap-x-2">
+                    <button on:click=move |_| open.set(true)>
+                        <Icon icon=icondata::TbMenu2 class="size-5" />
+                    </button>
+                    <PageHeading text="Bookmarks" />
+                </div>
 
-                <button
-                    on:click=move |_| { navigate("/dashboard/search", Default::default()) }
-                    class="size-5"
-                >
-                    <SearchIcon />
-                </button>
+                <a href="/dashboard/search">
+                    <Icon icon=icondata::LuSearch class="size-5" />
 
+                </a>
             </div>
         }>
 
-            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2">This week</h2>
-            <div class="flex flex-col gap-y-1">
-                {bookmark_one
-                    .into_iter()
-                    .map(|entry| {
-                        view! {
-                            <BookmarkCard
-                                title=entry.title
-                                date=entry.date
-                                description=entry.description
+            <Show
+                when=move || !bookmarks.is_empty()
+                fallback=|| {
+                    view! {
+                        <div class="flex flex-col items-center justify-center h-[80vh] text-center">
+                            <Image
+                                class="w-1/5 -mb-3"
+                                src="/assets/illustrations/empty-box.png"
+                                alt="empty"
                             />
-                        }
-                    })
-                    .collect_view()}
 
-            </div>
+                            <BookmarkSectionTitle title="Whoo-hoo!" />
+                            <SmallText>No Bookmarks added yet</SmallText>
+                        </div>
+                    }
+                }
+            >
 
-            <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">Last week</h2>
-            <div class="flex flex-col gap-y-1">
-                {bookmark_two
-                    .into_iter()
-                    .map(|entry| {
-                        view! {
-                            <BookmarkCard
-                                title=entry.title
-                                date=entry.date
-                                description=entry.description
-                            />
-                        }
-                    })
-                    .collect_view()}
+                hey
+            </Show>
 
-            </div>
         </DashboardLayout>
 
         <a href="/editor" class="fab">
             <PlusIcon />
         </a>
+
+        <OverlayDrawer open position=DrawerPosition::Left>
+            <DrawerBody class="relative">
+                <Flex align=FlexAlign::Center justify=FlexJustify::SpaceBetween>
+                    <PageHeading text="Collections" />
+                    <Icon icon=icondata::TbLogout2 class="size-5" />
+                </Flex>
+
+                <Show
+                    when=move || !collections.get().is_empty()
+                    fallback=|| {
+                        view! {
+                            <button class="btn bg-app text-white absolute bottom-2 left-0 right-0 w-full shadow mt-auto">
+                                Create Collection
+                              <a href="/">
+                                <Icon icon=icondata::AiPlusOutlined class="size-5" />
+                              </a>
+                            </button>
+                        }
+                    }
+                >
+
+                    <ul>
+                        {collections
+                            .get()
+                            .into_iter()
+                            .map(|entry| view! { <li>{entry}</li> })
+                            .collect_view()}
+                    </ul>
+                </Show>
+
+            </DrawerBody>
+        </OverlayDrawer>
     }
 }

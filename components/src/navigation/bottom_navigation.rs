@@ -1,7 +1,7 @@
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,
@@ -75,13 +75,13 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     let home_icon = view! { <Home /> };
     let star_icon = view! { <Sparkles /> };
     let bell_icon = view! { <Bell /> };
-    let profile_icon = view! { <User /> };
+    let user_icon = view! { <User /> };
 
     let solid_settings_icon = view! { <SolidCog6Tooth /> };
     let solid_home_icon = view! { <SolidHome /> };
     let solid_star_icon = view! { <SolidSparkles /> };
     let solid_bell_icon = view! { <SolidBell /> };
-    let solid_profile_icon = view! { <SolidUser /> };
+    let solid_user_icon = view! { <SolidUser /> };
 
     view! {
         <nav class="btm-nav">
@@ -109,8 +109,8 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
             <BottomNavigationRoute
                 label="profile"
                 href="profile"
-                icon=profile_icon
-                alternate_icon=solid_profile_icon
+                icon=user_icon
+                alternate_icon=solid_user_icon
             />
 
             <BottomNavigationRoute

@@ -16,7 +16,9 @@ pub fn GetStartedPage() -> impl leptos::IntoView {
                     height="auto"
                     src="/assets/illustrations/get-started.png"
                     alt="welcome"
+                    block=true
                 />
+
             </div>
             <div class="text-center ">
                 <h1 class="text-3xl font-black">Get started!</h1>
@@ -37,8 +39,8 @@ pub fn GetStartedPage() -> impl leptos::IntoView {
                 </a>
 
                 <a
-                    href="/auth/login"
-                    class="btn  bg-gray-100/70 font-medium text-gray-400 mt-2"
+                    href="/auth/sign-up"
+                    class="muted_btn"
                     on:click=|_| {
                         InstallationStatus::set_installed();
                     }

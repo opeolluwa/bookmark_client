@@ -1,5 +1,6 @@
 use std::fmt::Display;
 
+use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{component, view, IntoView};
 use serde::{Deserialize, Serialize};
@@ -48,9 +49,22 @@ where
     F: IntoView,
 {
     let label = label.to_string();
-    let _href = href.unwrap_or("#").to_string();
 
-    view! { <div class="flex items-center gap-x-2">{icon} {label}</div> }
+    {
+        if href.is_some() {
+            Either::Left(view! {
+                <a href=Some(href) class="flex items-center gap-x-2">
+                    <span class="size-5">
+
+                        {icon}
+                    </span>
+                    {label}
+                </a>
+            })
+        } else {
+            Either::Right(view! { <div class="flex items-center gap-x-2">{icon} {label}</div> })
+        }
+    }
 }
 
 #[leptos::component]

@@ -6,6 +6,7 @@ pub mod icons;
 pub mod layouts;
 pub mod loaders;
 pub mod navigation;
+pub mod notifications;
 pub mod settings;
 pub mod typography;
 pub mod view;

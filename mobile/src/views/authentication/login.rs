@@ -97,7 +97,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     },
                 )
             }}
-            {if account_exists.get() {
+            {if (move || account_exists.get())() {
                 Either::Right(
                     view! {
                         <div class="mb-6">
@@ -121,7 +121,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                 )
             }}
             <form class="flex flex-col gap-y-4 mt-6" on:submit=on_submit>
-                {if !account_exists.get() {
+                {if (move || !account_exists.get())() {
                     Either::Right(
                         view! {
                             <div class="form-input">
