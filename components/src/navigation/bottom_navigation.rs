@@ -1,7 +1,7 @@
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,

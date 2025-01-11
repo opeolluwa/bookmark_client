@@ -12,11 +12,11 @@ pub fn BookmarkCard(
     date: &'static str,
 ) -> impl leptos::IntoView {
     view! {
-        <View class="flex gap-x-3 justify-between bg-white rounded-lg shadow-sm border-gray-500 w-full px-3 py-6">
+        <View class="card_layout">
             <div class="grid grid-cols-12 items-center gap-x-3 align-center">
                 <Icon icon=icondata::HiStarOutlineLg class="text-gray-400 col-span-1 size-4" />
                 <div class="col-span-11">
-                    <h3 class="font-medium w-[4/5] text-gray-600/80 truncate">{title}</h3>
+                    <h3 class="card_title">{title}</h3>
                     <SmallText class="leading-1 text-gray-400 line-clamp-2">
                         {description}
                     </SmallText>
@@ -27,4 +27,9 @@ pub fn BookmarkCard(
             </div>
         </View>
     }
+}
+
+#[leptos::component]
+pub fn BookmarkSectionTitle(title: &'static str) -> impl leptos::IntoView {
+    view! { <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">{title}</h2> }
 }

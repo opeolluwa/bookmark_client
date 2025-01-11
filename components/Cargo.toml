@@ -7,6 +7,7 @@ edition = "2021"
 chrono = "0.4.39"
 ehttp = { workspace = true, features = ["json"] }
 icondata = { workspace = true }
+icondata_core = "0.1.0"
 leptos = { workspace = true }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
 leptos_router = { workspace = true }

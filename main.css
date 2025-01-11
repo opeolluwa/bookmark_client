@@ -5,7 +5,6 @@
 * {
   user-select: none !important;
   scroll-behavior: smooth;
-  
 }
 
 :root {
@@ -134,10 +133,26 @@
   border-radius: 50%;
   box-shadow: 19px 0 0 7px, 38px 0 0 3px, 57px 0 0 0;
   transform: translateX(-38px);
-  animation: l21 .5s infinite alternate linear;
+  animation: l21 0.5s infinite alternate linear;
 }
 
 @keyframes l21 {
-  50%  {box-shadow: 19px 0 0 3px, 38px 0 0 7px, 57px 0 0 3px}
-  100% {box-shadow: 19px 0 0 0  , 38px 0 0 3px, 57px 0 0 7px}
+  50% {
+    box-shadow: 19px 0 0 3px, 38px 0 0 7px, 57px 0 0 3px;
+  }
+  100% {
+    box-shadow: 19px 0 0 0, 38px 0 0 3px, 57px 0 0 7px;
+  }
+}
+
+.card_layout {
+  @apply flex gap-x-3 justify-between bg-white rounded-lg shadow-sm border-gray-500 w-full px-3 py-6;
+}
+
+.card_layout .card_title {
+  @apply font-medium w-[4/5] text-gray-600/80 truncate;
+}
+
+.muted_btn {
+  @apply btn  bg-gray-100/70 font-medium text-gray-400 mt-2;
 }
