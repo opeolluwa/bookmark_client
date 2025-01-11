@@ -38,7 +38,7 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
                 }
 
                 autofocus
-                class="bg-transparent w-full relative top-2 outline-none border-none placeholder:font-italic"
+                class="bg-transparent w-full relative top-2 outline-none border-none placeholder:font-italic text-[16px]"
                 placeholder="type here..."
                 prop:value=content
             ></textarea>

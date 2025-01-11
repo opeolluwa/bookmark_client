@@ -10,7 +10,7 @@ pub fn NotificationCard() -> impl leptos::IntoView {
     view! {
         <View class="card_layout">
             <div class="grid grid-cols-12 items-center gap-x-3 align-center">
-                <Avatar size=45 src="assets/img/default-user.png" class="col-span-2" />
+                <Avatar size=45 class="col-span-3" />
 
                 <div class="col-span-9 ">
                     <h3 class="card_title">Title goes here</h3>

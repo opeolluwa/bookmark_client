@@ -1,4 +1,4 @@
-use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::view;
 use thaw::Image;
 
@@ -8,18 +8,19 @@ use bookmark_components::view::View;
 pub fn WelcomePage() -> impl leptos::IntoView {
     view! {
         <View class="flex flex-col relative h-[90vh] overflow-hidden">
-            <div>
+            <div style="height: 40vh">
                 <Image
                     width="100%"
                     height="auto"
                     src="/assets/illustrations/welcome.png"
                     alt="welcome"
+                    block=true
                 />
             </div>
             <div class="text-center">
                 <h1 class="text-3xl font-black">Awesome bookmarks</h1>
                 <p class="leading-2 text-[18px] text-gray-400 mt-2">
-                    Craft, curate and share all important data on a single platform
+                    Craft, curate and share all important bookmarks on a single platform
                 </p>
             </div>
 

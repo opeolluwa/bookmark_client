@@ -28,3 +28,8 @@ pub fn BookmarkCard(
         </View>
     }
 }
+
+#[leptos::component]
+pub fn BookmarkSectionTitle(title: &'static str) -> impl leptos::IntoView {
+    view! { <h2 class="text-[18px] leading-2 text-gray-600/90 font-medium mb-2 mt-12">{title}</h2> }
+}

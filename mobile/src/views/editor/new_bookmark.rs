@@ -1,10 +1,10 @@
 use leptos::prelude::ClassAttribute;
 use leptos::prelude::ElementChild;
 use leptos::view;
+use thaw::Icon;
 
 use bookmark_components::editor::mobile_editor::MarkdownEditor;
 use bookmark_components::typography::heading::PageHeading;
-use thaw::Icon;
 
 #[leptos::component]
 pub fn NewBookmarkPage() -> impl leptos::IntoView {
@@ -19,7 +19,10 @@ pub fn NewBookmarkPage() -> impl leptos::IntoView {
         <MarkdownEditor />
 
         <button class="fab">
-            <Icon icon=icondata::HiArrowDownOnSquareStackOutlineLg class="size-5" />
+            <Icon
+                icon=icondata::HiArrowDownOnSquareStackOutlineLg
+                class="size-5 text-white bg-white"
+            />
         </button>
     }
 }
