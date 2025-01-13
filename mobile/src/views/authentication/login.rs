@@ -1,10 +1,12 @@
 use bookmark_components::forms::api_request::{endpoints, RequestEndpoint};
 use bookmark_components::forms::login::LoginFormData;
+use bookmark_components::js_bindings;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use gloo_net::http::Method;
 use leptos::either::Either;
 use leptos::ev::SubmitEvent;
 use leptos::html;
+use leptos::prelude::GlobalAttributes;
 use leptos::prelude::{NodeRef, NodeRefAttribute, OnAttribute, Set};
 use leptos::prelude::{RwSignal, StyleAttribute};
 use leptos::task::spawn_local;
@@ -66,7 +68,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
     };
 
     view! {
-        <div class="relative " style="height:calc(100vh - 100px)">
+        <div class="relative " style="height:calc(100vh - 100px)" id="editor">
             {if account_exists.get() {
                 Either::Right(
                     view! {

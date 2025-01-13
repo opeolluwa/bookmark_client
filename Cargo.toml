@@ -23,14 +23,13 @@ wasm-bindgen-futures = { workspace = true }
 members = [
     ".",
     "components",
-    "data_sync",
     "database",
     "desktop",
     "mobile",
-    "sandbox",
     "tauri",
     "tauri_wasm_bindgen",
 ]
+exclude = ["sandbox"]
 
 [workspace.dependencies]
 console_error_panic_hook = "0.1.7"

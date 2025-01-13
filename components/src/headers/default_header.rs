@@ -1,7 +1,8 @@
-use crate::typography::heading::PageHeading;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 use thaw::Icon;
+
+use crate::typography::heading::PageHeading;
 
 #[leptos::component]
 pub fn DefaultHeader(page_title: &'static str) -> impl leptos::IntoView {

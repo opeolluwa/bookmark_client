@@ -22,12 +22,13 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
     let code_icon = view! { <CodeBracket /> };
     let image_icon = view! { <Photo /> };
 
-    let (content, set_content) = signal("".to_string());
+    let (content, set_content) = signal("## Hello world".to_string());
 
     view! {
         <div class="relative">
-            <div id="output" class="z-50 hidden">
-                {markdown::to_html(&content.get())}
+            <div id="output" class="z-50">
+                // view! {{markdown::to_html(&content.get())}}
+                view!{{move || markdown::to_html(&content.get())}}
             </div>
 
             <textarea

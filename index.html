@@ -7,7 +7,14 @@
   <link data-trunk rel="rust" data-wasm-opt="z" />
   <link data-trunk rel="copy-dir" href="assets" />
   <meta name="viewport" content="width=device-width, user-scalable=no, interactive-widget=resizes-content">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 </head>
 
 <body>
+  <script>
+    const quill = new Quill('#editor', {
+      theme: 'snow'
+    });
+  </script>
 </body>
