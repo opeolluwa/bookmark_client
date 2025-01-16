@@ -28,7 +28,8 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
         <div class="relative">
             <div id="output" class="z-50">
                 // view! {{markdown::to_html(&content.get())}}
-                view!{{move || markdown::to_html(&content.get())}}
+                view!
+                {{ move || markdown::to_html(&content.get()) }}
             </div>
 
             <textarea
