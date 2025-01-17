@@ -1,5 +1,5 @@
-use bookmark_components::forms::api_request::{endpoints, RequestEndpoint};
 use bookmark_components::forms::login::LoginFormData;
+use bookmark_components::forms::{endpoints, RequestEndpoint};
 use bookmark_components::js_bindings;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use gloo_net::http::Method;

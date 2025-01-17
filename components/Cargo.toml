@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+async-trait = "0.1.85"
 chrono = "0.4.39"
 ehttp = { workspace = true, features = ["json"] }
 icondata = { workspace = true }
@@ -24,3 +25,4 @@ web-sys = { version = "0.3.76", features = [
     "Node",
     "HtmlElement",
 ] }
+gloo-net = { workspace = true }

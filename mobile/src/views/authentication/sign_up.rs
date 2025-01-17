@@ -1,7 +1,8 @@
-use bookmark_components::forms::api_request::endpoints;
-use bookmark_components::forms::api_request::RequestEndpoint;
-use bookmark_components::forms::sign_up::SignUpFormData;
+use bookmark_components::forms::endpoints;
+use bookmark_components::forms::sign_up::RegisterFormData;
+use bookmark_components::forms::RequestEndpoint;
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
+use bookmark_components::js_bindings::navigate::change_location_to;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
@@ -57,7 +58,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         set_email.set(email_binding);
         set_password.set(password_binding);
 
-        let sign_up_form_data = SignUpFormData::new(
+        let sign_up_form_data = RegisterFormData::new(
             first_name.get(),
             last_name.get(),
             email.get(),
@@ -79,7 +80,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
             let res = &response.ok();
             if res.is_some() {
                 open_loader.set(false);
-                use_navigate()("/dashboard", Default::default());
+                change_location_to("/dashboard/");
             }
         });
         open_loader.set(false);
@@ -155,4 +156,9 @@ pub fn SignUpPage() -> impl leptos::IntoView {
 
         <LoaderDots open_loader />
     }
+}
+
+fn navigate() {
+    let navigate = use_navigate();
+    navigate("/dashboard", Default::default());
 }

@@ -1,11 +1,11 @@
 use crate::api_request::{endpoints, RequestEndpoint};
 use bookmark_components::forms::{
     login::LoginFormData,
-    sign_up::{SignUpError, SignUpFormData, SignUpResponse},
+    sign_up::{RegisterFormData, SignUpError, SignUpResponse},
 };
 
 #[tauri::command]
-pub async fn sign_up(payload: SignUpFormData) -> Result<SignUpResponse, SignUpError> {
+pub async fn sign_up(payload: RegisterFormData) -> Result<SignUpResponse, SignUpError> {
     let client = reqwest::Client::new();
     let response = client
         .post(RequestEndpoint::new(endpoints::SIGN_UP_END_POINT))
