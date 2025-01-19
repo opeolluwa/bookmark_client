@@ -66,22 +66,9 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         );
 
         spawn_local(async move {
-            let request_method = Method::POST;
-            let request_endpoint = RequestEndpoint::new(endpoints::SIGN_UP_END_POINT);
+            let sign_up_response = sign_up_form_data.submit().await;
 
-            let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
-                .method(request_method)
-                .header("Access-Control-Allow-Origin", "no-cors")
-                .json(&sign_up_form_data)
-                .unwrap()
-                .send()
-                .await;
-
-            let res = &response.ok();
-            if res.is_some() {
-                open_loader.set(false);
-                change_location_to("/dashboard/");
-            }
+            println!("{:#?}", &sign_up_response)
         });
         open_loader.set(false);
     };

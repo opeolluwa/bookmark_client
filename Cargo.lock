@@ -307,11 +307,13 @@ dependencies = [
  "leptos_router",
  "markdown",
  "serde",
+ "serde-wasm-bindgen",
  "strum",
  "thaw",
  "timeago",
  "validator",
  "wasm-bindgen",
+ "wasm-bindgen-futures",
  "web-sys",
 ]
 

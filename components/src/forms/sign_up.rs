@@ -8,13 +8,12 @@ use super::{
     FormResponse, RequestEndpoint, Response, SubmitForm,
 };
 
-#[derive(Debug, Serialize, Deserialize, Default)]
+//
+#[derive(Deserialize, Serialize, Debug)]
 pub struct SignUpResponse {
     pub message: String,
-    pub success: bool,
+    pub status: u8,
 }
-
-pub type SignUpError = SignUpResponse;
 
 #[derive(Debug, Serialize, Deserialize, Default, Validate)]
 pub struct RegisterFormData {
@@ -37,27 +36,25 @@ impl RegisterFormData {
             password,
         }
     }
+
+    pub async fn submit(&self) -> SignUpResponse {
+        let request_method = Method::POST;
+        let request_endpoint = RequestEndpoint::new(endpoints::SIGN_UP_END_POINT);
+
+        let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
+            .method(request_method)
+            .header("Access-Control-Allow-Origin", "no-cors")
+            .json(self)
+            .unwrap()
+            .send()
+            .await
+            .map_err(|_| Response {
+                status: super::ResponseStatus::Failed,
+                body: (),
+            })
+            .expect("error ");
+
+        let response_body: SignUpResponse = response.json().await.unwrap();
+        response_body
+    }
 }
-
-// #[async_trait]
-// impl SubmitForm for RegisterFormData {
-//     async fn submit<SignUpResponse>(&self, endpoint: Endpoint) -> FormResponse<SignUpResponse> {
-//         let request_method = Method::POST;
-//         let request_endpoint = RequestEndpoint::new(endpoints::LOG_IN_END_POINT);
-
-//         let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
-//             .method(request_method)
-//             .header("Access-Control-Allow-Origin", "no-cors")
-//             .json(self)
-//             .unwrap()
-//             .send()
-//             .await
-//             .map_err(|_| Response {
-//                 status: super::ResponseStatus::Failed,
-//                 body: (),
-//             })?;
-
-//         let response_body = response.json::<SignUpResponse>().await.unwrap();
-//         todo!()
-//     }
-// }
