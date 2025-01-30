@@ -46,7 +46,7 @@ async function get( endpoint) {
 
 post(
   {
-    "email": "adefemiadeoye@yahoo.com",
+    "email": "test@mailer.com",
     "first_name": "test",
     "last_name": "test",
     "password": "test",

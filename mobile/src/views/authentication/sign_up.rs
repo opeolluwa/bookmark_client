@@ -1,12 +1,9 @@
-use bookmark_components::forms::endpoints;
 use bookmark_components::forms::sign_up::RegisterFormData;
-use bookmark_components::forms::RequestEndpoint;
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::js_bindings::navigate::change_location_to;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
-use gloo_net::http::Method;
 use leptos::ev::SubmitEvent;
 use leptos::html;
 use leptos::prelude::GlobalAttributes;
@@ -68,7 +65,16 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         spawn_local(async move {
             let sign_up_response = sign_up_form_data.submit().await;
 
-            println!("{:#?}", &sign_up_response)
+            match sign_up_response {
+                Ok(_) => {
+                    //TODO: automatically login
+                    change_location_to("/dashboard");
+                }
+                Err(error) => {
+                    log::error!("Failed to sign up due to error {}", error.to_string());
+                    return;
+                }
+            }
         });
         open_loader.set(false);
     };

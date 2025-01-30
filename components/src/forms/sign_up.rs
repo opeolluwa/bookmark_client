@@ -1,20 +1,15 @@
-use async_trait::async_trait;
+use bookmark_ui_errors::api_request_errors::ApiRequestError;
 use gloo_net::http::Method;
-use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 use validator::Validate;
 
 use super::{
-    endpoints::{self, Endpoint},
-    FormResponse, RequestEndpoint, Response, SubmitForm,
+    endpoints::{self},
+    response::FormResponse,
+    RequestEndpoint,
 };
 
-//
-#[derive(Deserialize, Serialize, Debug)]
-pub struct SignUpResponse {
-    pub message: String,
-    pub status: u8,
-}
-
+pub type SignUpResponse = FormResponse<String>;
 #[derive(Debug, Serialize, Deserialize, Default, Validate)]
 pub struct RegisterFormData {
     #[validate(length(min = 1, message = "first name cannot be empty"))]
@@ -37,24 +32,39 @@ impl RegisterFormData {
         }
     }
 
-    pub async fn submit(&self) -> SignUpResponse {
+    pub async fn submit(&self) -> Result<SignUpResponse, ApiRequestError> {
         let request_method = Method::POST;
         let request_endpoint = RequestEndpoint::new(endpoints::SIGN_UP_END_POINT);
 
         let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
             .method(request_method)
             .header("Access-Control-Allow-Origin", "no-cors")
-            .json(self)
-            .unwrap()
+            .json(&self)
+            .map_err(|error| {
+                log::error!(
+                    "Failed to construct request due to error {}",
+                    error.to_string()
+                );
+                ApiRequestError::ProcessError("Failed to construct request".to_string())
+            })?
             .send()
             .await
-            .map_err(|_| Response {
-                status: super::ResponseStatus::Failed,
-                body: (),
-            })
-            .expect("error ");
+            .map_err(|error| {
+                log::error!("Failed to send request due to error {}", error.to_string());
+                ApiRequestError::ProcessError(error.to_string())
+            })?;
 
-        let response_body: SignUpResponse = response.json().await.unwrap();
-        response_body
+        let response_status = response.status();
+        let response_body = response
+            .json::<SignUpResponse>()
+            .await
+            .map_err(|error| ApiRequestError::ProcessError(error.to_string()))?;
+
+        match response_status {
+            201 => Ok(response_body),
+            _ => Err(ApiRequestError::ProcessError(
+                "Failed to sign up".to_string(),
+            )),
+        }
     }
 }
