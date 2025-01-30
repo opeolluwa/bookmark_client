@@ -1,9 +1,8 @@
 use crate::api_request::{endpoints, RequestEndpoint};
 use bookmark_components::forms::{
     login::LoginFormData,
-    sign_up::{RegisterFormData,  SignUpResponse},
+    sign_up::{RegisterFormData, SignUpResponse},
 };
-
 
 #[tauri::command]
 pub async fn login(payload: LoginFormData) {

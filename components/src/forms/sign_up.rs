@@ -62,8 +62,8 @@ impl RegisterFormData {
 
         match response_status {
             201 => Ok(response_body),
-            _ => Err(ApiRequestError::ProcessError(
-                "Failed to sign up".to_string(),
+            error=> Err(ApiRequestError::ProcessError(
+                format!("Failed to sign up due to error {}", error)
             )),
         }
     }
