@@ -5,10 +5,11 @@ edition = "2021"
 
 [dependencies]
 bookmark_components = { path = "../components" }
+bookmark_state = { version = "0.1.0", path = "../state" }
 codee = { workspace = true }
 console_error_panic_hook = { workspace = true }
 ehttp = { workspace = true }
-gloo-net = "0.6.0"
+gloo-net = { workspace = true }
 icondata = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
@@ -16,6 +17,7 @@ leptos-use = { workspace = true, features = ["storage"] }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
 leptos_reactive = { workspace = true }
 leptos_router = { workspace = true }
+log = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 tauri_wasm_bindgen = { path = "../tauri_wasm_bindgen", version = "*" }

@@ -23,14 +23,13 @@ wasm-bindgen-futures = { workspace = true }
 members = [
     ".",
     "components",
-    "data_sync",
     "database",
-    "desktop",
-    "mobile",
-    "sandbox",
+    "desktop", "errors",
+    "mobile", "state", 
     "tauri",
     "tauri_wasm_bindgen",
 ]
+exclude = ["sandbox"]
 
 [workspace.dependencies]
 console_error_panic_hook = "0.1.7"
@@ -67,8 +66,10 @@ uuid = "1.11.0"
 tauri-plugin-fs = "2"
 leptos-use = "0.15.1"
 codee = "0.2.0"
-web-sys = { version = "0.3.76" }
 icondata = "0.5.0"
+gloo-net = "0.6.0"
+thiserror = "2.0.11"
+log = "0.4.25"
 
 [profile.wasm-release]
 inherits = "release"

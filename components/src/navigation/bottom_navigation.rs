@@ -1,7 +1,7 @@
 use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild, Get};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,
@@ -18,8 +18,8 @@ pub fn BottomNavigationRoute<U, K>(
     alternate_icon: K,
 ) -> impl leptos::IntoView
 where
-    U: IntoView,
-    K: IntoView,
+    U: IntoView + 'static,
+    K: IntoView + 'static,
 {
     let page_route = if href.is_empty() {
         "/dashboard".to_string()
@@ -119,6 +119,7 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
                 icon=settings_icon
                 alternate_icon=solid_settings_icon
             />
+
         </nav>
     }
 }

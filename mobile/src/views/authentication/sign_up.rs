@@ -1,11 +1,9 @@
-use bookmark_components::forms::api_request::endpoints;
-use bookmark_components::forms::api_request::RequestEndpoint;
-use bookmark_components::forms::sign_up::SignUpFormData;
+use bookmark_components::forms::sign_up::RegisterFormData;
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
+use bookmark_components::js_bindings::navigate::change_location_to;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
-use gloo_net::http::Method;
 use leptos::ev::SubmitEvent;
 use leptos::html;
 use leptos::prelude::GlobalAttributes;
@@ -15,7 +13,6 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get, RwSignal},
     view,
 };
-use leptos_router::hooks::use_navigate;
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
@@ -57,7 +54,7 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         set_email.set(email_binding);
         set_password.set(password_binding);
 
-        let sign_up_form_data = SignUpFormData::new(
+        let sign_up_form_data = RegisterFormData::new(
             first_name.get(),
             last_name.get(),
             email.get(),
@@ -65,21 +62,17 @@ pub fn SignUpPage() -> impl leptos::IntoView {
         );
 
         spawn_local(async move {
-            let request_method = Method::POST;
-            let request_endpoint = RequestEndpoint::new(endpoints::SIGN_UP_END_POINT);
+            let sign_up_response = sign_up_form_data.submit().await;
 
-            let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
-                .method(request_method)
-                .header("Access-Control-Allow-Origin", "no-cors")
-                .json(&sign_up_form_data)
-                .unwrap()
-                .send()
-                .await;
-
-            let res = &response.ok();
-            if res.is_some() {
-                open_loader.set(false);
-                use_navigate()("/dashboard", Default::default());
+            match sign_up_response {
+                Ok(_) => {
+                    change_location_to("/dashboard");
+                }
+                Err(error) => {
+                    // todo: handle error
+                    log::error!("Failed to sign up due to error {}", error.to_string());
+                    return;
+                }
             }
         });
         open_loader.set(false);

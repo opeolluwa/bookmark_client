@@ -1,10 +1,13 @@
-use bookmark_components::forms::api_request::{endpoints, RequestEndpoint};
-use bookmark_components::forms::login::LoginFormData;
+use bookmark_components::forms::login::{LoginFormData, LoginResponse};
+use bookmark_components::forms::user_profile::UserProfile;
+use bookmark_components::forms::FormResponse;
+use bookmark_components::js_bindings::navigate::change_location_to;
 use bookmark_components::loaders::loader_dots::LoaderDots;
-use gloo_net::http::Method;
+use bookmark_state::cached_user::CachedUser;
 use leptos::either::Either;
 use leptos::ev::SubmitEvent;
 use leptos::html;
+use leptos::prelude::GlobalAttributes;
 use leptos::prelude::{NodeRef, NodeRefAttribute, OnAttribute, Set};
 use leptos::prelude::{RwSignal, StyleAttribute};
 use leptos::task::spawn_local;
@@ -16,8 +19,6 @@ use leptos::{
 use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
 use bookmark_components::typography::heading::Heading;
 use bookmark_components::typography::small_text::SmallText;
-
-use crate::app_state::cached_user::CachedUser;
 
 #[leptos::component]
 pub fn LoginPage() -> impl leptos::IntoView {
@@ -48,25 +49,39 @@ pub fn LoginPage() -> impl leptos::IntoView {
         set_email.set(email_binding);
         set_password.set(password_binding);
 
-        let sign_up_form_data = LoginFormData::new(email.get(), password.get());
+        let login_form_data = LoginFormData::new(email.get(), password.get());
 
         spawn_local(async move {
-            let request_method = Method::POST;
-            let request_endpoint = RequestEndpoint::new(endpoints::LOG_IN_END_POINT);
-            let response = gloo_net::http::RequestBuilder::new(&request_endpoint)
-                .method(request_method)
-                .header("Access-Control-Allow-Origin", "no-cors")
-                .json(&sign_up_form_data)
-                .unwrap()
-                .send()
-                .await;
-            // let response = response.unwrap();
-            println!("{:?}", response);
+            let login_response = login_form_data.submit().await;
+
+            match login_response {
+                Ok(FormResponse::<LoginResponse> { body, .. }) => {
+                    println!("Login response: {:?}", body);
+
+                    // fetch the user profile and state the state
+                    let bearer_token = body.unwrap().token;
+                    let user_profile = UserProfile::fetch(&bearer_token).await;
+                    if let Err(error) = user_profile {
+                        eprintln!("{}", error.to_string());
+                        open_loader.set(false);
+                        return;
+                    }
+
+                    let user_profile = user_profile.unwrap().body.unwrap();
+
+                    CachedUser::set_user(user_profile);
+                    change_location_to("/dashboard");
+                }
+                Err(error) => {
+                    open_loader.set(false);
+                    println!("Login error: {:?}", error);
+                }
+            }
         });
     };
 
     view! {
-        <div class="relative " style="height:calc(100vh - 100px)">
+        <div class="relative " style="height:calc(100vh - 100px)" id="editor">
             {if account_exists.get() {
                 Either::Right(
                     view! {

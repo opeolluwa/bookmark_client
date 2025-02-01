@@ -6,6 +6,7 @@ use crate::views::{
         forgotten_password::ForgottenPasswordPage, login::LoginPage,
         set_new_password::SetNewPasswordPage, sign_up::SignUpPage, AuthenticationUI,
     },
+    collections::{new_collection::CreateBookmarkCollectionPage, BookmarkCollectionUI},
     dashboard::{
         favorites::FavoritesPage, home::HomePage, notification::NotificationsPage,
         profile::UserAccountPage, search::SearchPage, settings::SettingsPage, DashboardUI,
@@ -30,8 +31,6 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
                 <ParentRoute path=path!("/auth") view=AuthenticationUI>
                     <Route path=path!("login") view=LoginPage />
-                    // <Route path=path!("login") view=SignUpPage />
-
                     <Route path=path!("sign-up") view=SignUpPage />
                     <Route path=path!("forgotten-password") view=ForgottenPasswordPage />
                     <Route path=path!("/set-new-password") view=SetNewPasswordPage />
@@ -48,6 +47,10 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
                 <ParentRoute path=path!("/editor") view=EditorUI>
                     <Route path=path!("") view=NewBookmarkPage />
+                </ParentRoute>
+
+                <ParentRoute path=path!("/collection") view=BookmarkCollectionUI>
+                    <Route path=path!("") view=CreateBookmarkCollectionPage />
                 </ParentRoute>
             </Routes>
         </Router>

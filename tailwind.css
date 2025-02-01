@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 * {
   user-select: none !important;
   scroll-behavior: smooth;
@@ -32,8 +33,9 @@
 }
 
 .form-input input {
-  @apply placeholder:dark:text-gray-700 placeholder:text-sm;
+  @apply  placeholder:text-sm bg-transparent placeholder:text-gray-400 !important;
 }
+
 .form-input label {
   @apply text-sm text-gray-700 first-letter:capitalize dark:text-gray-400;
 }
@@ -42,8 +44,10 @@
   @apply text-gray-400;
 }
 
+
+
 .form-input.desktop label {
-  @apply text-sm  text-black first-letter:capitalize dark:text-gray-500;
+  @apply text-sm text-gray-500 first-letter:capitalize font-semibold ;
 }
 
 .btn-animated {
@@ -89,6 +93,7 @@
   display: inline-flex;
   gap: 10px;
 }
+
 .loader-eyes:before,
 .loader-eyes:after {
   content: "";
@@ -99,14 +104,18 @@
     radial-gradient(farthest-side, #000 95%, #0000) 50%/8px 8px no-repeat #fff;
   animation: l7 1.5s infinite alternate ease-in;
 }
+
 @keyframes l7 {
+
   0%,
   70% {
     background-size: 100% 40%, 8px 8px;
   }
+
   85% {
     background-size: 100% 120%, 8px 8px;
   }
+
   100% {
     background-size: 100% 40%, 8px 8px;
   }
@@ -118,7 +127,7 @@
 }
 
 .fab {
-  @apply size-10 p-[10px] border-transparent text-white dark:text-gray-400 bg-app shadow-xl shadow-gray-300 fixed  rounded-full bottom-20 right-4;
+  @apply size-10 p-[10px] border-transparent text-white dark:text-gray-400 bg-app shadow-xl shadow-gray-300 fixed rounded-full bottom-20 right-4;
 }
 
 /* 
@@ -140,6 +149,7 @@
   50% {
     box-shadow: 19px 0 0 3px, 38px 0 0 7px, 57px 0 0 3px;
   }
+
   100% {
     box-shadow: 19px 0 0 0, 38px 0 0 3px, 57px 0 0 7px;
   }
@@ -154,5 +164,5 @@
 }
 
 .muted_btn {
-  @apply btn  bg-gray-100/70 font-medium text-gray-400 mt-2;
+  @apply btn bg-gray-100/70 font-medium text-gray-400 mt-2;
 }

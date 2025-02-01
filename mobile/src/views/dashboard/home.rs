@@ -36,7 +36,7 @@ pub fn HomePage() -> impl leptos::IntoView {
                 when=move || !bookmarks.is_empty()
                 fallback=|| {
                     view! {
-                        <div class="flex flex-col items-center justify-center h-[80vh] text-center">
+                        <div class="flex flex-col items-center justify-center h-[70vh] text-center">
                             <Image
                                 class="w-1/5 -mb-3"
                                 src="/assets/illustrations/empty-box.png"
@@ -63,19 +63,24 @@ pub fn HomePage() -> impl leptos::IntoView {
             <DrawerBody class="relative">
                 <Flex align=FlexAlign::Center justify=FlexJustify::SpaceBetween>
                     <PageHeading text="Collections" />
-                    <Icon icon=icondata::TbLogout2 class="size-5" />
+                    <a href="/">
+
+                        <Icon icon=icondata::TbLogout2 class="size-5" />
+                    </a>
+
                 </Flex>
 
                 <Show
                     when=move || !collections.get().is_empty()
                     fallback=|| {
                         view! {
-                            <button class="btn bg-app text-white absolute bottom-2 left-0 right-0 w-full shadow mt-auto">
+                            <a
+                                href="/collection"
+                                class="btn bg-app text-white absolute bottom-2 left-0 right-0 w-full shadow mt-auto"
+                            >
                                 Create Collection
-                              <a href="/">
                                 <Icon icon=icondata::AiPlusOutlined class="size-5" />
-                              </a>
-                            </button>
+                            </a>
                         }
                     }
                 >

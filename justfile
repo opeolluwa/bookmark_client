@@ -50,7 +50,7 @@ watch target:
     elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
     elif [ {{target}} = "styles" ]; then
-        npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
+        npx tailwindcss -i ./tailwind.css -o ./style/output.css --watch --minify
     else
         cargo tauri dev
     fi
@@ -62,7 +62,7 @@ build target:
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     export ENV="production"
-
+    # export BASE_URL=""
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do

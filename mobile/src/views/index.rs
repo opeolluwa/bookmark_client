@@ -1,4 +1,4 @@
-use crate::app_state::{cached_user::CachedUser, installation_status::InstallationStatus};
+use bookmark_state::{cached_user::CachedUser, installation_status::InstallationStatus};
 
 #[leptos::component]
 pub fn IndexView() -> impl leptos::IntoView {

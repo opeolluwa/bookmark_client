@@ -3,8 +3,7 @@ use leptos::view;
 use thaw::Image;
 
 use bookmark_components::view::View;
-
-use crate::app_state::installation_status::InstallationStatus;
+use bookmark_state::installation_status::InstallationStatus;
 
 #[leptos::component]
 pub fn GetStartedPage() -> impl leptos::IntoView {

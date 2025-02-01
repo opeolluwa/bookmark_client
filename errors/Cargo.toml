@@ -1,6 +1,7 @@
 [package]
-name = "data_sync"
+name = "bookmark_ui_errors"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+thiserror = { workspace = true }

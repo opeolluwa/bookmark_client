@@ -67,7 +67,6 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
-            authentication::sign_up,
             authentication::login,
             settings::fetch_default_settings
         ])
