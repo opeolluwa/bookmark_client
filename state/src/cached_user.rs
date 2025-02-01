@@ -3,18 +3,11 @@ use leptos::prelude::{Get, Set};
 use leptos_use::storage::use_local_storage;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
-pub struct User {
-    pub id: String,
-    pub email: String,
-    pub first_name: String,
-    pub last_name: String,
-    pub avatar: String,
-}
+use bookmark_components::forms::user_profile::UserProfile;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct CachedUser {
-    pub user: Option<User>,
+    pub user: Option<UserProfile>,
 }
 
 impl Default for CachedUser {
@@ -30,7 +23,7 @@ impl CachedUser {
         state.get()
     }
 
-    pub fn set_user(user: User) {
+    pub fn set_user(user: UserProfile) {
         let (_, set_state, _) = use_local_storage::<CachedUser, JsonSerdeCodec>("cached_user");
 
         set_state.set(CachedUser { user: Some(user) });

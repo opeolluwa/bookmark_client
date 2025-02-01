@@ -356,6 +356,7 @@ name = "bookmark_mobile_app"
 version = "0.1.0"
 dependencies = [
  "bookmark_components",
+ "bookmark_state",
  "codee",
  "console_error_panic_hook",
  "ehttp",
@@ -374,6 +375,17 @@ dependencies = [
  "thaw",
  "wasm-bindgen",
  "wasm-bindgen-futures",
+]
+
+[[package]]
+name = "bookmark_state"
+version = "0.1.0"
+dependencies = [
+ "bookmark_components",
+ "codee",
+ "leptos",
+ "leptos-use",
+ "serde",
 ]
 
 [[package]]

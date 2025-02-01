@@ -32,7 +32,7 @@ impl RegisterFormData {
         }
     }
 
-    pub async fn submit(&self) -> Result<SignUpResponse, ApiRequestError> {
+    pub async fn submit(&self) -> Result<FormResponse<SignUpResponse>, ApiRequestError> {
         let request_method = Method::POST;
         let request_endpoint = RequestEndpoint::new(endpoints::SIGN_UP_END_POINT);
 
@@ -56,15 +56,16 @@ impl RegisterFormData {
 
         let response_status = response.status();
         let response_body = response
-            .json::<SignUpResponse>()
+            .json::<FormResponse<SignUpResponse>>()
             .await
             .map_err(|error| ApiRequestError::ProcessError(error.to_string()))?;
 
         match response_status {
             201 => Ok(response_body),
-            error=> Err(ApiRequestError::ProcessError(
-                format!("Failed to sign up due to error {}", error)
-            )),
+            error => Err(ApiRequestError::ProcessError(format!(
+                "Failed to sign up due to error {}",
+                error
+            ))),
         }
     }
 }

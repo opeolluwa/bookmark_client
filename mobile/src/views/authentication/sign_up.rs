@@ -13,7 +13,6 @@ use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get, RwSignal},
     view,
 };
-use leptos_router::hooks::use_navigate;
 
 #[leptos::component]
 pub fn SignUpPage() -> impl leptos::IntoView {
@@ -67,10 +66,10 @@ pub fn SignUpPage() -> impl leptos::IntoView {
 
             match sign_up_response {
                 Ok(_) => {
-                    //TODO: automatically login
                     change_location_to("/dashboard");
                 }
                 Err(error) => {
+                    // todo: handle error
                     log::error!("Failed to sign up due to error {}", error.to_string());
                     return;
                 }
@@ -149,9 +148,4 @@ pub fn SignUpPage() -> impl leptos::IntoView {
 
         <LoaderDots open_loader />
     }
-}
-
-fn navigate() {
-    let navigate = use_navigate();
-    navigate("/dashboard", Default::default());
 }
