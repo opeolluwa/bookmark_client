@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 bookmark_components = { path = "../components" }
+bookmark_state = { version = "0.1.0", path = "../state" }
 console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }

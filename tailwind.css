@@ -47,7 +47,7 @@
 
 
 .form-input.desktop label {
-  @apply text-sm text-black first-letter:capitalize ;
+  @apply text-sm text-gray-500 first-letter:capitalize font-semibold ;
 }
 
 .btn-animated {

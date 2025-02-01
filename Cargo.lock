@@ -324,6 +324,7 @@ name = "bookmark_desktop_app"
 version = "0.1.0"
 dependencies = [
  "bookmark_components",
+ "bookmark_state",
  "console_error_panic_hook",
  "js-sys",
  "leptos",

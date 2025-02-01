@@ -62,7 +62,7 @@ build target:
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     export ENV="production"
-
+    export BASE_URL="http://127.0.0.1:4576/v1"
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do
