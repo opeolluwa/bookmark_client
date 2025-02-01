@@ -1,6 +1,7 @@
 use bookmark_components::forms::login::{LoginFormData, LoginResponse};
 use bookmark_components::forms::user_profile::UserProfile;
 use bookmark_components::forms::FormResponse;
+use bookmark_components::js_bindings::navigate::change_location_to;
 use bookmark_components::loaders::loader_dots::LoaderDots;
 use bookmark_state::cached_user::CachedUser;
 use leptos::either::Either;
@@ -69,6 +70,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
                     let user_profile = user_profile.unwrap().body.unwrap();
 
                     CachedUser::set_user(user_profile);
+                    change_location_to("/dashboard");
                 }
                 Err(error) => {
                     open_loader.set(false);

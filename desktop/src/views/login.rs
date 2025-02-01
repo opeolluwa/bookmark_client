@@ -32,7 +32,7 @@ pub fn LoginPage() -> impl leptos::IntoView {
     let email_input_element: NodeRef<html::Input> = NodeRef::new();
     let password_input_element: NodeRef<html::Input> = NodeRef::new();
 
-    let cached_email = cached_user_data.email;
+    let cached_emil = cached_user_data.email;
     let cached_first_name = cached_user_data.first_name;
 
     let on_submit = move |ev: SubmitEvent| {
