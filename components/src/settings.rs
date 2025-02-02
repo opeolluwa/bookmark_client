@@ -84,9 +84,9 @@ where
     V: IntoView,
 {
     view! {
-        <div class=format!("my-12 first:mt-0 last:mb-4 {class}")>
+        <div class=format!("my-6 first:mt-0 last:mb-0 {class}")>
             <h2 class="text-sm font-medium capitalize">{title}</h2>
-            <div class=format!("my-2 {component_class}")>{component}</div>
+            <div class=format!("my-1 {component_class}")>{component}</div>
         </div>
     }
 }
