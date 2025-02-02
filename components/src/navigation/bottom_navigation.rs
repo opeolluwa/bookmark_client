@@ -1,7 +1,7 @@
 use leptos::either::Either;
-use leptos::prelude::{ClassAttribute, ElementChild, Get};
+use leptos::prelude::{ClassAttribute, ElementChild, Get, View};
 use leptos::{view, IntoView};
-use leptos_heroicons::size_24::outline::{Bell, Cog6Tooth, Home, Sparkles, User};
+use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
     Bell as SolidBell, Cog6Tooth as SolidCog6Tooth, Home as SolidHome, Sparkles as SolidSparkles,
     User as SolidUser,
@@ -11,56 +11,47 @@ use leptos_router::hooks::use_location;
 use crate::icon::HeroIcon;
 
 #[leptos::component]
-pub fn BottomNavigationRoute<U, K>(
+pub fn BottomNavigationRoute(
     label: &'static str,
     href: &'static str,
-    icon: U,
-    alternate_icon: K,
-) -> impl leptos::IntoView
-where
-    U: IntoView + 'static,
-    K: IntoView + 'static,
-{
+    icon: View<impl IntoView>,
+    alternate_icon: View<impl IntoView>,
+) -> impl leptos::IntoView {
     let page_route = if href.is_empty() {
         "/dashboard".to_string()
     } else {
         format!("/dashboard/{}", href)
     };
 
+    let current_page_route = move || use_location().pathname.get();
+
     // recompute the active route
-    let is_active_route = move || {
-        let current_page_route = use_location().pathname.get();
+    let route_is_active = move || {
         let page_route = if href.is_empty() {
             "/dashboard".to_string()
         } else {
             format!("/dashboard/{}", href)
         };
-        current_page_route == page_route
+        current_page_route() == page_route
     };
 
     // recompute the class
     let menu_class = move || {
-        if is_active_route() {
+        if route_is_active() {
             "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
         } else {
             "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
         }
     };
 
-    // recompute the icon
-    let menu_icon = move || {
-        if is_active_route() {
-            Either::Left(alternate_icon)
-        } else {
-            Either::Right(icon)
-        }
-    };
-
-    let menu_icon = menu_icon();
-
     view! {
         <a href=page_route class=menu_class>
-            <HeroIcon icon_data=menu_icon />
+
+            <HeroIcon icon_data=if current_page_route() == page_route {
+                Either::Left(alternate_icon)
+            } else {
+                Either::Right(icon)
+            } />
             <span class="text-[12px] font-medium  capitalize">{label}</span>
 
         </a>

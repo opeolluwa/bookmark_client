@@ -3,6 +3,7 @@ use leptos::prelude::{Get, Set};
 use leptos_use::storage::use_local_storage;
 use serde::{Deserialize, Serialize};
 
+const INSTALLATION_STATE: &str = "installation_state";
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct InstallationStatus {
     pub is_installed: bool,
@@ -11,14 +12,14 @@ pub struct InstallationStatus {
 impl InstallationStatus {
     pub fn read_state() -> Self {
         let (state, _, _) =
-            use_local_storage::<InstallationStatus, JsonSerdeCodec>("installation_state");
+            use_local_storage::<InstallationStatus, JsonSerdeCodec>(INSTALLATION_STATE);
 
         state.get()
     }
 
     pub fn set_installed() {
         let (_, set_state, _) =
-            use_local_storage::<InstallationStatus, JsonSerdeCodec>("installation_state");
+            use_local_storage::<InstallationStatus, JsonSerdeCodec>(INSTALLATION_STATE);
 
         set_state.set(InstallationStatus { is_installed: true });
     }

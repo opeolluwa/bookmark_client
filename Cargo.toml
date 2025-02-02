@@ -24,7 +24,7 @@ members = [
     ".",
     "components",
     "database",
-    "desktop", "errors",
+    "desktop", "errors", "hooks",
     "mobile", "state", 
     "tauri",
     "tauri_wasm_bindgen",

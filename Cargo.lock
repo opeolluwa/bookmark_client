@@ -340,6 +340,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "bookmark_hooks"
+version = "0.1.0"
+dependencies = [
+ "bookmark_components",
+ "bookmark_state",
+ "bookmark_ui_errors",
+]
+
+[[package]]
 name = "bookmark_local_database"
 version = "0.0.0"
 dependencies = [
@@ -357,6 +366,7 @@ name = "bookmark_mobile_app"
 version = "0.1.0"
 dependencies = [
  "bookmark_components",
+ "bookmark_hooks",
  "bookmark_state",
  "codee",
  "console_error_panic_hook",

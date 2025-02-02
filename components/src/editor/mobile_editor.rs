@@ -45,7 +45,7 @@ pub fn MarkdownEditor() -> impl leptos::IntoView {
                 prop:value=content
             ></textarea>
 
-            <div class="flex fixed bottom-0 left-0  z-50 right-0 px-4 btm-nav text-black overflow-x-scroll w-full bg-white p-2">
+            <div class="flex fixed bottom-0 left-0  z-50 right-0 px-4 btm-nav text-black overflow-x-scroll w-full bg-white p-2 text-gray-400">
                 <EditorControlButton icon=bold_icon token=MarkdownToken::Bold />
                 <EditorControlButton icon=italic_icon token=MarkdownToken::Italic />
                 <EditorControlButton icon=underline_icon token=MarkdownToken::Underline />
