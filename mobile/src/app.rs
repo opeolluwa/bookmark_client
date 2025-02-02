@@ -6,10 +6,13 @@ use crate::views::{
         forgotten_password::ForgottenPasswordPage, login::LoginPage,
         set_new_password::SetNewPasswordPage, sign_up::SignUpPage, AuthenticationUI,
     },
+    collections::{new_collection::CreateBookmarkCollectionPage, BookmarkCollectionUI},
     dashboard::{
         favorites::FavoritesPage, home::HomePage, notification::NotificationsPage,
         profile::UserAccountPage, search::SearchPage, settings::SettingsPage, DashboardUI,
     },
+    editor::{new_bookmark::NewBookmarkPage, EditorUI},
+    index::IndexView,
     walkthrough::{
         feature::FeaturePage, get_started::GetStartedPage, welcome::WelcomePage, WalkthroughUI,
     },
@@ -19,9 +22,9 @@ use crate::views::{
 pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-            <Routes fallback=|| "Page not found">
-                <ParentRoute path=path!("") view=WalkthroughUI>
-                    <Route path=path!("/") view=WelcomePage />
+            <Routes transition=true fallback=|| IndexView>
+                <ParentRoute path=path!("/walkthrough") view=WalkthroughUI>
+                    <Route path=path!("") view=WelcomePage />
                     <Route path=path!("/feature") view=FeaturePage />
                     <Route path=path!("/get-started") view=GetStartedPage />
                 </ParentRoute>
@@ -35,11 +38,19 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
                 <ParentRoute path=path!("/dashboard") view=DashboardUI>
                     <Route path=path!("") view=HomePage />
-                    <Route path=path!("/favorites") view=FavoritesPage />
+                    <Route path=path!("favorites") view=FavoritesPage />
                     <Route path=path!("settings") view=SettingsPage />
                     <Route path=path!("search") view=SearchPage />
                     <Route path=path!("notifications") view=NotificationsPage />
                     <Route path=path!("profile") view=UserAccountPage />
+                </ParentRoute>
+
+                <ParentRoute path=path!("/editor") view=EditorUI>
+                    <Route path=path!("") view=NewBookmarkPage />
+                </ParentRoute>
+
+                <ParentRoute path=path!("/collection") view=BookmarkCollectionUI>
+                    <Route path=path!("") view=CreateBookmarkCollectionPage />
                 </ParentRoute>
             </Routes>
         </Router>

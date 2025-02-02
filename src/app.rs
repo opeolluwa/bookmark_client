@@ -1,12 +1,15 @@
-use crate::platform::Platform;
-use bookmark_desktop_app::app::DesktopApplication;
-use bookmark_mobile_app::app::MobileApplication;
+use std::str::FromStr;
+
 use leptos::either::Either;
 use leptos::prelude::{signal, Get, Set};
 use leptos::{component, view, IntoView};
-use std::str::FromStr;
-use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
 use thaw::ConfigProvider;
+
+use bookmark_desktop_app::app::DesktopApplication;
+use bookmark_mobile_app::app::MobileApplication;
+use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
+
+use crate::platform::Platform;
 
 #[component]
 pub fn App() -> impl IntoView {

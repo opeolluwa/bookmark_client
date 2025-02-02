@@ -1,11 +1,12 @@
-use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
-use bookmark_components::typography::heading::Heading;
-use bookmark_components::typography::small_text::SmallText;
 use leptos::either::Either;
 use leptos::{
     prelude::{signal, ClassAttribute, ElementChild, Get},
     view,
 };
+
+use bookmark_components::icons::arrow_left_right_icon::ArrowLongLeftIcon;
+use bookmark_components::typography::heading::Heading;
+use bookmark_components::typography::small_text::SmallText;
 
 #[leptos::component]
 pub fn SetNewPasswordPage() -> impl leptos::IntoView {
@@ -18,7 +19,7 @@ pub fn SetNewPasswordPage() -> impl leptos::IntoView {
             </a>
 
             <div class="mb-6">
-                <Heading class="font-bold".into()>"Set a new password"</Heading>
+                <Heading class="font-bold">"Set a new password"</Heading>
                 <SmallText class="leading-1 text-gray-400">"Create a new password"</SmallText>
             </div>
 
@@ -36,7 +37,7 @@ pub fn SetNewPasswordPage() -> impl leptos::IntoView {
                     type="submit"
                     class="btn w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                 >
-                    {if is_loading.get() == true {
+                    {if is_loading.get() {
                         Either::Right(
                             view! { <span class="loading loading-ring loading-sm"></span> },
                         )

@@ -1,13 +1,22 @@
-use bookmark_components::layout::view::View;
-use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::view;
+use thaw::Image;
+
+use bookmark_components::view::View;
 
 #[leptos::component]
 pub fn FeaturePage() -> impl leptos::IntoView {
     view! {
         <View class="flex flex-col relative h-[90vh] overflow-hidden">
-            <div>
-                <img src="/assets/illustrations/feature.png" alt="welcome" />
+            <div style="height: 40vh">
+                <Image
+                    src="/assets/illustrations/feature.png"
+                    alt="welcome"
+                    width="100%"
+                    height="auto"
+                    block=true
+                />
+
             </div>
             <div class="text-center">
                 <h1 class="text-3xl font-black">Offline first</h1>
@@ -17,10 +26,10 @@ pub fn FeaturePage() -> impl leptos::IntoView {
             </div>
 
             <div class="flex justify-between absolute w-full bottom-0 mt-6 left-0  right-0">
-                <a href="/" class="btn btn-sm">
+                <a href="/walkthrough/" class="btn btn-sm">
                     Prev
                 </a>
-                <a href="/get-started" class="btn btn-sm bg-app text-white">
+                <a href="/walkthrough/get-started" class="btn btn-sm bg-app text-white">
                     Next
                 </a>
             </div>

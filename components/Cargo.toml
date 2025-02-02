@@ -4,9 +4,29 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+async-trait = "0.1.85"
+bookmark_ui_errors = { version = "0.1.0", path = "../errors" }
+chrono = "0.4.39"
+ehttp = { workspace = true, features = ["json"] }
+gloo-net = { workspace = true, features = ["http", "json"] }
+icondata = { workspace = true }
+icondata_core = "0.1.0"
 leptos = { workspace = true }
 leptos_heroicons = { workspace = true, features = ["24-solid", "24-outline"] }
-strum = { version = "0.26.3", features = ["derive"] }
+leptos_router = { workspace = true }
+log = { workspace = true }
+markdown = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
+serde-wasm-bindgen = { workspace = true }
+strum = { workspace = true, features = ["derive"] }
 thaw = { workspace = true, features = ["csr"] }
-leptos_router ={workspace = true}
+timeago = "0.4.2"
+validator = { version = "0.19", features = ["derive"] }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+web-sys = { version = "0.3.76", features = [
+    "Document",
+    "Window",
+    "Node",
+    "HtmlElement",
+] }

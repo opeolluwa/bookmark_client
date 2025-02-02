@@ -9,7 +9,7 @@ pub fn SmallText(
     children: Children,
 ) -> impl IntoView {
     {
-        if href != "" {
+        if href.is_empty() {
             Either::Right(
                 view! { <p class=format!("leading-5 text-sm text-inherit {class}")>{children()}</p> },
             )

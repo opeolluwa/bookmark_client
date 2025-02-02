@@ -1,5 +1,6 @@
 [build]
 target = "./index.html"
+minify = "never" 
 
 [watch]
 ignore = ["./tauri"]
@@ -9,7 +10,3 @@ port = 1420
 open = false
 
 
-# [[hooks]]
-# stage = "build"
-# command = "just watch"
-# command_argument = ["styles"]

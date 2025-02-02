@@ -1,4 +1,2 @@
 pub mod app;
-mod hooks;
-mod layout;
-mod views;
+pub(crate) mod views;

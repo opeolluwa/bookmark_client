@@ -1,3 +1,6 @@
+use std::fmt::Display;
+
+use leptos::either::Either;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{component, view, IntoView};
 use serde::{Deserialize, Serialize};
@@ -13,17 +16,22 @@ pub enum Language {
 }
 
 impl Language {
-    pub fn to_string(&self) -> String {
-        match self {
-            Language::English => "english".to_string(),
-            Language::French => "french".to_string(),
-            Language::Spanish => "spanish".to_string(),
-        }
-    }
     pub fn collect() -> Vec<(String, String)> {
         Self::iter()
             .map(|entry| (entry.to_string(), entry.to_string()))
             .collect()
+    }
+}
+
+impl Display for Language {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let string_value = match self {
+            Language::English => "english".to_string(),
+            Language::French => "french".to_string(),
+            Language::Spanish => "spanish".to_string(),
+        };
+
+        write!(f, "{}", string_value)
     }
 }
 
@@ -41,9 +49,22 @@ where
     F: IntoView,
 {
     let label = label.to_string();
-    let _href = href.unwrap_or("#").to_string();
 
-    view! { <div class="flex items-center gap-x-2">{icon} {label}</div> }
+    {
+        if href.is_some() {
+            Either::Left(view! {
+                <a href=Some(href) class="flex items-center gap-x-2">
+                    <span class="size-5">
+
+                        {icon}
+                    </span>
+                    {label}
+                </a>
+            })
+        } else {
+            Either::Right(view! { <div class="flex items-center gap-x-2">{icon} {label}</div> })
+        }
+    }
 }
 
 #[leptos::component]
@@ -63,9 +84,9 @@ where
     V: IntoView,
 {
     view! {
-        <div class=format!("my-12 first:mt-0 last:mb-4 {class}")>
+        <div class=format!("my-6 first:mt-0 last:mb-0 {class}")>
             <h2 class="text-sm font-medium capitalize">{title}</h2>
-            <div class=format!("my-2 {component_class}")>{component}</div>
+            <div class=format!("my-1 {component_class}")>{component}</div>
         </div>
     }
 }

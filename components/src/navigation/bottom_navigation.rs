@@ -1,6 +1,5 @@
-use crate::icon::HeroIcon;
 use leptos::either::Either;
-use leptos::prelude::{ClassAttribute, ElementChild, Get};
+use leptos::prelude::{ClassAttribute, ElementChild, Get, View};
 use leptos::{view, IntoView};
 use leptos_heroicons::size_24::solid::{Bell, Cog6Tooth, Home, Sparkles, User};
 use leptos_heroicons::size_24::solid::{
@@ -9,63 +8,71 @@ use leptos_heroicons::size_24::solid::{
 };
 use leptos_router::hooks::use_location;
 
+use crate::icon::HeroIcon;
+
 #[leptos::component]
-pub fn BottomNavigationRoute<U, K>(
+pub fn BottomNavigationRoute(
     label: &'static str,
     href: &'static str,
-    icon: U,
-    alternate_icon: K,
-) -> impl leptos::IntoView
-where
-    U: IntoView,
-    K: IntoView,
-{
-    let current_page_location = use_location().pathname.get();
-    let page_route = format!("/dashboard/{href}");
+    icon: View<impl IntoView>,
+    alternate_icon: View<impl IntoView>,
+) -> impl leptos::IntoView {
+    let page_route = if href.is_empty() {
+        "/dashboard".to_string()
+    } else {
+        format!("/dashboard/{}", href)
+    };
+
+    let current_page_route = move || use_location().pathname.get();
+
+    // recompute the active route
+    let route_is_active = move || {
+        let page_route = if href.is_empty() {
+            "/dashboard".to_string()
+        } else {
+            format!("/dashboard/{}", href)
+        };
+        current_page_route() == page_route
+    };
+
+    // recompute the class
+    let menu_class = move || {
+        if route_is_active() {
+            "flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
+        } else {
+            "flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
+        }
+    };
 
     view! {
-        {if page_route == current_page_location {
-            Either::Right(
-                view! {
-                    <a
-                        href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg text-app btn-animated"
-                    >
-                        <HeroIcon icon_data=alternate_icon />
-                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
-                    </a>
-                },
-            )
-        } else {
-            Either::Left(
-                view! {
-                    <a
-                        href=page_route
-                        class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated"
-                    >
-                        <HeroIcon icon_data=icon />
-                        <span class="text-[12px] font-medium -mt-1 capitalize">{label}</span>
-                    </a>
-                },
-            )
-        }}
+        <a href=page_route class=menu_class>
+
+            <HeroIcon icon_data=if current_page_route() == page_route {
+                Either::Left(alternate_icon)
+            } else {
+                Either::Right(icon)
+            } />
+            <span class="text-[12px] font-medium  capitalize">{label}</span>
+
+        </a>
     }
 }
 
 #[leptos::component]
 
 pub fn BottomNavigation() -> impl leptos::IntoView {
-    let settings_icon = Cog6Tooth();
-    let home_icon = Home();
-    let star_icon = Sparkles();
-    let bell_icon = Bell();
-    let profile_icon = User();
+    // Define icons
+    let settings_icon = view! { <Cog6Tooth /> };
+    let home_icon = view! { <Home /> };
+    let star_icon = view! { <Sparkles /> };
+    let bell_icon = view! { <Bell /> };
+    let user_icon = view! { <User /> };
 
-    let solid_settings_icon = SolidCog6Tooth();
-    let solid_home_icon = SolidHome();
-    let solid_star_icon = SolidSparkles();
-    let solid_bell_icon = SolidBell();
-    let solid_profile_icon = SolidUser();
+    let solid_settings_icon = view! { <SolidCog6Tooth /> };
+    let solid_home_icon = view! { <SolidHome /> };
+    let solid_star_icon = view! { <SolidSparkles /> };
+    let solid_bell_icon = view! { <SolidBell /> };
+    let solid_user_icon = view! { <SolidUser /> };
 
     view! {
         <nav class="btm-nav">
@@ -93,8 +100,8 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
             <BottomNavigationRoute
                 label="profile"
                 href="profile"
-                icon=profile_icon
-                alternate_icon=solid_profile_icon
+                icon=user_icon
+                alternate_icon=solid_user_icon
             />
 
             <BottomNavigationRoute
@@ -103,6 +110,7 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
                 icon=settings_icon
                 alternate_icon=solid_settings_icon
             />
+
         </nav>
     }
 }

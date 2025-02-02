@@ -21,8 +21,12 @@ install-dependencies:
     echo "Installing dependencies"
     cargo install trunk --locked
     rustup target add wasm32-unknown-unknown
-    # download wasi-ssdk
+    #todo: downlaod sqljs and extract to sqlite_wasm
     npm i -g esbuild
+    cargo install --git https://github.com/cpg314/cargo-group-imports
+    cargo install cargo-sort
+    
+
 
 
 [doc('Lint')]
@@ -30,6 +34,8 @@ fmt:
     cargo fmt
     leptosfmt .
     cargo clippy 
+    cargo sort -w 
+    cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]
 watch target:
@@ -37,13 +43,14 @@ watch target:
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
- 
+    export ENV="development"
+    
     if [ {{target}} = "android" ]; then
         cargo tauri android dev 
     elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
     elif [ {{target}} = "styles" ]; then
-        npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
+        npx tailwindcss -i ./tailwind.css -o ./style/output.css --watch --minify
     else
         cargo tauri dev
     fi
@@ -54,6 +61,8 @@ build target:
     #!/usr/bin/env sh
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+    export ENV="production"
+    # export BASE_URL=""
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do
@@ -73,7 +82,7 @@ build target:
 [doc("Export binaries into $PWD/bin")]
 ship target: 
     #!/usr/bin/env sh
-    mkdir bin
+    mkdir -p bin
     if [ {{target}} = "all" ]; then 
         for platform in {{SUPPORTED_PLATFORM}}
         do
@@ -148,4 +157,4 @@ ddb:
 
 
 check-db: 
-        cargo build --lib --target "wasm32-unknown-unknown" --manifest-path sqlite_wasm/Cargo.toml
+        cargo build --lib --target "wasm32-unknown-unknown" --manifest-path sqlite_wasm_bindgen/Cargo.toml

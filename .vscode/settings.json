@@ -5,11 +5,14 @@
   "cSpell.words": [
     "bindgen",
     "ehttp",
+    "gloo",
     "gluesql",
     "heroicons",
     "icondata",
     "leptos",
+    "reqwest",
     "rusqlite",
     "tauri"
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
