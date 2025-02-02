@@ -85,79 +85,73 @@ pub fn LoginPage() -> impl leptos::IntoView {
     view! {
         <div class="h-screen flex justify-center items-center flex-col gap-x-12 bg-gray-50 absolute w-full bg-[url(/assets/background/topography.svg)] bg-no-repeat bg-gray-040 bg-cover bg-blend-multiply">
             <div class="pb-6 py-2 px-6 w-[40%] bg-white rounded-lg shadow-lg">
-                    <div class="mt-4 mb-2 text-center">
-                        {if (move || account_exists.get())() {
-                            Either::Right(
-                                view! {
-                                    <Heading class="font-bold">Welcome, {cached_first_name}</Heading>
+                <div class="mt-4 mb-2 text-center">
+                    {if (move || account_exists.get())() {
+                        Either::Right(
+                            view! {
+                                <Heading class="font-bold">Welcome, {cached_first_name}</Heading>
+                            },
+                        )
+                    } else {
+                        Either::Left(
 
-                                },
-                            )
-                        } else {
-                            Either::Left(
-                                view! {
-                                    <Heading class="font-bold">Log in</Heading>
+                            view! { <Heading class="font-bold">Log in</Heading> },
+                        )
+                    }}
+                </div>
 
-                                },
-                            )
-                        }}
-                    </div>
+                <form class="flex flex-col gap-y-4 mt-6" on:submit=on_submit>
 
-                    <form class="flex flex-col gap-y-4 mt-6" on:submit=on_submit>
-
-                        {if (move || !account_exists.get())() {
-                            Either::Right(
-                                view! {
-                                    <div class="form-input desktop">
-                                        <label for="email">Email</label>
-                                        <input
-                                            value=email
-                                            node_ref=email_input_element
-                                            type="email"
-                                            placeholder="type your email"
-                                        />
-                                    </div>
-                                    <div class="form-input desktop">
-                                        <label for="password">Password</label>
-                                        <input
-                                            value=password
-                                            node_ref=password_input_element
-                                            type="password"
-                                            placeholder="type your password"
-                                        />
-                                    </div>
-                                },
-                            )
-                        } else {
-                            Either::Left(
-                                view! {
-                                    <div class="form-input">
-                                        <label for="password">Password</label>
-                                        <input type="password" placeholder="type your password" />
-                                    </div>
-                                },
-                            )
-                        }}
-                        <button
-                            type="submit"
-                            class="btn border-none hover:bg-app-600/95 w-full rounded-lg py-4 bg-app-600 text-white font-medium"
-                        >
-                            {if is_loading.get() {
-                                Either::Right(
-                                    view! { <span class="loading loading-ring loading-sm"></span> },
-                                )
-                            } else {
-                                Either::Left("Continue")
-                            }}
-
-                        </button>
-                    </form>
-                    <a
-                        href="/dashboard"
-                        class="text-gray-600/50 block text-sm font-medium mt-3"
+                    {if (move || !account_exists.get())() {
+                        Either::Right(
+                            view! {
+                                <div class="form-input desktop">
+                                    <label for="email">Email</label>
+                                    <input
+                                        value=email
+                                        node_ref=email_input_element
+                                        type="email"
+                                        placeholder="type your email"
+                                    />
+                                </div>
+                                <div class="form-input desktop">
+                                    <label for="password">Password</label>
+                                    <input
+                                        value=password
+                                        node_ref=password_input_element
+                                        type="password"
+                                        placeholder="type your password"
+                                    />
+                                </div>
+                            },
+                        )
+                    } else {
+                        Either::Left(
+                            view! {
+                                <div class="form-input">
+                                    <label for="password">Password</label>
+                                    <input type="password" placeholder="type your password" />
+                                </div>
+                            },
+                        )
+                    }}
+                    <button
+                        type="submit"
+                        class="btn border-none hover:bg-app-600/95 w-full rounded-lg py-4 bg-app-600 text-white font-medium"
                     >
-                        Forgotten password?
-                    </a>
+                        {if is_loading.get() {
+                            Either::Right(
+                                view! { <span class="loading loading-ring loading-sm"></span> },
+                            )
+                        } else {
+                            Either::Left("Continue")
+                        }}
+
+                    </button>
+                </form>
+                <a href="/dashboard" class="text-gray-600/50 block text-sm font-medium mt-3">
+                    Forgotten password?
+                </a>
 
             </div>
         </div>

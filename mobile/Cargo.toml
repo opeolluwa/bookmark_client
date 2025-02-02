@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 bookmark_components = { path = "../components" }
+bookmark_hooks = { version = "0.1.0", path = "../hooks" }
 bookmark_state = { version = "0.1.0", path = "../state" }
 codee = { workspace = true }
 console_error_panic_hook = { workspace = true }
