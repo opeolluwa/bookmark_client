@@ -16,6 +16,10 @@ impl RequestEndpoint {
         //         }
         //     }
         // };
-        format!("{base_url}/v1/{path}", base_url = EMULATOR_BASE_DIR, path = path)
+        format!(
+            "{base_url}/v1/{path}",
+            base_url = EMULATOR_BASE_DIR,
+            path = path
+        )
     }
 }
