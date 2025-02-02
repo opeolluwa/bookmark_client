@@ -1,4 +1,7 @@
-use leptos::prelude::{signal, ClassAttribute, CollectView, ElementChild, Get, OnAttribute, Set};
+use bookmark_hooks::logout::logout_current_user;
+use leptos::prelude::{
+    signal, ClassAttribute, CollectView, ElementChild, Get, OnAttribute, Set,
+};
 use leptos::prelude::{RwSignal, Show};
 use leptos::view;
 use leptos_heroicons::size_24::outline::Plus as PlusIcon;
@@ -63,10 +66,10 @@ pub fn HomePage() -> impl leptos::IntoView {
             <DrawerBody class="relative">
                 <Flex align=FlexAlign::Center justify=FlexJustify::SpaceBetween>
                     <PageHeading text="Collections" />
-                    <a href="/">
+                    <button on:click=move |_| logout_current_user()>
 
                         <Icon icon=icondata::TbLogout2 class="size-5" />
-                    </a>
+                    </button>
 
                 </Flex>
 
