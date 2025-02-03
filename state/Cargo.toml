@@ -1,0 +1,11 @@
+[package]
+name = "bookmark_state"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bookmark_components = { version = "0.1.0", path = "../components" }
+codee = { workspace = true }
+leptos = { workspace = true }
+leptos-use = { workspace = true, features = ["storage"] }
+serde = { workspace = true, features = ["derive"] }

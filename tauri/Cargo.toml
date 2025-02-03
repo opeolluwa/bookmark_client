@@ -1,22 +1,23 @@
 [package]
-name = "app"
+name = "bookmark"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
-license = ""
-repository = ""
 edition = "2021"
-rust-version = "1.70"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-name = "app_lib"
-crate-type = ["staticlib", "cdylib", "lib"]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "bookmark_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
-tauri-build = { version = "2.0.0-rc.0", features = [] }
+tauri-build = { workspace = true, features = [] }
 
 [dependencies]
+<<<<<<< HEAD
 anyhow = "1.0.91"
 bcrypt = "0.15.1"
 bookmark_database_codegen = { git = "https://github.com/opeolluwa/bookmark_database_codegen", tag = "v0.5.4", version = "0.5.3" }
@@ -59,3 +60,18 @@ validator = { version = "0.18.1", features = ["derive"] }
 
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
 tauri-plugin-biometric = "2"
+=======
+bookmark_components = { path = "../components" }
+bookmark_local_database = { workspace = true }
+ehttp = { workspace = true, features = ["json", "native-async"] }
+itertools = { workspace = true }
+once_cell = { workspace = true }
+reqwest = { version = "0.12.12", features = ["json", "rustls-tls"], default-features = false }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+tauri = { workspace = true, features = [] }
+tauri-plugin-fs = { workspace = true }
+tauri-plugin-os = { workspace = true }
+tauri-plugin-shell = { workspace = true }
+tauri_wasm_bindgen = { path = "../tauri_wasm_bindgen", version = "*" }
+>>>>>>> c075b4af20325c71e73098574c5a918bee903c38

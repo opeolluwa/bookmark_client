@@ -1,26 +1,16 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "enables the default permissions",
+  "description": "Capability for the main window",
   "windows": [
     "main"
   ],
   "permissions": [
     "core:default",
-    "clipboard-manager:default",
-    "notification:default",
-    "stronghold:default",
+    "shell:allow-open",
     "os:default",
-    "os:allow-os-type",
-    "os:allow-locale",
-    "os:allow-hostname",
-    "store:allow-clear",
-    "store:allow-get-store",
-    "store:allow-has",
-    "store:allow-delete",
-    "store:allow-set",
-    "store:default",
-    "dialog:default",
-    "dialog:default"
+    "fs:default",
+    "fs:allow-app-write-recursive",
+    "fs:allow-appdata-read-recursive"
   ]
 }

@@ -1,13 +1,18 @@
 {
+  "emmet.includeLanguages": {
+    "rust": "html"
+  },
   "cSpell.words": [
-    "firstname",
-    "fullscreen",
-    "lastname",
-    "newkeywords",
-    "protos",
-    "Sider",
-    "tauri",
-    "uuidv"
+    "bindgen",
+    "ehttp",
+    "gloo",
+    "gluesql",
+    "heroicons",
+    "icondata",
+    "leptos",
+    "reqwest",
+    "rusqlite",
+    "tauri"
   ],
   "java.configuration.updateBuildConfiguration": "interactive"
 }

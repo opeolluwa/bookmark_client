@@ -1,17 +1,34 @@
 {
-  "name": "bookmarks",
-  "version": "0.5.0",
-  "private": true,
-  "type": "module",
+  "name": "bookmark",
+  "version": "1.0.0",
+  "description": "keep all your bookmarks in one place ",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev --port=3000",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export",
-    "tauri": "tauri",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/opeolluwa/bookmark_client.git"
+  },
+  "keywords": [
+    "bookmark",
+    "leptos",
+    "tauri",
+    "mobile",
+    "desktop",
+    "rust"
+  ],
+  "author": "Adeoye Adefemi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/opeolluwa/bookmark_client/issues"
+  },
+  "homepage": "https://github.com/opeolluwa/bookmark_client#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@ant-design/icons": "^5.5.1",
     "@heroicons/react": "^2.1.5",
     "@next/env": "^15.0.3",
@@ -56,5 +73,11 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+=======
+    "@tauri-apps/plugin-fs": "^2.2.0",
+    "@tauri-apps/plugin-os": "^2.2.0",
+    "daisyui": "^4.12.23",
+    "quill": "^2.0.3"
+>>>>>>> c075b4af20325c71e73098574c5a918bee903c38
   }
 }
