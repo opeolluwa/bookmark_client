@@ -1,9 +1,7 @@
 <template>
-  <div class="btn bg-app text-white">Hey baby</div>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref(null)
+import RouterView from 'view-router'
 </script>
