@@ -22,7 +22,8 @@
       "@shared/*": ["./shared/*"],
       "@components/*": ["./components/*"],
       "@mobile/*": ["./mobile/*"],
-      "@desktop/*": ["./desktop/*"]
+      "@desktop/*": ["./desktop/*"],
+      "@styles/*": ["./styles/*"]
     }
   }
 }
