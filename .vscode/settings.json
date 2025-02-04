@@ -1,18 +1,13 @@
 {
-  "emmet.includeLanguages": {
-    "rust": "html"
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig"
   },
-  "cSpell.words": [
-    "bindgen",
-    "ehttp",
-    "gloo",
-    "gluesql",
-    "heroicons",
-    "icondata",
-    "leptos",
-    "reqwest",
-    "rusqlite",
-    "tauri"
-  ],
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
