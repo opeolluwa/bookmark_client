@@ -1,10 +1,9 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import Button from 'primevue/button'
-</script>
-
 <template>
-  <button class="bg-app">app</button>
+  <div class="btn bg-app text-white">Hey baby</div>
 </template>
 
+<script setup lang="ts">
+import { ref } from 'vue'
 
+const value = ref(null)
+</script>

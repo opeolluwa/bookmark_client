@@ -1,5 +1,4 @@
-import '@/styles/app.css'
-import Aura from '@primevue/themes/aura'
+import '@styles/app.css'
 import PrimeVue from 'primevue/config'
 
 import { createApp } from 'vue'
@@ -17,16 +16,8 @@ import desktopRouter from '../desktop/router'
 
 app.use(createPinia())
 app.use(isMobile ? mobileRouter : desktopRouter)
-// app.use(PrimeVue, {
-//   theme: {
-//     preset: Aura,
-//     options: {
-//       cssLayer: {
-//         // name: 'primevue',
-//         // order: 'app-styles, primevue, another-css-library',
-//       },
-//     },
-//   },
-// })
+app.use(PrimeVue, {
+  theme: 'none',
+})
 
 app.mount('#app')

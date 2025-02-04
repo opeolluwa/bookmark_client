@@ -14,6 +14,7 @@ export default defineConfig({
       '@mobile': fileURLToPath(new URL('./mobile', import.meta.url)),
       '@desktop': fileURLToPath(new URL('./desktop', import.meta.url)),
       '@shared': fileURLToPath(new URL('./shared', import.meta.url)),
+      "@styles": fileURLToPath(new URL('./styles', import.meta.url)),
     },
   },
 })
