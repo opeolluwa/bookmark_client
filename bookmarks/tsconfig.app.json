@@ -8,8 +8,9 @@
     "router",
     "stores",
     "desktop",
-    "apps/desktop",
-    "apps/mobile"
+    "desktop",
+    "mobile",
+    "shared/stores/counter.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
@@ -17,7 +18,11 @@
 
     "paths": {
       "@/*": ["./src/*"],
-      "@apps/*": ["./apps/*"]
+      "@apps/*": ["./apps/*"],
+      "@shared/*": ["./shared/*"],
+      "@components/*": ["./components/*"],
+      "@mobile/*": ["./mobile/*"],
+      "@desktop/*": ["./desktop/*"]
     }
   }
 }
