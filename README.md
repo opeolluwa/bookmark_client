@@ -1,54 +1,64 @@
-# Awesome Bookmarks
+# bookmarks
 
-- [Description](#description)
-- [Getting Started](#getting-started)
-  - [Dependencies](#dependencies)
-  - [Executing program](#executing-program)
-- [Documentation](#documentation)
-- [Help](#help)
-- [Authors](#authors)
-- [Version History](#version-history)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+This template should help get you started developing with Vue 3 in Vite.
 
-## Description
+## Recommended IDE Setup
 
-Awesome Bookmark mobile and desktop application
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Getting Started
+## Type Support for `.vue` Imports in TS
 
-### Dependencies
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-- [Rust](https://rust-lang.org)
-- [Java](#)
-- [NodeJs](https://nodejs.org)
-- [Just](https://just.systems)
-- [Android Studio](#)
+## Customize configuration
 
-### Executing program
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-See all available commands
+## Project Setup
 
-```
-just
+```sh
+npm install
 ```
 
-## Documentation
+### Compile and Hot-Reload for Development
 
-Describe any special instructions that are necessary to install a software
-package on your computer (if applicable).
+```sh
+npm run dev
+```
 
-## Help
+### Type-Check, Compile and Minify for Production
 
-In case of any issue, consider opening a new [discussion](https://github.com/opeolluwa/bookmark_client/discussions)
+```sh
+npm run build
+```
 
+### Run Unit Tests with [Vitest](https://vitest.dev/)
 
+```sh
+npm run test:unit
+```
 
-## License
+### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
-This project is licensed under the MIT License - see the LICENSE.md file
-for details
+```sh
+# Install browsers for the first run
+npx playwright install
 
-## Acknowledgments
+# When testing on CI, must build the project first
+npm run build
 
-Inspiration, code snippets, etc.
+# Runs the end-to-end tests
+npm run test:e2e
+# Runs the tests only on Chromium
+npm run test:e2e -- --project=chromium
+# Runs the tests of a specific file
+npm run test:e2e -- tests/example.spec.ts
+# Runs the tests in debug mode
+npm run test:e2e -- --debug
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
