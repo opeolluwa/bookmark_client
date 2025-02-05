@@ -1,15 +1,11 @@
 <template>
-  <div v-if="cachedUserDataExist" class="mb-12 flex justify-between items-center">
+  <div class="mb-12 flex justify-between items-center">
     <RouterLink :to="SIGN_UP_ROUTE">
       <BackArrowLong />
     </RouterLink>
-    <button class="font-medium text-sm text-gray-600">Not {{ userInformation.firstName }}</button>
-  </div>
-
-  <div class="mb-12 flex justify-between items-center">
-    <RouterLink :to="SIGN_UP_ROUTE" class="block size-6">
-      <ArrowLongLeftIcon />
-    </RouterLink>
+    <button v-if="cachedUserDataExist" class="font-medium text-sm text-gray-600">
+      Not {{ userInformation.firstName }}
+    </button>
   </div>
 
   <div class="mb-6 flex flex-col" v-if="cachedUserDataExist">
