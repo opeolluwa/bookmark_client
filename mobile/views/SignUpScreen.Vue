@@ -1,7 +1,13 @@
 <template>
-  <div>hey man i'm hime</div>
+  <div>
+    
+  </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
 
-<style></style>
+</script>
+
+<style>
+
+</style>

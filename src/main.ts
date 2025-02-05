@@ -1,5 +1,6 @@
 import '@styles/app.css'
-import PrimeVue from 'primevue/config'
+import '@styles/tailwind.css'
+// import PrimeVue from 'primevue/config'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -16,8 +17,8 @@ import desktopRouter from '../desktop/router'
 
 app.use(createPinia())
 app.use(isMobile ? mobileRouter : desktopRouter)
-app.use(PrimeVue, {
-  theme: 'none',
-})
+// app.use(PrimeVue, {
+//   theme: 'none',
+// })
 
 app.mount('#app')
