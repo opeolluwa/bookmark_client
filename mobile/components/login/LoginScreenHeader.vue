@@ -1,15 +1,15 @@
 <template>
   <div v-if="cachedUserDataExist" class="mb-12 flex justify-between items-center">
-    <a href="/auth/sign-up" class="block size-6">
-      <ArrowLongLeftIcon />
-    </a>
+    <RouterLink :to="SIGN_UP_ROUTE">
+      <BackArrowLong />
+    </RouterLink>
     <button class="font-medium text-sm text-gray-600">Not {{ userInformation.firstName }}</button>
   </div>
 
   <div class="mb-12 flex justify-between items-center">
-    <a href="/auth/sign-up" class="block size-6">
+    <RouterLink :to="SIGN_UP_ROUTE" class="block size-6">
       <ArrowLongLeftIcon />
-    </a>
+    </RouterLink>
   </div>
 
   <div class="mb-6 flex flex-col" v-if="cachedUserDataExist">
@@ -26,13 +26,11 @@
 </template>
 
 <script lang="ts" setup>
-import HeadingText from '@shared/components/typography/HeadingText.vue'
-import SmallText from '@shared/components/typography/SmallText.vue'
-
-import { ArrowLongLeftIcon } from '@heroicons/vue/24/solid'
-
 import { useCachedUserStore } from '@shared/stores/cachedUser'
 import { storeToRefs } from 'pinia'
+import { SIGN_UP_ROUTE } from '@mobile/router/routeNames'
+import { RouterLink } from 'vue-router'
+import BackArrowLong from '@shared/components/icons/BackArrowLong.vue'
 
 const cachedUserData = useCachedUserStore()
 const { cachedUserDataExist, userInformation } = storeToRefs(cachedUserData)

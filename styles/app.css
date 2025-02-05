@@ -26,7 +26,7 @@
   .form-input input,
   .form-input select,
   .form-input button {
-      @apply w-full input input-lg rounded-lg shadow-none focus:shadow-none hover:shadow-none focus:border-app/80 border-[1.5px] border-gray-400/50 focus:border-[1.85px] focus:outline-none placeholder:pl-4 placeholder:text-gray-400 placeholder:text-[90%] text-gray-700 text-sm;
+      @apply w-full input input-lg rounded-lg shadow-none focus:shadow-none hover:shadow-none focus:border-app/80 border-[1.5px] border-gray-400/50 focus:border-[1.85px] focus:outline-none placeholder:pl-2 placeholder:text-gray-400 placeholder:text-[90%] text-gray-700 text-sm;
       transition-duration: 0.35s;
   }
 
