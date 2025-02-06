@@ -1,3 +1,5 @@
 export const SIGN_UP_ROUTE = '/sign-up'
 export const LOGIN_ROUTE = '/'
 export const FORGOTTEN_PASSWORD_ROUTE = '/forgotten-password'
+export const CONFIRM_OTP_ROUTE = '/confirm-otp'
+export const SET_NEW_PASSWORD_ROUTE = '/set-new-password'
