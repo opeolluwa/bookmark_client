@@ -17,9 +17,7 @@
         <input value="password" type="password" placeholder="type your password" />
       </div>
     </template>
-    <button type="submit" class="btn btn-lg w-full rounded-lg py-4 form-btn bg-app-600 text-white">
-      Continue
-    </button>
+    <FormButton text="continue" />
   </form>
 </template>
 

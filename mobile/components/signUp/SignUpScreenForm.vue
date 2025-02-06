@@ -30,12 +30,7 @@
       />
     </div>
 
-    <button
-      type="submit"
-      class="btn w-full disabled:bg-100 rounded-lg py-4 bg-app-600 text-white font-medium form-btn"
-    >
-      Continue
-    </button>
+   <FormButton text="continue"/>
   </form>
  
 </template>

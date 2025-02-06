@@ -5,18 +5,10 @@
       <input type="email" placeholder="type your email" />
     </div>
 
-    <button
-      type="submit"
-      class="btn w-full form-btn rounded-lg py-4 bg-app-600 text-white font-medium"
-    >
-      Continue
-    </button>
+    <FormButton text="continue" />
   </form>
- 
 </template>
 
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <style></style>
