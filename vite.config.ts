@@ -36,6 +36,7 @@ export default defineConfig({
       '@desktop': fileURLToPath(new URL('./desktop', import.meta.url)),
       '@shared': fileURLToPath(new URL('./shared', import.meta.url)),
       '@styles': fileURLToPath(new URL('./styles', import.meta.url)),
+      '@lib': fileURLToPath(new URL('./lib', import.meta.url)),
     },
   },
 })

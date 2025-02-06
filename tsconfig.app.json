@@ -23,7 +23,8 @@
       "@components/*": ["./components/*"],
       "@mobile/*": ["./mobile/*"],
       "@desktop/*": ["./desktop/*"],
-      "@styles/*": ["./styles/*"]
+      "@styles/*": ["./styles/*"],
+      "@lib/*": ["./lib/*"]
     }
   }
 }
