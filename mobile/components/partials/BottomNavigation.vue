@@ -11,6 +11,8 @@
 </template>
 
 <script lang="ts" setup>
+
+
 import { defineProps } from 'vue'
 import BottomNavigationItem from './BottomNavigationItem.vue'
 import { bottomNavigationRoutes } from './bottomNavigation'
