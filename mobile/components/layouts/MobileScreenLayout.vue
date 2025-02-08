@@ -1,6 +1,6 @@
 <template>
   <div>
-    hey man! I'm home˝
+    
   </div>
 </template>
 
