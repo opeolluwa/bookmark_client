@@ -12,16 +12,17 @@ import {
   UserIcon as SolidUserIcon,
   SparklesIcon as SolidSparklesIcon,
 } from '@heroicons/vue/24/solid'
+import { DASHBOARD_HOME, DASHBOARD_NOTIFICATION_ROUTE } from '@mobile/router/routeNames'
 
 export const bottomNavigationRoutes = [
   {
-    path: '',
+    path: DASHBOARD_HOME,
     label: 'Home',
     defaultIcon: HomeIcon,
     activeIcon: SolidHomeIcon,
   },
   {
-    path: 'notification',
+    path: DASHBOARD_NOTIFICATION_ROUTE,
     label: 'notification',
     defaultIcon: BellIcon,
     activeIcon: SolidBellIcon,
@@ -45,3 +46,7 @@ export const bottomNavigationRoutes = [
     activeIcon: SolidCog6Icon,
   },
 ]
+
+export const mergeRoute = (base: string, path: string): string => {
+  return `${base}/${path}`
+}

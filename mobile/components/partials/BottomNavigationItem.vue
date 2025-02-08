@@ -1,16 +1,21 @@
 <template>
-  <RouterLink :to="String(path)" href="page_route" class="flex flex-col items-center p-0 m-0  rounded-lg hover:text-app btn-animated">
-    <HomeIcon  class="size-5"/>
-    <span class="text-[12px] font-medium capitalize">{{ label }}</span>
+  <RouterLink
+    :to="mergeRoute(DASHBOARD_BASE_ROUTE, String(path))"
+    class="flex flex-col items-center p-0 m-0 rounded-lg hover:text-app btn-animated"
+  >
+    <slot></slot>
+    <span class="text-[12px] font-medium capitalize dock-label hover:text-app">{{ label }}</span>
   </RouterLink>
 </template>
 
 <script lang="ts" setup>
-import { HomeIcon } from '@heroicons/vue/24/outline';
 import { defineProps } from 'vue'
+import { mergeRoute } from './bottomNavigation'
+import { DASHBOARD_BASE_ROUTE } from '@mobile/router/routeNames'
 defineProps({
   label: String,
   path: String,
+  isActiveRoute: Boolean,
 })
 </script>
 

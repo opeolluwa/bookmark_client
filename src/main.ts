@@ -15,7 +15,7 @@ import BackArrowLong from '@shared/components/icons/BackArrowLong.vue'
 import HeadingText from '@shared/components/typography/HeadingText.vue'
 import SmallText from '@shared/components/typography/SmallText.vue'
 import FormButton from '@shared/components/form/FormButton.vue'
-
+import PageHeadingText from '@shared/components/typography/PageHeadingText.vue'
 import desktopRouter from '../desktop/router'
 import mobileRouter from '../mobile/router'
 
@@ -26,4 +26,6 @@ app.component('HeadingText', HeadingText)
 app.component('SmallText', SmallText)
 app.component('BackArrowLong', BackArrowLong)
 app.component('FormButton', FormButton)
+app.component('PageHeadingText', PageHeadingText)
+
 app.mount('#app')

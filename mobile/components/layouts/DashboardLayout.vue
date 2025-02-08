@@ -1,21 +1,17 @@
 <template>
-  <div class="relative h-[95vh] overflow-y-hidden w-full bg-white dark:bg-base-100">
-    <main
-      class="px-4 my-6 pt-16 pb-24 overflow-y-scroll dark:text-gray-400/90 bg-gray-100/80"
-      style="overflow-y: scroll; height: 100%"
+  <div class="relative">
+    <header
+      class="flex bg-white fixed top-0 py-4  left-0 mb-5 right-0 w-full border-b px-4 justify-between items-center text-gray-600 dark:bg-gray-900 dark:border-none z-[1000] border-gray-500/20"
     >
-      <RouterView />
-    </main>
-    <nav
-      class="fixed pt-4 mb-0 bottom-0 z-50 bg-white text-gray-500/70 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50 border-t border-gray-500/50"
-    >
-      <BottomNavigation />
-    </nav>
+      <slot name="header"></slot>
+    </header>
+
+    <div>
+      <slot name="content"></slot>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
-import BottomNavigation from '../partials/BottomNavigation.vue'
-</script>
+<script lang="ts" setup></script>
 
 <style></style>
