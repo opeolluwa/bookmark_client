@@ -24,7 +24,8 @@
       "@mobile/*": ["./mobile/*"],
       "@desktop/*": ["./desktop/*"],
       "@styles/*": ["./styles/*"],
-      "@lib/*": ["./lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@assets/*": ["./assets/*"]
     }
   }
 }

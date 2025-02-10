@@ -12,10 +12,12 @@ const isMobile = true
 const app = createApp(isMobile ? Mobile : Desktop)
 
 import BackArrowLong from '@shared/components/icons/BackArrowLong.vue'
-import HeadingText from '@shared/components/typography/HeadingText.vue'
-import SmallText from '@shared/components/typography/SmallText.vue'
+import HeadingText from '@shared/components/typography/AppHeadingText.vue'
+import SmallText from '@shared/components/typography/AppSmallText.vue'
 import FormButton from '@shared/components/form/FormButton.vue'
-import PageHeadingText from '@shared/components/typography/PageHeadingText.vue'
+import PageHeadingText from '@shared/components/typography/AppPageHeadingText.vue'
+import AppView from '@shared/components/ui/AppView.vue'
+
 import desktopRouter from '../desktop/router'
 import mobileRouter from '../mobile/router'
 
@@ -27,5 +29,6 @@ app.component('SmallText', SmallText)
 app.component('BackArrowLong', BackArrowLong)
 app.component('FormButton', FormButton)
 app.component('PageHeadingText', PageHeadingText)
+app.component('AppView', AppView)
 
 app.mount('#app')
