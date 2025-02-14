@@ -3,18 +3,18 @@
     <template v-if="!cachedUserDataExist">
       <div class="form-input">
         <label for="email">Email</label>
-        <input value="email" type="email" placeholder="type your email" />
+        <input type="email" placeholder="type your email" />
       </div>
       <div class="form-input">
         <label for="password">Password</label>
-        <input value="password" type="password" placeholder="type your password" />
+        <input type="password" placeholder="type your password" />
       </div>
     </template>
 
     <template v-else>
       <div class="form-input">
         <label for="password">Password</label>
-        <input value="password" type="password" placeholder="type your password" />
+        <input type="password" placeholder="type your password" />
       </div>
     </template>
     <FormButton text="continue" />

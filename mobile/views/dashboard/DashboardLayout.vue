@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import BottomNavigation from '@mobile/components/partials/BottomNavigation.vue'
+import BottomNavigation from '@mobile/components/bottomNavigation/BottomNavigation.vue'
 </script>
 
 <style></style>

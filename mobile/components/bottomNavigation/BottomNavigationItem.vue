@@ -1,10 +1,11 @@
 <template>
   <RouterLink
     :to="mergeRoute(DASHBOARD_BASE_ROUTE, String(path))"
-    class="flex flex-col items-center p-0 m-0 rounded-lg hover:text-app btn-animated"
+    class="flex flex-col items-center p-0 m-0 rounded-lg hover:text-app"
+    v-ripple style=" --p-ripple-background: rgba(19, 104, 240, .15)"
   >
     <slot></slot>
-    <span class="text-[12px] font-medium capitalize dock-label hover:text-app">{{ label }}  </span>
+    <span class="text-[12px] font-medium capitalize dock-label hover:text-app">{{ label }} </span>
   </RouterLink>
 </template>
 
@@ -12,6 +13,11 @@
 import { defineProps, ref } from 'vue'
 import { mergeRoute } from './bottomNavigation'
 import { DASHBOARD_BASE_ROUTE } from '@mobile/router/routeNames'
+import { usePrimeVue } from 'primevue/config'
+
+const PrimeVue = usePrimeVue()
+PrimeVue.config.ripple = true
+
 const props = defineProps({
   label: String,
   path: String,
