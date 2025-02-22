@@ -1,5 +1,6 @@
 import '@styles/app.css'
 import '@styles/tailwind.css'
+import 'primeicons/primeicons.css'
 import PrimeVue from 'primevue/config'
 import Ripple from 'primevue/ripple'
 import FormButton from '@shared/components/form/FormButton.vue'

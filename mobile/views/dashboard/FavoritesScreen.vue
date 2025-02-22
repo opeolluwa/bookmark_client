@@ -1,9 +1,9 @@
 <template>
   <DashboardLayout>
     <template #header>
-      <div class="flex justify-between items-center w-full my-2 py-0">
+      <AppHeader>
         <PageHeadingText text="Favorites" />
-      </div>
+      </AppHeader>
     </template>
 
     <template #content> hey content </template>
@@ -11,6 +11,7 @@
 </template>
 
 <script lang="ts" setup>
+import AppHeader from '@mobile/components/header/AppHeader.vue'
 import DashboardLayout from '@mobile/components/layouts/DashboardLayout.vue'
 </script>
 
