@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { mergeRoute } from '@mobile/components/partials/bottomNavigation'
+import { mergeRoute } from '@mobile/components/bottomNavigation/bottomNavigation'
 import { WALK_THROUGH_BASE_ROUTE, WALK_THROUGH_GET_STARTED_ROUTE } from '@mobile/router/routeNames'
 import { ref } from 'vue'
 

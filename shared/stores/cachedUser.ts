@@ -12,3 +12,4 @@ export const useCachedUserStore = defineStore(CACHES_USER_STORE, {
     },
   },
 })
+  

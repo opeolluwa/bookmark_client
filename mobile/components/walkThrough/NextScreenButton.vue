@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="String(path)" class="btn px-4 btn-sm bg-app text-white"> 
+  <RouterLink :to="String(path)" class="btn rounded-md px-4 btn-sm bg-app text-white"> 
     Next </RouterLink>
 </template>
 

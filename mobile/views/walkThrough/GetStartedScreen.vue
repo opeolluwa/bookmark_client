@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { mergeRoute } from '@mobile/components/partials/bottomNavigation'
+import { mergeRoute } from '@mobile/components/bottomNavigation/bottomNavigation'
 import PreviousScreenButton from '@mobile/components/walkThrough/PreviousScreenButton.vue'
 import { DASHBOARD_BASE_ROUTE, DASHBOARD_HOME, SIGN_UP_ROUTE } from '@mobile/router/routeNames'
 import { RouterLink } from 'vue-router'
