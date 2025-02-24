@@ -1,5 +1,5 @@
 <template>
-  <EditorLayout>
+  <EditorLayout class="relative">
     <template #header>
       <AppHeader class="flex items-center gap-x-3 justify-start">
         <ChevronLeftIcon class="size-5" @click="router.back" />
@@ -15,95 +15,101 @@
       />
       <EditorContent :editor="editor" class="-mt-3" />
 
-      <div v-if="editor">
-        <button
-          :disabled="!editor.can().chain().focus().toggleBold().run()"
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('bold') }"
-          @click="editor.chain().focus().toggleBold().run()"
-          v-text="'bold'"
-        />
-        <button
-          :disabled="!editor.can().chain().focus().toggleItalic().run()"
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('italic') }"
-          @click="editor.chain().focus().toggleItalic().run()"
-          v-text="'italic'"
-        />
-        <button
-          :disabled="!editor.can().chain().focus().toggleStrike().run()"
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('strike') }"
-          @click="editor.chain().focus().toggleStrike().run()"
-          v-text="'strike'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('paragraph') }"
-          @click="editor.chain().focus().setParagraph().run()"
-          v-text="'paragraph'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('heading', { level: 1 }) }"
-          @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-          v-text="'h1'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('heading', { level: 2 }) }"
-          @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-          v-text="'h2'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('heading', { level: 3 }) }"
-          @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
-          v-text="'h3'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('bulletList') }"
-          @click="editor.chain().focus().toggleBulletList().run()"
-          v-text="'bullet list'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('orderedList') }"
-          @click="editor.chain().focus().toggleOrderedList().run()"
-          v-text="'ordered list'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :class="{ 'ring-app-secondary-900 ring-2': editor.isActive('blockquote') }"
-          @click="editor.chain().focus().toggleBlockquote().run()"
-          v-text="'blockquote'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          @click="editor.chain().focus().setHorizontalRule().run()"
-          v-text="'horizontal rule'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          @click="editor.chain().focus().setHardBreak().run()"
-          v-text="'hard break'"
-        />
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :disabled="!editor.can().chain().focus().undo().run()"
-          @click="editor.chain().focus().undo().run()"
-        >
-          <ArrowUturnLeftIcon class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-        </button>
-        <button
-          class="m-1 inline-flex items-center rounded-md bg-app-secondary-50 px-2 py-1 text-xs font-medium text-app-secondary-700 ring-1 ring-inset ring-app-secondary-700/10"
-          :disabled="!editor.can().chain().focus().redo().run()"
-          @click="editor.chain().focus().redo().run()"
-        >
-          <ArrowUturnRightIcon class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-        </button>
-      </div>
+       <div v-if="editor">
+          <button
+            :disabled="!editor.can().chain().focus().toggleBold().run()"
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('bold') }"
+            @click="editor.chain().focus().toggleBold().run()"
+            v-text="'bold'"
+          />
+          <button
+            :disabled="!editor.can().chain().focus().toggleItalic().run()"
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('italic') }"
+            @click="editor.chain().focus().toggleItalic().run()"
+            v-text="'italic'"
+          />
+          <button
+            :disabled="!editor.can().chain().focus().toggleStrike().run()"
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('strike') }"
+            @click="editor.chain().focus().toggleStrike().run()"
+            v-text="'strike'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('paragraph') }"
+            @click="editor.chain().focus().setParagraph().run()"
+            v-text="'paragraph'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('heading', { level: 1 }) }"
+            @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
+            v-text="'h1'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('heading', { level: 2 }) }"
+            @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+            v-text="'h2'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('heading', { level: 3 }) }"
+            @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
+            v-text="'h3'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('bulletList') }"
+            @click="editor.chain().focus().toggleBulletList().run()"
+            v-text="'bullet list'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('orderedList') }"
+            @click="editor.chain().focus().toggleOrderedList().run()"
+            v-text="'ordered list'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :class="{ 'ring-app-900 ring-2': editor.isActive('blockquote') }"
+            @click="editor.chain().focus().toggleBlockquote().run()"
+            v-text="'blockquote'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            @click="editor.chain().focus().setHorizontalRule().run()"
+            v-text="'horizontal rule'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            @click="editor.chain().focus().setHardBreak().run()"
+            v-text="'hard break'"
+          />
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :disabled="!editor.can().chain().focus().undo().run()"
+            @click="editor.chain().focus().undo().run()"
+          >
+            <ArrowUturnLeftIcon class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+          </button>
+          <button
+            class="m-1 inline-flex items-center rounded-md bg-app-50 px-2 py-1 text-xs font-medium text-app-700 ring-1 ring-inset ring-app-700/10"
+            :disabled="!editor.can().chain().focus().redo().run()"
+            @click="editor.chain().focus().redo().run()"
+          >
+            <ArrowUturnRightIcon class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+          </button>
+        </div>
+
+      <nav
+        class="fixed pt-4 mb-0 bottom-0 z-50 bg-white text-gray-500/70 shadow-gray-400 w-full left-0 right-0 py-3 dark:bg-gray-900/50 border-t border-gray-500/20"
+      >
+       
+      </nav>
     </template>
   </EditorLayout>
 </template>
