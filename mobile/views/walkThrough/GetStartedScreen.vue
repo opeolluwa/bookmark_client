@@ -12,11 +12,18 @@
       <RouterLink
         :to="mergeRoute(DASHBOARD_BASE_ROUTE, DASHBOARD_HOME)"
         class="btn text-white bg-app font-medium border-none"
+        @click="setInstallationStatus(InstallationStatusEnum.Installed)"
       >
         Get Started
       </RouterLink>
 
-      <RouterLink :to="SIGN_UP_ROUTE" class="muted_btn"> Create Account </RouterLink>
+      <RouterLink
+        :to="SIGN_UP_ROUTE"
+        class="muted_btn"
+        @click="setInstallationStatus(InstallationStatusEnum.Installed)"
+      >
+        Create Account
+      </RouterLink>
     </div>
 
     <div class="flex justify-between absolute w-full bottom-2 left-0 right-0">
@@ -30,6 +37,10 @@ import { mergeRoute } from '@mobile/components/bottomNavigation/bottomNavigation
 import PreviousScreenButton from '@mobile/components/walkThrough/PreviousScreenButton.vue'
 import { DASHBOARD_BASE_ROUTE, DASHBOARD_HOME, SIGN_UP_ROUTE } from '@mobile/router/routeNames'
 import { RouterLink } from 'vue-router'
+import { useInstallationStatus, InstallationStatusEnum } from '@shared/stores/installationStatus'
+
+const installationStatusStore = useInstallationStatus()
+const { setInstallationStatus } = installationStatusStore
 </script>
 
 <style></style>
